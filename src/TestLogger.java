@@ -3,6 +3,7 @@ import java.util.Stack;
 public class TestLogger {
     public static Stack<String> activeFunctionCalls = new Stack<>();
 
+    //TODO: paramétert templatesíteni
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
         for (int i = 0; i < activeFunctionCalls.size(); i++)
             System.out.print("\t");
