@@ -13,6 +13,15 @@ public class TestLogger {
         activeFunctionCalls.push(functionCall);
     }
 
+    public static <T> void functionCalled(T t, String funcName, String returnType) {
+        for (int i = 0; i < activeFunctionCalls.size(); i++)
+            System.out.print("\t");
+        System.out.print(activeFunctionCalls.size() + " ");
+        String functionCall = t.getClass().getName() + " " + t + " " + funcName + "()";
+        System.out.println(functionCall + ": " + returnType);
+        activeFunctionCalls.push(functionCall);
+    }
+
     public static void functionReturned(String returned) {
         for (int i = 0; i < activeFunctionCalls.size() - 1; i++)
             System.out.print("\t");

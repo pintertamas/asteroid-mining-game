@@ -22,7 +22,7 @@ public class Asteroid {
     }
 
     public void explode() {
-        TestLogger.functionCalled(this, "explode", "", "void");
+        TestLogger.functionCalled(this, "explode", "void");
         TestLogger.functionReturned();
     }
 
@@ -44,28 +44,28 @@ public class Asteroid {
     }
 
     public boolean drilled() {
-        TestLogger.functionCalled(this, "drilled", "", "void");
+        TestLogger.functionCalled(this, "drilled", "void");
         TestLogger.functionReturned(String.valueOf(true));
 
         return true;
     }
 
     public boolean mined() {
-        TestLogger.functionCalled(this, "mined", "", "void");
+        TestLogger.functionCalled(this, "mined", "void");
         TestLogger.functionReturned(String.valueOf(true));
 
         return true;
     }
 
     public boolean coreChanged() {
-        TestLogger.functionCalled(this, "coreChanged", "", "void");
+        TestLogger.functionCalled(this, "coreChanged", "void");
         TestLogger.functionReturned(String.valueOf(true));
 
         return true;
     }
 
     public void decreaseLayers() {
-        TestLogger.functionCalled(this, "decreaseLayers", "", "void");
+        TestLogger.functionCalled(this, "decreaseLayers", "void");
         TestLogger.functionReturned();
 
         this.layers--;
@@ -79,20 +79,22 @@ public class Asteroid {
     }
 
     public void addNeighbor(Asteroid a) {
-        TestLogger.functionCalled(this, "addNeighbor", "", "void");
+        TestLogger.functionCalled(this, "addNeighbor", "void");
         TestLogger.functionReturned();
 
         this.neighbors.add(a);
     }
 
     public void invokeFigures() {
+        TestLogger.functionCalled(this, "invokeFigures", "void");
+        TestLogger.functionReturned();
     }
 
     public void resetStep() {
     }
 
     public ArrayList<Asteroid> getNeighbors() {
-        TestLogger.functionCalled(this, "getNeighbors", "", "ArrayList<Asteroid>");
+        TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Asteroid>");
         TestLogger.functionReturned(neighbors.toString());
 
         return neighbors;
