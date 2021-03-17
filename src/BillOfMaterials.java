@@ -1,15 +1,26 @@
+import java.util.ArrayList;
+
 public class BillOfMaterials {
 
     ArrayList<Material> materials;
 
-    public void initMaterials(materials m){}
-    public void addMaterial(materials m){}
-    public boolean hasEnoughMaterial(materials m){
+    public void initMaterials(Material m) {
+    }
+
+    public void addMaterial(Material m) {
+    }
+
+    public boolean hasEnoughMaterial(Material m) {
         return true;
     }
-    public boolean isNedeed(materials m){
+
+    public boolean isNeeded(Material m) {
         return true;
     }
-    public void checkMaterials(materials m){}
-    public void resetBill(){}
+
+    public void checkMaterials(Material m) {
+    }
+
+    public void resetBill() {
+    }
 }

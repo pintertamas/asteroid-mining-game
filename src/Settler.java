@@ -3,19 +3,38 @@ public class Settler extends Figure {
     private BillOfMaterials billOfMaterials;
 
     @Override
-    public void move() {}
+    public void move() {
+    }
 
-    public boolean mine() { return true; }
-    public void buildPortal() {}
-    public void buildRobot() {}
-    public void buildBase() {}
-    public void putPortalDown() {}
-    public boolean putMaterialBack() { return true; }
-    public Material chooseMaterial() { return material; }
+    public boolean mine() {
+        return true;
+    }
+
+    public void buildPortal() {
+    }
+
+    public void buildRobot() {
+    }
+
+    public void buildBase() {
+    }
+
+    public void putPortalDown() {
+    }
+
+    public boolean putMaterialBack() {
+        return true;
+    }
+
+    public Material chooseMaterial() {
+        return new Iron();
+    }
 
     @Override
-    public void onExplosion() {}
+    public void onExplosion() {
+    }
 
     @Override
-    public void step() {}
+    public void step() {
+    }
 }
