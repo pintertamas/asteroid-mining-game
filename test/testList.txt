@@ -1,0 +1,23 @@
+5.3.1 Move to Neighbor
+5.3.2 Drill Asteroid (layers > 1)
+5.3.3 Drill Asteroid (layers = 0)
+5.3.4 Drill Asteroid with common material (layers = 1)
+5.3.5 Drill Uranium (Settler, layers = 1, nearSun)
+5.3.6 Drill Uranium (Robot, layers = 1, nearSun)
+5.3.7 Drill Ice (layers = 1, nearSun)
+5.3.8 Mine Material Layers > 0
+5.3.9 Mine Material Layers = 0
+5.3.10 Move Settler through Portal
+5.3.11 Build Teleport Portal (Enough Material)
+5.3.12 Build Teleport Portal (Not Enough Material)
+5.3.13 Build Base (Enough Material)
+5.3.14 Build Base (Not Enough Material)
+5.3.15 Storm Kills Player
+5.3.16 Storm Does Not Kill Player 
+5.3.17 Put down Portal (Settler has 0 Portals)
+5.3.18 Put down Portal (Settler has 1 Portals)
+5.3.19 Put down Portal (Settler has 2 Portals)
+5.3.20 Put Back Material Asteroid Hollow
+5.3.21 Put Back Material Asteroid Not Hollow
+5.3.22 Build Robot Enough Material
+5.3.23 Build Robot Not Enough Material

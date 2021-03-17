@@ -4,6 +4,8 @@ public class Settler extends Figure {
 
     @Override
     public void move() {
+        System.out.print("Settler moves to neighbor:");
+
     }
 
     public boolean mine() {
