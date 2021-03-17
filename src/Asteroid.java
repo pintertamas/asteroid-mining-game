@@ -11,6 +11,7 @@ public class Asteroid {
     boolean isHollow;
 
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
+        TestLogger.functionCalled(this, "Asteroid", "void");
         this.figures = new ArrayList<>();
         this.portal = null;
         this.neighbors = new ArrayList<>();
@@ -19,6 +20,7 @@ public class Asteroid {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
+        TestLogger.functionReturned(String.valueOf(true));
     }
 
     public void explode() {
@@ -91,6 +93,8 @@ public class Asteroid {
     }
 
     public void resetStep() {
+        TestLogger.functionCalled(this, "resetStep", "void");
+        TestLogger.functionReturned();
     }
 
     public ArrayList<Asteroid> getNeighbors() {
