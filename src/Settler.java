@@ -29,13 +29,13 @@ public class Settler extends Figure {
     }
 
     public boolean mine() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "mine", "", "boolean");
+        TestLogger.functionCalled(this, "mine", "boolean");
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
 
     public void buildPortal() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "buildPortal", "", "void");
+        TestLogger.functionCalled(this, "buildPortal", "void");
         TestLogger.functionReturned();
         Portal p1 = new Portal();
         Portal p2 = new Portal();
@@ -46,26 +46,26 @@ public class Settler extends Figure {
     }
 
     public void buildRobot() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "buildRobot", "", "void");
+        TestLogger.functionCalled(this, "buildRobot", "void");
         TestLogger.functionReturned();
         Robot r = new Robot(this.asteroid, false);
         //TODO Van-e elég pénz és ha igen akkor levonni.
     }
 
     public void buildBase() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "buildBase", "", "void");
+        TestLogger.functionCalled(this, "buildBase", "void");
         TestLogger.functionReturned();
         //TODO csekkolni van-e elég pénz és ha igen akkor nyertek.
     }
 
     public void putPortalDown() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "putPortalDown", "", "void");
+        TestLogger.functionCalled(this, "putPortalDown", "void");
         TestLogger.functionReturned();
 
     }
 
     public boolean putMaterialBack() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "putMaterialBack", "", "boolean");
+        TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
@@ -76,13 +76,13 @@ public class Settler extends Figure {
 
     @Override
     public void onExplosion() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "onExplosion", "", "void");
+        TestLogger.functionCalled(this, "onExplosion", "void");
         TestLogger.functionReturned();
     }
 
     @Override
     public void step() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "step", "", "void");
+        TestLogger.functionCalled(this, "step", "void");
         TestLogger.functionReturned();
     }
 }
