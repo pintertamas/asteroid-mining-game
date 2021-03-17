@@ -1,6 +1,8 @@
+import java.util.ArrayList;
+
 public class Inventory {
-    private Material[] materials;
-    private Portal[] portals;
+    ArrayList<Portal> portals;
+    ArrayList<Material> materials;
 
     public void addMaterial(Material m) {}
     public void removeMaterial(Material m) {}
