@@ -5,13 +5,26 @@ public class Robot extends Figure {
     }
 
     @Override
-    public void move() {}
+    public void move() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "move", "", "void");
+        TestLogger.functionReturned();
+    }
 
     @Override
-    public void onExplosion() {}
+    public void onExplosion() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "onExplosion", "", "void");
+        TestLogger.functionReturned();
+    }
 
-    public Asteroid chooseNextDestination() { return asteroid; }
+    public Asteroid chooseNextDestination() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "chooseNextDestination", "", "void");
+        TestLogger.functionReturned(asteroid.toString());
+        return asteroid;
+    }
 
     @Override
-    public void step() {}
+    public void step() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "step", "", "void");
+        TestLogger.functionReturned();
+    }
 }

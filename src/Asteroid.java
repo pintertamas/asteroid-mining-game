@@ -4,7 +4,7 @@ public class Asteroid {
     ArrayList<Asteroid> neighbors;
     ArrayList<Figure> figures;
     Material material;
-    Portal portal;
+    Portal portal; // ArrayList-nek kéne lennie
 
     int layers;
     boolean isNearSun;
@@ -62,6 +62,9 @@ public class Asteroid {
     }
 
     public void addPortal(Portal p) {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "addPortal", "", "void");
+        TestLogger.functionReturned();
+
     }
 
     public void addNeighbor(Asteroid a) {
