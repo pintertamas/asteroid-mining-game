@@ -1,4 +1,4 @@
-public class Iron extends Material{
+public class Iron extends Material {
 
     @Override
     protected boolean isCompatibleWith() {

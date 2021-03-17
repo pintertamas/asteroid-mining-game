@@ -1,4 +1,4 @@
-public class Ice extends Material{
+public class Ice extends Material {
     @Override
     protected void readyToMine() {
         super.readyToMine();
