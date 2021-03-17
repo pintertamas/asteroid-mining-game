@@ -1,4 +1,4 @@
-public class Uranium extends Material{
+public class Uranium extends Material {
     @Override
     protected void readyToMine() {
         super.readyToMine();
