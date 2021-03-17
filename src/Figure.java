@@ -21,18 +21,8 @@ public abstract class Figure {
     public abstract void step();
 
     public void setAsteroid(Asteroid asteroid, int index) {
-        index++;
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-
-        System.out.print(index + " ");
-        System.out.println(this.getClass().getName() + " " + this + " setAsteroid(" + asteroid.getClass().getName() + " " + asteroid + "): void");
-
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-        System.out.print(index + " ");
-
-        System.out.println(this.getClass().getName() + " " + this + " setAsteroid(" + asteroid.getClass().getName() + " " + asteroid + ") returned");
+        new TestLogger().functionCalled(this.getClass().getName(), this.toString(), "setAsteroid", asteroid.getClass().getName() + " " + asteroid, "void", index);
+        new TestLogger().functionReturned(this.getClass().getName(), this.toString(), "setAsteroid", asteroid.getClass().getName() + " " + asteroid, asteroid.toString(), index);
         this.asteroid = asteroid;
     }
 }
