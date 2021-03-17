@@ -12,30 +12,19 @@ public class Settler extends Figure {
     public void move() {
         System.out.println("Settler moves to neighbor:");
 
-        int index = 0;
-        System.out.print(index + " ");
-        System.out.println(this.getClass().getName() + " " + this + " move(): void");
-        ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors(index);
-        this.asteroid.removeFigure(this, index);
-        neighbors.get(0).addFigure(this, index);
-        this.setAsteroid(neighbors.get(0), index);
-        this.setRoundFinished(true, index);
-        System.out.println(index + " " + this.getClass().getName() + " " + this + " move() returned");
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "move", "", "void");
+        ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
+        this.asteroid.removeFigure(this);
+        neighbors.get(0).addFigure(this);
+        this.setAsteroid(neighbors.get(0));
+        this.setRoundFinished(true);
+        TestLogger.functionReturned();
     }
 
-    public void setRoundFinished(boolean roundFinished, int index) {
-        index++;
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
+    public void setRoundFinished(boolean roundFinished) {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "setRoundFinished", "", "void");
+        TestLogger.functionReturned();
 
-        System.out.print(index + " ");
-        System.out.println(this.getClass().getName() + " " + this + " setRoundFinished(" + roundFinished +  "): void");
-
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-        System.out.print(index + " ");
-
-        System.out.println(this.getClass().getName() + " " + this + " setRoundFinished(" + roundFinished + ") returned");
         this.roundFinished = roundFinished;
     }
 

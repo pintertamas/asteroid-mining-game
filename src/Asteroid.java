@@ -22,34 +22,31 @@ public class Asteroid {
     }
 
     public void explode() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "explode", "", "void");
+        TestLogger.functionReturned();
     }
 
-    public void addFigure(Figure f, int index) {
-        new TestLogger().functionCalled(this.getClass().getName(), this.toString(), "addFigure", f.getClass().getName() + " " + f, "void", index);
-        new TestLogger().functionReturned(this.getClass().getName(), this.toString(), "addFigure", f.getClass().getName() + " " + f, "", index);
+    public void addFigure(Figure f) {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "addFigure", f.getClass().getName() + " " + f, "void");
+        TestLogger.functionReturned();
 
         this.figures.add(f);
     }
 
-    public void removeFigure(Figure f, int index) {
-        index++;
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-
-        System.out.print(index + " ");
-        System.out.println(this.getClass().getName() + " " + this + " removeFigure(" + f.getClass().getName() + " " + f + "): void");
-
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-        System.out.print(index + " ");
-
-        System.out.println(this.getClass().getName() + " " + this + " removeFigure(" + f.getClass().getName() + " " + f + ") returned");
+    public void removeFigure(Figure f) {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "removeFigure", f.getClass().getName() + " " + f, "void");
+        TestLogger.functionReturned();
     }
 
     public void setMaterial(Material m) {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "setMaterial", m.getClass().getName() + " " + m, "void");
+        TestLogger.functionReturned();
     }
 
     public boolean drilled() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "drilled", "", "void");
+        TestLogger.functionReturned();
+
         return true;
     }
 
@@ -77,19 +74,9 @@ public class Asteroid {
     public void resetStep() {
     }
 
-    public ArrayList<Asteroid> getNeighbors(int index) {
-        index++;
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-
-        System.out.print(index + " ");
-        System.out.println(this.getClass().getName() + " " + this + " getNeighbors(): ArrayList<Asteroid>");
-
-        for (int i = 0; i < index; i++)
-            System.out.print("\t");
-        System.out.print(index + " ");
-
-        System.out.println(this.getClass().getName() + " " + this + " getNeighbors() returned: " + neighbors);
+    public ArrayList<Asteroid> getNeighbors() {
+        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "getNeighbors", "", "ArrayList<Asteroid>");
+        TestLogger.functionReturned(neighbors.toString());
 
         return neighbors;
     }
