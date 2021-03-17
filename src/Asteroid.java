@@ -22,49 +22,66 @@ public class Asteroid {
     }
 
     public void explode() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "explode", "", "void");
+        TestLogger.functionCalled(this, "explode", "", "void");
         TestLogger.functionReturned();
     }
 
     public void addFigure(Figure f) {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "addFigure", f.getClass().getName() + " " + f, "void");
+        TestLogger.functionCalled(this, "addFigure", f.getClass().getName() + " " + f, "void");
         TestLogger.functionReturned();
 
         this.figures.add(f);
     }
 
     public void removeFigure(Figure f) {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "removeFigure", f.getClass().getName() + " " + f, "void");
+        TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
         TestLogger.functionReturned();
     }
 
     public void setMaterial(Material m) {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "setMaterial", m.getClass().getName() + " " + m, "void");
+        TestLogger.functionCalled(this, "setMaterial", m.getClass().getName() + " " + m, "void");
         TestLogger.functionReturned();
     }
 
     public boolean drilled() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "drilled", "", "void");
+        TestLogger.functionCalled(this, "drilled", "", "void");
         TestLogger.functionReturned(String.valueOf(true));
 
         return true;
     }
 
     public boolean mined() {
+        TestLogger.functionCalled(this, "mined", "", "void");
+        TestLogger.functionReturned(String.valueOf(true));
+
         return true;
     }
 
     public boolean coreChanged() {
+        TestLogger.functionCalled(this, "coreChanged", "", "void");
+        TestLogger.functionReturned(String.valueOf(true));
+
         return true;
     }
 
     public void decreaseLayers() {
+        TestLogger.functionCalled(this, "decreaseLayers", "", "void");
+        TestLogger.functionReturned();
+
+        this.layers--;
     }
 
     public void addPortal(Portal p) {
+        TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
+        TestLogger.functionReturned();
+
+        this.portal = p;
     }
 
     public void addNeighbor(Asteroid a) {
+        TestLogger.functionCalled(this, "addNeighbor", "", "void");
+        TestLogger.functionReturned();
+
         this.neighbors.add(a);
     }
 
@@ -75,7 +92,7 @@ public class Asteroid {
     }
 
     public ArrayList<Asteroid> getNeighbors() {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "getNeighbors", "", "ArrayList<Asteroid>");
+        TestLogger.functionCalled(this, "getNeighbors", "", "ArrayList<Asteroid>");
         TestLogger.functionReturned(neighbors.toString());
 
         return neighbors;

@@ -12,7 +12,7 @@ public class Settler extends Figure {
     public void move() {
         System.out.println("Settler moves to neighbor:");
 
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "move", "", "void");
+        TestLogger.functionCalled(this, "move", "", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         this.asteroid.removeFigure(this);
         neighbors.get(0).addFigure(this);
@@ -22,7 +22,7 @@ public class Settler extends Figure {
     }
 
     public void setRoundFinished(boolean roundFinished) {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "setRoundFinished", "", "void");
+        TestLogger.functionCalled(this, "setRoundFinished", "", "void");
         TestLogger.functionReturned();
 
         this.roundFinished = roundFinished;
