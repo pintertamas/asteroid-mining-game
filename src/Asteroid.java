@@ -45,7 +45,7 @@ public class Asteroid {
 
     public boolean drilled() {
         TestLogger.functionCalled(this.getClass().getName(), this.toString(), "drilled", "", "void");
-        TestLogger.functionReturned();
+        TestLogger.functionReturned(String.valueOf(true));
 
         return true;
     }
