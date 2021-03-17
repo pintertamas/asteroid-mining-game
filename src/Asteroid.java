@@ -4,7 +4,7 @@ public class Asteroid {
     ArrayList<Asteroid> neighbors;
     ArrayList<Figure> figures;
     Material material;
-    Portal portal;
+    ArrayList<Portal> portal;
 
     int layers;
     boolean isNearSun;
@@ -12,7 +12,7 @@ public class Asteroid {
 
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
         this.figures = new ArrayList<>();
-        this.portal = null;
+        this.portal = new ArrayList<>();
         this.neighbors = new ArrayList<>();
         this.material = material;
         material.setAsteroid(this);
@@ -75,7 +75,7 @@ public class Asteroid {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         TestLogger.functionReturned();
 
-        this.portal = p;
+        this.portal.add(p);
     }
 
     public void addNeighbor(Asteroid a) {

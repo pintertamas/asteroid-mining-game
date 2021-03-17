@@ -12,6 +12,11 @@ public class Main extends Application {
         a2.addNeighbor(a1);
         Settler s = new Settler(a1, false);
         s.move();
+
+
+
+
+
     }
 
 

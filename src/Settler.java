@@ -41,7 +41,6 @@ public class Settler extends Figure {
         Portal p2 = new Portal();
         this.inventory.addPortal(p1);
         this.inventory.addPortal(p2);
-
         //TODO Levonni az építésért a költségeket meg csekkolni, hogy vane elég pénze.
     }
 
