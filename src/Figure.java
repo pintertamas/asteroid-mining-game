@@ -21,7 +21,7 @@ public abstract class Figure {
     public abstract void step();
 
     public void setAsteroid(Asteroid asteroid) {
-        TestLogger.functionCalled(this.getClass().getName(), this.toString(), "setAsteroid", asteroid.getClass().getName() + " " + asteroid, "void");
+        TestLogger.functionCalled(this, "setAsteroid", asteroid.getClass().getName() + " " + asteroid, "void");
         TestLogger.functionReturned();
         this.asteroid = asteroid;
     }
