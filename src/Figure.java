@@ -10,6 +10,14 @@ public abstract class Figure {
     public abstract void move();
 
     public boolean drill() {
+        TestLogger.functionCalled(this, "drill", "boolean");
+        if(asteroid.drilled()){
+            //this.setRoundFinished(true); itt ez nem lesz jó
+            TestLogger.functionReturned();
+            return false;
+        }
+
+        TestLogger.functionReturned();
         return true;
     }
 

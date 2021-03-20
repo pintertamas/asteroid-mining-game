@@ -5,7 +5,7 @@ import java.io.InputStreamReader;
 public class Test {
     public static void test() {
         System.out.println("Testing:");
-        switch (1) {
+        switch (2) {
             case 1:
                 Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
                 Asteroid a2 = new Asteroid(new Iron(), 3, true, false);
@@ -15,6 +15,9 @@ public class Test {
                 s.move();
                 break;
             case 2:
+                Asteroid a3 = new Asteroid(new Iron(), 3, true, false);
+                Settler s2 = new Settler(a3, false);
+                s2.drill();
                 break;
             case 3:
                 break;
