@@ -47,17 +47,14 @@ public class Asteroid {
 
     public boolean drilled() {
         TestLogger.functionCalled(this, "drilled", "boolean");
-        if(this.layers>0){
+        if (this.layers > 0) {
             decreaseLayers();
-            if(this.layers==0){
+            if (this.layers == 0) {
                 material.readyToMine();
             }
             TestLogger.functionReturned(String.valueOf(true));
             return false;
         }
-
-
-
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
@@ -79,7 +76,6 @@ public class Asteroid {
     public void decreaseLayers() {
         TestLogger.functionCalled(this, "decreaseLayers", "void");
         TestLogger.functionReturned();
-
         this.layers--;
     }
 

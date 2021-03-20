@@ -11,7 +11,7 @@ public abstract class Figure {
 
     public boolean drill() {
         TestLogger.functionCalled(this, "drill", "boolean");
-        if(asteroid.drilled()){
+        if (asteroid.drilled()) {
             setRoundFinished(true);
             TestLogger.functionReturned();
             return false;

@@ -1,6 +1,5 @@
 public class Test {
     void test1() {
-        System.out.println("Initializing Asteroid: ");
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Iron(), 3, true, false);
         a1.addNeighbor(a2);
@@ -10,18 +9,58 @@ public class Test {
     }
 
     void test2() {
-        Asteroid a3 = new Asteroid(new Iron(), 2, true, false);
-        Settler s2 = new Settler(a3, false);
-        s2.drill();
+        Asteroid a = new Asteroid(new Iron(), 2, true, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.setAsteroid(a);
+        s.drill();
     }
 
-    void test3() {}
-    void test4() {}
-    void test5() {}
-    void test6() {}
-    void test7() {}
-    void test8() {}
-    void test9() {}
+    void test3() {
+        Asteroid a = new Asteroid(new Iron(), 0, true, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.drill();
+    }
+    void test4() {
+        Asteroid a = new Asteroid(new Iron(), 1, true, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.drill();
+    }
+
+    void test5() {
+        Asteroid a = new Asteroid(new Uranium(), 1, true, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.drill();
+    }
+
+    void test6() {
+        Asteroid a = new Asteroid(new Uranium(), 1, true, false);
+        Robot r = new Robot(a, false);
+        a.addFigure(r);
+        r.drill();
+    }
+
+    void test7() {
+        Asteroid a = new Asteroid(new Ice(), 1, true, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.drill();
+    }
+    void test8() {
+        Asteroid a = new Asteroid(new Iron(), 1, false, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.mine();
+    }
+    void test9() {
+        Asteroid a = new Asteroid(new Uranium(), 1, false, false);
+        Settler s = new Settler(a, false);
+        a.addFigure(s);
+        s.mine();
+    }
     void test10() {}
     void test11() {}
     void test12() {}
