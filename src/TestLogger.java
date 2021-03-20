@@ -1,9 +1,9 @@
+import java.util.Scanner;
 import java.util.Stack;
 
 public class TestLogger {
     public static Stack<String> activeFunctionCalls = new Stack<>();
 
-    //TODO: paramétert templatesíteni
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
         for (int i = 0; i < activeFunctionCalls.size(); i++)
             System.out.print("\t");
@@ -34,5 +34,12 @@ public class TestLogger {
             System.out.print("\t");
         System.out.print(activeFunctionCalls.size() - 1 + " ");
         System.out.println(activeFunctionCalls.pop() + " returned");
+    }
+
+    public static boolean ask(String question) {
+        System.out.println(question + " (y/n)");
+        Scanner in = new Scanner(System.in);
+        char response = in.next().charAt(0);
+        return response == 'y';
     }
 }

@@ -12,7 +12,7 @@ public abstract class Figure {
     public boolean drill() {
         TestLogger.functionCalled(this, "drill", "boolean");
         if(asteroid.drilled()){
-            //this.setRoundFinished(true); itt ez nem lesz jó
+            setRoundFinished(true);
             TestLogger.functionReturned();
             return false;
         }
