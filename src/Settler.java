@@ -21,13 +21,6 @@ public class Settler extends Figure {
         TestLogger.functionReturned();
     }
 
-    public void setRoundFinished(boolean roundFinished) {
-        TestLogger.functionCalled(this, "setRoundFinished", "void");
-        TestLogger.functionReturned();
-
-        this.roundFinished = roundFinished;
-    }
-
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
         TestLogger.functionReturned(String.valueOf(true));

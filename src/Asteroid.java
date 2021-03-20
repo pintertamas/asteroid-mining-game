@@ -20,7 +20,7 @@ public class Asteroid {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        TestLogger.functionReturned(String.valueOf(true));
+        TestLogger.functionReturned();
     }
 
     public void explode() {

@@ -25,4 +25,11 @@ public abstract class Figure {
         TestLogger.functionReturned();
         this.asteroid = asteroid;
     }
+
+    protected void setRoundFinished(boolean roundFinished) {
+        TestLogger.functionCalled(this, "setRoundFinished", "void");
+        TestLogger.functionReturned();
+
+        this.roundFinished = roundFinished;
+    }
 }
