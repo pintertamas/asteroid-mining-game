@@ -31,6 +31,10 @@ public class Settler extends Figure {
         return inventory;
     }
 
+    public BillOfMaterials getBillOfMaterials() {
+        return billOfMaterials;
+    }
+
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
         TestLogger.functionReturned();

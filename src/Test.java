@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Test {
     void test1() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
@@ -73,10 +75,18 @@ public class Test {
         s.move();
     }
     void test11() {
-        //TODO: build tp portal (enough material)
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Ice());
+        s.getInventory().addMaterial(new Uranium());
+        s.buildPortal();
     }
     void test12() {
-        //TODO: build tp portal (not enough material)
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        s.buildPortal();
     }
     void test13() {
         //TODO: build base (enough material)
@@ -85,10 +95,20 @@ public class Test {
         //TODO: build base (not enough material)
     }
     void test15() {
-        //TODO: storm kills player
+        Map map = new Map();
+        Asteroid a1 = new Asteroid(new Iron(), 0, true, false);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        map.addAsteroid(a1);
+        map.solarStorm();
     }
     void test16() {
-        //TODO: storm does not kill the player
+        Map map = new Map();
+        Asteroid a1 = new Asteroid(new Iron(), 0, true, true);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        map.addAsteroid(a1);
+        map.solarStorm();
     }
     void test17() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
@@ -118,15 +138,28 @@ public class Test {
         s.putPortalDown();
     }
     void test20() {
-        //TODO: put back material asteroid is hollow
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, true);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        s.putMaterialBack();
     }
     void test21() {
-        //TODO: put back material asteroid is not hollow
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        s.putMaterialBack();
     }
     void test22() {
-        //TODO: build robot enough material
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Coal());
+        s.getInventory().addMaterial(new Uranium());
+        s.buildRobot();
     }
     void test23() {
-        //TODO: build robot enough material
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        s.buildRobot();
     }
 }

@@ -10,7 +10,7 @@ public class BillOfMaterials {
     public void addMaterial(Material m) {
     }
 
-    public boolean hasEnoughMaterial(Material m) {
+    public boolean hasEnoughMaterial(ArrayList<Material> mats) {
         return true;
     }
 
