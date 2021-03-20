@@ -46,9 +46,19 @@ public class Asteroid {
     }
 
     public boolean drilled() {
-        TestLogger.functionCalled(this, "drilled", "void");
-        TestLogger.functionReturned(String.valueOf(true));
+        TestLogger.functionCalled(this, "drilled", "boolean");
+        if(this.layers>0){
+            decreaseLayers();
+            if(this.layers==0){
+                material.readyToMine();
+            }
+            TestLogger.functionReturned(String.valueOf(true));
+            return false;
+        }
 
+
+
+        TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
 
