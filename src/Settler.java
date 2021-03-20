@@ -27,6 +27,10 @@ public class Settler extends Figure {
         return true;
     }
 
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
         TestLogger.functionReturned();

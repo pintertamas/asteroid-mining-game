@@ -15,4 +15,12 @@ public class Inventory {
 
     public void removePortal(Portal p) {
     }
+
+    public ArrayList<Portal> getPortals() {
+        return portals;
+    }
+
+    public ArrayList<Material> getMaterials() {
+        return materials;
+    }
 }

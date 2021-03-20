@@ -59,7 +59,7 @@ public class Asteroid {
         return true;
     }
 
-    public boolean mined() {
+    public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "void");
         TestLogger.functionReturned(String.valueOf(true));
 

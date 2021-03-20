@@ -61,18 +61,63 @@ public class Test {
         a.addFigure(s);
         s.mine();
     }
-    void test10() {}
-    void test11() {}
-    void test12() {}
-    void test13() {}
-    void test14() {}
-    void test15() {}
-    void test16() {}
-    void test17() {}
-    void test18() {}
-    void test19() {}
-    void test20() {}
-    void test21() {}
-    void test22() {}
-    void test23() {}
+    void test10() {
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
+        Portal p1 = new Portal();
+        Portal p2 = new Portal();
+        a1.addPortal(p1);
+        a2.addPortal(p2);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        s.move();
+    }
+    void test11() {
+        //TODO: build tp portal (enough material)
+    }
+    void test12() {
+        //TODO: build tp portal (not enough material)
+    }
+    void test13() {
+        //TODO: build base (enough material)
+    }
+    void test14() {
+        //TODO: build base (not enough material)
+    }
+    void test15() {
+        //TODO: storm kills player
+    }
+    void test16() {
+        //TODO: storm does not kill the player
+    }
+    void test17() {
+        //TODO: put down portal (settler has 0 portal)
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
+        Portal p1 = new Portal();
+        Portal p2 = new Portal();
+        a2.addPortal(p2);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        //s.getInventory().getPortals().get();
+        s.move();
+    }
+    void test18() {
+        //TODO: put down portal (settler has 1 portal)
+    }
+    void test19() {
+        //TODO: put down portal (settler has 0 portals)
+    }
+    void test20() {
+        //TODO: put back material asteroid is hollow
+    }
+    void test21() {
+        //TODO: put back material asteroid is not hollow
+    }
+    void test22() {
+        //TODO: build robot enough material
+    }
+    void test23() {
+        //TODO: build robot enough material
+    }
 }
