@@ -1,6 +1,3 @@
-import java.util.HashMap;
-import java.util.Scanner;
-
 public class Test {
     void test1() {
         System.out.println("Initializing Asteroid: ");
