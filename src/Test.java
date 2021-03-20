@@ -91,7 +91,12 @@ public class Test {
         //TODO: storm does not kill the player
     }
     void test17() {
-        //TODO: put down portal (settler has 0 portal)
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        s.putPortalDown();
+    }
+    void test18() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
         Portal p1 = new Portal();
@@ -99,14 +104,18 @@ public class Test {
         a2.addPortal(p2);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
-        //s.getInventory().getPortals().get();
-        s.move();
-    }
-    void test18() {
-        //TODO: put down portal (settler has 1 portal)
+        s.getInventory().addPortal(p1);
+        s.putPortalDown();
     }
     void test19() {
-        //TODO: put down portal (settler has 0 portals)
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Portal p1 = new Portal();
+        Portal p2 = new Portal();
+        Settler s = new Settler(a1, false);
+        a1.addFigure(s);
+        s.getInventory().addPortal(p1);
+        s.getInventory().addPortal(p2);
+        s.putPortalDown();
     }
     void test20() {
         //TODO: put back material asteroid is hollow

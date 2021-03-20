@@ -11,9 +11,11 @@ public class Inventory {
     }
 
     public void addPortal(Portal p) {
+        portals.add(p);
     }
 
     public void removePortal(Portal p) {
+        portals.remove(p);
     }
 
     public ArrayList<Portal> getPortals() {
