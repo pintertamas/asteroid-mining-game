@@ -27,7 +27,7 @@ public class Asteroid {
         TestLogger.functionCalled(this, "explode", "void");
         TestLogger.functionReturned();
 
-        for (Figure f: figures) {
+        for (Figure f : figures) {
             f.onExplosion();
         }
     }
@@ -57,7 +57,7 @@ public class Asteroid {
         if (this.layers > 0) {
             decreaseLayers();
             if (this.layers == 0) {
-                if(isNearSun){
+                if (isNearSun) {
                     material.readyToMine();
                 }
 
@@ -71,7 +71,7 @@ public class Asteroid {
 
     public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "boolean");
-        if(this.layers==0){
+        if (this.layers == 0) {
             material.addToInventory(s);
             setIsHollow(true);
             TestLogger.functionReturned(String.valueOf(true));
@@ -85,7 +85,7 @@ public class Asteroid {
     public boolean coreChanged(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
         TestLogger.functionReturned(String.valueOf(true));
-        if(this.isHollow == true) {
+        if (this.isHollow) {
             setMaterial(m);
             return true;
         }
@@ -120,7 +120,7 @@ public class Asteroid {
 
     public void resetStep() {
         TestLogger.functionCalled(this, "resetStep", "void");
-        for(Figure f : figures) {
+        for (Figure f : figures) {
             f.setRoundFinished(false);
         }
         TestLogger.functionReturned();
@@ -133,15 +133,15 @@ public class Asteroid {
         return neighbors;
     }
 
-    public void setIsHollow(boolean b){
+    public void setIsHollow(boolean b) {
         TestLogger.functionCalled(this, "setIsHollow", "void");
         isHollow = b;
         TestLogger.functionReturned();
     }
 
     //TODO Ez maf?
-    public void handleFigures( Figure f){
-        TestLogger.functionCalled(this, "handleFigures", "Figure f" ,"void");
+    public void handleFigures(Figure f) {
+        TestLogger.functionCalled(this, "handleFigures", "Figure f", "void");
 
         TestLogger.functionReturned();
     }

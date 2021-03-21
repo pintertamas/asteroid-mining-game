@@ -1,4 +1,4 @@
-public class BillOfRobot extends BillOfMaterials{
+public class BillOfRobot extends BillOfMaterials {
 
     public BillOfRobot() {
         super();
