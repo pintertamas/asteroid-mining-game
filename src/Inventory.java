@@ -1,22 +1,30 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Inventory {
     ArrayList<Portal> portals;
-    ArrayList<Material> materials;
+    HashMap<Material, Integer> materials;
 
     public Inventory() {
         this.portals = new ArrayList<>();
-        this.materials = new ArrayList<>();
+        this.materials = new HashMap<>();
     }
 
     public void addMaterial(Material m) {
         //TODO testlogger nem jó itt meg kéne oldani
         TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
-        materials.add(m);
+        if (materials.get(m) == 0)
+            materials.put(m, 1);
+        else
+            materials.put(m, materials.get(m) + 1);
         TestLogger.functionReturned();
     }
 
     public void removeMaterial(Material m) {
+        if (materials.get(m) > 1)
+            materials.put(m, materials.get(m) - 1);
+        else
+            materials.remove(m);
     }
 
     public void addPortal(Portal p) {
@@ -31,7 +39,7 @@ public class Inventory {
         return portals;
     }
 
-    public ArrayList<Material> getMaterials() {
+    public HashMap<Material, Integer> getMaterials() {
         return materials;
     }
 }
