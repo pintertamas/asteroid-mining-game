@@ -98,7 +98,7 @@ public class Settler extends Figure {
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
-        this.die();
+        this.die(this);
         TestLogger.functionReturned();
     }
 

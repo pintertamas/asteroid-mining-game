@@ -23,8 +23,13 @@ public abstract class Figure {
 
     public abstract void onExplosion();
 
-    public void die() {
-        //TODO ezt hogy
+
+    //TODO Ez így jó?
+    public void die(Figure f) {
+        TestLogger.functionCalled(this, "die", "void");
+        asteroid.removeFigure(f);
+        f = null;
+        TestLogger.functionReturned();
     }
 
     public abstract void step();
@@ -37,8 +42,7 @@ public abstract class Figure {
 
     protected void setRoundFinished(boolean roundFinished) {
         TestLogger.functionCalled(this, "setRoundFinished", "void");
-        TestLogger.functionReturned();
-
         this.roundFinished = roundFinished;
+        TestLogger.functionReturned();
     }
 }
