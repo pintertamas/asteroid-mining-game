@@ -4,9 +4,12 @@ import java.util.Stack;
 public class TestLogger {
     public static Stack<String> activeFunctionCalls = new Stack<>();
 
+    private static void printTabs(int numberOfIterations) {
+        System.out.print("\t".repeat(Math.max(0, numberOfIterations)));
+    }
+
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
-        for (int i = 0; i < activeFunctionCalls.size(); i++)
-            System.out.print("\t");
+        printTabs(activeFunctionCalls.size());
         System.out.print(activeFunctionCalls.size() + " ");
         String functionCall = t.getClass().getName() + " " + t + " " + funcName + "(" + param + ")";
         System.out.println(functionCall + ": " + returnType);
@@ -14,8 +17,7 @@ public class TestLogger {
     }
 
     public static <T> void functionCalled(T t, String funcName, String returnType) {
-        for (int i = 0; i < activeFunctionCalls.size(); i++)
-            System.out.print("\t");
+        printTabs(activeFunctionCalls.size());
         System.out.print(activeFunctionCalls.size() + " ");
         String functionCall = t.getClass().getName() + " " + t + " " + funcName + "()";
         System.out.println(functionCall + ": " + returnType);
@@ -23,15 +25,13 @@ public class TestLogger {
     }
 
     public static void functionReturned(String returned) {
-        for (int i = 0; i < activeFunctionCalls.size() - 1; i++)
-            System.out.print("\t");
+        printTabs(activeFunctionCalls.size() - 1);
         System.out.print(activeFunctionCalls.size() - 1 + " ");
         System.out.println(activeFunctionCalls.pop() + " returned: " + returned);
     }
 
     public static void functionReturned() {
-        for (int i = 0; i < activeFunctionCalls.size() - 1; i++)
-            System.out.print("\t");
+        printTabs(activeFunctionCalls.size() - 1);
         System.out.print(activeFunctionCalls.size() - 1 + " ");
         System.out.println(activeFunctionCalls.pop() + " returned");
     }
@@ -41,5 +41,10 @@ public class TestLogger {
         Scanner in = new Scanner(System.in);
         char response = in.next().charAt(0);
         return response == 'y';
+    }
+
+    public static void errorMessage(String errorMessage) {
+        printTabs(activeFunctionCalls.size());
+        System.out.println("Error: " + errorMessage);
     }
 }

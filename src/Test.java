@@ -24,6 +24,7 @@ public class Test {
         a.addFigure(s);
         s.drill();
     }
+
     void test4() {
         Asteroid a = new Asteroid(new Iron(), 1, true, false);
         Settler s = new Settler(a, false);
@@ -51,18 +52,21 @@ public class Test {
         a.addFigure(s);
         s.drill();
     }
+
     void test8() {
         Asteroid a = new Asteroid(new Iron(), 1, false, false);
         Settler s = new Settler(a, false);
         a.addFigure(s);
         s.mine();
     }
+
     void test9() {
         Asteroid a = new Asteroid(new Uranium(), 0, false, false);
         Settler s = new Settler(a, false);
         a.addFigure(s);
         s.mine();
     }
+
     void test10() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
@@ -76,28 +80,31 @@ public class Test {
         //TODO s.move() nem fut le
         s.move();
     }
+
     void test11() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
-        try{
-            s.getInventory().addMaterial(new Iron());
-            s.getInventory().addMaterial(new Iron());
-            s.getInventory().addMaterial(new Ice());
-            s.getInventory().addMaterial(new Uranium());
-        }catch (NullPointerException e){}
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Ice());
+        s.getInventory().addMaterial(new Uranium());
         s.buildPortal();
     }
+
     void test12() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         s.buildPortal();
     }
+
     void test13() {
         //TODO: build base (enough material)
     }
+
     void test14() {
         //TODO: build base (not enough material)
     }
+
     void test15() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, false);
@@ -106,6 +113,7 @@ public class Test {
         map.addAsteroid(a1);
         map.solarStorm();
     }
+
     void test16() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, true);
@@ -114,12 +122,14 @@ public class Test {
         map.addAsteroid(a1);
         map.solarStorm();
     }
+
     void test17() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
         s.putPortalDown();
     }
+
     void test18() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
@@ -131,6 +141,7 @@ public class Test {
         s.getInventory().addPortal(p1);
         s.putPortalDown();
     }
+
     void test19() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Portal p1 = new Portal();
@@ -141,18 +152,21 @@ public class Test {
         s.getInventory().addPortal(p2);
         s.putPortalDown();
     }
+
     void test20() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, true);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
         s.putMaterialBack(new Iron());
     }
+
     void test21() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
         s.putMaterialBack(new Iron());
     }
+
     void test22() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -161,6 +175,7 @@ public class Test {
         s.getInventory().addMaterial(new Uranium());
         s.buildRobot();
     }
+
     void test23() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);

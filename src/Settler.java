@@ -15,9 +15,12 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         this.asteroid.removeFigure(this);
-        neighbors.get(0).addFigure(this);
-        this.setAsteroid(neighbors.get(0));
-        this.setRoundFinished(true);
+        if (neighbors.size() > 0) {
+            neighbors.get(0).addFigure(this);
+            this.setAsteroid(neighbors.get(0));
+            this.setRoundFinished(true);
+        }
+        else TestLogger.errorMessage("No neighbors found!");
         TestLogger.functionReturned();
     }
 
