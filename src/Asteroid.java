@@ -101,6 +101,7 @@ public class Asteroid {
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portal.add(p);
+        if (p.getPair() != null)
         TestLogger.functionReturned();
     }
 
@@ -140,9 +141,11 @@ public class Asteroid {
     }
 
     //TODO Ez maf?
-    public void handleFigures(Figure f) {
+    public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Figure f", "void");
-
+        if (!isHollow)
+            for (Figure f : figures)
+                f.onExplosion();
         TestLogger.functionReturned();
     }
 }
