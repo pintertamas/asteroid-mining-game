@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventory {
-    private ArrayList<Portal> portals;
-    private HashMap<Material, Integer> materials;
+    private final ArrayList<Portal> portals;
+    private final HashMap<Material, Integer> materials;
     private final int inventoryCapacity;
 
     public Inventory() {
@@ -23,10 +23,12 @@ public class Inventory {
     public void addMaterial(Material m) {
         TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
         if (!isInventoryFull()) {
-            if (materials.get(m) == 0)
-                materials.put(m, 1);
-            else
-                materials.put(m, materials.get(m) + 1);
+            //System.out.print(materials.get(m));
+            if (materials.containsKey(m)) {
+                if (materials.get(m) > 0)
+                    materials.put(m, materials.get(m) + 1);
+            }
+            else materials.put(m, 1);
         }
         TestLogger.functionReturned();
     }

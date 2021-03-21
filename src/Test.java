@@ -97,9 +97,10 @@ public class Test {
     }
 
     void test13() {
-        //TODO: build base (enough material)
-        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
-        Settler s = new Settler(a1, false);
+        Asteroid a = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a, true);
+        Settler s2 = new Settler(a, false);
+
         s.getInventory().addMaterial(new Iron());
         s.getInventory().addMaterial(new Iron());
         s.getInventory().addMaterial(new Iron());
@@ -110,13 +111,18 @@ public class Test {
         s.getInventory().addMaterial(new Uranium());
         s.getInventory().addMaterial(new Uranium());
         s.getInventory().addMaterial(new Coal());
-        s.getInventory().addMaterial(new Coal());
-        s.getInventory().addMaterial(new Coal());
-        s.buildBase();
+        s2.getInventory().addMaterial(new Coal());
+        s2.getInventory().addMaterial(new Coal());
+
+        s2.buildBase();
     }
 
     void test14() {
-        //TODO: build base (not enough material)
+        Asteroid a = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a, true);
+        Settler s2 = new Settler(a, false);
+
+        s2.buildBase();
     }
 
     void test15() {

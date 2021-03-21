@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Asteroid {
     ArrayList<Asteroid> neighbors;
@@ -109,6 +110,18 @@ public class Asteroid {
         TestLogger.functionCalled(this, "addNeighbor", "void");
         this.neighbors.add(a);
         TestLogger.functionReturned();
+    }
+
+    public HashMap<Material, Integer> summarizeMaterials() {
+        HashMap<Material, Integer> materials = new HashMap<>();
+        for (Figure f : this.figures) {
+            for (Material m : f.getInventory().getMaterials().keySet()) {
+                if (materials.containsKey(m))
+                    materials.put(m, materials.get(m) + f.getInventory().getMaterials().get(m));
+                else materials.put(m, f.getInventory().getMaterials().get(m));
+            }
+        }
+        return materials;
     }
 
     public void invokeFigures() {

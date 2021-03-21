@@ -27,6 +27,10 @@ public abstract class Figure {
         //TODO ezt hogy
     }
 
+    protected Inventory getInventory() {
+        return new Inventory();
+    }
+
     public abstract void step();
 
     public void setAsteroid(Asteroid asteroid) {

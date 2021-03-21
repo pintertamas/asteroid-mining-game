@@ -19,8 +19,7 @@ public class Settler extends Figure {
             neighbors.get(0).addFigure(this);
             this.setAsteroid(neighbors.get(0));
             this.setRoundFinished(true);
-        }
-        else TestLogger.errorMessage("No neighbors found!");
+        } else TestLogger.errorMessage("No neighbors found!");
         TestLogger.functionReturned();
     }
 
@@ -33,10 +32,12 @@ public class Settler extends Figure {
         return true;
     }
 
+    @Override
     public Inventory getInventory() {
         TestLogger.functionCalled(this, "getInventory", "inventory");
         TestLogger.functionReturned("inventory");
         return inventory;
+
     }
 
     public void buildPortal() {
@@ -61,15 +62,20 @@ public class Settler extends Figure {
         //TODO Van-e elég pénz és ha igen akkor levonni.
     }
 
-    public void buildBase() {
+    public boolean buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
-        TestLogger.functionReturned();
-        //TODO csekkolni van-e elég pénz és ha igen akkor nyertek.
+        BillOfBase billOfBase = new BillOfBase();
+        if (billOfBase.hasEnoughMaterial(this.asteroid.summarizeMaterials())) {
+            //TODO: WIN!
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
-
         ArrayList<Portal> p = inventory.getPortals();
         if (p.size() == 2 || p.size() == 1) {
             this.asteroid.addPortal(p.get(0));
