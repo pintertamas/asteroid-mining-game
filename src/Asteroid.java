@@ -25,6 +25,9 @@ public class Asteroid {
 
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
+        for (Figure f: figures) {
+            f.onExplosion();
+        }
         TestLogger.functionReturned();
     }
 
@@ -50,7 +53,10 @@ public class Asteroid {
         if (this.layers > 0) {
             decreaseLayers();
             if (this.layers == 0) {
-                material.readyToMine();
+                if(isNearSun){
+                    material.readyToMine();
+                }
+
             }
             TestLogger.functionReturned(String.valueOf(true));
             return false;
@@ -60,10 +66,16 @@ public class Asteroid {
     }
 
     public boolean mined(Settler s) {
-        TestLogger.functionCalled(this, "mined", "void");
-        TestLogger.functionReturned(String.valueOf(true));
+        TestLogger.functionCalled(this, "mined", "boolean");
+        if(this.layers==0){
+            material.addToInventory(s);
+            setIsHollow(true);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
 
-        return true;
     }
 
     public boolean coreChanged() {
@@ -84,6 +96,7 @@ public class Asteroid {
         TestLogger.functionReturned();
 
         this.portal.add(p);
+
     }
 
     public void addNeighbor(Asteroid a) {
@@ -109,4 +122,12 @@ public class Asteroid {
 
         return neighbors;
     }
+
+    public void setIsHollow(boolean b){
+        TestLogger.functionCalled(this, "setIsHollow", "true");
+        isHollow=b;
+        TestLogger.functionReturned(neighbors.toString());
+    }
+
+
 }

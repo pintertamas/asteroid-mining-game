@@ -8,6 +8,13 @@ public abstract class Material {
     }
 
     public void addToInventory(Settler s) {
+        TestLogger.functionCalled(this, "addToInventory", "Settler s", "void");
+        try{
+            s.getInventory().addMaterial(this);
+        }catch (NullPointerException e){}
+
+        TestLogger.functionReturned();
+
     }
 
     protected abstract boolean isCompatibleWith();

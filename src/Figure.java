@@ -24,6 +24,7 @@ public abstract class Figure {
     public abstract void onExplosion();
 
     public void die() {
+        //TODO ezt hogy
     }
 
     public abstract void step();

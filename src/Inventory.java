@@ -5,6 +5,10 @@ public class Inventory {
     ArrayList<Material> materials;
 
     public void addMaterial(Material m) {
+        //TODO testlogger nem jó itt meg kéne oldani
+        TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
+        materials.add(m);
+        TestLogger.functionReturned();
     }
 
     public void removeMaterial(Material m) {

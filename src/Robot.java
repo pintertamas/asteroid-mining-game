@@ -7,12 +7,14 @@ public class Robot extends Figure {
     @Override
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
+        //TODO ezt megcsinálni
         TestLogger.functionReturned();
     }
 
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
+        this.move();
         TestLogger.functionReturned();
     }
 

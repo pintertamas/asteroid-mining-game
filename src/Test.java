@@ -58,7 +58,7 @@ public class Test {
         s.mine();
     }
     void test9() {
-        Asteroid a = new Asteroid(new Uranium(), 1, false, false);
+        Asteroid a = new Asteroid(new Uranium(), 0, false, false);
         Settler s = new Settler(a, false);
         a.addFigure(s);
         s.mine();
@@ -68,19 +68,23 @@ public class Test {
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
         Portal p1 = new Portal();
         Portal p2 = new Portal();
+
         a1.addPortal(p1);
         a2.addPortal(p2);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
+        //TODO s.move() nem fut le
         s.move();
     }
     void test11() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
-        s.getInventory().addMaterial(new Iron());
-        s.getInventory().addMaterial(new Iron());
-        s.getInventory().addMaterial(new Ice());
-        s.getInventory().addMaterial(new Uranium());
+        try{
+            s.getInventory().addMaterial(new Iron());
+            s.getInventory().addMaterial(new Iron());
+            s.getInventory().addMaterial(new Ice());
+            s.getInventory().addMaterial(new Uranium());
+        }catch (NullPointerException e){}
         s.buildPortal();
     }
     void test12() {
@@ -141,13 +145,13 @@ public class Test {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, true);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
-        s.putMaterialBack();
+        s.putMaterialBack(new Iron());
     }
     void test21() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
-        s.putMaterialBack();
+        s.putMaterialBack(new Iron());
     }
     void test22() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);

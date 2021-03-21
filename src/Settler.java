@@ -23,12 +23,18 @@ public class Settler extends Figure {
 
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
+        if(asteroid.mined(this)){
+            setRoundFinished(true);
+        }
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
 
     public Inventory getInventory() {
+        TestLogger.functionCalled(this, "getInventory", "inventory");
+        TestLogger.functionReturned("inventory");
         return inventory;
+
     }
 
     public BillOfMaterials getBillOfMaterials() {
@@ -37,11 +43,15 @@ public class Settler extends Figure {
 
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
-        TestLogger.functionReturned();
+
         Portal p1 = new Portal();
         Portal p2 = new Portal();
-        this.inventory.addPortal(p1);
-        this.inventory.addPortal(p2);
+
+        try{
+            this.inventory.addPortal(p1);
+            this.inventory.addPortal(p2);
+        }catch (NullPointerException e){}
+        TestLogger.functionReturned();
         //TODO Levonni az építésért a költségeket meg csekkolni, hogy vane elég pénze.
     }
 
@@ -64,10 +74,17 @@ public class Settler extends Figure {
 
     }
 
-    public boolean putMaterialBack() {
+    public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+
+        if(asteroid.isHollow){
+            asteroid.material=m;
+            asteroid.setIsHollow(false);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     public Material chooseMaterial() {
@@ -77,6 +94,7 @@ public class Settler extends Figure {
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
+        this.die();
         TestLogger.functionReturned();
     }
 
