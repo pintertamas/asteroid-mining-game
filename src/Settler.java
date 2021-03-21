@@ -2,12 +2,10 @@ import java.util.ArrayList;
 
 public class Settler extends Figure {
     private Inventory inventory;
-    private BillOfMaterials billOfMaterials;
 
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
-        this.billOfMaterials = new BillOfMaterials();
     }
 
     @Override
@@ -25,7 +23,7 @@ public class Settler extends Figure {
 
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
-        if(asteroid.mined(this)){
+        if (asteroid.mined(this)) {
             setRoundFinished(true);
         }
         TestLogger.functionReturned(String.valueOf(true));
@@ -38,20 +36,14 @@ public class Settler extends Figure {
         return inventory;
     }
 
-    public BillOfMaterials getBillOfMaterials() {
-        return billOfMaterials;
-    }
-
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
 
         Portal p1 = new Portal();
         Portal p2 = new Portal();
 
-        try{
-            this.inventory.addPortal(p1);
-            this.inventory.addPortal(p2);
-        }catch (NullPointerException e){}
+        this.inventory.addPortal(p1);
+        this.inventory.addPortal(p2);
         TestLogger.functionReturned();
         //TODO Levonni az építésért a költségeket meg csekkolni, hogy vane elég pénze.
     }
@@ -69,7 +61,7 @@ public class Settler extends Figure {
         //TODO csekkolni van-e elég pénz és ha igen akkor nyertek.
     }
 
-    public boolean  putPortalDown() {
+    public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
 
         ArrayList<Portal> p = inventory.getPortals();
@@ -87,7 +79,7 @@ public class Settler extends Figure {
     //Javítja, elvileg kész
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
-        if(this.asteroid.coreChanged(m)) {
+        if (this.asteroid.coreChanged(m)) {
             this.inventory.removeMaterial(m);
             TestLogger.functionReturned(String.valueOf(true));
             return true;

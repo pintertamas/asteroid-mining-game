@@ -2,17 +2,9 @@ public class BillOfBase extends BillOfMaterials{
 
     public BillOfBase() {
         super();
-        this.materials.add(new Iron());
-        this.materials.add(new Iron());
-        this.materials.add(new Iron());
-        this.materials.add(new Uranium());
-        this.materials.add(new Uranium());
-        this.materials.add(new Uranium());
-        this.materials.add(new Ice());
-        this.materials.add(new Ice());
-        this.materials.add(new Ice());
-        this.materials.add(new Coal());
-        this.materials.add(new Coal());
-        this.materials.add(new Coal());
+        this.materials.put(new Iron(), 3);
+        this.materials.put(new Uranium(), 3);
+        this.materials.put(new Ice(), 3);
+        this.materials.put(new Coal(), 3);
     }
 }

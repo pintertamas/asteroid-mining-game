@@ -1,14 +1,14 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
-public class BillOfMaterials {
+public abstract class BillOfMaterials {
 
-    ArrayList<Material> materials;
+    HashMap<Material, Integer> materials;
 
     public BillOfMaterials() {
-        materials = new ArrayList<>();
+        materials = new HashMap<>();
     }
 
-    public boolean hasEnoughMaterial(ArrayList<Material> mats) {
+    public boolean hasEnoughMaterial(HashMap<Material, Integer> mats) {
         return true;
     }
 
