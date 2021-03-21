@@ -41,14 +41,17 @@ public class Settler extends Figure {
 
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
-
-        Portal p1 = new Portal();
-        Portal p2 = new Portal();
-
-        this.inventory.addPortal(p1);
-        this.inventory.addPortal(p2);
+        BillOfPortal billOfPortal = new BillOfPortal();
+        if (billOfPortal.hasEnoughMaterial(this.inventory.materials)) {
+            billOfPortal.pay(billOfPortal.bill);
+            Portal p1 = new Portal();
+            Portal p2 = new Portal();
+            p1.setPair(p2);
+            p2.setPair(p1);
+            this.inventory.addPortal(p1);
+            this.inventory.addPortal(p2);
+        }
         TestLogger.functionReturned();
-        //TODO Levonni az építésért a költségeket meg csekkolni, hogy vane elég pénze.
     }
 
     public void buildRobot() {

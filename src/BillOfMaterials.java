@@ -10,8 +10,10 @@ public abstract class BillOfMaterials {
 
     public boolean hasEnoughMaterial(HashMap<Material, Integer> inventoryMaterials) {
         for (Material m : inventoryMaterials.keySet()) {
-            if (bill.get(m) > inventoryMaterials.get(m))
+            if (bill.get(m) > inventoryMaterials.get(m)) {
+                TestLogger.errorMessage("Insufficient materials!");
                 return false;
+            }
         }
         return true;
     }
@@ -23,6 +25,11 @@ public abstract class BillOfMaterials {
     public void checkMaterial(Material m) {
         if (bill.get(m) > 0)
             bill.put(m, bill.get(m) - 1);
+    }
+
+    public void pay(HashMap<Material, Integer> inventoryMaterials) {
+        assert hasEnoughMaterial(inventoryMaterials);
+        inventoryMaterials.replaceAll((material, value) -> value - bill.get(material));
     }
 
 }

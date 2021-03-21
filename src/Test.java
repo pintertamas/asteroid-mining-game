@@ -77,7 +77,6 @@ public class Test {
         a2.addPortal(p2);
         Settler s = new Settler(a1, false);
         a1.addFigure(s);
-        //TODO s.move() nem fut le
         s.move();
     }
 

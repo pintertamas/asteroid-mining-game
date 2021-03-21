@@ -101,6 +101,7 @@ public class Asteroid {
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portal.add(p);
+        if (p.getPair() != null)
         TestLogger.functionReturned();
     }
 
