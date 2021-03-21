@@ -25,10 +25,11 @@ public class Asteroid {
 
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
+        TestLogger.functionReturned();
+
         for (Figure f: figures) {
             f.onExplosion();
         }
-        TestLogger.functionReturned();
     }
 
     public void addFigure(Figure f) {
@@ -40,12 +41,14 @@ public class Asteroid {
 
     public void removeFigure(Figure f) {
         TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
-        this.figures.remove(f);
         TestLogger.functionReturned();
+
+        this.figures.remove(f);
     }
 
     public void setMaterial(Material m) {
         TestLogger.functionCalled(this, "setMaterial", m.getClass().getName() + " " + m, "void");
+        this.material = m;
         TestLogger.functionReturned();
     }
 
@@ -79,11 +82,14 @@ public class Asteroid {
 
     }
 
-    public boolean coreChanged() {
+    public boolean coreChanged(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
         TestLogger.functionReturned(String.valueOf(true));
-
-        return true;
+        if(this.isHollow == true) {
+            setMaterial(m);
+            return true;
+        }
+        return false;
     }
 
     public void decreaseLayers() {
@@ -94,26 +100,29 @@ public class Asteroid {
 
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
-        TestLogger.functionReturned();
-
         this.portal.add(p);
-
+        TestLogger.functionReturned();
     }
 
     public void addNeighbor(Asteroid a) {
         TestLogger.functionCalled(this, "addNeighbor", "void");
-        TestLogger.functionReturned();
-
         this.neighbors.add(a);
+        TestLogger.functionReturned();
     }
 
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
+        for (Figure f : figures) {
+            f.step();
+        }
         TestLogger.functionReturned();
     }
 
     public void resetStep() {
         TestLogger.functionCalled(this, "resetStep", "void");
+        for(Figure f : figures) {
+            f.setRoundFinished(false);
+        }
         TestLogger.functionReturned();
     }
 
@@ -125,11 +134,12 @@ public class Asteroid {
     }
 
     public void setIsHollow(boolean b){
-        TestLogger.functionCalled(this, "setIsHollow", "true");
-        isHollow=b;
+        TestLogger.functionCalled(this, "setIsHollow", "void");
+        isHollow = b;
         TestLogger.functionReturned();
     }
 
+    //TODO Ez maf?
     public void handleFigures( Figure f){
         TestLogger.functionCalled(this, "handleFigures", "Figure f" ,"void");
 

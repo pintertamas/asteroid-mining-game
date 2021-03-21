@@ -6,6 +6,8 @@ public class Settler extends Figure {
 
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
+        this.inventory = new Inventory();
+        this.billOfMaterials = new BillOfMaterials();
     }
 
     @Override
@@ -34,7 +36,6 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "getInventory", "inventory");
         TestLogger.functionReturned("inventory");
         return inventory;
-
     }
 
     public BillOfMaterials getBillOfMaterials() {
@@ -68,18 +69,26 @@ public class Settler extends Figure {
         //TODO csekkolni van-e elég pénz és ha igen akkor nyertek.
     }
 
-    public void putPortalDown() {
-        TestLogger.functionCalled(this, "putPortalDown", "void");
-        TestLogger.functionReturned();
+    public boolean  putPortalDown() {
+        TestLogger.functionCalled(this, "putPortalDown", "boolean");
 
+        ArrayList<Portal> p = inventory.getPortals();
+        if (p.size() == 2 || p.size() == 1) {
+            this.asteroid.addPortal(p.get(0));
+            this.inventory.removePortal(p.get(0));
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
+
+    //Javítja, elvileg kész
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
-
-        if(asteroid.isHollow){
-            asteroid.material=m;
-            asteroid.setIsHollow(false);
+        if(this.asteroid.coreChanged(m)) {
+            this.inventory.removeMaterial(m);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
