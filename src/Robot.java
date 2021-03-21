@@ -20,6 +20,8 @@ public class Robot extends Figure {
 
     public Asteroid chooseNextDestination() {
         TestLogger.functionCalled(this, "chooseNextDestination", "void");
+        asteroid.getNeighbors().size();
+
         TestLogger.functionReturned(asteroid.toString());
         return asteroid;
     }

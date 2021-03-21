@@ -4,10 +4,8 @@ public class BillOfMaterials {
 
     ArrayList<Material> materials;
 
-    public void initMaterials(Material m) {
-    }
-
-    public void addMaterial(Material m) {
+    public BillOfMaterials() {
+        materials = new ArrayList<>();
     }
 
     public boolean hasEnoughMaterial(ArrayList<Material> mats) {
@@ -21,6 +19,4 @@ public class BillOfMaterials {
     public void checkMaterials(Material m) {
     }
 
-    public void resetBill() {
-    }
 }
