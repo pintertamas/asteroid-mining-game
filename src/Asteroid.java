@@ -40,6 +40,7 @@ public class Asteroid {
 
     public void removeFigure(Figure f) {
         TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
+        this.figures.remove(f);
         TestLogger.functionReturned();
     }
 
@@ -126,8 +127,12 @@ public class Asteroid {
     public void setIsHollow(boolean b){
         TestLogger.functionCalled(this, "setIsHollow", "true");
         isHollow=b;
-        TestLogger.functionReturned(neighbors.toString());
+        TestLogger.functionReturned();
     }
 
+    public void handleFigures( Figure f){
+        TestLogger.functionCalled(this, "handleFigures", "Figure f" ,"void");
 
+        TestLogger.functionReturned();
+    }
 }
