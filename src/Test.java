@@ -98,6 +98,21 @@ public class Test {
 
     void test13() {
         //TODO: build base (enough material)
+        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a1, false);
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Iron());
+        s.getInventory().addMaterial(new Ice());
+        s.getInventory().addMaterial(new Ice());
+        s.getInventory().addMaterial(new Ice());
+        s.getInventory().addMaterial(new Uranium());
+        s.getInventory().addMaterial(new Uranium());
+        s.getInventory().addMaterial(new Uranium());
+        s.getInventory().addMaterial(new Coal());
+        s.getInventory().addMaterial(new Coal());
+        s.getInventory().addMaterial(new Coal());
+        s.buildBase();
     }
 
     void test14() {

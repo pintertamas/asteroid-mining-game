@@ -42,7 +42,7 @@ public class Settler extends Figure {
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
         BillOfPortal billOfPortal = new BillOfPortal();
-        if (billOfPortal.hasEnoughMaterial(this.inventory.materials)) {
+        if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
             billOfPortal.pay(billOfPortal.bill);
             Portal p1 = new Portal();
             Portal p2 = new Portal();

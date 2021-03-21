@@ -141,9 +141,11 @@ public class Asteroid {
     }
 
     //TODO Ez maf?
-    public void handleFigures(Figure f) {
+    public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Figure f", "void");
-
+        if (!isHollow)
+            for (Figure f : figures)
+                f.onExplosion();
         TestLogger.functionReturned();
     }
 }

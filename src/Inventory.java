@@ -2,21 +2,32 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventory {
-    ArrayList<Portal> portals;
-    HashMap<Material, Integer> materials;
+    private ArrayList<Portal> portals;
+    private HashMap<Material, Integer> materials;
+    private final int inventoryCapacity;
 
     public Inventory() {
         this.portals = new ArrayList<>();
         this.materials = new HashMap<>();
+        this.inventoryCapacity = 10;
+    }
+
+    private boolean isInventoryFull() {
+        int itemCount = 0;
+        for (Material m : materials.keySet()) {
+            itemCount += materials.get(m);
+        }
+        return itemCount >= inventoryCapacity;
     }
 
     public void addMaterial(Material m) {
-        //TODO testlogger nem jó itt meg kéne oldani
         TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
-        if (materials.get(m) == 0)
-            materials.put(m, 1);
-        else
-            materials.put(m, materials.get(m) + 1);
+        if (!isInventoryFull()) {
+            if (materials.get(m) == 0)
+                materials.put(m, 1);
+            else
+                materials.put(m, materials.get(m) + 1);
+        }
         TestLogger.functionReturned();
     }
 
