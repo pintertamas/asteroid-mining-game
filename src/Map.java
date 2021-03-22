@@ -178,6 +178,7 @@ public class Map {
         return false;
     }
 
+
     public void reset(){
         TestLogger.functionCalled(this, "reset", "void");
         for(Asteroid a : asteroids) {
@@ -186,3 +187,4 @@ public class Map {
         TestLogger.functionReturned();
     }
 }
+

@@ -55,11 +55,12 @@ public class Settler extends Figure {
         TestLogger.functionReturned();
     }
 
-    public void buildRobot() {
+    public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
         TestLogger.functionReturned();
         Robot r = new Robot(this.asteroid, false);
         //TODO Van-e elég pénz és ha igen akkor levonni.
+        return true;
     }
 
     public boolean buildBase() {
