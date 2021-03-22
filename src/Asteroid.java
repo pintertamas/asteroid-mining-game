@@ -61,11 +61,11 @@ public class Asteroid {
                     material.readyToMine();
                 }
             }
-            TestLogger.functionReturned(String.valueOf(false));
-            return false;
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     public boolean mined(Settler s) {
@@ -107,7 +107,7 @@ public class Asteroid {
     }
 
     public void addNeighbor(Asteroid a) {
-        TestLogger.functionCalled(this, "addNeighbor", "void");
+        TestLogger.functionCalled(this, "addNeighbor", "Asteroid a", "void");
         this.neighbors.add(a);
         TestLogger.functionReturned();
     }

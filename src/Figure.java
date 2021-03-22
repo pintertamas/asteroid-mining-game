@@ -14,12 +14,12 @@ public abstract class Figure {
         TestLogger.functionCalled(this, "drill", "boolean");
         if (asteroid.drilled()) {
             setRoundFinished(true);
-            TestLogger.functionReturned();
-            return false;
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
 
-        TestLogger.functionReturned();
-        return true;
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     public abstract void onExplosion();
@@ -39,14 +39,14 @@ public abstract class Figure {
     public abstract void step();
 
     public void setAsteroid(Asteroid asteroid) {
-        TestLogger.functionCalled(this, "setAsteroid", asteroid.getClass().getName() + " " + asteroid, "void");
-        TestLogger.functionReturned();
+        TestLogger.functionCalled(this, "setAsteroid", "Asteroid asteroid", "void");
         this.asteroid = asteroid;
+        TestLogger.functionReturned();
     }
 
     protected void setRoundFinished(boolean roundFinished) {
-        TestLogger.functionCalled(this, "setRoundFinished", "void");
+        TestLogger.functionCalled(this, "setRoundFinished", "boolean roundFinished", "void");
         this.roundFinished = roundFinished;
-        TestLogger.functionReturned();
+        TestLogger.functionReturned(String.valueOf(roundFinished));
     }
 }

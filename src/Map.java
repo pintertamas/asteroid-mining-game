@@ -129,7 +129,7 @@ public class Map {
 
     public boolean checkGameEnd(){
         TestLogger.functionCalled(this, "checkGameEnd", "boolean");
-        if(checkIfWinnable() == false) {
+        if(!checkIfWinnable()) {
             gameState = GameState.LOST;
             TestLogger.functionReturned(String.valueOf(true));
             return true;
