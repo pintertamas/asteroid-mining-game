@@ -11,4 +11,11 @@ public class Uranium extends Material {
     protected boolean isCompatibleWith() {
         return true;
     }
+
+    @Override
+    public void addToList(Material coal, Material iron, Material uranium, Material Ice, Settler s) {
+        s.getBillOfMaterials().addMaterial(uranium);
+    }
+
+
 }

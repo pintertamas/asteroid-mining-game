@@ -2,10 +2,17 @@ import java.util.ArrayList;
 
 public class Settler extends Figure {
     private Inventory inventory;
+    private BillOfMaterials billOfMaterials;
 
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
+        billOfMaterials = new BillOfMaterials();
+    }
+
+
+    public BillOfMaterials getBillOfMaterials() {
+        return billOfMaterials;
     }
 
     @Override
@@ -19,7 +26,8 @@ public class Settler extends Figure {
             neighbors.get(0).addFigure(this);
             this.setAsteroid(neighbors.get(0));
             this.setRoundFinished(true);
-        } else TestLogger.errorMessage("No neighbors found!");
+        }
+        else TestLogger.errorMessage("No neighbors found!");
         TestLogger.functionReturned();
     }
 
@@ -32,19 +40,26 @@ public class Settler extends Figure {
         return true;
     }
 
-    @Override
     public Inventory getInventory() {
         TestLogger.functionCalled(this, "getInventory", "inventory");
         TestLogger.functionReturned("inventory");
         return inventory;
-
     }
 
     public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
         BillOfPortal billOfPortal = new BillOfPortal();
-        if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
-            billOfPortal.pay(billOfPortal.bill);
+        Uranium uranium = new Uranium();
+        Coal coal = new Coal();
+        Ice ice = new Ice();
+        Iron iron = new Iron();
+
+        for(Material m : inventory.getMats()) {
+            m.addToList(coal, iron, uranium, ice, this);
+        }
+
+        if (billOfMaterials.hasEnoughMaterial(iron, uranium, ice, coal, this)) {
+           // billOfPortal.pay(billOfPortal.bill);
             Portal p1 = new Portal();
             Portal p2 = new Portal();
             p1.setPair(p2);
@@ -66,20 +81,22 @@ public class Settler extends Figure {
         return true;
     }
 
-    public boolean buildBase() {
+    public void buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
-        BillOfBase billOfBase = new BillOfBase();
-        if (billOfBase.hasEnoughMaterial(this.asteroid.summarizeMaterials())) {
-            //TODO: WIN!
-            TestLogger.functionReturned(String.valueOf(true));
-            return true;
+        TestLogger.functionReturned();
+        //TODO csekkolni van-e elég pénz és ha igen akkor nyertek.
+        Uranium uranium = new Uranium();
+        Coal coal = new Coal();
+        Ice ice = new Ice();
+        Iron iron = new Iron();
+        for(Material m : inventory.getMats()) {
+            m.addToList(coal, iron, uranium, ice, this);
         }
-        TestLogger.functionReturned(String.valueOf(false));
-        return false;
     }
 
     public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
+
         ArrayList<Portal> p = inventory.getPortals();
         if (p.size() == 2 || p.size() == 1) {
             this.asteroid.addPortal(p.get(0));
@@ -111,7 +128,7 @@ public class Settler extends Figure {
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
-        this.die();
+        this.die(this);
         TestLogger.functionReturned();
     }
 

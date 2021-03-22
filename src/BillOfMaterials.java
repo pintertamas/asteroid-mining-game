@@ -24,12 +24,16 @@ public abstract class BillOfMaterials {
     }
 
     public boolean isNeeded(Material m) {
+        TestLogger.functionCalled(this, "isNeeded", "boolean");
+        TestLogger.functionReturned(String.valueOf(bill.get(m.getClass()) > 0));
         return bill.get(m.getClass()) > 0;
     }
 
     public void checkMaterial(Material m) {
+        TestLogger.functionCalled(this, "checkMaterial", "void");
         if (bill.get(m.getClass()) > 0)
             bill.put(m.getClass(), bill.get(m.getClass()) - 1);
+        TestLogger.functionReturned();
     }
 
     public void pay(HashMap<Class<?>, Integer> inventoryMaterials) {
