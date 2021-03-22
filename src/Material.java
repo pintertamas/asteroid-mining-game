@@ -22,4 +22,6 @@ public abstract class Material {
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
     }
+
+    public abstract void addToList(Material coal, Material iron, Material uranium, Material Ice, Settler s);
 }

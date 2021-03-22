@@ -1,15 +1,22 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Inventory {
     private ArrayList<Portal> portals;
     private HashMap<Material, Integer> materials;
+    private ArrayList<Material> mats;
     private final int inventoryCapacity;
 
     public Inventory() {
         this.portals = new ArrayList<>();
         this.materials = new HashMap<>();
         this.inventoryCapacity = 10;
+        this.mats = new ArrayList<>();
+    }
+
+    public ArrayList<Material> getMats() {
+        return mats;
     }
 
     private boolean isInventoryFull() {
@@ -20,6 +27,7 @@ public class Inventory {
         return itemCount >= inventoryCapacity;
     }
 
+    /*
     public void addMaterial(Material m) {
         TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
         if (!isInventoryFull()) {
@@ -28,6 +36,13 @@ public class Inventory {
             else
                 materials.put(m, materials.get(m) + 1);
         }
+        TestLogger.functionReturned();
+    }
+    */
+
+    public void addMaterial(Material m) {
+        TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
+        mats.add(m);
         TestLogger.functionReturned();
     }
 
@@ -53,4 +68,5 @@ public class Inventory {
     public HashMap<Material, Integer> getMaterials() {
         return materials;
     }
+
 }
