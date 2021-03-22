@@ -5,7 +5,8 @@ public class TestLogger {
     public static Stack<String> activeFunctionCalls = new Stack<>();
 
     private static void printTabs(int numberOfIterations) {
-        System.out.print("\t".repeat(Math.max(0, numberOfIterations)));
+        for (int i = 0; i < numberOfIterations; i++)
+            System.out.print("\t");
     }
 
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
