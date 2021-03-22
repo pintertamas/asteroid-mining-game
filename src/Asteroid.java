@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Asteroid {
     ArrayList<Asteroid> neighbors;
@@ -111,6 +112,20 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    public HashMap<Class<?>, Integer> summarizeMaterials() {
+        TestLogger.functionCalled(this, "summarizeMaterials", "HashMap<Class<?>, Integer>");
+        HashMap<Class<?>, Integer> materials = new HashMap<>();
+        for (Figure f : this.figures) {
+            for (Class<?> m : f.getInventory().getMaterials().keySet()) {
+                if (materials.containsKey(m))
+                    materials.put(m, materials.get(m) + f.getInventory().getMaterials().get(m));
+                else materials.put(m, f.getInventory().getMaterials().get(m));
+            }
+        }
+        TestLogger.functionReturned(materials.toString());
+        return materials;
+    }
+
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         for (Figure f : figures) {
@@ -140,7 +155,6 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    //TODO Ez maf?
     public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Figure f", "void");
         if (!isHollow)

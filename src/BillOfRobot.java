@@ -2,8 +2,8 @@ public class BillOfRobot extends BillOfMaterials {
 
     public BillOfRobot() {
         super();
-        this.bill.put(new Iron(), 1);
-        this.bill.put(new Uranium(), 1);
-        this.bill.put(new Coal(), 1);
+        this.bill.put(Iron.class, 1);
+        this.bill.put(Uranium.class, 1);
+        this.bill.put(Coal.class, 1);
     }
 }

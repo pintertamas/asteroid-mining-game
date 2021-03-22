@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Test {
     void test1() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
@@ -13,57 +11,48 @@ public class Test {
     void test2() {
         Asteroid a = new Asteroid(new Iron(), 2, true, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
-        s.setAsteroid(a);
         s.drill();
     }
 
     void test3() {
         Asteroid a = new Asteroid(new Iron(), 0, true, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
         s.drill();
     }
 
     void test4() {
         Asteroid a = new Asteroid(new Iron(), 1, true, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
         s.drill();
     }
 
     void test5() {
         Asteroid a = new Asteroid(new Uranium(), 1, true, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
         s.drill();
     }
 
     void test6() {
         Asteroid a = new Asteroid(new Uranium(), 1, true, false);
         Robot r = new Robot(a, false);
-        a.addFigure(r);
         r.drill();
     }
 
     void test7() {
         Asteroid a = new Asteroid(new Ice(), 1, true, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
         s.drill();
     }
 
     void test8() {
         Asteroid a = new Asteroid(new Iron(), 1, false, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
         s.mine();
     }
 
     void test9() {
         Asteroid a = new Asteroid(new Uranium(), 0, false, false);
         Settler s = new Settler(a, false);
-        a.addFigure(s);
         s.mine();
     }
 
@@ -76,7 +65,6 @@ public class Test {
         a1.addPortal(p1);
         a2.addPortal(p2);
         Settler s = new Settler(a1, false);
-        a1.addFigure(s);
         s.move();
     }
 
@@ -97,9 +85,10 @@ public class Test {
     }
 
     void test13() {
-        //TODO: build base (enough material)
-        Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
-        Settler s = new Settler(a1, false);
+        Asteroid a = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a, true);
+        Settler s2 = new Settler(a, false);
+
         s.getInventory().addMaterial(new Iron());
         s.getInventory().addMaterial(new Iron());
         s.getInventory().addMaterial(new Iron());
@@ -110,13 +99,16 @@ public class Test {
         s.getInventory().addMaterial(new Uranium());
         s.getInventory().addMaterial(new Uranium());
         s.getInventory().addMaterial(new Coal());
-        s.getInventory().addMaterial(new Coal());
-        s.getInventory().addMaterial(new Coal());
-        s.buildBase();
+        s2.getInventory().addMaterial(new Coal());
+        s2.getInventory().addMaterial(new Coal());
+
+        s2.buildBase();
     }
 
     void test14() {
-        //TODO: build base (not enough material)
+        Asteroid a = new Asteroid(new Iron(), 3, true, false);
+        Settler s = new Settler(a, false);
+        s.buildBase();
     }
 
     void test15() {

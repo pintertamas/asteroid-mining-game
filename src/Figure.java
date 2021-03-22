@@ -4,6 +4,7 @@ public abstract class Figure {
 
     public Figure(Asteroid asteroid, boolean roundFinished) {
         this.asteroid = asteroid;
+        asteroid.addFigure(this);
         this.roundFinished = roundFinished;
     }
 
@@ -25,11 +26,15 @@ public abstract class Figure {
 
 
     //TODO Ez így jó?
-    public void die(Figure f) {
+    public void die() {
         TestLogger.functionCalled(this, "die", "void");
-        asteroid.removeFigure(f);
-        f = null;
+        asteroid.removeFigure(this);
+        //this. = null;
         TestLogger.functionReturned();
+    }
+
+    protected Inventory getInventory() {
+        return new Inventory();
     }
 
     public abstract void step();
