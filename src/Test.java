@@ -62,8 +62,15 @@ public class Test {
         Portal p1 = new Portal();
         Portal p2 = new Portal();
 
+        p1.setPair(p2);
+        p2.setPair(p1);
+
         a1.addPortal(p1);
         a2.addPortal(p2);
+
+        p1.setAsteroid(a1);
+        p2.setAsteroid(a2);
+        
         Settler s = new Settler(a1, false);
         s.move();
     }

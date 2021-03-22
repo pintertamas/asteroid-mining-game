@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Settler extends Figure {
-    private Inventory inventory;
+    private final Inventory inventory;
 
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
@@ -38,8 +38,8 @@ public class Settler extends Figure {
 
     }
 
-    public void buildPortal() {
-        TestLogger.functionCalled(this, "buildPortal", "void");
+    public boolean buildPortal() {
+        TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
             billOfPortal.pay(billOfPortal.bill);
@@ -49,8 +49,11 @@ public class Settler extends Figure {
             p2.setPair(p1);
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
-        TestLogger.functionReturned();
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     public boolean buildRobot() {

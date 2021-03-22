@@ -106,7 +106,10 @@ public class Asteroid {
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portal.add(p);
-        if (p.getPair() != null)
+        if (p.getPair().getAsteroid() != null) {
+            this.addNeighbor(p.getAsteroid());
+            p.getAsteroid().addNeighbor(this);
+        }
         TestLogger.functionReturned();
     }
 
@@ -153,7 +156,7 @@ public class Asteroid {
     }
 
     public void setIsHollow(boolean b) {
-        TestLogger.functionCalled(this, "setIsHollow", "void");
+        TestLogger.functionCalled(this, "setIsHollow", "boolean b", "void");
         isHollow = b;
         TestLogger.functionReturned();
     }
