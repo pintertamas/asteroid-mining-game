@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Robot extends Figure {
 
     public Robot(Asteroid asteroid, boolean roundFinished) {
@@ -7,7 +9,9 @@ public class Robot extends Figure {
     @Override
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
-        //TODO ezt megcsinálni
+        Asteroid a = chooseNextDestination();
+        asteroid.removeFigure(this);
+        setAsteroid(a);
         TestLogger.functionReturned();
     }
 
@@ -20,8 +24,8 @@ public class Robot extends Figure {
 
     public Asteroid chooseNextDestination() {
         TestLogger.functionCalled(this, "chooseNextDestination", "void");
-        asteroid.getNeighbors().size();
-
+        Random rand = new Random();
+        int a1 = rand.nextInt((asteroid.getNeighbors().size()));
         TestLogger.functionReturned(asteroid.toString());
         return asteroid;
     }
@@ -29,6 +33,12 @@ public class Robot extends Figure {
     @Override
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
+        if(asteroid.getLayers() == 0) {
+            move();
+        }
+        else {
+            drill();
+        }
         TestLogger.functionReturned();
     }
 }
