@@ -116,7 +116,7 @@ public class Map {
                 try{
                     for (Figure f:a.figures) {
                         a.removeFigure(f);
-                        f.die(f);
+                        f.die();
                     }
                 }catch (ConcurrentModificationException e){
                     //TODO Ez így jó lesz?

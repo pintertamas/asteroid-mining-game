@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 public class Inventory {
     private final ArrayList<Portal> portals;
-    private final HashMap<Material, Integer> materials;
+    private final HashMap<Class<?>, Integer> materials;
     private final int inventoryCapacity;
 
     public Inventory() {
@@ -14,7 +14,7 @@ public class Inventory {
 
     private boolean isInventoryFull() {
         int itemCount = 0;
-        for (Material m : materials.keySet()) {
+        for (Class<?> m : materials.keySet()) {
             itemCount += materials.get(m);
         }
         return itemCount >= inventoryCapacity;
@@ -23,21 +23,20 @@ public class Inventory {
     public void addMaterial(Material m) {
         TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
         if (!isInventoryFull()) {
-            //System.out.print(materials.get(m));
-            if (materials.containsKey(m)) {
-                if (materials.get(m) > 0)
-                    materials.put(m, materials.get(m) + 1);
+            if (materials.containsKey(m.getClass())) {
+                if (materials.get(m.getClass()) > 0)
+                    materials.put(m.getClass(), materials.get(m.getClass()) + 1);
             }
-            else materials.put(m, 1);
+            else materials.put(m.getClass(), 1);
         }
         TestLogger.functionReturned();
     }
 
     public void removeMaterial(Material m) {
-        if (materials.get(m) > 1)
-            materials.put(m, materials.get(m) - 1);
+        if (materials.get(m.getClass()) > 1)
+            materials.put(m.getClass(), materials.get(m.getClass()) - 1);
         else
-            materials.remove(m);
+            materials.remove(m.getClass());
     }
 
     public void addPortal(Portal p) {
@@ -52,7 +51,7 @@ public class Inventory {
         return portals;
     }
 
-    public HashMap<Material, Integer> getMaterials() {
+    public HashMap<Class<?>, Integer> getMaterials() {
         return materials;
     }
 }

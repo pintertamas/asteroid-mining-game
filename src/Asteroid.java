@@ -112,15 +112,17 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    public HashMap<Material, Integer> summarizeMaterials() {
-        HashMap<Material, Integer> materials = new HashMap<>();
+    public HashMap<Class<?>, Integer> summarizeMaterials() {
+        TestLogger.functionCalled(this, "summarizeMaterials", "HashMap<Class<?>, Integer>");
+        HashMap<Class<?>, Integer> materials = new HashMap<>();
         for (Figure f : this.figures) {
-            for (Material m : f.getInventory().getMaterials().keySet()) {
+            for (Class<?> m : f.getInventory().getMaterials().keySet()) {
                 if (materials.containsKey(m))
                     materials.put(m, materials.get(m) + f.getInventory().getMaterials().get(m));
                 else materials.put(m, f.getInventory().getMaterials().get(m));
             }
         }
+        TestLogger.functionReturned(materials.toString());
         return materials;
     }
 
@@ -153,7 +155,6 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    //TODO Ez maf?
     public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Figure f", "void");
         if (!isHollow)
