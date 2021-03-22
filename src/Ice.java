@@ -3,7 +3,6 @@ public class Ice extends Material {
     protected void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine()", "void");
         asteroid.setIsHollow(true);
-        super.readyToMine();
         TestLogger.functionReturned();
     }
 

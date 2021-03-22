@@ -10,8 +10,6 @@ public class Settler extends Figure {
 
     @Override
     public void move() {
-        System.out.println("Settler moves to neighbor:");
-
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         this.asteroid.removeFigure(this);

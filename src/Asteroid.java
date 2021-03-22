@@ -30,10 +30,10 @@ public class Asteroid {
 
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
-        TestLogger.functionReturned();
-
-        for (Figure f : figures) {
-            f.onExplosion();
+        for (Figure figure : figures) {
+            figure.onExplosion();
+            if (figures.isEmpty())
+                break;
         }
         TestLogger.functionReturned();
     }
