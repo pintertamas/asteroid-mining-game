@@ -107,12 +107,7 @@ public class Map {
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
         for (Asteroid a : asteroids) {
-            if (!a.isHollow) {
-                for (Figure f : a.figures) {
-                    a.removeFigure(f);
-                    f.die();
-                }
-            }
+            a.handleFigures();
         }
         TestLogger.functionReturned();
     }
