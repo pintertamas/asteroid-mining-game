@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Settler extends Figure {
     private Inventory inventory;
@@ -57,9 +58,24 @@ public class Settler extends Figure {
 
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
-        TestLogger.functionReturned();
+
+        BillOfRobot billOfRobot = new BillOfRobot();
+        HashMap<Class<?>, Integer> materials = new HashMap<>();
+        for (Class<?> m : this.inventory.getMaterials().keySet()) {
+            if (materials.containsKey(m))
+                materials.put(m, materials.get(m) + this.inventory.getMaterials().get(m));
+            else materials.put(m, this.inventory.getMaterials().get(m));
+        }
+        if (!billOfRobot.hasEnoughMaterial(materials)) {
+            //TODO loggert kijavitani
+            //System.out.println(false);
+            TestLogger.functionReturned(String.valueOf(false));
+            return false;
+        }
+
+        billOfRobot.pay(billOfRobot.bill);
         Robot r = new Robot(this.asteroid, false);
-        //TODO Van-e elég pénz és ha igen akkor levonni.
+        TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
 
@@ -67,6 +83,7 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterial(this.asteroid.summarizeMaterials())) {
+            //TODO PAY
             //TODO: WIN!
             TestLogger.functionReturned(String.valueOf(true));
             return true;
