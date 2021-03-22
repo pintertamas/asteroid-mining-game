@@ -62,8 +62,15 @@ public class Test {
         Portal p1 = new Portal();
         Portal p2 = new Portal();
 
+        p1.setPair(p2);
+        p2.setPair(p1);
+
         a1.addPortal(p1);
         a2.addPortal(p2);
+
+        p1.setAsteroid(a1);
+        p2.setAsteroid(a2);
+
         Settler s = new Settler(a1, false);
         s.move();
     }
@@ -162,14 +169,14 @@ public class Test {
     void test20() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, true);
         Settler s = new Settler(a1, false);
-        a1.addFigure(s);
-        s.putMaterialBack(new Iron());
+        Iron iron = new Iron();
+        s.getInventory().addMaterial(iron);
+        s.putMaterialBack(iron);
     }
 
     void test21() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
-        a1.addFigure(s);
         s.putMaterialBack(new Iron());
     }
 

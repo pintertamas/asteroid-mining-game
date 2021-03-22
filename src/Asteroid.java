@@ -30,10 +30,10 @@ public class Asteroid {
 
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
-        TestLogger.functionReturned();
-
-        for (Figure f : figures) {
-            f.onExplosion();
+        for (Figure figure : figures) {
+            figure.onExplosion();
+            if (figures.isEmpty())
+                break;
         }
         TestLogger.functionReturned();
     }
@@ -87,9 +87,9 @@ public class Asteroid {
 
     public boolean coreChanged(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
-        TestLogger.functionReturned(String.valueOf(true));
         if (this.isHollow) {
             setMaterial(m);
+            isHollow = true;
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
@@ -106,7 +106,6 @@ public class Asteroid {
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portal.add(p);
-        if (p.getPair() != null)
         TestLogger.functionReturned();
     }
 
@@ -153,7 +152,7 @@ public class Asteroid {
     }
 
     public void setIsHollow(boolean b) {
-        TestLogger.functionCalled(this, "setIsHollow", "void");
+        TestLogger.functionCalled(this, "setIsHollow", "boolean b", "void");
         isHollow = b;
         TestLogger.functionReturned();
     }

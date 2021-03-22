@@ -27,7 +27,7 @@ public abstract class Figure {
     //TODO Ez így jó?
     public void die() {
         TestLogger.functionCalled(this, "die", "void");
-        asteroid.removeFigure(this);
+        //asteroid.removeFigure(this);
         //this. = null;
         TestLogger.functionReturned();
     }

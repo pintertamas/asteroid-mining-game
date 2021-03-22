@@ -3,7 +3,6 @@ public class Uranium extends Material {
     protected void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine()", "void");
         asteroid.explode();
-        super.readyToMine();
         TestLogger.functionReturned();
     }
 

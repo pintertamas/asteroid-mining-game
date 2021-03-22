@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Settler extends Figure {
-    private Inventory inventory;
+    private final Inventory inventory;
 
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
@@ -11,8 +11,6 @@ public class Settler extends Figure {
 
     @Override
     public void move() {
-        System.out.println("Settler moves to neighbor:");
-
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         this.asteroid.removeFigure(this);
@@ -28,9 +26,11 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "mine", "boolean");
         if (asteroid.mined(this)) {
             setRoundFinished(true);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     @Override
@@ -41,8 +41,8 @@ public class Settler extends Figure {
 
     }
 
-    public void buildPortal() {
-        TestLogger.functionCalled(this, "buildPortal", "void");
+    public boolean buildPortal() {
+        TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
             billOfPortal.pay(billOfPortal.bill);
@@ -52,8 +52,12 @@ public class Settler extends Figure {
             p2.setPair(p1);
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        } else {
+            TestLogger.functionReturned(String.valueOf(false));
+            return false;
         }
-        TestLogger.functionReturned();
     }
 
     public boolean buildRobot() {
@@ -67,8 +71,6 @@ public class Settler extends Figure {
             else materials.put(m, this.inventory.getMaterials().get(m));
         }
         if (!billOfRobot.hasEnoughMaterial(materials)) {
-            //TODO loggert kijavitani
-            //System.out.println(false);
             TestLogger.functionReturned(String.valueOf(false));
             return false;
         }
@@ -83,7 +85,6 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterial(this.asteroid.summarizeMaterials())) {
-            //TODO PAY
             //TODO: WIN!
             TestLogger.functionReturned(String.valueOf(true));
             return true;
@@ -105,8 +106,6 @@ public class Settler extends Figure {
         return false;
     }
 
-
-    //Javítja, elvileg kész
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         if (this.asteroid.coreChanged(m)) {
