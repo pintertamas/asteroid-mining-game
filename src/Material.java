@@ -5,6 +5,8 @@ public abstract class Material {
     }
 
     protected void readyToMine() {
+        TestLogger.functionCalled(this, "readyToMine()", "void");
+        TestLogger.functionReturned();
     }
 
     public void addToInventory(Settler s) {
