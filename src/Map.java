@@ -129,9 +129,13 @@ public class Map {
 
     public boolean checkGameEnd(){
         TestLogger.functionCalled(this, "checkGameEnd", "boolean");
-
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        if(checkIfWinnable() == false) {
+            gameState = GameState.LOST;
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     public boolean checkIfWinnable(){
@@ -141,9 +145,18 @@ public class Map {
         return true;
     }
 
-    public void SetupRound(){
+    public void setupRound(){
         TestLogger.functionCalled(this, "SetupRound", "void");
-
+        if(stormComing()) {
+            for(Asteroid a : asteroids) {
+                a.handleFigures();
+            }
+        }
+        else {
+            for(Asteroid a : asteroids) {
+                a.invokeFigures();
+            }
+        }
         TestLogger.functionReturned();
     }
 
@@ -155,14 +168,23 @@ public class Map {
 
     public boolean stormComing(){
         TestLogger.functionCalled(this, "stormComing", "boolean");
-
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        Random rand = new Random();
+        int stormNumber = rand.nextInt(200);
+        if(stormNumber == 100) {
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
+
 
     public void reset(){
         TestLogger.functionCalled(this, "reset", "void");
-
+        for(Asteroid a : asteroids) {
+            a.resetStep();
+        }
         TestLogger.functionReturned();
     }
 }
+

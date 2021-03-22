@@ -40,7 +40,7 @@ public class Settler extends Figure {
 
     }
 
-    public void buildPortal() {
+    public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "void");
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
@@ -51,15 +51,19 @@ public class Settler extends Figure {
             p2.setPair(p1);
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
-        TestLogger.functionReturned();
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
-    public void buildRobot() {
+    public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
         TestLogger.functionReturned();
         Robot r = new Robot(this.asteroid, false);
         //TODO Van-e elég pénz és ha igen akkor levonni.
+        return true;
     }
 
     public boolean buildBase() {

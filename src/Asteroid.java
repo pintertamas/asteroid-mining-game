@@ -61,9 +61,8 @@ public class Asteroid {
                 if (isNearSun) {
                     material.readyToMine();
                 }
-
             }
-            TestLogger.functionReturned(String.valueOf(true));
+            TestLogger.functionReturned(String.valueOf(false));
             return false;
         }
         TestLogger.functionReturned(String.valueOf(true));
