@@ -31,20 +31,19 @@ public class Asteroid {
         for (Figure f : figures) {
             f.onExplosion();
         }
+        TestLogger.functionReturned();
     }
 
     public void addFigure(Figure f) {
         TestLogger.functionCalled(this, "addFigure", f.getClass().getName() + " " + f, "void");
-        TestLogger.functionReturned();
-
         this.figures.add(f);
+        TestLogger.functionReturned();
     }
 
     public void removeFigure(Figure f) {
         TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
-        TestLogger.functionReturned();
-
         this.figures.remove(f);
+        TestLogger.functionReturned();
     }
 
     public void setMaterial(Material m) {
@@ -95,8 +94,8 @@ public class Asteroid {
 
     public void decreaseLayers() {
         TestLogger.functionCalled(this, "decreaseLayers", "void");
-        TestLogger.functionReturned();
         this.layers--;
+        TestLogger.functionReturned();
     }
 
     public void addPortal(Portal p) {
@@ -145,7 +144,6 @@ public class Asteroid {
     public ArrayList<Asteroid> getNeighbors() {
         TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Asteroid>");
         TestLogger.functionReturned(neighbors.toString());
-
         return neighbors;
     }
 

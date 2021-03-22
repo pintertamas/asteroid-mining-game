@@ -9,12 +9,8 @@ public abstract class Material {
 
     public void addToInventory(Settler s) {
         TestLogger.functionCalled(this, "addToInventory", "Settler s", "void");
-        try{
-            s.getInventory().addMaterial(this);
-        }catch (NullPointerException e){}
-
+        s.getInventory().addMaterial(this);
         TestLogger.functionReturned();
-
     }
 
     protected abstract boolean isCompatibleWith();
@@ -22,6 +18,4 @@ public abstract class Material {
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
     }
-
-    public abstract void addToList(Material coal, Material iron, Material uranium, Material Ice, Settler s);
 }
