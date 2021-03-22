@@ -7,3 +7,4 @@ public class BillOfPortal extends BillOfMaterials {
         this.bill.put(Uranium.class, 1);
     }
 }
+
