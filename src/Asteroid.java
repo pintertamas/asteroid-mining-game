@@ -24,6 +24,10 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    public int getLayers() {
+        return layers;
+    }
+
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
         TestLogger.functionReturned();
