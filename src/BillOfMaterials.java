@@ -10,8 +10,10 @@ public abstract class BillOfMaterials {
 
     public boolean hasEnoughMaterial(HashMap<Class<?>, Integer> inventoryMaterials) {
         TestLogger.functionCalled(this, "hasEnoughMaterial", "boolean");
-        if (inventoryMaterials.isEmpty())
+        if (inventoryMaterials.isEmpty()) {
+            TestLogger.functionReturned(String.valueOf(false));
             return false;
+        }
         for (Class<?> m : inventoryMaterials.keySet()) {
             if (bill.get(m) > inventoryMaterials.get(m)) {
                 TestLogger.errorMessage("Insufficient materials!");

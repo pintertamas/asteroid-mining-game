@@ -87,9 +87,9 @@ public class Asteroid {
 
     public boolean coreChanged(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
-        TestLogger.functionReturned(String.valueOf(true));
         if (this.isHollow) {
             setMaterial(m);
+            isHollow = true;
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
@@ -106,10 +106,6 @@ public class Asteroid {
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portal.add(p);
-        if (p.getPair().getAsteroid() != null) {
-            this.addNeighbor(p.getAsteroid());
-            p.getAsteroid().addNeighbor(this);
-        }
         TestLogger.functionReturned();
     }
 

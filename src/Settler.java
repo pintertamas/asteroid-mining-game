@@ -53,9 +53,10 @@ public class Settler extends Figure {
             this.inventory.addPortal(p2);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
+        } else {
+            TestLogger.functionReturned(String.valueOf(false));
+            return false;
         }
-        TestLogger.functionReturned(String.valueOf(false));
-        return false;
     }
 
     public boolean buildRobot() {
@@ -91,8 +92,6 @@ public class Settler extends Figure {
         return false;
     }
 
-
-    //Javítja, elvileg kész
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         if (this.asteroid.coreChanged(m)) {
