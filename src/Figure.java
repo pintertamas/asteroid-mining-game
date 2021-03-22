@@ -24,7 +24,6 @@ public abstract class Figure {
 
     public abstract void onExplosion();
 
-
     //TODO Ez így jó?
     public void die() {
         TestLogger.functionCalled(this, "die", "void");

@@ -8,12 +8,7 @@ public class Ice extends Material {
     }
 
     @Override
-    protected boolean isCompatibleWith() {
+    protected boolean isCompatibleWith(Material m) {
         return false;
-    }
-
-    @Override
-    public void addToList(Material coal, Material iron, Material uranium, Material ice, Settler s) {
-        s.getBillOfMaterials().addMaterial(ice);
     }
 }

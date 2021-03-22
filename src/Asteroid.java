@@ -87,8 +87,10 @@ public class Asteroid {
         TestLogger.functionReturned(String.valueOf(true));
         if (this.isHollow) {
             setMaterial(m);
+            TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
+        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 

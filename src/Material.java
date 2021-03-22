@@ -13,7 +13,7 @@ public abstract class Material {
         TestLogger.functionReturned();
     }
 
-    protected abstract boolean isCompatibleWith();
+    protected abstract boolean isCompatibleWith(Material m);
 
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
