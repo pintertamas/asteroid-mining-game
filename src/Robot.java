@@ -24,10 +24,8 @@ public class Robot extends Figure {
 
     public Asteroid chooseNextDestination() {
         TestLogger.functionCalled(this, "chooseNextDestination", "void");
-        Random rand = new Random();
-        int a1 = rand.nextInt((asteroid.getNeighbors().size()));
-        Asteroid ast = asteroid.getNeighbors().get(a1);
-        TestLogger.functionReturned(asteroid.toString());
+        Asteroid ast = new Asteroid(new Iron(), 3, false, true);
+        TestLogger.functionReturned(ast.toString());
         return ast;
     }
 

@@ -40,5 +40,6 @@ public abstract class BillOfMaterials {
         TestLogger.functionCalled(this, "pay", "HashMap<Class<?>, Integer> inventoryMaterials", "void");
         assert hasEnoughMaterial(inventoryMaterials);
         inventoryMaterials.replaceAll((material, value) -> value - bill.get(material));
+        TestLogger.functionReturned();
     }
 }

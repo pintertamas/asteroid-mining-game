@@ -25,9 +25,11 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "mine", "boolean");
         if (asteroid.mined(this)) {
             setRoundFinished(true);
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     @Override
