@@ -30,18 +30,18 @@ public class Settler extends Figure {
             if (kb.hasNextInt()) {
                 neighborChoice = kb.nextInt();
             }
-        }
-        if (neighborChoice == -1) {
-            System.out.println("Move NOT done, back");
-            return;
-        }
-        else {
-            this.asteroid.removeFigure(this);
-            neighbors.get(neighborChoice).addFigure(this);
-            this.setAsteroid(neighbors.get(neighborChoice));
-            this.setRoundFinished(true);
-            TestLogger.functionReturned();
-            System.out.println("Move done");
+            if (neighborChoice == -1) {
+                System.out.println("Move NOT done, back");
+                return;
+            }
+            else {
+                this.asteroid.removeFigure(this);
+                neighbors.get(neighborChoice).addFigure(this);
+                this.setAsteroid(neighbors.get(neighborChoice));
+                this.setRoundFinished(true);
+                TestLogger.functionReturned();
+                System.out.println("Move done");
+            }
         }
     }
 
@@ -134,7 +134,7 @@ public class Settler extends Figure {
 
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
-        if (this.asteroid.coreChanged(m)) {
+        if (this.asteroid.setMaterial(m)) {
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));

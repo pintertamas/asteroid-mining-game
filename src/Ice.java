@@ -5,9 +5,4 @@ public class Ice extends Material {
         asteroid.setIsHollow(true);
         TestLogger.functionReturned();
     }
-
-    @Override
-    protected boolean isCompatibleWith(Material m) {
-        return false;
-    }
 }

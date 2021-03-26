@@ -58,12 +58,6 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    public void setMaterial(Material m) {
-        TestLogger.functionCalled(this, "setMaterial", m.getClass().getName() + " " + m, "void");
-        this.material = m;
-        TestLogger.functionReturned();
-    }
-
     public boolean drilled() {
         TestLogger.functionCalled(this, "drilled", "boolean");
         if (this.layers > 0) {
@@ -82,7 +76,7 @@ public class Asteroid {
 
     public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "boolean");
-        if (this.layers == 0 && this.isHollow == false) {
+        if (this.layers == 0 && !this.isHollow) {
             material.addToInventory(s);
             setIsHollow(true);
             TestLogger.functionReturned(String.valueOf(true));
@@ -93,16 +87,16 @@ public class Asteroid {
 
     }
 
-    public boolean coreChanged(Material m) {
+    public boolean setMaterial(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
         if (this.isHollow) {
-            setMaterial(m);
-            isHollow = true;
-            TestLogger.functionReturned(String.valueOf(true));
-            return true;
+            this.material = m;
+            isHollow = false;
+            TestLogger.functionReturned(String.valueOf(false));
+            return false;
         }
-        TestLogger.functionReturned(String.valueOf(false));
-        return false;
+        TestLogger.functionReturned(String.valueOf(true));
+        return true;
     }
 
     public void decreaseLayers() {
@@ -138,9 +132,9 @@ public class Asteroid {
     }
 
     public Figure pickNextFigure(){
-        for(int i = 0; i < figures.size(); i++){
-            if(!figures.get(i).getRoundFinished())
-                return figures.get(i);
+        for (Figure figure : figures) {
+            if (!figure.getRoundFinished())
+                return figure;
         }
         return null;
     }

@@ -4,12 +4,12 @@ import java.util.HashMap;
 public class Inventory {
     private final ArrayList<Portal> portals;
     private final HashMap<Class<?>, Integer> materials;
-    private final int inventoryCapacity;
+    private final int capacity;
 
     public Inventory() {
         this.portals = new ArrayList<>();
         this.materials = new HashMap<>();
-        this.inventoryCapacity = 10;
+        this.capacity = 10;
     }
 
     private boolean isInventoryFull() {
@@ -18,8 +18,8 @@ public class Inventory {
         for (Class<?> m : materials.keySet()) {
             itemCount += materials.get(m);
         }
-        TestLogger.functionReturned(String.valueOf(itemCount >= inventoryCapacity));
-        return itemCount >= inventoryCapacity;
+        TestLogger.functionReturned(String.valueOf(itemCount >= capacity));
+        return itemCount >= capacity;
     }
 
     public void addMaterial(Material m) {

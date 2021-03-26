@@ -5,9 +5,4 @@ public class Uranium extends Material {
         asteroid.explode();
         TestLogger.functionReturned();
     }
-
-    @Override
-    protected boolean isCompatibleWith(Material m) {
-        return true;
-    }
 }
