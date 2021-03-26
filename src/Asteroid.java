@@ -24,6 +24,14 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    public Material getMaterial() {
+        return this.material;
+    }
+
+    public ArrayList<Figure> getFigures() {
+        return this.figures;
+    }
+
     public int getLayers() {
         return layers;
     }

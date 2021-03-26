@@ -3,6 +3,7 @@ import java.util.Stack;
 
 public class TestLogger {
     public static Stack<String> activeFunctionCalls = new Stack<>();
+    public static boolean showTests = false;
 
     private static void printTabs(int numberOfIterations) {
         for (int i = 0; i < numberOfIterations; i++)
@@ -10,31 +11,39 @@ public class TestLogger {
     }
 
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
-        printTabs(activeFunctionCalls.size());
-        System.out.print(activeFunctionCalls.size() + " ");
-        String functionCall = t.getClass().getName() + " " + t + " " + funcName + "(" + param + ")";
-        System.out.println(functionCall + ": " + returnType);
-        activeFunctionCalls.push(functionCall);
+        if (showTests) {
+            printTabs(activeFunctionCalls.size());
+            System.out.print(activeFunctionCalls.size() + " ");
+            String functionCall = t.getClass().getName() + " " + t + " " + funcName + "(" + param + ")";
+            System.out.println(functionCall + ": " + returnType);
+            activeFunctionCalls.push(functionCall);
+        }
     }
 
     public static <T> void functionCalled(T t, String funcName, String returnType) {
-        printTabs(activeFunctionCalls.size());
-        System.out.print(activeFunctionCalls.size() + " ");
-        String functionCall = t.getClass().getName() + " " + t + " " + funcName + "()";
-        System.out.println(functionCall + ": " + returnType);
-        activeFunctionCalls.push(functionCall);
+        if (showTests) {
+            printTabs(activeFunctionCalls.size());
+            System.out.print(activeFunctionCalls.size() + " ");
+            String functionCall = t.getClass().getName() + " " + t + " " + funcName + "()";
+            System.out.println(functionCall + ": " + returnType);
+            activeFunctionCalls.push(functionCall);
+        }
     }
 
     public static void functionReturned(String returned) {
-        printTabs(activeFunctionCalls.size() - 1);
-        System.out.print(activeFunctionCalls.size() - 1 + " ");
-        System.out.println(activeFunctionCalls.pop() + " returned: " + returned);
+        if (showTests) {
+            printTabs(activeFunctionCalls.size() - 1);
+            System.out.print(activeFunctionCalls.size() - 1 + " ");
+            System.out.println(activeFunctionCalls.pop() + " returned: " + returned);
+        }
     }
 
     public static void functionReturned() {
-        printTabs(activeFunctionCalls.size() - 1);
-        System.out.print(activeFunctionCalls.size() - 1 + " ");
-        System.out.println(activeFunctionCalls.pop() + " returned");
+        if (showTests) {
+            printTabs(activeFunctionCalls.size() - 1);
+            System.out.print(activeFunctionCalls.size() - 1 + " ");
+            System.out.println(activeFunctionCalls.pop() + " returned");
+        }
     }
 
     public static boolean ask(String question) {

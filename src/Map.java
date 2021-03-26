@@ -39,6 +39,9 @@ public class Map {
         return true;
     }
 
+    public ArrayList<Asteroid> getAsteroids() {
+        return this.asteroids;
+    }
 
     public void initGame(int numberOfPlayers) {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
@@ -47,9 +50,10 @@ public class Map {
         double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
         for (int i = 0; i < numberOfAsteroids; i++) {
             Random rand = new Random();
-            int typeOfAsteroid = rand.nextInt(3);
+            int typeOfAsteroid = rand.nextInt(4);
             int numberOfLayers = rand.nextInt(5);
             Material m;
+            System.out.println("Sorosolt szám: " + typeOfAsteroid + "\n");
             switch (typeOfAsteroid) {
                 case 0:
                     m = new Iron();
@@ -60,7 +64,7 @@ public class Map {
                 case 3:
                     m = new Uranium();
                 default:
-                    m = new Iron();
+                    m = new Uranium();
             }
             int boolOfSun = rand.nextInt(1);
             boolean sun;
@@ -77,7 +81,7 @@ public class Map {
         }
 
         for (int i = 0; i < numberOfAsteroids; i++) {
-            if (i != numberOfAsteroids - 1) {
+            if (i < numberOfAsteroids - 1) {
                 asteroids.get(i).addNeighbor(asteroids.get(i + 1));
                 asteroids.get(i + 1).addNeighbor(asteroids.get(i));
             } else {
