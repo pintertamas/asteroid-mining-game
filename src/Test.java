@@ -174,7 +174,7 @@ public class Test {
         s.putMaterialBack(iron);
     }
 
-    void test21() {
+    void test21() {i
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         s.putMaterialBack(new Iron());
