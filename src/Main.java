@@ -9,6 +9,9 @@ public class Main {
         Map m = new Map();
         //menu.run()
 
+        //Tesztek kiírásának be/kikakpcsolása
+        //TestLogger.setShow(true);
+
         //Játék előkészítése:
         System.out.println("Adja meg a játékosok számát, 1-től 4-ig");
         Scanner kb = new Scanner(System.in);
@@ -24,37 +27,10 @@ public class Main {
             }
         }
 
-        //Játék betöltése:
+        //Játék iniciaizálása:
         m.initGame(numOfPlayers);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        /*
+        //init ellenőrzése
         System.out.println(m.getAsteroids());
         for(Asteroid a : m.getAsteroids()) {
             System.out.println("Layerek száma: " +  a.getLayers() + " A magja: " + a.getMaterial());
@@ -62,6 +38,8 @@ public class Main {
                 System.out.println(f + "Asteroidája: " + f.getAsteroid());
             }
         }
+         */
 
+        m.setupRound();
     }
 }

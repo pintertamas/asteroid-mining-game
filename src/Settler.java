@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Settler extends Figure {
     private final Inventory inventory;
@@ -13,13 +14,37 @@ public class Settler extends Figure {
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
-        this.asteroid.removeFigure(this);
-        if (neighbors.size() > 0) {
-            neighbors.get(0).addFigure(this);
-            this.setAsteroid(neighbors.get(0));
+        if(neighbors.size() == 0){
+            System.out.println("The current asteroid has no neighbors so it is not possible to move :(");
+            return;
+        }
+        System.out.println("Neighbors of the current asteroid: ");
+        for (int i = 0; i < neighbors.size(); i++) {
+            System.out.println(i + " - " + neighbors.get(i));
+        }
+        int neighborChoice = -2;
+        System.out.println("Pick an asteroid by its number:");
+        Scanner kb = new Scanner(System.in);
+        while (neighborChoice <= -1 || neighborChoice >= neighbors.size() - 1) {
+            System.out.println("Pick an asteroid by its number:");
+            kb = new Scanner(System.in);
+
+            if (kb.hasNextInt()) {
+                neighborChoice = kb.nextInt();
+            }
+        }
+        if (neighborChoice == -1) {
+            System.out.println("Move NOT done, back");
+            return;
+        }
+        else {
+            this.asteroid.removeFigure(this);
+            neighbors.get(neighborChoice).addFigure(this);
+            this.setAsteroid(neighbors.get(neighborChoice));
             this.setRoundFinished(true);
-        } else TestLogger.errorMessage("No neighbors found!");
-        TestLogger.functionReturned();
+            TestLogger.functionReturned();
+            System.out.println("Move done");
+        }
     }
 
     public boolean mine() {
@@ -27,9 +52,11 @@ public class Settler extends Figure {
         if (asteroid.mined(this)) {
             setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("Mine done");
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        System.out.println("Mine NOT done");
         return false;
     }
 
@@ -133,6 +160,37 @@ public class Settler extends Figure {
     @Override
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
-        TestLogger.functionReturned();
+        while(!this.roundFinished){
+            System.out.println("What would you like to do?");
+            System.out.println("0 - drill");
+            System.out.println("1 - mine");
+            System.out.println("2 - move");
+            System.out.println("3 - build");
+            System.out.println("4 - put down portal");
+            System.out.println("5 - put back material");
+            Scanner kb = new Scanner(System.in);
+            int choice = 0;
+            if(kb.hasNextInt()) {
+                choice = kb.nextInt();
+            }
+            switch (choice) {
+                case 0:
+                    drill();
+                    break;
+                case 1:
+                    mine();
+                    break;
+                case 2:
+                    move();
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
+            }
+
+
+            TestLogger.functionReturned();
+        }
     }
 }

@@ -139,7 +139,12 @@ public class Asteroid {
 
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
-        for (Figure f : figures) {
+        for(int i = 0; i < figures.size(); i++) {
+            Figure f = figures.get(i);
+            if (f.getRoundFinished()) {
+                return;
+            }
+            System.out.println(f + " is going to step now. ");
             f.step();
         }
         TestLogger.functionReturned();

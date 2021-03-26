@@ -10,6 +10,10 @@ public class TestLogger {
             System.out.print("\t");
     }
 
+    public static void setShow(boolean showTests){
+        //this.showTests = showTests;
+    }
+
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
         if (showTests) {
             printTabs(activeFunctionCalls.size());

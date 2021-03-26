@@ -53,16 +53,19 @@ public class Map {
             int typeOfAsteroid = rand.nextInt(4);
             int numberOfLayers = rand.nextInt(5);
             Material m;
-            System.out.println("Sorosolt szám: " + typeOfAsteroid + "\n");
             switch (typeOfAsteroid) {
                 case 0:
                     m = new Iron();
+                    break;
                 case 1:
                     m = new Coal();
+                    break;
                 case 2:
                     m = new Ice();
+                    break;
                 case 3:
                     m = new Uranium();
+                    break;
                 default:
                     m = new Uranium();
             }
@@ -71,8 +74,10 @@ public class Map {
             switch (boolOfSun) {
                 case 0:
                     sun = false;
+                    break;
                 case 1:
                     sun = true;
+                    break;
                 default:
                     sun = true;
             }

@@ -12,6 +12,8 @@ public abstract class Figure {
         return this.asteroid;
     }
 
+    public boolean getRoundFinished(){return this.roundFinished;}
+
     public abstract void move();
 
     public boolean drill() {
@@ -19,6 +21,7 @@ public abstract class Figure {
         if (asteroid.drilled()) {
             setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("Drill done");
             return true;
         }
 
