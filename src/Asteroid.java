@@ -82,7 +82,7 @@ public class Asteroid {
 
     public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "boolean");
-        if (this.layers == 0) {
+        if (this.layers == 0 && this.isHollow == false) {
             material.addToInventory(s);
             setIsHollow(true);
             TestLogger.functionReturned(String.valueOf(true));
@@ -139,13 +139,13 @@ public class Asteroid {
 
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
-        for(int i = 0; i < figures.size(); i++) {
-            Figure f = figures.get(i);
-            if (f.getRoundFinished()) {
-                return;
+        ArrayList<Figure> initialFigures = figures;
+        for(int i = 0; i < initialFigures.size(); i++) {
+            Figure f = initialFigures.get(i);
+            if (!f.getRoundFinished()) {
+                System.out.println(f + " is going to step now. ");
+                f.step();
             }
-            System.out.println(f + " is going to step now. ");
-            f.step();
         }
         TestLogger.functionReturned();
     }

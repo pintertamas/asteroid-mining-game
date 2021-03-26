@@ -23,11 +23,9 @@ public class Settler extends Figure {
             System.out.println(i + " - " + neighbors.get(i));
         }
         int neighborChoice = -2;
-        System.out.println("Pick an asteroid by its number:");
-        Scanner kb = new Scanner(System.in);
-        while (neighborChoice <= -1 || neighborChoice >= neighbors.size() - 1) {
+        while (neighborChoice <= -1 || neighborChoice > neighbors.size() - 1) {
             System.out.println("Pick an asteroid by its number:");
-            kb = new Scanner(System.in);
+            Scanner kb = new Scanner(System.in);
 
             if (kb.hasNextInt()) {
                 neighborChoice = kb.nextInt();
@@ -188,8 +186,6 @@ public class Settler extends Figure {
                 default:
                     break;
             }
-
-
             TestLogger.functionReturned();
         }
     }

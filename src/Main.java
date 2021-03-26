@@ -20,7 +20,7 @@ public class Main {
             numOfPlayers = kb.nextInt();
         }
 
-        while (1 >= numOfPlayers || numOfPlayers >= 4) {
+        while (1 > numOfPlayers || numOfPlayers > 4) {
             kb = new Scanner(System.in);
             if(kb.hasNextInt()) {
                 numOfPlayers = kb.nextInt();

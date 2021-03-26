@@ -24,7 +24,7 @@ public abstract class Figure {
             System.out.println("Drill done");
             return true;
         }
-
+        System.out.println("Drill NOT done");
         TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
