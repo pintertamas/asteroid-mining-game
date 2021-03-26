@@ -1,4 +1,4 @@
-public abstract class Figure {
+public abstract class Figure implements ISteppable, IPortalMove, IMove{
     protected Asteroid asteroid;
     protected boolean roundFinished;
 
@@ -12,9 +12,13 @@ public abstract class Figure {
         return this.asteroid;
     }
 
-    public boolean getRoundFinished(){return this.roundFinished;}
-
     public abstract void move();
+
+    public abstract void moveThroughPortal();
+
+    public abstract void step();
+
+    public boolean getRoundFinished(){return this.roundFinished;}
 
     public boolean drill() {
         TestLogger.functionCalled(this, "drill", "boolean");
@@ -42,8 +46,6 @@ public abstract class Figure {
     protected Inventory getInventory() {
         return new Inventory();
     }
-
-    public abstract void step();
 
     public void setAsteroid(Asteroid asteroid) {
         TestLogger.functionCalled(this, "setAsteroid", "Asteroid asteroid", "void");

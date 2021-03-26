@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Settler extends Figure {
+public class Settler extends Figure implements IMine, IDrill {
     private final Inventory inventory;
 
     public Settler(Asteroid asteroid, boolean roundFinished) {
@@ -10,7 +10,6 @@ public class Settler extends Figure {
         this.inventory = new Inventory();
     }
 
-    @Override
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
@@ -155,7 +154,6 @@ public class Settler extends Figure {
         TestLogger.functionReturned();
     }
 
-    @Override
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
         while(!this.roundFinished){
@@ -188,5 +186,9 @@ public class Settler extends Figure {
             }
             TestLogger.functionReturned();
         }
+    }
+
+    public void moveThroughPortal() {
+        ;
     }
 }

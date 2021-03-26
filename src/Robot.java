@@ -6,7 +6,6 @@ public class Robot extends Figure {
         super(asteroid, roundFinished);
     }
 
-    @Override
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         Asteroid a = chooseNextDestination();
@@ -29,7 +28,10 @@ public class Robot extends Figure {
         return ast;
     }
 
-    @Override
+    public void moveThroughPortal() {
+        ;
+    }
+
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
         if(asteroid.getLayers() == 0) {
