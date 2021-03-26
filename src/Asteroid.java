@@ -137,15 +137,21 @@ public class Asteroid {
         return materials;
     }
 
+    public Figure pickNextFigure(){
+        for(int i = 0; i < figures.size(); i++){
+            if(!figures.get(i).getRoundFinished())
+                return figures.get(i);
+        }
+        return null;
+    }
+
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
-        ArrayList<Figure> initialFigures = figures;
-        for(int i = 0; i < initialFigures.size(); i++) {
-            Figure f = initialFigures.get(i);
-            if (!f.getRoundFinished()) {
-                System.out.println(f + " is going to step now. ");
-                f.step();
-            }
+        Figure f = pickNextFigure();
+        while(f != null){
+            System.out.println(f + " is going to step now. ");
+            f.step();
+            f = pickNextFigure();
         }
         TestLogger.functionReturned();
     }
