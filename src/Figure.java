@@ -8,6 +8,10 @@ public abstract class Figure {
         this.roundFinished = roundFinished;
     }
 
+    public Asteroid getAsteroid() {
+        return this.asteroid;
+    }
+
     public abstract void move();
 
     public boolean drill() {

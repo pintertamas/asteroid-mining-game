@@ -62,7 +62,6 @@ public class Settler extends Figure {
 
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
-
         BillOfRobot billOfRobot = new BillOfRobot();
         HashMap<Class<?>, Integer> materials = new HashMap<>();
         for (Class<?> m : this.inventory.getMaterials().keySet()) {
@@ -77,6 +76,7 @@ public class Settler extends Figure {
 
         billOfRobot.pay(billOfRobot.bill);
         Robot r = new Robot(this.asteroid, false);
+        r.setRoundFinished(true);
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
@@ -99,6 +99,7 @@ public class Settler extends Figure {
         if (p.size() == 2 || p.size() == 1) {
             this.asteroid.addPortal(p.get(0));
             this.inventory.removePortal(p.get(0));
+            this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
@@ -110,6 +111,7 @@ public class Settler extends Figure {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         if (this.asteroid.coreChanged(m)) {
             this.inventory.removeMaterial(m);
+            this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
