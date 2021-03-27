@@ -104,13 +104,15 @@ public class Settler extends Figure implements IMine, IDrill {
             else materials.put(m, this.inventory.getMaterials().get(m));
         }
         if (!billOfRobot.hasEnoughMaterial(materials)) {
+            System.out.println("Build robot NOT done.");
             TestLogger.functionReturned(String.valueOf(false));
             return false;
         }
 
         billOfRobot.pay(billOfRobot.getBill());
-        Robot r = new Robot(this.asteroid, false);
-        r.setRoundFinished(true);
+        Robot r = new Robot(this.asteroid, true);
+        this.setRoundFinished(true);
+        System.out.println("Build robot done.");
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
@@ -263,6 +265,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     private void build() {
         System.out.println("What do you want to build?");
+        System.out.println("0 - Nothing");
         System.out.println("1 - Build Portal");
         System.out.println("2 - Build Robot");
         System.out.println("3 - Build Base");
