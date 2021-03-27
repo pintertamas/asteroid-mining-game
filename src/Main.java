@@ -39,7 +39,7 @@ public class Main {
                 a.resetStep();
             }
             m.setupRound();
-            System.out.println("---------ROUND ENDED----------");
+            System.out.println("\n---------ROUND ENDED----------\n");
         }
     }
 }
