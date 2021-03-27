@@ -11,10 +11,11 @@ import java.util.ArrayList;
  * Aszteroida osztály.
  */
 public class Asteroid {
+    private Map map;
     private final ArrayList<Asteroid> neighbors;
     private final ArrayList<Figure> figures;
     private Material material;
-    private final ArrayList<Portal> portal;
+    private final ArrayList<Portal> portals;
 
     int layers;
     final boolean isNearSun;
@@ -22,6 +23,29 @@ public class Asteroid {
 
     /**
      * Konstruktor.
+     *
+     * @param map
+     * @param material
+     * @param layers
+     * @param isNearSun
+     * @param isHollow
+     */
+    public Asteroid(Map map, Material material, int layers, boolean isNearSun, boolean isHollow) {
+        TestLogger.functionCalled(this, "Playground.Asteroid", "void");
+        this.map = map;
+        this.figures = new ArrayList<>();
+        this.portals = new ArrayList<>();
+        this.neighbors = new ArrayList<>();
+        this.material = material;
+        material.setAsteroid(this);
+        this.layers = layers;
+        this.isNearSun = isNearSun;
+        this.isHollow = isHollow;
+        TestLogger.functionReturned();
+    }
+
+    /**
+     * Map nélküli konstruktor.
      *
      * @param material
      * @param layers
@@ -31,7 +55,7 @@ public class Asteroid {
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
         TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.figures = new ArrayList<>();
-        this.portal = new ArrayList<>();
+        this.portals = new ArrayList<>();
         this.neighbors = new ArrayList<>();
         this.material = material;
         material.setAsteroid(this);
@@ -47,7 +71,7 @@ public class Asteroid {
      * @return
      */
     public ArrayList<Portal> getPortals() {
-        return portal;
+        return portals;
     }
 
     /**
@@ -87,6 +111,16 @@ public class Asteroid {
             if (figures.isEmpty())
                 break;
         }
+        for (Asteroid neighbor : getNeighbors()) {
+            neighbor.removeNeighbor(this);
+        }
+        for (Portal portal : getPortals()) {
+            portal.getPair().getAsteroid().removePortal(portal.getPair());
+            portal.getPair().setPair(null);
+            portal.setPair(null);
+            this.removePortal(portal);
+        }
+        this.map.removeAsteroid(this);
         System.out.println("Asteroid exploded");
         TestLogger.functionReturned();
     }
@@ -187,7 +221,13 @@ public class Asteroid {
      */
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
-        this.portal.add(p);
+        this.portals.add(p);
+        TestLogger.functionReturned();
+    }
+
+    public void removePortal(Portal p) {
+        TestLogger.functionCalled(this, "removePortal", p.getClass().getName() + " " + p, "void");
+        this.portals.remove(p);
         TestLogger.functionReturned();
     }
 
@@ -200,6 +240,15 @@ public class Asteroid {
         TestLogger.functionCalled(this, "addNeighbor", "Playground.Asteroid a", "void");
         this.neighbors.add(a);
         TestLogger.functionReturned();
+    }
+
+    /**
+     * Kitörli az egyik szomszédját az aszteroidának
+     *
+     * @param neighbor
+     */
+    public void removeNeighbor(Asteroid neighbor) {
+        neighbors.remove(neighbor);
     }
 
     /**
@@ -222,7 +271,7 @@ public class Asteroid {
      *
      * @return
      */
-    public Figure pickNextFigure(){
+    public Figure pickNextFigure() {
         for (Figure figure : figures) {
             if (!figure.getRoundFinished())
                 return figure;
@@ -236,7 +285,7 @@ public class Asteroid {
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
-        while(f != null){
+        while (f != null) {
             System.out.println(f + " is going to step now.");
             f.step();
             f = pickNextFigure();
