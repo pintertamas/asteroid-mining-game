@@ -93,7 +93,7 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     public boolean buildRobot() {
-        TestLogger.functionCalled(this, "buildRobot", "void");
+        TestLogger.functionCalled(this, "buildRobot", "boolean");
         BillOfRobot billOfRobot = new BillOfRobot();
 
         if (!billOfRobot.hasEnoughMaterials(this.getInventory().getMaterials())) {
@@ -109,7 +109,7 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     public boolean buildBase() {
-        TestLogger.functionCalled(this, "buildBase", "void");
+        TestLogger.functionCalled(this, "buildBase", "boolean");
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
             //TODO: WIN!

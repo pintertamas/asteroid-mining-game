@@ -1,6 +1,9 @@
 package Bills;
 import Materials.*;
 
+/** A bázis megépítéséhez tartozó recept.
+ * A BillOfMaterials leszármazottja.
+ */
 public class BillOfBase extends BillOfMaterials {
 
     public BillOfBase() {
