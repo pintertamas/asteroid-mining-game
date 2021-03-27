@@ -76,7 +76,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
-        if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
+        if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials()) && this.inventory.getPortals().size() <= 1) {
             billOfPortal.pay(billOfPortal.getBill());
             Portal p1 = new Portal();
             Portal p2 = new Portal();
@@ -85,9 +85,11 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
             TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("Build portal done.");
             return true;
         } else {
             TestLogger.functionReturned(String.valueOf(false));
+            System.out.println("Build portal NOT done.");
             return false;
         }
     }
@@ -133,9 +135,11 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("Put portal done.");
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        System.out.println("Put portal NOT done.");
         return false;
     }
 
@@ -145,14 +149,16 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("Put material back done.");
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        System.out.println("Put material back NOT done.");
         return false;
     }
 
     public Material chooseMaterial() {
-        return new Iron(); // TODO
+        return new Iron();
     }
 
     @Override
