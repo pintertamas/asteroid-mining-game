@@ -305,9 +305,9 @@ public class Map {
      */
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
-        if (manual == false) {
+        if (!manual) {
             for (Asteroid a : drawSolarArea()) {
-                if (a.isNearSun == true) {
+                if (a.isNearSun) {
                     a.handleFigures();
                 }
             }
@@ -322,7 +322,7 @@ public class Map {
             }
             if (num == 1) {
                 for (Asteroid a : drawSolarArea()) {
-                    if (a.isNearSun == true) {
+                    if (a.isNearSun) {
                         a.handleFigures();
                     }
                 }
@@ -341,9 +341,7 @@ public class Map {
         Random rand = new Random();
         int asteroidNumber = rand.nextInt(asteroids.size());
         tmp.add(asteroids.get(asteroidNumber));
-        for (Asteroid a : asteroids.get(asteroidNumber).getNeighbors()) {
-            tmp.add(a);
-        }
+        tmp.addAll(asteroids.get(asteroidNumber).getNeighbors());
         return tmp;
     }
 
@@ -430,11 +428,8 @@ public class Map {
     /**
      * Játék vége.
      *
-     * @param b
+     * @param settlersWon
      */
-    public void gameEnd(boolean b) {
-        TestLogger.functionCalled(this, "gameEnd", "boolean b", "void");
-
     public void gameEnd(boolean settlersWon) {
         TestLogger.functionCalled(this, "gameEnd", "boolean settlersWon", "void");
         if (settlersWon)
