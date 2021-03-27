@@ -237,10 +237,10 @@ public class Settler extends Figure implements IMine, IDrill {
                     i++;
                 }
             }
-            Scanner kb = new Scanner(System.in);
+
             int choice = 5;
-            while (choice <= 0 || choice > i) {
-                kb = new Scanner(System.in);
+            while (choice <= 0 || choice >= i) {
+                Scanner kb = new Scanner(System.in);
                 if (kb.hasNextInt()) {
                     choice = kb.nextInt();
                 }
