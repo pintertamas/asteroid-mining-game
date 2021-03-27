@@ -53,6 +53,7 @@ public class Asteroid {
             if (figures.isEmpty())
                 break;
         }
+        System.out.println("Asteroid exploded");
         TestLogger.functionReturned();
     }
 
