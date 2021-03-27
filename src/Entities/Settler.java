@@ -8,6 +8,7 @@ import Playground.*;
 import Test.TestLogger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -19,6 +20,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Konstruktor.
+     *
      * @param asteroid
      * @param roundFinished
      */
@@ -65,6 +67,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Bányászás.
+     *
      * @return
      */
     public boolean mine() {
@@ -82,6 +85,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Visszaadja az Inventory-t.
+     *
      * @return
      */
     @Override
@@ -94,6 +98,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Teleportkapu-pár építés.
+     *
      * @return
      */
     public boolean buildPortal() {
@@ -117,6 +122,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Robot építés.
+     *
      * @return
      */
     public boolean buildRobot() {
@@ -137,6 +143,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Bázis építés.
+     *
      * @return
      */
     public boolean buildBase() {
@@ -153,6 +160,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Teleportkapu lerakása.
+     *
      * @return
      */
     public boolean putPortalDown() {
@@ -171,6 +179,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Nyersanyag visszarakása üres aszteroidába.
+     *
      * @param m
      * @return
      */
@@ -188,10 +197,29 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Nyersanyag kiválasztása az Inventory-ból.
+     *
      * @return
      */
     public Material chooseMaterial() {
-        return new Iron(); // TODO
+        ArrayList<Material> allMaterials = getInventory().getMaterials();
+        System.out.println("Your inventory has the following:");
+        int i = 0;
+        for (Material m : allMaterials) {
+            System.out.println(++i + "\t" + m.getClass().toString().replace("class Materials.", ""));
+        }
+        if (allMaterials.size() == 0) {
+            System.out.println("You don't have any materials!");
+            return null;
+        }
+        Scanner in = new Scanner(System.in);
+        int materialChoice = in.nextInt();
+        if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
+            System.out.println("Not a valid choice, sorry!");
+            return null;
+        }
+        System.out.println("The chosen material is: " +
+                allMaterials.get(materialChoice - 1).getClass().toString().replace("class Materials.", ""));
+        return getInventory().getMaterials().get(materialChoice - 1);
     }
 
     /**
@@ -251,6 +279,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Teleportkapun keresztüli mozgás.
+     *
      * @return
      */
     public boolean moveThroughPortal() {

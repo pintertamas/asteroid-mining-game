@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /** Recept osztály az építésekhez. */
-public abstract class BillOfMaterials {
+public class BillOfMaterials {
     /**
      * Egy ArrayList-ben tároljuk a recepthez szükséges nyersanyagokat.
      */
