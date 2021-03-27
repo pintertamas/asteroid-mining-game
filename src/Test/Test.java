@@ -4,7 +4,13 @@ import Entities.*;
 import Materials.*;
 import Playground.*;
 
+/**
+ * Teszt osztály, a különböző tesztesetek lefuttatásához.
+ */
 public class Test {
+    /**
+     * Move to Neighbor teszt.
+     */
     public void test1() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Iron(), 3, true, false);
@@ -14,54 +20,81 @@ public class Test {
         s.move();
     }
 
+    /**
+     * Drill Asteroid (layers > 1) teszt.
+     */
     public void test2() {
         Asteroid a = new Asteroid(new Iron(), 2, true, false);
         Settler s = new Settler(a, false);
         s.drill();
     }
 
+    /**
+     * Drill Asteroid (layers = 0) teszt.
+     */
     public void test3() {
         Asteroid a = new Asteroid(new Iron(), 0, true, false);
         Settler s = new Settler(a, false);
         s.drill();
     }
 
+    /**
+     * Drill Asteroid with common material (layers = 1) teszt.
+     */
     public void test4() {
         Asteroid a = new Asteroid(new Iron(), 1, true, false);
         Settler s = new Settler(a, false);
         s.drill();
     }
 
+    /**
+     * Drill Uranium (Settler, layers = 1, nearSun) teszt.
+     */
     public void test5() {
         Asteroid a = new Asteroid(new Uranium(), 1, true, false);
         Settler s = new Settler(a, false);
         s.drill();
     }
 
+    /**
+     * Drill Uranium (Robot, layers = 1, nearSun) teszt.
+     */
     public void test6() {
         Asteroid a = new Asteroid(new Uranium(), 1, true, false);
         Robot r = new Robot(a, false);
         r.drill();
     }
 
+    /**
+     * Drill Ice (layers = 1, nearSun) teszt.
+     */
     public void test7() {
         Asteroid a = new Asteroid(new Ice(), 1, true, false);
         Settler s = new Settler(a, false);
         s.drill();
     }
 
+    /**
+     * Mine Material Layers > 0 teszt.
+     */
     public void test8() {
         Asteroid a = new Asteroid(new Iron(), 1, false, false);
         Settler s = new Settler(a, false);
         s.mine();
     }
 
+    /**
+     * Mine Material Layers = 0 teszt.
+     */
     public void test9() {
         Asteroid a = new Asteroid(new Uranium(), 0, false, false);
         Settler s = new Settler(a, false);
         s.mine();
     }
 
+    /**
+     * Move Settler through Portal teszt.
+     */
     public void test10() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
@@ -81,6 +114,9 @@ public class Test {
         s.move();
     }
 
+    /**
+     * Build Teleport Portal (Enough Material) teszt.
+     */
     public void test11() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -91,12 +127,18 @@ public class Test {
         s.buildPortal();
     }
 
+    /**
+     * Build Teleport Portal (Not Enough Material) teszt.
+     */
     public void test12() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         s.buildPortal();
     }
 
+    /**
+     * Build Base (Enough Material) teszt.
+     */
     public void test13() {
         Asteroid a = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a, true);
@@ -118,12 +160,19 @@ public class Test {
         s2.buildBase();
     }
 
+    /**
+     * Build Base (Not Enough Material) teszt.
+     */
     public void test14() {
         Asteroid a = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a, false);
         s.buildBase();
     }
 
+
+    /**
+     * Storm Kills Player teszt.
+     */
     public void test15() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, false);
@@ -133,6 +182,9 @@ public class Test {
         map.solarStorm();
     }
 
+    /**
+     * Storm Does Not Kill Player teszt.
+     */
     public void test16() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, true);
@@ -142,6 +194,9 @@ public class Test {
         map.solarStorm();
     }
 
+    /**
+     * Put down Portal (Settler has 0 Portals) teszt.
+     */
     public void test17() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -149,6 +204,9 @@ public class Test {
         s.putPortalDown();
     }
 
+    /**
+     * Put down Portal (Settler has 1 Portals) teszt.
+     */
     public void test18() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
@@ -161,6 +219,9 @@ public class Test {
         s.putPortalDown();
     }
 
+    /**
+     * Put down Portal (Settler has 2 Portals) teszt.
+     */
     public void test19() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Portal p1 = new Portal();
@@ -172,6 +233,9 @@ public class Test {
         s.putPortalDown();
     }
 
+    /**
+     * Put Back Material Asteroid Hollow teszt.
+     */
     public void test20() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, true);
         Settler s = new Settler(a1, false);
@@ -180,12 +244,18 @@ public class Test {
         s.putMaterialBack(iron);
     }
 
+    /**
+     * Put Back Material Asteroid Not Hollow teszt.
+     */
     public void test21() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
         s.putMaterialBack(new Iron());
     }
 
+    /**
+     * Build Robot Enough Material teszt.
+     */
     public void test22() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -195,6 +265,9 @@ public class Test {
         s.buildRobot();
     }
 
+    /**
+     * Build Robot Not Enough Material teszt.
+     */
     public void test23() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);

@@ -5,7 +5,14 @@ import Test.TestLogger;
 
 import java.util.Scanner;
 
+/**
+ * Main osztály.
+ */
 public class Main {
+    /**
+     * main függvény.
+     * @param args
+     */
     public static void main(String[] args) {
         //Menu menu = new Menu();
         //menu.run()

@@ -147,9 +147,9 @@ public class Map {
                 layer = kb.nextInt();
             }
 
-            //Asteroida létrehozása:
-            Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
-            asteroids.add(ast);
+                //Asteroida létrehozása:
+                Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
+                asteroids.add(ast);
 
             //Szomszédok beállítása számának beállítása:
             for (int j = 0; j < numberOfAsteroid; j++) {
