@@ -262,6 +262,29 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     private void build() {
+        System.out.println("What do you want to build?");
+        System.out.println("1 - Build Portal");
+        System.out.println("2 - Build Robot");
+        System.out.println("3 - Build Base");
+        Scanner kb = new Scanner(System.in);
+        int choice = 0;
+        if (kb.hasNextInt()) {
+            choice = kb.nextInt();
+        }
+        switch (choice) {
+            case 0:
+                return;
+            case 1:
+                buildPortal();
+                break;
+            case 2:
+                buildRobot();
+                break;
+            case 3:
+                buildBase();
+            default:
+                System.out.println("Wrong format.");
+        }
 
     }
 }
