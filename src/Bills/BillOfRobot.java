@@ -1,7 +1,8 @@
 package Bills;
 import Materials.*;
 
-/** A robot megépítéséhez tartozó recept.
+/**
+ * A robot megépítéséhez tartozó recept.
  * A BillOfMaterials leszármazottja.
  */
 public class BillOfRobot extends BillOfMaterials {

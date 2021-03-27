@@ -1,17 +1,21 @@
 package Entities;
-import Materials.*;
 import Playground.Asteroid;
 import Test.TestLogger;
 
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Robot osztály, amely képes mozogni és fúrni.
+ * A Figure leszármazottja.
+ */
 public class Robot extends Figure {
 
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
     }
 
+    /** Mozgás. */
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         Asteroid a = chooseNextDestination();
@@ -30,6 +34,7 @@ public class Robot extends Figure {
         TestLogger.functionReturned();
     }
 
+    /** Reagálása robbanásra: átkerül egy szomszédos aszteroidára. */
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
@@ -37,6 +42,7 @@ public class Robot extends Figure {
         TestLogger.functionReturned();
     }
 
+    /** Következő aszteroida kiválasztásra, amelyre át szeretne lépni. */
     public Asteroid chooseNextDestination() {
         TestLogger.functionCalled(this, "chooseNextDestination", "Asteroid");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
@@ -51,10 +57,12 @@ public class Robot extends Figure {
         return nextAsteroid;
     }
 
+    /** A teleportkapun át való mozgás. */
     public boolean moveThroughPortal() {
         return false;
     }
 
+    /** Lépés. */
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
         if(this.asteroid.getLayers() == 0) {
