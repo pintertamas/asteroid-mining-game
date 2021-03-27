@@ -127,10 +127,10 @@ public class Settler extends Figure implements IMine, IDrill {
 
     public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
-        ArrayList<Portal> p = inventory.getPortals();
-        if (p.size() == 2 || p.size() == 1) {
-            this.asteroid.addPortal(p.get(0));
-            this.inventory.removePortal(p.get(0));
+        ArrayList<Portal> portals = inventory.getPortals();
+        if (portals.size() == 2 || portals.size() == 1) {
+            this.asteroid.addPortal(portals.get(0));
+            this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
