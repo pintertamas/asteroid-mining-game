@@ -15,6 +15,7 @@ public class Ufo extends Figure implements IMine {
 
     /**
      * Konstruktor.
+     *
      * @param asteroid
      * @param roundFinished
      */
@@ -34,6 +35,7 @@ public class Ufo extends Figure implements IMine {
 
     /**
      * Mozgás teleportkapun keresztül.
+     *
      * @return
      */
     @Override
@@ -81,6 +83,7 @@ public class Ufo extends Figure implements IMine {
 
     /**
      * Bányászás.
+     *
      * @return
      */
     @Override
@@ -90,6 +93,7 @@ public class Ufo extends Figure implements IMine {
 
     /**
      * Következő aszteroida kiválasztásra, amelyre át szeretne lépni.
+     *
      * @return
      */
     public Asteroid getNextDestination() {

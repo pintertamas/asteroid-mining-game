@@ -22,6 +22,7 @@ public class BillOfMaterials {
 
     /**
      * Egy HashMap-et ad vissza, amely tartalmazza a nyersanyagokat és a darabszámokat.
+     *
      * @param materials
      * @return
      */
@@ -38,6 +39,7 @@ public class BillOfMaterials {
 
     /**
      * Leellenőrzi, hogy van-e elegendő nyersanyag a recepthez az Inventory-ban.
+     *
      * @param inventoryMaterials
      * @return
      */
@@ -64,6 +66,7 @@ public class BillOfMaterials {
 
     /**
      * Az Inventory-ból levonja a nyersanyagokat.
+     *
      * @param inventoryMaterials
      */
     public void pay(ArrayList<Material> inventoryMaterials) {
@@ -79,6 +82,7 @@ public class BillOfMaterials {
 
     /**
      * Visszaadja a recepthez tartozó nyersanyagok listáját.
+     *
      * @return
      */
     public ArrayList<Material> getBill() {
@@ -87,6 +91,7 @@ public class BillOfMaterials {
 
     /**
      * Hozzáad egy adott m nyersanyagból count db-ot a recepthez.
+     *
      * @param m
      * @param count
      */
