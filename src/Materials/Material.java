@@ -26,6 +26,7 @@ public abstract class Material {
 
     /**
      * A nyersanyag hozzáadása a Settler Inventory-jához.
+     *
      * @param s
      */
     public void addToInventory(Settler s) {
@@ -36,6 +37,7 @@ public abstract class Material {
 
     /**
      * Az adott nyersanyagot tartalmazó aszteroida beállítása.
+     *
      * @param asteroid
      */
     public void setAsteroid(Asteroid asteroid) {
@@ -44,6 +46,7 @@ public abstract class Material {
 
     /**
      * Az adott nyersanyagot tartalmazó aszteroida visszaadása.
+     *
      * @return
      */
     public Asteroid getAsteroid() {
@@ -52,6 +55,7 @@ public abstract class Material {
 
     /**
      * Visszaadja, hogy napközelben van-e.
+     *
      * @return
      */
     public int getNearSunCount() {

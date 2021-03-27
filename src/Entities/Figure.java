@@ -13,6 +13,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Konstruktor.
+     *
      * @param asteroid
      * @param roundFinished
      */
@@ -24,6 +25,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Visszaadja az aszteroidát, amelyen éppen áll.
+     *
      * @return
      */
     public Asteroid getAsteroid() {
@@ -37,6 +39,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Teleportkapun keresztül mozgás.
+     *
      * @return
      */
     public abstract boolean moveThroughPortal();
@@ -48,12 +51,14 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Visszaadja, hogy az adott figura körének vége van-e már.
+     *
      * @return
      */
     public boolean getRoundFinished(){return this.roundFinished;}
 
     /**
      * Fúrás.
+     *
      * @return
      */
     public boolean drill() {
@@ -88,6 +93,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Visszaadja az adott figura Inventory-ját.
+     *
      * @return
      */
     public Inventory getInventory() {
@@ -96,6 +102,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Beállítja a hozzá tartozó aszteroidát.
+     *
      * @param asteroid
      */
     public void setAsteroid(Asteroid asteroid) {
@@ -106,6 +113,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     /**
      * Beállítja, hogy vége van-e már a körnek.
+     *
      * @param roundFinished
      */
     public void setRoundFinished(boolean roundFinished) {

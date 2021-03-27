@@ -13,6 +13,7 @@ public class Robot extends Figure {
 
     /**
      * Konstruktor.
+     *
      * @param asteroid
      * @param roundFinished
      */
@@ -53,6 +54,7 @@ public class Robot extends Figure {
 
     /**
      * Következő aszteroida kiválasztásra, amelyre át szeretne lépni.
+     *
      * @return
      */
     public Asteroid chooseNextDestination() {
@@ -71,6 +73,7 @@ public class Robot extends Figure {
 
     /**
      * A teleportkapun át való mozgás.
+     *
      * @return
      */
     public boolean moveThroughPortal() {

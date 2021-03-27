@@ -1,12 +1,15 @@
 package Playground;
 
-import Entities.*;
-import Materials.*;
+import Entities.Figure;
+import Entities.Settler;
+import Materials.Material;
 import Test.TestLogger;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
+/**
+ * Aszteroida osztály.
+ */
 public class Asteroid {
     private final ArrayList<Asteroid> neighbors;
     private final ArrayList<Figure> figures;
@@ -17,6 +20,14 @@ public class Asteroid {
     final boolean isNearSun;
     boolean isHollow;
 
+    /**
+     * Konstruktor.
+     *
+     * @param material
+     * @param layers
+     * @param isNearSun
+     * @param isHollow
+     */
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
         TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.figures = new ArrayList<>();
@@ -30,22 +41,45 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja az aszteroidán lévő teleportkapuk listáját.
+     *
+     * @return
+     */
     public ArrayList<Portal> getPortals() {
         return portal;
     }
 
+    /**
+     * Visszaadja a benne lévő nyersanyagot.
+     *
+     * @return
+     */
     public Material getMaterial() {
         return this.material;
     }
 
+    /**
+     * Visszaadja az aszteroidán álló figurák listáját.
+     *
+     * @return
+     */
     public ArrayList<Figure> getFigures() {
         return this.figures;
     }
 
+    /**
+     * Visszaadja az aszteroida köpenyeinek számát.
+     *
+     * @return
+     */
     public int getLayers() {
         return layers;
     }
 
+    /**
+     * Az aszteroida felrobbanása.
+     */
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
         for (Figure figure : figures) {
@@ -57,18 +91,33 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Az aszteroidán álló figurák listájához hozzáad egy újat.
+     *
+     * @param f
+     */
     public void addFigure(Figure f) {
         TestLogger.functionCalled(this, "addFigure", f.getClass().getName() + " " + f, "void");
         this.figures.add(f);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Kivesz egyet az aszteroidán álló figurák listájából.
+     *
+     * @param f
+     */
     public void removeFigure(Figure f) {
         TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
         this.figures.remove(f);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Az aszteroida fúrása.
+     *
+     * @return
+     */
     public boolean drilled() {
         TestLogger.functionCalled(this, "drilled", "boolean");
         if (this.layers > 0) {
@@ -85,6 +134,12 @@ public class Asteroid {
         return false;
     }
 
+    /**
+     * Az aszteroida kibányászása.
+     *
+     * @param s
+     * @return
+     */
     public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "boolean");
         if (this.layers == 0 && !this.isHollow) {
@@ -98,6 +153,12 @@ public class Asteroid {
 
     }
 
+    /**
+     * Beállítja az aszteroida nyersanyagát.
+     *
+     * @param m
+     * @return
+     */
     public boolean setMaterial(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
         if (this.isHollow) {
@@ -110,24 +171,42 @@ public class Asteroid {
         return true;
     }
 
+    /**
+     * Csökkenti az aszteroida köpenyeit eggyel.
+     */
     public void decreaseLayers() {
         TestLogger.functionCalled(this, "decreaseLayers", "void");
         this.layers--;
         TestLogger.functionReturned();
     }
 
+    /**
+     * Hozzáad egy teleportkaput az aszteroidához.
+     *
+     * @param p
+     */
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portal.add(p);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Hozzáad egy másik aszteroidát a szomszédai listájához.
+     *
+     * @param a
+     */
     public void addNeighbor(Asteroid a) {
         TestLogger.functionCalled(this, "addNeighbor", "Playground.Asteroid a", "void");
         this.neighbors.add(a);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Összegyűjti az aszteroidán álló figurák Inventory-jában lévő összes nyersanyagot egy listába.
+     *
+     * @return
+     */
     public ArrayList<Material> summarizeMaterials() {
         TestLogger.functionCalled(this, "summarizeMaterials", "HashMap<Class<?>, Integer>");
         ArrayList<Material> materials = new ArrayList<>();
@@ -138,6 +217,11 @@ public class Asteroid {
         return materials;
     }
 
+    /**
+     * Kiválasztja a következő figurát, aki lépni fog.
+     *
+     * @return
+     */
     public Figure pickNextFigure(){
         for (Figure figure : figures) {
             if (!figure.getRoundFinished())
@@ -146,6 +230,9 @@ public class Asteroid {
         return null;
     }
 
+    /**
+     * A következő figurát lépteti.
+     */
     public void invokeFigures() {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
@@ -157,6 +244,9 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Még nem fejezte be a körét a figura.
+     */
     public void resetStep() {
         TestLogger.functionCalled(this, "resetStep", "void");
         for (Figure f : figures) {
@@ -165,18 +255,31 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja a szomszédos aszteroidák listáját.
+     *
+     * @return
+     */
     public ArrayList<Asteroid> getNeighbors() {
         TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Playground.Asteroid>");
         TestLogger.functionReturned(neighbors.toString());
         return neighbors;
     }
 
+    /**
+     * Üregesre állítja az aszteroidát.
+     *
+     * @param b
+     */
     public void setIsHollow(boolean b) {
         TestLogger.functionCalled(this, "setIsHollow", "boolean b", "void");
         isHollow = b;
         TestLogger.functionReturned();
     }
 
+    /**
+     * Kezeli a figurákat napviharban.
+     */
     public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
         if (!isHollow)
