@@ -8,46 +8,36 @@ import java.util.HashMap;
 
 public class Inventory {
     private final ArrayList<Portal> portals;
-    private final HashMap<Class<?>, Integer> materials;
+    private final ArrayList<Material> materials;
     private final int materialCapacity;
     private final int portalCapacity;
 
     public Inventory() {
         this.portals = new ArrayList<>();
-        this.materials = new HashMap<>();
+        this.materials = new ArrayList<>();
         this.materialCapacity = 10;
         this.portalCapacity = 3;
     }
 
     private boolean isMaterialInventoryFull() {
         TestLogger.functionCalled(this, "isMaterialInventoryFull", "boolean");
-        int itemCount = 0;
-        for (Class<?> m : materials.keySet()) {
-            itemCount += materials.get(m);
-        }
-        TestLogger.functionReturned(String.valueOf(itemCount >= materialCapacity));
-        return itemCount >= materialCapacity;
+        TestLogger.functionReturned(String.valueOf(materials.size() >= materialCapacity));
+        return materials.size() >= materialCapacity;
     }
 
     public void addMaterial(Material m) {
         TestLogger.functionCalled(this, "addMaterial", "Materials.Material m", "void");
         if (!isMaterialInventoryFull()) {
-            if (materials.containsKey(m.getClass())) {
-                if (materials.get(m.getClass()) > 0)
-                    materials.put(m.getClass(), materials.get(m.getClass()) + 1);
-            }
-            else materials.put(m.getClass(), 1);
+            materials.add(m);
         }
         TestLogger.functionReturned();
     }
 
     public void removeMaterial(Material m) {
         TestLogger.functionCalled(this, "removeMaterial", "Materials.Material m", "void");
-        if (materials.containsKey(m.getClass())) {
-            if (materials.get(m.getClass()) > 1)
-                materials.put(m.getClass(), materials.get(m.getClass()) - 1);
-            else
-                materials.remove(m.getClass());
+        for (int i = 0; i < materials.size(); i++) {
+            if (materials.get(i).equals(m))
+                materials.remove(m);
         }
         TestLogger.functionReturned();
     }
@@ -77,7 +67,7 @@ public class Inventory {
         return portals;
     }
 
-    public HashMap<Class<?>, Integer> getMaterials() {
+    public ArrayList<Material> getMaterials() {
         return materials;
     }
 }

@@ -5,9 +5,9 @@ public class BillOfPortal extends BillOfMaterials {
 
     public BillOfPortal() {
         super();
-        this.getBill().put(Iron.class, 2);
-        this.getBill().put(Ice.class, 1);
-        this.getBill().put(Uranium.class, 1);
+        this.addToBill(new Iron(), 2);
+        this.addToBill(new Ice(), 1);
+        this.addToBill(new Uranium(), 1);
     }
 }
 

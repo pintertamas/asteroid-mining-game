@@ -76,7 +76,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
-        if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
+        if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())) {
             billOfPortal.pay(billOfPortal.getBill());
             Portal p1 = new Portal();
             Portal p2 = new Portal();
@@ -95,20 +95,15 @@ public class Settler extends Figure implements IMine, IDrill {
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
-        HashMap<Class<?>, Integer> materials = new HashMap<>();
-        for (Class<?> m : this.inventory.getMaterials().keySet()) {
-            if (materials.containsKey(m))
-                materials.put(m, materials.get(m) + this.inventory.getMaterials().get(m));
-            else materials.put(m, this.inventory.getMaterials().get(m));
-        }
-        if (!billOfRobot.hasEnoughMaterial(materials)) {
+
+        if (!billOfRobot.hasEnoughMaterials(this.getInventory().getMaterials())) {
             TestLogger.functionReturned(String.valueOf(false));
             return false;
         }
 
         billOfRobot.pay(billOfRobot.getBill());
-        Robot r = new Robot(this.asteroid, false);
-        r.setRoundFinished(true);
+        new Robot(this.asteroid, true);
+        this.setRoundFinished(true);
         TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
@@ -116,7 +111,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public boolean buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
-        if (billOfBase.hasEnoughMaterial(this.asteroid.summarizeMaterials())) {
+        if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
             //TODO: WIN!
             TestLogger.functionReturned(String.valueOf(true));
             return true;

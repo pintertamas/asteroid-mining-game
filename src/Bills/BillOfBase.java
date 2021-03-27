@@ -5,9 +5,9 @@ public class BillOfBase extends BillOfMaterials {
 
     public BillOfBase() {
         super();
-        this.getBill().put(Iron.class, 3);
-        this.getBill().put(Uranium.class, 3);
-        this.getBill().put(Ice.class, 3);
-        this.getBill().put(Coal.class, 3);
+        this.addToBill(new Iron(), 3);
+        this.addToBill(new Uranium(), 3);
+        this.addToBill(new Ice(), 3);
+        this.addToBill(new Coal(), 3);
     }
 }

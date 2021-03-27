@@ -8,10 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Asteroid {
-    final ArrayList<Asteroid> neighbors;
-    final ArrayList<Figure> figures;
-    Material material;
-    final ArrayList<Portal> portal;
+    private final ArrayList<Asteroid> neighbors;
+    private final ArrayList<Figure> figures;
+    private Material material;
+    private final ArrayList<Portal> portal;
 
     int layers;
     final boolean isNearSun;
@@ -127,15 +127,11 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    public HashMap<Class<?>, Integer> summarizeMaterials() {
+    public ArrayList<Material> summarizeMaterials() {
         TestLogger.functionCalled(this, "summarizeMaterials", "HashMap<Class<?>, Integer>");
-        HashMap<Class<?>, Integer> materials = new HashMap<>();
+        ArrayList<Material> materials = new ArrayList<>();
         for (Figure f : this.figures) {
-            for (Class<?> m : f.getInventory().getMaterials().keySet()) {
-                if (materials.containsKey(m))
-                    materials.put(m, materials.get(m) + f.getInventory().getMaterials().get(m));
-                else materials.put(m, f.getInventory().getMaterials().get(m));
-            }
+            materials.addAll(f.getInventory().getMaterials());
         }
         TestLogger.functionReturned(materials.toString());
         return materials;

@@ -1,6 +1,7 @@
 package Playground;
 
-import Bills.BillOfBase;
+import Bills.*;
+import Entities.Figure;
 import Entities.Settler;
 import Materials.*;
 import Test.TestLogger;
@@ -33,17 +34,6 @@ public class Map {
         TestLogger.functionCalled(this, "removeAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.remove(a);
         TestLogger.functionReturned();
-    }
-
-    public boolean hasAllMaterials() {
-        TestLogger.functionCalled(this, "hasAllMaterials", "boolean");
-        HashMap<Class<?>, Integer> allMaterials = new HashMap<>();
-        for (Asteroid asteroid : asteroids) {
-            allMaterials.putAll(asteroid.summarizeMaterials());
-        }
-        boolean hasAll = new BillOfBase().hasEnoughMaterial(allMaterials);
-        TestLogger.functionReturned(String.valueOf(hasAll));
-        return hasAll;
     }
 
     public ArrayList<Asteroid> getAsteroids() {
@@ -150,16 +140,34 @@ public class Map {
         return false;
     }
 
+    public boolean hasAllMaterials() {
+        TestLogger.functionCalled(this, "hasAllMaterials", "boolean");
+        ArrayList<Material> allMaterials = new ArrayList<>();
+        for (Asteroid asteroid : asteroids) {
+            for (Figure f : asteroid.getFigures())
+                allMaterials.addAll(f.getInventory().getMaterials());
+            if (!asteroid.isHollow)
+                allMaterials.add(asteroid.getMaterial());
+        }
+        boolean hasAll = new BillOfBase().hasEnoughMaterials(allMaterials);
+        TestLogger.functionReturned(String.valueOf(hasAll));
+        return hasAll;
+    }
+
+    private boolean hasAnyFigure() {
+        for (Asteroid a : asteroids) {
+            if (a.getFigures().size() > 0)
+                return true;
+        }
+        return false;
+    }
+
     public boolean checkIfWinnable() {
         TestLogger.functionCalled(this, "checkIfWinnable", "boolean");
-        HashMap<Class<?>, Integer> materials = new HashMap<>();
-        for (Asteroid a : asteroids){
-            materials.putAll(a.summarizeMaterials());
-        }
-        BillOfBase billOfBase = new BillOfBase();
-        boolean winnable = billOfBase.hasEnoughMaterial(materials);
-        TestLogger.functionReturned(String.valueOf(winnable));
-        return winnable;
+
+        boolean hasAll = hasAllMaterials() && hasAnyFigure();
+        TestLogger.functionReturned(String.valueOf(hasAll));
+        return hasAll;
     }
 
     public void setupRound() {
