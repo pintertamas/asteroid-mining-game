@@ -6,14 +6,25 @@ import Test.TestLogger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/** Recept osztály az építésekhez. */
 public abstract class BillOfMaterials {
-
+    /**
+     * Egy ArrayList-ben tároljuk a recepthez szükséges nyersanyagokat.
+     */
     private final ArrayList<Material> bill;
 
+    /**
+     * Konstruktor.
+     */
     public BillOfMaterials() {
         bill = new ArrayList<>();
     }
 
+    /**
+     * Egy HashMap-et ad vissza, amely tartalmazza a nyersanyagokat és a darabszámokat.
+     * @param materials
+     * @return
+     */
     public HashMap<Class<?>, Integer> countMaterials(ArrayList<Material> materials) {
         HashMap<Class<?>, Integer> result = new HashMap<>();
         for (Material m : materials) {
@@ -25,6 +36,11 @@ public abstract class BillOfMaterials {
         return result;
     }
 
+    /**
+     * Leellenőrzi, hogy van-e elegendő nyersanyag a recepthez az Inventory-ban.
+     * @param inventoryMaterials
+     * @return
+     */
     public boolean hasEnoughMaterials(ArrayList<Material> inventoryMaterials) {
         TestLogger.functionCalled(this, "hasEnoughMaterial", "boolean");
         HashMap<Class<?>, Integer> allMaterials = countMaterials(inventoryMaterials);
@@ -46,6 +62,10 @@ public abstract class BillOfMaterials {
         return true;
     }
 
+    /**
+     * Az Inventory-ból levonja a nyersanyagokat.
+     * @param inventoryMaterials
+     */
     public void pay(ArrayList<Material> inventoryMaterials) {
         TestLogger.functionCalled(this, "pay", "inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
@@ -57,10 +77,19 @@ public abstract class BillOfMaterials {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja a recepthez tartozó nyersanyagok listáját.
+     * @return
+     */
     public ArrayList<Material> getBill() {
         return bill;
     }
 
+    /**
+     * Hozzáad egy adott m nyersanyagból count db-ot a recepthez.
+     * @param m
+     * @param count
+     */
     public void addToBill(Material m, int count) {
         for (int i = 0; i < count; i++)
             bill.add(m);

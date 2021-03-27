@@ -7,6 +7,9 @@ import Materials.*;
  */
 public class BillOfRobot extends BillOfMaterials {
 
+    /**
+     * Konstruktor.
+     */
     public BillOfRobot() {
         super();
         this.addToBill(new Iron(), 1);

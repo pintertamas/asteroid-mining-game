@@ -13,11 +13,18 @@ import java.util.Random;
  */
 public class Ufo extends Figure implements IMine {
 
+    /**
+     * Konstruktor.
+     * @param asteroid
+     * @param roundFinished
+     */
     public Ufo(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
     }
 
-    /** Mozgás. */
+    /**
+     * Mozgás.
+     */
     @Override
     public void move() {
         this.asteroid.removeFigure(this);
@@ -25,7 +32,10 @@ public class Ufo extends Figure implements IMine {
         this.asteroid.addFigure(this);
     }
 
-    /** Mozgás teleportkapun keresztül. */
+    /**
+     * Mozgás teleportkapun keresztül.
+     * @return
+     */
     @Override
     public boolean moveThroughPortal() {
         if(asteroid.getPortals().size() != 0) {
@@ -48,7 +58,9 @@ public class Ufo extends Figure implements IMine {
         return false;
     }
 
-    /** Lépés. */
+    /**
+     * Lépés.
+     */
     @Override
     public void step() {
         if(asteroid.getLayers()==0) {
@@ -59,19 +71,27 @@ public class Ufo extends Figure implements IMine {
         }
     }
 
-    /** Reagálás robbanásra. */
+    /**
+     * Reagálás robbanásra.
+     */
     @Override
     public void onExplosion() {
 
     }
 
-    /** Bányászás. */
+    /**
+     * Bányászás.
+     * @return
+     */
     @Override
     public boolean mine() {
         return false;
     }
 
-    /** Következő aszteroida kiválasztásra, amelyre át szeretne lépni. */
+    /**
+     * Következő aszteroida kiválasztásra, amelyre át szeretne lépni.
+     * @return
+     */
     public Asteroid getNextDestination() {
         Random rand = new Random();
         int index = rand.nextInt(asteroid.getNeighbors().size());

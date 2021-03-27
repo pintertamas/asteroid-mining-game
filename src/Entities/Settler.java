@@ -17,6 +17,11 @@ import java.util.Scanner;
 public class Settler extends Figure implements IMine, IDrill {
     private final Inventory inventory;
 
+    /**
+     * Konstruktor.
+     * @param asteroid
+     * @param roundFinished
+     */
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
@@ -60,6 +65,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Bányászás.
+     * @return
      */
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
@@ -76,6 +82,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Visszaadja az Inventory-t.
+     * @return
      */
     @Override
     public Inventory getInventory() {
@@ -87,6 +94,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Teleportkapu-pár építés.
+     * @return
      */
     public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
@@ -109,6 +117,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Robot építés.
+     * @return
      */
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
@@ -128,6 +137,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Bázis építés.
+     * @return
      */
     public boolean buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
@@ -143,6 +153,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Teleportkapu lerakása.
+     * @return
      */
     public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
@@ -160,6 +171,8 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Nyersanyag visszarakása üres aszteroidába.
+     * @param m
+     * @return
      */
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
@@ -175,6 +188,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Nyersanyag kiválasztása az Inventory-ból.
+     * @return
      */
     public Material chooseMaterial() {
         return new Iron(); // TODO
@@ -237,6 +251,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     /**
      * Teleportkapun keresztüli mozgás.
+     * @return
      */
     public boolean moveThroughPortal() {
         int i = 1;
@@ -268,6 +283,9 @@ public class Settler extends Figure implements IMine, IDrill {
         return false;
     }
 
+    /**
+     * Építés.
+     */
     private void build() {
         System.out.println("What would you like to build?");
         System.out.println("0 - Nothing");

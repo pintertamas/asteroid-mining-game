@@ -11,11 +11,18 @@ import java.util.Random;
  */
 public class Robot extends Figure {
 
+    /**
+     * Konstruktor.
+     * @param asteroid
+     * @param roundFinished
+     */
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
     }
 
-    /** Mozgás. */
+    /**
+     * Mozgás.
+     */
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         Asteroid a = chooseNextDestination();
@@ -34,7 +41,9 @@ public class Robot extends Figure {
         TestLogger.functionReturned();
     }
 
-    /** Reagálása robbanásra: átkerül egy szomszédos aszteroidára. */
+    /**
+     * Reagálása robbanásra: átkerül egy szomszédos aszteroidára.
+     */
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
@@ -42,7 +51,10 @@ public class Robot extends Figure {
         TestLogger.functionReturned();
     }
 
-    /** Következő aszteroida kiválasztásra, amelyre át szeretne lépni. */
+    /**
+     * Következő aszteroida kiválasztásra, amelyre át szeretne lépni.
+     * @return
+     */
     public Asteroid chooseNextDestination() {
         TestLogger.functionCalled(this, "chooseNextDestination", "Asteroid");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
@@ -57,12 +69,17 @@ public class Robot extends Figure {
         return nextAsteroid;
     }
 
-    /** A teleportkapun át való mozgás. */
+    /**
+     * A teleportkapun át való mozgás.
+     * @return
+     */
     public boolean moveThroughPortal() {
         return false;
     }
 
-    /** Lépés. */
+    /**
+     * Lépés.
+     */
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
         if(this.asteroid.getLayers() == 0) {
