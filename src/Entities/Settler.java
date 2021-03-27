@@ -255,6 +255,7 @@ public class Settler extends Figure implements IMine, IDrill {
             }
             asteroid.removeFigure(this);
             tmpArray.get(choice - 1).addFigure(this);
+            setAsteroid(tmpArray.get(choice - 1));
             this.setRoundFinished(true);
         }
         else {
