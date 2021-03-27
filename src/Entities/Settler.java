@@ -151,8 +151,32 @@ public class Settler extends Figure implements IMine, IDrill {
         return false;
     }
 
-    public Material chooseMaterial() {
-        return new Iron(); // TODO
+    public Class<?> chooseMaterial() {
+        //this.getInventory().addMaterial(new Iron());
+        TestLogger.functionCalled(this, "chooseMaterial", "Material");
+        System.out.println("Available materials: ");
+        ArrayList<Class<?>> availableMaterials = new ArrayList<>(this.getInventory().getMaterials().keySet());
+        for (Class<?> availableMaterial : availableMaterials) {
+            System.out.println(
+                    availableMaterial.getName().replace("class ", "") + ": " +
+                            this.getInventory().getMaterials().get(availableMaterial));
+        }
+        System.out.println("Pick a material by its number:");
+        Scanner kb = new Scanner(System.in);
+        int materialChoice = -2;
+
+        if (kb.hasNextInt()) {
+            materialChoice = kb.nextInt();
+        }
+        if (materialChoice == -1 || materialChoice > availableMaterials.size() + 1) {
+            System.out.println("Could not put material back.");
+            return null;
+        } else {
+            Class<?> m = availableMaterials.get(materialChoice - 1);
+
+            System.out.println("You put " + " done");
+            return null;
+        }
     }
 
     @Override
@@ -194,8 +218,9 @@ public class Settler extends Figure implements IMine, IDrill {
                     putPortalDown();
                     break;
                 case 5:
-                    Material m = chooseMaterial();
-                    putMaterialBack(m);
+                    Class<?> m = chooseMaterial();
+                    //if (m != null)
+                        //putMaterialBack(m);
                     break;
                 default:
                     break;

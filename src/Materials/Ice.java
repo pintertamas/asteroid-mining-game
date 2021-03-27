@@ -6,7 +6,7 @@ public class Ice extends Material {
     @Override
     public void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine", "void");
-        asteroid.setIsHollow(true);
+        getAsteroid().setIsHollow(true);
         TestLogger.functionReturned();
     }
 }
