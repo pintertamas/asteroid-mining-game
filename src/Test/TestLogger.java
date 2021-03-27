@@ -1,8 +1,10 @@
+package Test;
+
 import java.util.Scanner;
 import java.util.Stack;
 
 public class TestLogger {
-    public static Stack<String> activeFunctionCalls = new Stack<>();
+    public static final Stack<String> activeFunctionCalls = new Stack<>();
     public static boolean showTests = false;
 
     private static void printTabs(int numberOfIterations) {
@@ -11,7 +13,7 @@ public class TestLogger {
     }
 
     public static void setShow(boolean showTests){
-        //this.showTests = showTests;
+        TestLogger.showTests = showTests;
     }
 
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
@@ -54,7 +56,7 @@ public class TestLogger {
         System.out.println(question + " (y/n)");
         Scanner in = new Scanner(System.in);
         char response = in.next().charAt(0);
-        return response == 'y';
+        return response == 'y' || response == 'Y';
     }
 
     public static void errorMessage(String errorMessage) {

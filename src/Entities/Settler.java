@@ -1,3 +1,12 @@
+package Entities;
+
+import Bills.*;
+import Interfaces.IDrill;
+import Interfaces.IMine;
+import Materials.*;
+import Playground.*;
+import Test.TestLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -13,7 +22,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
-        if(neighbors.size() == 0){
+        if (neighbors.size() == 0) {
             System.out.println("The current asteroid has no neighbors so it is not possible to move :(");
             return;
         }
@@ -32,8 +41,7 @@ public class Settler extends Figure implements IMine, IDrill {
             if (neighborChoice == -1) {
                 System.out.println("Move NOT done, back");
                 return;
-            }
-            else {
+            } else {
                 this.asteroid.removeFigure(this);
                 neighbors.get(neighborChoice).addFigure(this);
                 this.setAsteroid(neighbors.get(neighborChoice));
@@ -69,7 +77,7 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterial(this.inventory.getMaterials())) {
-            billOfPortal.pay(billOfPortal.bill);
+            billOfPortal.pay(billOfPortal.getBill());
             Portal p1 = new Portal();
             Portal p2 = new Portal();
             p1.setPair(p2);
@@ -98,7 +106,7 @@ public class Settler extends Figure implements IMine, IDrill {
             return false;
         }
 
-        billOfRobot.pay(billOfRobot.bill);
+        billOfRobot.pay(billOfRobot.getBill());
         Robot r = new Robot(this.asteroid, false);
         r.setRoundFinished(true);
         TestLogger.functionReturned(String.valueOf(true));
@@ -144,7 +152,7 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     public Material chooseMaterial() {
-        return new Iron();
+        return new Iron(); // TODO
     }
 
     @Override
@@ -156,7 +164,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
-        while(!this.roundFinished){
+        while (!this.roundFinished) {
             System.out.println("What would you like to do?");
             System.out.println("0 - drill");
             System.out.println("1 - mine");
@@ -166,7 +174,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("5 - put back material");
             Scanner kb = new Scanner(System.in);
             int choice = 0;
-            if(kb.hasNextInt()) {
+            if (kb.hasNextInt()) {
                 choice = kb.nextInt();
             }
             switch (choice) {
@@ -180,6 +188,14 @@ public class Settler extends Figure implements IMine, IDrill {
                     move();
                     break;
                 case 3:
+                    build();
+                    break;
+                case 4:
+                    putPortalDown();
+                    break;
+                case 5:
+                    Material m = chooseMaterial();
+                    putMaterialBack(m);
                     break;
                 default:
                     break;
@@ -189,6 +205,10 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     public void moveThroughPortal() {
-        ;
+
+    }
+
+    private void build() {
+
     }
 }

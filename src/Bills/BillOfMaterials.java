@@ -1,8 +1,13 @@
+package Bills;
+
+import Materials.*;
+import Test.TestLogger;
+
 import java.util.HashMap;
 
 public abstract class BillOfMaterials {
 
-    HashMap<Class<?>, Integer> bill;
+    private final HashMap<Class<?>, Integer> bill;
 
     public BillOfMaterials() {
         bill = new HashMap<>();
@@ -26,13 +31,13 @@ public abstract class BillOfMaterials {
     }
 
     public boolean isNeeded(Material m) {
-        TestLogger.functionCalled(this, "isNeeded", "Material m", "boolean");
+        TestLogger.functionCalled(this, "isNeeded", "Materials.Material m", "boolean");
         TestLogger.functionReturned(String.valueOf(bill.get(m.getClass()) > 0));
         return bill.get(m.getClass()) > 0;
     }
 
     public void checkMaterial(Material m) {
-        TestLogger.functionCalled(this, "checkMaterial", "Material m", "void");
+        TestLogger.functionCalled(this, "checkMaterial", "Materials.Material m", "void");
         if (bill.get(m.getClass()) > 0)
             bill.put(m.getClass(), bill.get(m.getClass()) - 1);
         TestLogger.functionReturned();
@@ -43,5 +48,9 @@ public abstract class BillOfMaterials {
         assert hasEnoughMaterial(inventoryMaterials);
         inventoryMaterials.replaceAll((material, value) -> value - bill.get(material));
         TestLogger.functionReturned();
+    }
+
+    public HashMap<Class<?>, Integer> getBill() {
+        return bill;
     }
 }

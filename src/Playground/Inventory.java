@@ -1,3 +1,8 @@
+package Playground;
+
+import Materials.Material;
+import Test.TestLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +28,7 @@ public class Inventory {
     }
 
     public void addMaterial(Material m) {
-        TestLogger.functionCalled(this, "addMaterial", "Material m", "void");
+        TestLogger.functionCalled(this, "addMaterial", "Materials.Material m", "void");
         if (!isInventoryFull()) {
             if (materials.containsKey(m.getClass())) {
                 if (materials.get(m.getClass()) > 0)
@@ -35,7 +40,7 @@ public class Inventory {
     }
 
     public void removeMaterial(Material m) {
-        TestLogger.functionCalled(this, "removeMaterial", "Material m", "void");
+        TestLogger.functionCalled(this, "removeMaterial", "Materials.Material m", "void");
         if (materials.get(m.getClass()) > 1)
             materials.put(m.getClass(), materials.get(m.getClass()) - 1);
         else
@@ -44,13 +49,13 @@ public class Inventory {
     }
 
     public void addPortal(Portal p) {
-        TestLogger.functionCalled(this, "addPortal", "Portal p", "void");
+        TestLogger.functionCalled(this, "addPortal", "Playground.Portal p", "void");
         portals.add(p);
         TestLogger.functionReturned();
     }
 
     public void removePortal(Portal p) {
-        TestLogger.functionCalled(this, "removePortal", "Portal p", "void");
+        TestLogger.functionCalled(this, "removePortal", "Playground.Portal p", "void");
         portals.remove(p);
         TestLogger.functionReturned();
     }

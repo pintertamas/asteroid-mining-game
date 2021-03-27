@@ -1,3 +1,7 @@
+package Playground;
+
+import Test.TestLogger;
+
 public class Portal {
     private Portal pair;
     private Asteroid asteroid;
@@ -7,7 +11,7 @@ public class Portal {
     }
 
     public void setPair(Portal pair) {
-        TestLogger.functionCalled(this, "setPair", "Portal pair", "void");
+        TestLogger.functionCalled(this, "setPair", "Playground.Portal pair", "void");
         this.pair = pair;
         TestLogger.functionReturned();
     }

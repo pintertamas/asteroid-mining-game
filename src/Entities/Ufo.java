@@ -1,6 +1,11 @@
+package Entities;
+
+import Interfaces.IMine;
+import Playground.Asteroid;
+
 import java.util.Random;
 
-public class Ufo extends Figure implements IMine{
+public class Ufo extends Figure implements IMine {
 
     public Ufo(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
@@ -41,7 +46,6 @@ public class Ufo extends Figure implements IMine{
     public Asteroid getNextDestination() {
         Random rand = new Random();
         int index = rand.nextInt(asteroid.getNeighbors().size());
-        Asteroid ast = asteroid.getNeighbors().get(index);
-        return ast;
+        return asteroid.getNeighbors().get(index);
     }
 }

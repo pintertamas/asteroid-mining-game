@@ -1,4 +1,10 @@
-public abstract class Figure implements ISteppable, IPortalMove, IMove{
+package Entities;
+import Interfaces.*;
+import Playground.*;
+import Test.TestLogger;
+
+
+public abstract class Figure implements ISteppable, IPortalMove, IMove {
     protected Asteroid asteroid;
     protected boolean roundFinished;
 
@@ -43,17 +49,17 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove{
         TestLogger.functionReturned();
     }
 
-    protected Inventory getInventory() {
+    public Inventory getInventory() {
         return new Inventory();
     }
 
     public void setAsteroid(Asteroid asteroid) {
-        TestLogger.functionCalled(this, "setAsteroid", "Asteroid asteroid", "void");
+        TestLogger.functionCalled(this, "setAsteroid", "Playground.Asteroid asteroid", "void");
         this.asteroid = asteroid;
         TestLogger.functionReturned();
     }
 
-    protected void setRoundFinished(boolean roundFinished) {
+    public void setRoundFinished(boolean roundFinished) {
         TestLogger.functionCalled(this, "setRoundFinished", "boolean roundFinished", "void");
         this.roundFinished = roundFinished;
         TestLogger.functionReturned(String.valueOf(roundFinished));

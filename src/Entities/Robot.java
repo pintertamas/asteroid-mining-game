@@ -1,4 +1,7 @@
-import java.util.Random;
+package Entities;
+import Materials.*;
+import Playground.Asteroid;
+import Test.TestLogger;
 
 public class Robot extends Figure {
 
@@ -29,7 +32,7 @@ public class Robot extends Figure {
     }
 
     public void moveThroughPortal() {
-        ;
+
     }
 
     public void step() {

@@ -1,8 +1,15 @@
+package Playground;
+
+import Bills.BillOfBase;
+import Entities.Settler;
+import Materials.*;
+import Test.TestLogger;
+
 import java.util.*;
 
 public class Map {
 
-    ArrayList<Asteroid> asteroids;
+    final ArrayList<Asteroid> asteroids;
     GameState gameState;
 
     public Map() {
@@ -11,32 +18,32 @@ public class Map {
     }
 
     public void setGameState(GameState gs) {
-        TestLogger.functionCalled(this, "setGameState", "GameState gs", "void");
+        TestLogger.functionCalled(this, "setGameState", "Playground.GameState gs", "void");
         this.gameState = gs;
         TestLogger.functionReturned();
     }
 
     public void addAsteroid(Asteroid a) {
-        TestLogger.functionCalled(this, "AddAsteroid", "Asteroid a", "void");
-        try {
-            this.asteroids.add(a);
-        } catch (NullPointerException e) {
-        }
-
+        TestLogger.functionCalled(this, "AddAsteroid", "Playground.Asteroid a", "void");
+        this.asteroids.add(a);
         TestLogger.functionReturned();
     }
 
     public void removeAsteroid(Asteroid a) {
-        TestLogger.functionCalled(this, "removeAsteroid", "Asteroid a", "void");
+        TestLogger.functionCalled(this, "removeAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.remove(a);
         TestLogger.functionReturned();
     }
 
-    //TODO Ezt hogyan is kéne?
     public boolean hasAllMaterials() {
         TestLogger.functionCalled(this, "hasAllMaterials", "boolean");
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        HashMap<Class<?>, Integer> allMaterials = new HashMap<>();
+        for (Asteroid asteroid : asteroids) {
+            allMaterials.putAll(asteroid.summarizeMaterials());
+        }
+        boolean hasAll = new BillOfBase().hasEnoughMaterial(allMaterials);
+        TestLogger.functionReturned(String.valueOf(hasAll));
+        return hasAll;
     }
 
     public ArrayList<Asteroid> getAsteroids() {
@@ -63,24 +70,12 @@ public class Map {
                 case 2:
                     m = new Ice();
                     break;
-                case 3:
-                    m = new Uranium();
-                    break;
                 default:
                     m = new Uranium();
             }
-            int boolOfSun = rand.nextInt(1);
+            int boolOfSun = rand.nextInt(2);
             boolean sun;
-            switch (boolOfSun) {
-                case 0:
-                    sun = false;
-                    break;
-                case 1:
-                    sun = true;
-                    break;
-                default:
-                    sun = true;
-            }
+            sun = boolOfSun != 0;
             Asteroid a = new Asteroid(m, numberOfLayers, sun, false);
             this.asteroids.add(a);
         }

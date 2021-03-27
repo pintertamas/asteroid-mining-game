@@ -1,18 +1,24 @@
+package Playground;
+
+import Entities.*;
+import Materials.*;
+import Test.TestLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Asteroid {
-    ArrayList<Asteroid> neighbors;
-    ArrayList<Figure> figures;
+    final ArrayList<Asteroid> neighbors;
+    final ArrayList<Figure> figures;
     Material material;
-    ArrayList<Portal> portal;
+    final ArrayList<Portal> portal;
 
     int layers;
-    boolean isNearSun;
+    final boolean isNearSun;
     boolean isHollow;
 
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
-        TestLogger.functionCalled(this, "Asteroid", "void");
+        TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.figures = new ArrayList<>();
         this.portal = new ArrayList<>();
         this.neighbors = new ArrayList<>();
@@ -112,7 +118,7 @@ public class Asteroid {
     }
 
     public void addNeighbor(Asteroid a) {
-        TestLogger.functionCalled(this, "addNeighbor", "Asteroid a", "void");
+        TestLogger.functionCalled(this, "addNeighbor", "Playground.Asteroid a", "void");
         this.neighbors.add(a);
         TestLogger.functionReturned();
     }
@@ -159,7 +165,7 @@ public class Asteroid {
     }
 
     public ArrayList<Asteroid> getNeighbors() {
-        TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Asteroid>");
+        TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Playground.Asteroid>");
         TestLogger.functionReturned(neighbors.toString());
         return neighbors;
     }
@@ -171,7 +177,7 @@ public class Asteroid {
     }
 
     public void handleFigures() {
-        TestLogger.functionCalled(this, "handleFigures", "Figure f", "void");
+        TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
         if (!isHollow)
             for (Figure f : figures)
                 f.onExplosion();

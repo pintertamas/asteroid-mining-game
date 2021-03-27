@@ -1,16 +1,16 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import Playground.Map;
 import java.util.Scanner;
+import Test.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        Menu menu = new Menu();
-        Map m = new Map();
+    public static void main(String[] args) {
+        //Menu menu = new Menu();
         //menu.run()
 
+        Map m = new Map();
+
         //Tesztek kiírásának be/kikakpcsolása
-        //TestLogger.setShow(true);
+        TestLogger.setShow(true);
 
         //Játék előkészítése:
         System.out.println("Adja meg a játékosok számát, 1-től 4-ig");
@@ -29,17 +29,6 @@ public class Main {
 
         //Játék iniciaizálása:
         m.initGame(numOfPlayers);
-        /*
-        //init ellenőrzése
-        System.out.println(m.getAsteroids());
-        for(Asteroid a : m.getAsteroids()) {
-            System.out.println("Layerek száma: " +  a.getLayers() + " A magja: " + a.getMaterial());
-            for(Figure f : a.getFigures()) {
-                System.out.println(f + "Asteroidája: " + f.getAsteroid());
-            }
-        }
-         */
-
         m.setupRound();
     }
 }

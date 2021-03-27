@@ -1,16 +1,21 @@
+package Materials;
+import Entities.Settler;
+import Playground.Asteroid;
+import Test.TestLogger;
+
 public abstract class Material {
     Asteroid asteroid;
 
     public Material() {
     }
 
-    protected void readyToMine() {
+    public void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine()", "void");
         TestLogger.functionReturned();
     }
 
     public void addToInventory(Settler s) {
-        TestLogger.functionCalled(this, "addToInventory", "Settler s", "void");
+        TestLogger.functionCalled(this, "addToInventory", "Entities.Settler s", "void");
         s.getInventory().addMaterial(this);
         TestLogger.functionReturned();
     }
