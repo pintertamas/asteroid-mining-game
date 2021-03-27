@@ -25,7 +25,7 @@ public class Main {
         TestLogger.setShow(false);
 
         //Játék előkészítése:
-        System.out.println("Adja meg a játékosok számát, 1-től 4-ig");
+        System.out.println("How many players would you like to play with? (1-4)");
         Scanner kb = new Scanner(System.in);
         int numOfPlayers = 0;
         if(kb.hasNextInt()) {

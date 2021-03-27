@@ -9,51 +9,81 @@ import Test.TestLogger;
 
 import java.util.*;
 
+/**
+ * Pálya osztály.
+ */
 public class Map {
 
     final ArrayList<Asteroid> asteroids;
     GameState gameState;
-    boolean manual = false;
 
+    /**
+     * Konstruktor
+     */
     public Map() {
         this.asteroids = new ArrayList<>();
         this.gameState = GameState.IN_PROGRESS;
     }
 
+    /**
+     * Beállítja a játék állapotát.
+     *
+     * @param gs
+     */
     public void setGameState(GameState gs) {
         TestLogger.functionCalled(this, "setGameState", "Playground.GameState gs", "void");
         this.gameState = gs;
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja a játék állapotát.
+     *
+     * @return
+     */
     public GameState getGameState() {
         return this.gameState;
     }
 
+    /**
+     * Hozzáad egy aszteroidát a pályához.
+     *
+     * @param a
+     */
     public void addAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "AddAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.add(a);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Kivesz egy aszteroidát a pályáról.
+     *
+     * @param a
+     */
     public void removeAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "removeAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.remove(a);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja az összes aszteroida listáját.
+     *
+     * @return
+     */
     public ArrayList<Asteroid> getAsteroids() {
         return this.asteroids;
     }
 
-    public void setManual(boolean bool) {
-        this.manual = bool;
-    }
-
+    /**
+     * Játék inicializálása.
+     * @param numberOfPlayers
+     */
     public void initGame(int numberOfPlayers) {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
-        //Változók amelyeket a player inputnál használunk fel
+        //Változók, amelyeket a player inputnál használunk fel
         int numberOfAsteroid = -1;
         int mat = -1;
         int sun = -1;
@@ -67,18 +97,18 @@ public class Map {
         int ufoAsteroid = -1;
         int settlerAsteroid = -1;
 
-        //Itt lehet az asteroidák számát megadni
-        System.out.println("Mennyi asteroidát szeretnél a pályára, add meg:");
+        //Itt lehet az aszteroidák számát megadni
+        System.out.println("How many Asteroids would you like to set up?");
         Scanner kb = new Scanner(System.in);
         if (kb.hasNextInt()) {
             numberOfAsteroid = kb.nextInt();
         }
 
 
-        //Az asteroidák belső tulajdonságainak az eldöntése:
+        //Az aszteroidák belső tulajdonságainak az eldöntése:
         for (int i = 0; i < numberOfAsteroid; i++) {
             while (mat < 0 || mat > 3) {
-                System.out.println("Az " + i + ". asteroidának milyen legyen a belseje?: ");
+                System.out.println("What kind of Material does the Asteroid " + i + " contain? ");
                 System.out.println("0 - Uranium");
                 System.out.println("1 - Ice");
                 System.out.println("2 - Coal");
@@ -105,9 +135,9 @@ public class Map {
 
             //Napközelben legyen-e vagy sem az asteroida:
             while (sun < 0 || sun > 1) {
-                System.out.println("Napközelben legyen az asteroida?");
-                System.out.println("1 - Igen");
-                System.out.println("0 - Nem");
+                System.out.println("Is the Asteroid near sun?");
+                System.out.println("1 - Yes");
+                System.out.println("0 - No");
                 kb = new Scanner(System.in);
                 if (kb.hasNextInt()) {
                     sun = kb.nextInt();
@@ -125,9 +155,9 @@ public class Map {
 
 
             while (hollow < 0 || hollow > 1) {
-                System.out.println("Üreges legyen az asteroida? ");
-                System.out.println("0 - Nem");
-                System.out.println("1 - Igen");
+                System.out.println("Is the Asteroid hollow? ");
+                System.out.println("1 - Yes");
+                System.out.println("0 - No");
                 kb = new Scanner(System.in);
                 if (kb.hasNextInt()) {
                     hollow = kb.nextInt();
@@ -144,19 +174,19 @@ public class Map {
             }
 
             //Mennyi legyen a layer az asteroidán:
-            System.out.println("Milyen vastag legyen az asteroida köpenye?");
+            System.out.println("How many layers does the Asteroid contain?");
             kb = new Scanner(System.in);
             if (kb.hasNextInt()) {
                 layer = kb.nextInt();
             }
 
-            //Asteroida létrehozása:
-            Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
-            asteroids.add(ast);
+                //Asteroida létrehozása:
+                Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
+                asteroids.add(ast);
 
             //Szomszédok beállítása számának beállítása:
             for (int j = 0; j < numberOfAsteroid; j++) {
-                System.out.println("A(z) " + j + ". asteroidának hány szomszédja legyen?");
+                System.out.println("How many neighbours does the Asteroid " + j + " has?");
                 while (numberOfNeighbours < 0 || numberOfNeighbours > numberOfAsteroid - 1) {
                     kb = new Scanner(System.in);
                     if (kb.hasNextInt()) {
@@ -166,7 +196,7 @@ public class Map {
 
                 //Egyesével beállítani ki legyen a szomszéd:
                 for (int k = 0; k < numberOfNeighbours; k++) {
-                    System.out.println("Mi legyen a" + k + ". szomszád, adj meg egy asteroidát a sorszámával.");
+                    System.out.println("Which Asteroid would you like to be the neighbour " + k + "? Write the number of Asteroid!");
                     while (neighbour < 0 || neighbour > numberOfAsteroid - 1 || k == neighbour) {
                         kb = new Scanner(System.in);
                         if (kb.hasNextInt()) {
@@ -178,13 +208,13 @@ public class Map {
             }
 
             //Ufok létrehozása:
-            System.out.println("Mennyi ufot szeretnél szeretnél a pályára, add meg:");
+            System.out.println("How many Ufos would you like to set up?");
             kb = new Scanner(System.in);
             if (kb.hasNextInt()) {
                 numberOfUfos = kb.nextInt();
             }
             for (int j = 0; j < numberOfUfos; j++) {
-                System.out.println("A(z) " + j + ". ufo melyik asteroidán legyen, add meg a sorszámát:");
+                System.out.println("Where would you like to put the Ufo " + i + "? Write the number of Asteroid!");
                 while (ufoAsteroid < 0 || ufoAsteroid > numberOfAsteroid) {
                     kb = new Scanner(System.in);
                     if (kb.hasNextInt()) {
@@ -197,7 +227,7 @@ public class Map {
 
             //Settlerek létrehozása:
             for (int j = 0; j < numberOfPlayers; j++) {
-                System.out.println("A(z) " + j + ". settler melyik asteroidán legyen, add meg a sorszámát:");
+                System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
                 while (settlerAsteroid < 0 || settlerAsteroid > numberOfAsteroid) {
                     kb = new Scanner(System.in);
                     if (kb.hasNextInt()) {
@@ -212,45 +242,22 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Napvihar.
+     */
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
-        if (manual == false) {
-            for (Asteroid a : drawSolarArea()) {
-                if (a.isNearSun == true) {
-                    a.handleFigures();
-                }
-            }
-        } else {
-            System.out.println("Do you want to have a solar storm this turn?");
-            System.out.println("Yes - Press 1");
-            System.out.println("No - Press 0");
-            Scanner kb = new Scanner(System.in);
-            int num = 0;
-            if (kb.hasNextInt()) {
-                num = kb.nextInt();
-            }
-            if (num == 1) {
-                for (Asteroid a : drawSolarArea()) {
-                    if (a.isNearSun == true) {
-                        a.handleFigures();
-                    }
-                }
-            }
+        for (Asteroid a : asteroids) {
+            a.handleFigures();
         }
         TestLogger.functionReturned();
     }
 
-    public ArrayList<Asteroid> drawSolarArea() {
-        ArrayList<Asteroid> tmp = new ArrayList<>();
-        Random rand = new Random();
-        int asteroidNumber = rand.nextInt(asteroids.size());
-        tmp.add(asteroids.get(asteroidNumber));
-        for(Asteroid a : asteroids.get(asteroidNumber).getNeighbors()) {
-            tmp.add(a);
-        }
-        return tmp;
-    }
-
+    /**
+     * Leellenőrzi, hogy vége van-e már a játéknak.
+     *
+     * @return
+     */
     public boolean checkGameEnd() {
         TestLogger.functionCalled(this, "checkGameEnd", "boolean");
         if (!checkIfWinnable()) {
@@ -262,6 +269,11 @@ public class Map {
         return false;
     }
 
+    /**
+     * Leellenőrzi, hogy van-e elegendő nyersanyag az egész pályán a játék megnyeréséhez.
+     *
+     * @return
+     */
     public boolean hasAllMaterials() {
         TestLogger.functionCalled(this, "hasAllMaterials", "boolean");
         ArrayList<Material> allMaterials = new ArrayList<>();
@@ -276,6 +288,11 @@ public class Map {
         return hasAll;
     }
 
+    /**
+     * Leellenőrzi, hogy van-e még Figura a pályán.
+     *
+     * @return
+     */
     private boolean hasAnyFigure() {
         for (Asteroid a : asteroids) {
             if (a.getFigures().size() > 0)
@@ -285,7 +302,7 @@ public class Map {
     }
 
     /**
-     * huhhuuuu
+     * Leellenőrzi, hogy megnyerhető-e a játék.
      *
      * @return
      */
@@ -297,6 +314,9 @@ public class Map {
         return hasAll;
     }
 
+    /**
+     * Felállít egy kört.
+     */
     public void setupRound() {
         TestLogger.functionCalled(this, "setupRound", "void");
         if (stormComing()) {
@@ -311,12 +331,22 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Játék vége.
+     *
+     * @param b
+     */
     public void gameEnd(boolean b) {
         TestLogger.functionCalled(this, "gameEnd", "boolean b", "void");
 
         TestLogger.functionReturned();
     }
 
+    /**
+     * Kisorsolja, hogy az adott körben lesz-e napvihar.
+     *
+     * @return
+     */
     public boolean stormComing() {
         TestLogger.functionCalled(this, "stormComing", "boolean");
         Random rand = new Random();
@@ -329,6 +359,9 @@ public class Map {
         return false;
     }
 
+    /**
+     * Egy kör vége, egy új kör indítása.
+     */
     public void reset() {
         TestLogger.functionCalled(this, "reset", "void");
         for (Asteroid a : asteroids) {
