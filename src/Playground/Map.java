@@ -248,6 +248,10 @@ public class Map {
         return false;
     }
 
+    /**
+     * huhhuuuu
+     * @return
+     */
     public boolean checkIfWinnable() {
         TestLogger.functionCalled(this, "checkIfWinnable", "boolean");
 
