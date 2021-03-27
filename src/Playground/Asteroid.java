@@ -149,7 +149,7 @@ public class Asteroid {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
         while(f != null){
-            System.out.println(f + " is going to step now. ");
+            System.out.println(f + " is going to step now.");
             f.step();
             f = pickNextFigure();
         }

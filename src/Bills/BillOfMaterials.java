@@ -26,7 +26,7 @@ public abstract class BillOfMaterials {
     }
 
     public boolean hasEnoughMaterials(ArrayList<Material> inventoryMaterials) {
-        TestLogger.functionCalled(this, "hasEnoughMaterial", "boolean");
+        TestLogger.functionCalled(this, "hasEnoughMaterial", "ArrayList<Material> inventoryMaterials", "boolean");
         HashMap<Class<?>, Integer> allMaterials = countMaterials(inventoryMaterials);
 
         if (allMaterials.isEmpty()) {
@@ -46,21 +46,8 @@ public abstract class BillOfMaterials {
         return true;
     }
 
-    /*public boolean isNeeded(Material m) {
-        TestLogger.functionCalled(this, "isNeeded", "Materials.Material m", "boolean");
-        TestLogger.functionReturned(String.valueOf(bill.get(m.getClass()) > 0));
-        return bill.get(m.getClass()) > 0;
-    }*/
-
-    /*public void checkMaterial(Material m) {
-        TestLogger.functionCalled(this, "checkMaterial", "Materials.Material m", "void");
-        if (bill.get(m.getClass()) > 0)
-            bill.put(m.getClass(), bill.get(m.getClass()) - 1);
-        TestLogger.functionReturned();
-    }*/
-
     public void pay(ArrayList<Material> inventoryMaterials) {
-        TestLogger.functionCalled(this, "pay", "inventoryMaterials", "void");
+        TestLogger.functionCalled(this, "pay", "ArrayList<Material> inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
 
         for (Material material : bill) {
