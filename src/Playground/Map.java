@@ -4,6 +4,7 @@ import Bills.*;
 import Entities.Figure;
 import Entities.Settler;
 import Entities.Ufo;
+import Interfaces.IGameState;
 import Materials.*;
 import Test.TestLogger;
 
@@ -11,22 +12,11 @@ import java.util.*;
 
 public class Map {
 
-    final ArrayList<Asteroid> asteroids;
-    GameState gameState;
+    private final ArrayList<Asteroid> asteroids;
+    private final ArrayList<IGameState> listeners = new ArrayList<>();
 
     public Map() {
         this.asteroids = new ArrayList<>();
-        this.gameState = GameState.IN_PROGRESS;
-    }
-
-    public void setGameState(GameState gs) {
-        TestLogger.functionCalled(this, "setGameState", "Playground.GameState gs", "void");
-        this.gameState = gs;
-        TestLogger.functionReturned();
-    }
-
-    public GameState getGameState() {
-        return this.gameState;
     }
 
     public void addAsteroid(Asteroid a) {
@@ -218,7 +208,7 @@ public class Map {
     public boolean checkGameEnd() {
         TestLogger.functionCalled(this, "checkGameEnd", "boolean");
         if (!checkIfWinnable()) {
-            gameState = GameState.LOST;
+            switchGameState(GameState.LOST);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
@@ -248,15 +238,12 @@ public class Map {
         return false;
     }
 
-    /**
-     * huhhuuuu
-     * @return
-     */
     public boolean checkIfWinnable() {
         TestLogger.functionCalled(this, "checkIfWinnable", "boolean");
-
         boolean hasAll = hasAllMaterials() && hasAnyFigure();
         TestLogger.functionReturned(String.valueOf(hasAll));
+        if (!hasAll)
+            switchGameState(GameState.LOST);
         return hasAll;
     }
 
@@ -274,9 +261,12 @@ public class Map {
         TestLogger.functionReturned();
     }
 
-    public void gameEnd(boolean b) {
-        TestLogger.functionCalled(this, "gameEnd", "boolean b", "void");
-
+    public void gameEnd(boolean settlersWon) {
+        TestLogger.functionCalled(this, "gameEnd", "boolean settlersWon", "void");
+        if (settlersWon)
+            System.out.println("Settlers won the game!");
+        else
+            System.out.println("Settlers lost the game!");
         TestLogger.functionReturned();
     }
 
@@ -298,6 +288,16 @@ public class Map {
             a.resetStep();
         }
         TestLogger.functionReturned();
+    }
+
+    public void addStateListener(IGameState listener) {
+        listeners.add(listener);
+    }
+
+    public void switchGameState(GameState gameState) {
+        for (IGameState gs : listeners) {
+            gs.changeGameState(gameState);
+        }
     }
 }
 
