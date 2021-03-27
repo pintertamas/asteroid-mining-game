@@ -60,9 +60,7 @@ public class Map {
         int neighbour = -1;
         int numberOfUfos = -1;
         int ufoAsteroid = -1;
-        int numberOfSettlers = -1;
         int settlerAsteroid = -1;
-        ArrayList<Integer> nums = new ArrayList<>();
 
         //Itt lehet az asteroidák számát megadni
         System.out.println("Mennyi asteroidát szeretnél a pályára, add meg:");
@@ -164,7 +162,7 @@ public class Map {
                 //Egyesével beállítani ki legyen a szomszéd:
                 for (int k = 0; k < numberOfNeighbours; k++) {
                     System.out.println("Mi legyen a" + k + ". szomszád, adj meg egy asteroidát a sorszámával.");
-                    while (neighbour < 0 || neighbour > numberOfAsteroid - 1 || !(canBePlaced(neighbour, nums)) || k == neighbour) {
+                    while (neighbour < 0 || neighbour > numberOfAsteroid - 1 || k == neighbour) {
                         kb = new Scanner(System.in);
                         if (kb.hasNextInt()) {
                             neighbour = kb.nextInt();
@@ -193,12 +191,7 @@ public class Map {
             }
 
             //Settlerek létrehozása:
-            System.out.println("Mennyi settlert szeretnél a pályára, add meg:");
-            kb = new Scanner(System.in);
-            if (kb.hasNextInt()) {
-                numberOfSettlers = kb.nextInt();
-            }
-            for (int j = 0; j < numberOfSettlers; j++) {
+            for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("A(z) " + j + ". settler melyik asteroidán legyen, add meg a sorszámát:");
                 while (settlerAsteroid < 0 || settlerAsteroid > numberOfAsteroid) {
                     kb = new Scanner(System.in);
@@ -212,15 +205,6 @@ public class Map {
         }
 
         TestLogger.functionReturned();
-    }
-
-    public boolean canBePlaced(int n, ArrayList<Integer> numbers) {
-        for (int i : numbers) {
-            if (i == n) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void solarStorm() {

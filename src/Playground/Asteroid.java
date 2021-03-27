@@ -176,7 +176,7 @@ public class Asteroid {
      */
     public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "boolean");
-        if (this.layers == 0 && !this.isHollow) {
+        if (this.layers == 0 && !this.isHollow && this.material != null) {
             material.addToInventory(s);
             setIsHollow(true);
             TestLogger.functionReturned(String.valueOf(true));
@@ -333,7 +333,7 @@ public class Asteroid {
         TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
         if (!isHollow)
             for (Figure f : figures)
-                f.onExplosion();
+                f.die();
         TestLogger.functionReturned();
     }
 }
