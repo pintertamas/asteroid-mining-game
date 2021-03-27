@@ -1,3 +1,5 @@
+import Materials.Ice;
+import Materials.Uranium;
 import Playground.Asteroid;
 import Playground.GameState;
 import Playground.Map;
@@ -29,6 +31,24 @@ public class Main {
         if(kb.hasNextInt()) {
             numOfPlayers = kb.nextInt();
         }
+
+        System.out.println("Manuális vagy automatikusan szeretnéd a viharok generálását?");
+        System.out.println("Manuális - Press 1");
+        System.out.println("Automatikus - Press 0");
+        int automaticStorm = -1;
+        while(automaticStorm < 0 || automaticStorm > 1) {
+            if (kb.hasNextInt()) {
+                automaticStorm = kb.nextInt();
+            }
+        }
+        switch (automaticStorm) {
+            case 0:
+                m.setManual(false);
+            case 1:
+                m.setManual(true);
+                break;
+        }
+
 
         while (1 > numOfPlayers || numOfPlayers > 4) {
             kb = new Scanner(System.in);

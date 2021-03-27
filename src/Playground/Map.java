@@ -13,6 +13,7 @@ public class Map {
 
     final ArrayList<Asteroid> asteroids;
     GameState gameState;
+    boolean manual = false;
 
     public Map() {
         this.asteroids = new ArrayList<>();
@@ -43,6 +44,10 @@ public class Map {
 
     public ArrayList<Asteroid> getAsteroids() {
         return this.asteroids;
+    }
+
+    public void setManual(boolean bool) {
+        this.manual = bool;
     }
 
     public void initGame(int numberOfPlayers) {
@@ -145,9 +150,9 @@ public class Map {
                 layer = kb.nextInt();
             }
 
-                //Asteroida létrehozása:
-                Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
-                asteroids.add(ast);
+            //Asteroida létrehozása:
+            Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
+            asteroids.add(ast);
 
             //Szomszédok beállítása számának beállítása:
             for (int j = 0; j < numberOfAsteroid; j++) {
@@ -209,10 +214,41 @@ public class Map {
 
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
-        for (Asteroid a : asteroids) {
-            a.handleFigures();
+        if (manual == false) {
+            for (Asteroid a : drawSolarArea()) {
+                if (a.isNearSun == true) {
+                    a.handleFigures();
+                }
+            }
+        } else {
+            System.out.println("Do you want to have a solar storm this turn?");
+            System.out.println("Yes - Press 1");
+            System.out.println("No - Press 0");
+            Scanner kb = new Scanner(System.in);
+            int num = 0;
+            if (kb.hasNextInt()) {
+                num = kb.nextInt();
+            }
+            if (num == 1) {
+                for (Asteroid a : drawSolarArea()) {
+                    if (a.isNearSun == true) {
+                        a.handleFigures();
+                    }
+                }
+            }
         }
         TestLogger.functionReturned();
+    }
+
+    public ArrayList<Asteroid> drawSolarArea() {
+        ArrayList<Asteroid> tmp = new ArrayList<>();
+        Random rand = new Random();
+        int asteroidNumber = rand.nextInt(asteroids.size());
+        tmp.add(asteroids.get(asteroidNumber));
+        for(Asteroid a : asteroids.get(asteroidNumber).getNeighbors()) {
+            tmp.add(a);
+        }
+        return tmp;
     }
 
     public boolean checkGameEnd() {
@@ -250,6 +286,7 @@ public class Map {
 
     /**
      * huhhuuuu
+     *
      * @return
      */
     public boolean checkIfWinnable() {
