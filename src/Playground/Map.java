@@ -24,6 +24,9 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    public GameState getGameState() {
+        return this.gameState;
+    }
     public void addAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "AddAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.add(a);

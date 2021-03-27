@@ -45,7 +45,8 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     public void die() {
         TestLogger.functionCalled(this, "die", "void");
         //asteroid.removeFigure(this);
-        //this. = null;
+        //this = null;
+        //System.out.println(this + " died");
         TestLogger.functionReturned();
     }
 
