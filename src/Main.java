@@ -32,9 +32,9 @@ public class Main {
             numOfPlayers = kb.nextInt();
         }
 
-        System.out.println("Manuális vagy automatikusan szeretnéd a viharok generálását?");
-        System.out.println("Manuális - Press 1");
-        System.out.println("Automatikus - Press 0");
+        System.out.println("Would you like to generate solarstorms automatically or manually?");
+        System.out.println("Manual - Press 1");
+        System.out.println("Automatc - Press 0");
         int automaticStorm = -1;
         while(automaticStorm < 0 || automaticStorm > 1) {
             if (kb.hasNextInt()) {
