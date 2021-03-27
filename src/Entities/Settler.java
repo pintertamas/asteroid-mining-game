@@ -204,8 +204,35 @@ public class Settler extends Figure implements IMine, IDrill {
         }
     }
 
-    public void moveThroughPortal() {
+    public boolean moveThroughPortal() {
+        int i = 1;
+        ArrayList<Asteroid> tmpArray = new ArrayList<>();
+        if(asteroid.getPortals().size()!=0) {
+            System.out.println("Which portal you would like to go through, choose the number seen before its memory code? ");
+            for (Portal p : asteroid.getPortals()) {
+                if (p.getPair().getAsteroid() != null) {
+                    System.out.println("Az " + i + ". asteroida ahova el tudsz mozogni: " + p.getPair().getAsteroid());
+                    tmpArray.add(p.getPair().getAsteroid());
+                    i++;
+                }
+            }
 
+            int choice = 5;
+            while (choice <= 0 || choice >= i) {
+                Scanner kb = new Scanner(System.in);
+                if (kb.hasNextInt()) {
+                    choice = kb.nextInt();
+                }
+            }
+            asteroid.removeFigure(this);
+            tmpArray.get(choice - 1).addFigure(this);
+            setAsteroid(tmpArray.get(choice - 1));
+            this.setRoundFinished(true);
+        }
+        else {
+            return false;
+        }
+        return false;
     }
 
     private void build() {
