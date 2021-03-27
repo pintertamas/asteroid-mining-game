@@ -43,10 +43,12 @@ public class Inventory {
 
     public void removeMaterial(Material m) {
         TestLogger.functionCalled(this, "removeMaterial", "Materials.Material m", "void");
-        if (materials.get(m.getClass()) > 1)
-            materials.put(m.getClass(), materials.get(m.getClass()) - 1);
-        else
-            materials.remove(m.getClass());
+        if (materials.containsKey(m.getClass())) {
+            if (materials.get(m.getClass()) > 1)
+                materials.put(m.getClass(), materials.get(m.getClass()) - 1);
+            else
+                materials.remove(m.getClass());
+        }
         TestLogger.functionReturned();
     }
 
