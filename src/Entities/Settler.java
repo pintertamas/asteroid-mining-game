@@ -96,6 +96,11 @@ public class Settler extends Figure implements IMine, IDrill {
 
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
+        //for testing
+        this.inventory.addMaterial(new Iron());
+        this.inventory.addMaterial(new Iron());
+        this.inventory.addMaterial(new Uranium());
+        this.inventory.addMaterial(new Coal());
         BillOfRobot billOfRobot = new BillOfRobot();
         HashMap<Class<?>, Integer> materials = new HashMap<>();
         for (Class<?> m : this.inventory.getMaterials().keySet()) {

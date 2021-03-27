@@ -3,6 +3,9 @@ import Materials.*;
 import Playground.Asteroid;
 import Test.TestLogger;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Robot extends Figure {
 
     public Robot(Asteroid asteroid, boolean roundFinished) {
@@ -12,8 +15,18 @@ public class Robot extends Figure {
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         Asteroid a = chooseNextDestination();
-        asteroid.removeFigure(this);
+        //if the current asteroid has no neighbors the robot can't move
+        if(a == null){
+            System.out.println("Robot move NOT done, no neighbors");
+            TestLogger.functionReturned();
+            this.setRoundFinished(true);
+            return;
+        }
+        this.asteroid.removeFigure(this);
         setAsteroid(a);
+        a.addFigure(this);
+        this.setRoundFinished(true);
+        System.out.println("Robot move done");
         TestLogger.functionReturned();
     }
 
@@ -25,10 +38,17 @@ public class Robot extends Figure {
     }
 
     public Asteroid chooseNextDestination() {
-        TestLogger.functionCalled(this, "chooseNextDestination", "void");
-        Asteroid ast = new Asteroid(new Iron(), 3, false, true);
-        TestLogger.functionReturned(ast.toString());
-        return ast;
+        TestLogger.functionCalled(this, "chooseNextDestination", "Asteroid");
+        ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
+        if (neighbors.size() == 0) {
+            return null;
+        }
+        int nextDestination = 0;
+        Random rand = new Random();
+        nextDestination = rand.nextInt(neighbors.size());
+        Asteroid nextAsteroid = neighbors.get(nextDestination);
+        TestLogger.functionReturned(nextAsteroid.toString());
+        return nextAsteroid;
     }
 
     public boolean moveThroughPortal() {
@@ -37,7 +57,7 @@ public class Robot extends Figure {
 
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
-        if(asteroid.getLayers() == 0) {
+        if(this.asteroid.getLayers() == 0) {
             move();
         }
         else {

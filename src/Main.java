@@ -1,3 +1,5 @@
+import Playground.Asteroid;
+import Playground.GameState;
 import Playground.Map;
 import Test.TestLogger;
 
@@ -30,6 +32,14 @@ public class Main {
 
         //Játék iniciaizálása:
         m.initGame(numOfPlayers);
-        m.setupRound();
+
+        //A játék menete
+        while(m.getGameState() == GameState.IN_PROGRESS){
+            for(Asteroid a: m.getAsteroids()){
+                a.resetStep();
+            }
+            m.setupRound();
+            System.out.println("---------ROUND ENDED----------");
+        }
     }
 }
