@@ -1,8 +1,9 @@
 package Playground;
 
+import Interfaces.IMove;
 import Test.TestLogger;
 
-public class Portal {
+public class Portal implements IMove {
     private Portal pair;
     private Asteroid asteroid;
 
@@ -26,5 +27,10 @@ public class Portal {
 
     public Asteroid getAsteroid() {
         return asteroid;
+    }
+
+    @Override
+    public void move() {
+        
     }
 }
