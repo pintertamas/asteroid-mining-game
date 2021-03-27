@@ -13,14 +13,14 @@ public class Ufo extends Figure implements IMine {
 
     @Override
     public void move() {
-
-    }
-
-    @Override
-    public void moveThroughPortal() {
         this.asteroid.removeFigure(this);
         this.asteroid = getNextDestination();
         this.asteroid.addFigure(this);
+    }
+
+    @Override
+    public boolean moveThroughPortal() {
+       return false;
     }
 
     @Override

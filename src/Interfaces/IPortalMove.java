@@ -1,5 +1,5 @@
 package Interfaces;
 
 public interface IPortalMove {
-    void moveThroughPortal();
+    boolean moveThroughPortal();
 }

@@ -185,7 +185,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     mine();
                     break;
                 case 2:
-                    move();
+                    chooseMove();
                     break;
                 case 3:
                     build();
@@ -204,8 +204,55 @@ public class Settler extends Figure implements IMine, IDrill {
         }
     }
 
-    public void moveThroughPortal() {
+    public void chooseMove() {
+        while (!this.roundFinished) {
+            System.out.println("What move action would you like to do?");
+            System.out.println("0 - move");
+            System.out.println("1 - moveThroughPortal");
+            Scanner kb = new Scanner(System.in);
+            int choice = 0;
+            if (kb.hasNextInt()) {
+                choice = kb.nextInt();
+            }
+            switch (choice) {
+                case 0:
+                    move();
+                    break;
+                case 1:
+                    moveThroughPortal();
+                    break;
+            }
+        }
+    }
 
+    public boolean moveThroughPortal() {
+        int i = 1;
+        ArrayList<Asteroid> tmpArray = new ArrayList<>();
+        if(asteroid.getPortals().size()!=0) {
+            System.out.println("Which portal you would like to go through, choose the number seen before its memory code? ");
+            for (Portal p : asteroid.getPortals()) {
+                if (p.getPair().getAsteroid() != null) {
+                    System.out.println("Az " + i + ". asteroida ahova el tudsz mozogni: " + p.getPair().getAsteroid());
+                    tmpArray.add(p.getPair().getAsteroid());
+                    i++;
+                }
+            }
+            Scanner kb = new Scanner(System.in);
+            int choice = 5;
+            while (choice <= 0 || choice > i) {
+                kb = new Scanner(System.in);
+                if (kb.hasNextInt()) {
+                    choice = kb.nextInt();
+                }
+            }
+            asteroid.removeFigure(this);
+            tmpArray.get(choice - 1).addFigure(this);
+            this.setRoundFinished(true);
+        }
+        else {
+            return false;
+        }
+        return false;
     }
 
     private void build() {

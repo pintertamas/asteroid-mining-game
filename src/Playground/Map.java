@@ -105,6 +105,29 @@ public class Map {
 
             Settler s = new Settler(asteroids.get(0), false);
         }
+
+        //Bence féle ronda hard code a Portálokhoz.
+        Portal p1 = new Portal();
+        Portal p2 = new Portal();
+        p1.setPair(p2);
+        p2.setPair(p1);
+        p1.setAsteroid(asteroids.get(0));
+        p2.setAsteroid(asteroids.get(1));
+        asteroids.get(0).addPortal(p1);
+        asteroids.get(1).addPortal(p2);
+
+
+        Portal p3 = new Portal();
+        Portal p4 = new Portal();
+        p3.setPair(p4);
+        p4.setPair(p3);
+        p3.setAsteroid(asteroids.get(0));
+        p4.setAsteroid(asteroids.get(3));
+        asteroids.get(0).addPortal(p3);
+        asteroids.get(3).addPortal(p4);
+
+
+
         TestLogger.functionReturned();
     }
 

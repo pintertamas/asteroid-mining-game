@@ -10,7 +10,7 @@ public class Main {
         Map m = new Map();
 
         //Tesztek kiírásának be/kikakpcsolása
-        TestLogger.setShow(true);
+        TestLogger.setShow(false);
 
         //Játék előkészítése:
         System.out.println("Adja meg a játékosok számát, 1-től 4-ig");

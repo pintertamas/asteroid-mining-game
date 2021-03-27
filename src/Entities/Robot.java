@@ -31,8 +31,8 @@ public class Robot extends Figure {
         return ast;
     }
 
-    public void moveThroughPortal() {
-
+    public boolean moveThroughPortal() {
+        return false;
     }
 
     public void step() {
