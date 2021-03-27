@@ -1,6 +1,10 @@
 package Bills;
 import Materials.*;
 
+/**
+ * A teleportkapu-pár megépítéséhez tartozó recept.
+ * A BillOfMaterials leszármazottja.
+ */
 public class BillOfPortal extends BillOfMaterials {
 
     public BillOfPortal() {

@@ -7,12 +7,17 @@ import Playground.Portal;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Ufó osztály, amely képes mozogni és bányászni.
+ * A Figure leszármazottja.
+ */
 public class Ufo extends Figure implements IMine {
 
     public Ufo(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
     }
 
+    /** Mozgás. */
     @Override
     public void move() {
         this.asteroid.removeFigure(this);
@@ -20,6 +25,7 @@ public class Ufo extends Figure implements IMine {
         this.asteroid.addFigure(this);
     }
 
+    /** Mozgás teleportkapun keresztül. */
     @Override
     public boolean moveThroughPortal() {
         if(asteroid.getPortals().size() != 0) {
@@ -42,6 +48,7 @@ public class Ufo extends Figure implements IMine {
         return false;
     }
 
+    /** Lépés. */
     @Override
     public void step() {
         if(asteroid.getLayers()==0) {
@@ -52,16 +59,19 @@ public class Ufo extends Figure implements IMine {
         }
     }
 
+    /** Reagálás robbanásra. */
     @Override
     public void onExplosion() {
 
     }
 
+    /** Bányászás. */
     @Override
     public boolean mine() {
         return false;
     }
 
+    /** Következő aszteroida kiválasztásra, amelyre át szeretne lépni. */
     public Asteroid getNextDestination() {
         Random rand = new Random();
         int index = rand.nextInt(asteroid.getNeighbors().size());

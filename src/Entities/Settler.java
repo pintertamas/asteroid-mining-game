@@ -8,8 +8,13 @@ import Playground.*;
 import Test.TestLogger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * Telepes osztály, képes mozogni, fúrni és bányászni.
+ * A Figure leszármazottja.
+ */
 public class Settler extends Figure implements IMine, IDrill {
     private final Inventory inventory;
 
@@ -18,6 +23,7 @@ public class Settler extends Figure implements IMine, IDrill {
         this.inventory = new Inventory();
     }
 
+    /** Mozgás. */
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
@@ -51,6 +57,7 @@ public class Settler extends Figure implements IMine, IDrill {
         }
     }
 
+    /** Bányászás. */
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
         if (asteroid.mined(this)) {
@@ -64,6 +71,7 @@ public class Settler extends Figure implements IMine, IDrill {
         return false;
     }
 
+    /** Visszaadja az Inventory-t. */
     @Override
     public Inventory getInventory() {
         TestLogger.functionCalled(this, "getInventory", "inventory");
@@ -72,6 +80,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
     }
 
+    /** Teleportkapu-pár építés. */
     public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
@@ -91,6 +100,7 @@ public class Settler extends Figure implements IMine, IDrill {
         }
     }
 
+    /** Robot építés. */
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
@@ -107,6 +117,7 @@ public class Settler extends Figure implements IMine, IDrill {
         return true;
     }
 
+    /** Bázis építés. */
     public boolean buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
@@ -119,6 +130,7 @@ public class Settler extends Figure implements IMine, IDrill {
         return false;
     }
 
+    /** Teleportkapu lerakása. */
     public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
         ArrayList<Portal> portals = inventory.getPortals();
@@ -133,6 +145,7 @@ public class Settler extends Figure implements IMine, IDrill {
         return false;
     }
 
+    /** Nyersanyag visszarakása üres aszteroidába. */
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         if (this.asteroid.setMaterial(m)) {
@@ -145,10 +158,12 @@ public class Settler extends Figure implements IMine, IDrill {
         return false;
     }
 
+    /** Nyersanyag kiválasztása az Inventory-ból. */
     public Material chooseMaterial() {
-        return new Iron();
+        return new Iron(); // TODO
     }
 
+    /** Reagálás robbanásra: meghal. */
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
@@ -156,6 +171,7 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionReturned();
     }
 
+    /** Lépés. */
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
         while (!this.roundFinished) {
@@ -198,11 +214,12 @@ public class Settler extends Figure implements IMine, IDrill {
         }
     }
 
+    /** Teleportkapun keresztüli mozgás. */
     public boolean moveThroughPortal() {
         int i = 1;
         ArrayList<Asteroid> tmpArray = new ArrayList<>();
         if(asteroid.getPortals().size()!=0) {
-            System.out.println("Which portal you would like to go through, choose the number seen before its memory code? ");
+            System.out.println("Which portal would you like to go through? Choose the number seen before its memory code! ");
             for (Portal p : asteroid.getPortals()) {
                 if (p.getPair().getAsteroid() != null) {
                     System.out.println("Az " + i + ". asteroida ahova el tudsz mozogni: " + p.getPair().getAsteroid());
@@ -230,7 +247,7 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     private void build() {
-        System.out.println("What do you want to build?");
+        System.out.println("What would you like to build?");
         System.out.println("0 - Nothing");
         System.out.println("1 - Build Portal");
         System.out.println("2 - Build Robot");
