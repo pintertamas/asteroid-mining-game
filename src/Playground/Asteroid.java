@@ -30,6 +30,10 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
+    public ArrayList<Portal> getPortals() {
+        return portal;
+    }
+
     public Material getMaterial() {
         return this.material;
     }

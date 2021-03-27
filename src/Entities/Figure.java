@@ -20,7 +20,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
 
     public abstract void move();
 
-    public abstract void moveThroughPortal();
+    public abstract boolean moveThroughPortal();
 
     public abstract void step();
 
