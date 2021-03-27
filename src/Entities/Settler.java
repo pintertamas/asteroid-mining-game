@@ -120,13 +120,21 @@ public class Settler extends Figure implements IMine, IDrill {
     public boolean buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
-        if (billOfBase.hasEnoughMaterial(this.asteroid.summarizeMaterials())) {
-            //TODO: WIN!
-            TestLogger.functionReturned(String.valueOf(true));
-            return true;
+        HashMap<Class<?>, Integer> materials = new HashMap<>();
+        for (Class<?> m : this.inventory.getMaterials().keySet()) {
+            if (materials.containsKey(m))
+                materials.put(m, materials.get(m) + this.inventory.getMaterials().get(m));
+            else materials.put(m, this.inventory.getMaterials().get(m));
         }
-        TestLogger.functionReturned(String.valueOf(false));
-        return false;
+        if (!billOfBase.hasEnoughMaterial(materials)) {
+            System.out.println("Build base NOT done.");
+            TestLogger.functionReturned(String.valueOf(false));
+            return false;
+        }
+        //TODO majd átállítani az enumot
+        System.out.println("Build base done.");
+        TestLogger.functionReturned(String.valueOf(true));
+        return true;
     }
 
     public boolean putPortalDown() {
@@ -286,8 +294,9 @@ public class Settler extends Figure implements IMine, IDrill {
                 break;
             case 3:
                 buildBase();
+                break;
             default:
-                System.out.println("Wrong format.");
+                System.out.println("Wrong number.");
         }
 
     }
