@@ -16,6 +16,7 @@ public class Map {
 
     final ArrayList<Asteroid> asteroids;
     GameState gameState;
+    public boolean manual = false;
 
     /**
      * Konstruktor
@@ -34,6 +35,15 @@ public class Map {
         TestLogger.functionCalled(this, "setGameState", "Playground.GameState gs", "void");
         this.gameState = gs;
         TestLogger.functionReturned();
+    }
+
+    /**
+     * Beállítja, hogy manuális legyen-e a solarstormok generálása.
+     *
+     * @param manual
+     */
+    public void setManual(boolean manual) {
+        this.manual = manual;
     }
 
     /**
@@ -78,6 +88,7 @@ public class Map {
 
     /**
      * Játék inicializálása.
+     *
      * @param numberOfPlayers
      */
     public void initGame(int numberOfPlayers) {
@@ -180,9 +191,9 @@ public class Map {
                 layer = kb.nextInt();
             }
 
-                //Asteroida létrehozása:
-                Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
-                asteroids.add(ast);
+            //Asteroida létrehozása:
+            Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
+            asteroids.add(ast);
 
             //Szomszédok beállítása számának beállítása:
             for (int j = 0; j < numberOfAsteroid; j++) {
@@ -247,10 +258,46 @@ public class Map {
      */
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
-        for (Asteroid a : asteroids) {
-            a.handleFigures();
+        if (manual == false) {
+            for (Asteroid a : drawSolarArea()) {
+                if (a.isNearSun == true) {
+                    a.handleFigures();
+                }
+            }
+        } else {
+            System.out.println("Do you want to have a solar storm this turn?");
+            System.out.println("Yes - Press 1");
+            System.out.println("No - Press 0");
+            Scanner kb = new Scanner(System.in);
+            int num = 0;
+            if (kb.hasNextInt()) {
+                num = kb.nextInt();
+            }
+            if (num == 1) {
+                for (Asteroid a : drawSolarArea()) {
+                    if (a.isNearSun == true) {
+                        a.handleFigures();
+                    }
+                }
+            }
         }
         TestLogger.functionReturned();
+    }
+
+    /**
+     * Kisorsolja, hogy mely aszteroidákat érintse a napvihar
+     *
+     * @return ArrayList<Asteroid>
+     */
+    public ArrayList<Asteroid> drawSolarArea() {
+        ArrayList<Asteroid> tmp = new ArrayList<>();
+        Random rand = new Random();
+        int asteroidNumber = rand.nextInt(asteroids.size());
+        tmp.add(asteroids.get(asteroidNumber));
+        for (Asteroid a : asteroids.get(asteroidNumber).getNeighbors()) {
+            tmp.add(a);
+        }
+        return tmp;
     }
 
     /**
