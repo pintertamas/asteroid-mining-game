@@ -9,42 +9,77 @@ import Test.TestLogger;
 
 import java.util.*;
 
+/**
+ * Pálya osztály.
+ */
 public class Map {
 
     final ArrayList<Asteroid> asteroids;
     GameState gameState;
 
+    /**
+     * Konstruktor
+     */
     public Map() {
         this.asteroids = new ArrayList<>();
         this.gameState = GameState.IN_PROGRESS;
     }
 
+    /**
+     * Beállítja a játék állapotát.
+     *
+     * @param gs
+     */
     public void setGameState(GameState gs) {
         TestLogger.functionCalled(this, "setGameState", "Playground.GameState gs", "void");
         this.gameState = gs;
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja a játék állapotát.
+     *
+     * @return
+     */
     public GameState getGameState() {
         return this.gameState;
     }
 
+    /**
+     * Hozzáad egy aszteroidát a pályához.
+     *
+     * @param a
+     */
     public void addAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "AddAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.add(a);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Kivesz egy aszteroidát a pályáról.
+     *
+     * @param a
+     */
     public void removeAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "removeAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.remove(a);
         TestLogger.functionReturned();
     }
 
+    /**
+     * Visszaadja az összes aszteroida listáját.
+     *
+     * @return
+     */
     public ArrayList<Asteroid> getAsteroids() {
         return this.asteroids;
     }
 
+    /**
+     * Játék inicializálása.
+     * @param numberOfPlayers
+     */
     public void initGame(int numberOfPlayers) {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
@@ -207,6 +242,9 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Napvihar.
+     */
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
         for (Asteroid a : asteroids) {
@@ -215,6 +253,11 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Leellenőrzi, hogy vége van-e már a játéknak.
+     *
+     * @return
+     */
     public boolean checkGameEnd() {
         TestLogger.functionCalled(this, "checkGameEnd", "boolean");
         if (!checkIfWinnable()) {
@@ -226,6 +269,11 @@ public class Map {
         return false;
     }
 
+    /**
+     * Leellenőrzi, hogy van-e elegendő nyersanyag az egész pályán a játék megnyeréséhez.
+     *
+     * @return
+     */
     public boolean hasAllMaterials() {
         TestLogger.functionCalled(this, "hasAllMaterials", "boolean");
         ArrayList<Material> allMaterials = new ArrayList<>();
@@ -240,6 +288,11 @@ public class Map {
         return hasAll;
     }
 
+    /**
+     * Leellenőrzi, hogy van-e még Figura a pályán.
+     *
+     * @return
+     */
     private boolean hasAnyFigure() {
         for (Asteroid a : asteroids) {
             if (a.getFigures().size() > 0)
@@ -249,7 +302,8 @@ public class Map {
     }
 
     /**
-     * huhhuuuu
+     * Leellenőrzi, hogy megnyerhető-e a játék.
+     *
      * @return
      */
     public boolean checkIfWinnable() {
@@ -260,6 +314,9 @@ public class Map {
         return hasAll;
     }
 
+    /**
+     * Felállít egy kört.
+     */
     public void setupRound() {
         TestLogger.functionCalled(this, "setupRound", "void");
         if (stormComing()) {
@@ -274,12 +331,22 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Játék vége.
+     *
+     * @param b
+     */
     public void gameEnd(boolean b) {
         TestLogger.functionCalled(this, "gameEnd", "boolean b", "void");
 
         TestLogger.functionReturned();
     }
 
+    /**
+     * Kisorsolja, hogy az adott körben lesz-e napvihar.
+     *
+     * @return
+     */
     public boolean stormComing() {
         TestLogger.functionCalled(this, "stormComing", "boolean");
         Random rand = new Random();
@@ -292,6 +359,9 @@ public class Map {
         return false;
     }
 
+    /**
+     * Egy kör vége, egy új kör indítása.
+     */
     public void reset() {
         TestLogger.functionCalled(this, "reset", "void");
         for (Asteroid a : asteroids) {
