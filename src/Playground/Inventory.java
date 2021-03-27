@@ -9,27 +9,29 @@ import java.util.HashMap;
 public class Inventory {
     private final ArrayList<Portal> portals;
     private final HashMap<Class<?>, Integer> materials;
-    private final int capacity;
+    private final int materialCapacity;
+    private final int portalCapacity;
 
     public Inventory() {
         this.portals = new ArrayList<>();
         this.materials = new HashMap<>();
-        this.capacity = 10;
+        this.materialCapacity = 10;
+        this.portalCapacity = 3;
     }
 
-    private boolean isInventoryFull() {
-        TestLogger.functionCalled(this, "isInventoryFull", "boolean");
+    private boolean isMaterialInventoryFull() {
+        TestLogger.functionCalled(this, "isMaterialInventoryFull", "boolean");
         int itemCount = 0;
         for (Class<?> m : materials.keySet()) {
             itemCount += materials.get(m);
         }
-        TestLogger.functionReturned(String.valueOf(itemCount >= capacity));
-        return itemCount >= capacity;
+        TestLogger.functionReturned(String.valueOf(itemCount >= materialCapacity));
+        return itemCount >= materialCapacity;
     }
 
     public void addMaterial(Material m) {
         TestLogger.functionCalled(this, "addMaterial", "Materials.Material m", "void");
-        if (!isInventoryFull()) {
+        if (!isMaterialInventoryFull()) {
             if (materials.containsKey(m.getClass())) {
                 if (materials.get(m.getClass()) > 0)
                     materials.put(m.getClass(), materials.get(m.getClass()) + 1);
@@ -48,15 +50,24 @@ public class Inventory {
         TestLogger.functionReturned();
     }
 
+    private boolean isPortalInventoryFull() {
+        TestLogger.functionCalled(this, "isPortalInventoryFull", "boolean");
+        int itemCount = portals.size();
+        TestLogger.functionReturned(String.valueOf(itemCount >= portalCapacity));
+        return itemCount >= portalCapacity;
+    }
+
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", "Playground.Portal p", "void");
-        portals.add(p);
+        if (!isPortalInventoryFull())
+            portals.add(p);
         TestLogger.functionReturned();
     }
 
     public void removePortal(Portal p) {
         TestLogger.functionCalled(this, "removePortal", "Playground.Portal p", "void");
-        portals.remove(p);
+        if (portals.size() != 0 && p != null)
+            portals.remove(p);
         TestLogger.functionReturned();
     }
 

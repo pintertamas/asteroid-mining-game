@@ -1,6 +1,7 @@
 import Playground.Map;
+import Test.TestLogger;
+
 import java.util.Scanner;
-import Test.*;
 
 public class Main {
     public static void main(String[] args) {

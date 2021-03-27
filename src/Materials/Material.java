@@ -4,7 +4,8 @@ import Playground.Asteroid;
 import Test.TestLogger;
 
 public abstract class Material {
-    Asteroid asteroid;
+    private Asteroid asteroid;
+    private int nearSunCount;
 
     public Material() {
     }
@@ -22,5 +23,13 @@ public abstract class Material {
 
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
+    }
+
+    public Asteroid getAsteroid() {
+        return asteroid;
+    }
+
+    public int getNearSunCount() {
+        return nearSunCount;
     }
 }

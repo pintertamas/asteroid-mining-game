@@ -6,7 +6,8 @@ public class Uranium extends Material {
     @Override
     public void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine()", "void");
-        asteroid.explode();
+        if (this.getNearSunCount() >= 3)
+            this.getAsteroid().explode();
         TestLogger.functionReturned();
     }
 }
