@@ -184,7 +184,6 @@ public class Asteroid {
         }
         TestLogger.functionReturned(String.valueOf(false));
         return false;
-
     }
 
     /**

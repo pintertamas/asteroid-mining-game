@@ -1,8 +1,10 @@
 package Entities;
 
 import Interfaces.IMine;
+import Materials.Material;
 import Playground.Asteroid;
 import Playground.Portal;
+import Test.TestLogger;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,6 +14,7 @@ import java.util.Random;
  * A Figure leszármazottja.
  */
 public class Ufo extends Figure implements IMine {
+    ArrayList<Material> materials;
 
     /**
      * Konstruktor.
@@ -88,6 +91,16 @@ public class Ufo extends Figure implements IMine {
      */
     @Override
     public boolean mine() {
+        TestLogger.functionCalled(this, "mine", "boolean");
+        if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
+            this.materials.add(this.asteroid.getMaterial());
+            this.asteroid.setIsHollow(true);
+            System.out.println("Mine done");
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
+        }
+        System.out.println("Mine NOT done");
+        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 
