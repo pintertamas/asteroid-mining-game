@@ -26,16 +26,15 @@ public class Game implements IGameState {
 
         //Játék előkészítése:
         System.out.println("How many players would you like to play with? (Must be between 1-4)");
-        Scanner kb = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         int numOfPlayers = 0;
-        if (kb.hasNextInt()) {
-            numOfPlayers = kb.nextInt();
+        if (in.hasNextInt()) {
+            numOfPlayers = in.nextInt();
         }
 
         while (1 > numOfPlayers || numOfPlayers > 4) {
-            kb = new Scanner(System.in);
-            if (kb.hasNextInt()) {
-                numOfPlayers = kb.nextInt();
+            if (in.hasNextInt()) {
+                numOfPlayers = in.nextInt();
             }
         }
 

@@ -79,14 +79,14 @@ public class Map {
         System.out.println("Automatic - Press 0");
         int generator = -1;
         while (generator < 0 || generator > 1) {
-            Scanner kb = new Scanner(System.in);
-            if (kb.hasNextInt()) {
-                generator = kb.nextInt();
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                generator = in.nextInt();
             }
         }
 
         if (generator == 1) {
-            Scanner kb = new Scanner(System.in);
+            Scanner in = new Scanner(System.in);
             //Változók, amelyeket a player inputnál használunk fel
             int numberOfAsteroid = -1;
             int mat = -1;
@@ -103,8 +103,8 @@ public class Map {
 
             //Itt lehet az aszteroidák számát megadni
             System.out.println("How many Asteroids would you like to set up?");
-            if (kb.hasNextInt()) {
-                numberOfAsteroid = kb.nextInt();
+            if (in.hasNextInt()) {
+                numberOfAsteroid = in.nextInt();
                 if (numberOfAsteroid < 1) {
                     numberOfAsteroid = 1;
                     System.out.println("There will be 1 asteroid in the game");
@@ -120,9 +120,8 @@ public class Map {
                     System.out.println("1 - Ice");
                     System.out.println("2 - Coal");
                     System.out.println("3 - Iron");
-                    kb = new Scanner(System.in);
-                    if (kb.hasNextInt()) {
-                        mat = kb.nextInt();
+                    if (in.hasNextInt()) {
+                        mat = in.nextInt();
                     }
                 }
                 Material m = null;
@@ -145,9 +144,8 @@ public class Map {
                     System.out.println("Is the Asteroid near sun?");
                     System.out.println("1 - Yes");
                     System.out.println("0 - No");
-                    kb = new Scanner(System.in);
-                    if (kb.hasNextInt()) {
-                        sun = kb.nextInt();
+                    if (in.hasNextInt()) {
+                        sun = in.nextInt();
                     }
                 }
                 switch (sun) {
@@ -165,9 +163,8 @@ public class Map {
                     System.out.println("Is the Asteroid hollow? ");
                     System.out.println("1 - Yes");
                     System.out.println("0 - No");
-                    kb = new Scanner(System.in);
-                    if (kb.hasNextInt()) {
-                        hollow = kb.nextInt();
+                    if (in.hasNextInt()) {
+                        hollow = in.nextInt();
                     }
                 }
                 switch (hollow) {
@@ -182,9 +179,8 @@ public class Map {
 
                 //Mennyi legyen a layer az asteroidán:
                 System.out.println("How many layers does the Asteroid contain?");
-                kb = new Scanner(System.in);
-                if (kb.hasNextInt()) {
-                    layer = kb.nextInt();
+                if (in.hasNextInt()) {
+                    layer = in.nextInt();
                 }
 
                 //Asteroida létrehozása:
@@ -196,9 +192,8 @@ public class Map {
             for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
                 while (settlerAsteroid < 0 || settlerAsteroid > numberOfAsteroid) {
-                    kb = new Scanner(System.in);
-                    if (kb.hasNextInt()) {
-                        settlerAsteroid = kb.nextInt();
+                    if (in.hasNextInt()) {
+                        settlerAsteroid = in.nextInt();
                     }
                 }
                 Settler s = new Settler(asteroids.get(settlerAsteroid), false);
@@ -207,16 +202,14 @@ public class Map {
 
             //Ufok létrehozása:
             System.out.println("How many Ufos would you like to set up?");
-            kb = new Scanner(System.in);
-            if (kb.hasNextInt()) {
-                numberOfUfos = kb.nextInt();
+            if (in.hasNextInt()) {
+                numberOfUfos = in.nextInt();
             }
             for (int j = 0; j < numberOfUfos; j++) {
                 System.out.println("Where would you like to put the Ufo " + j + "? Write the number of Asteroid!");
                 while (ufoAsteroid < 0 || ufoAsteroid > numberOfAsteroid) {
-                    kb = new Scanner(System.in);
-                    if (kb.hasNextInt()) {
-                        ufoAsteroid = kb.nextInt();
+                    if (in.hasNextInt()) {
+                        ufoAsteroid = in.nextInt();
                     }
                 }
                 Ufo f = new Ufo(asteroids.get(ufoAsteroid), false);
@@ -224,8 +217,8 @@ public class Map {
             }
 
             System.out.println("How many asteroid connections would you like to make?");
-            if (kb.hasNextInt()) {
-                numberOfPairs = kb.nextInt();
+            if (in.hasNextInt()) {
+                numberOfPairs = in.nextInt();
             }
 
             //Egyesével beállítani ki legyen a szomszéd:
@@ -235,7 +228,7 @@ public class Map {
                     int firstPair;
                     int secondPair;
                     String pairs = "";
-                    pairs = kb.next();
+                    pairs = in.next();
                     firstPair = Integer.parseInt(pairs.split(";")[0]);
                     secondPair = Integer.parseInt(pairs.split(";")[1]);
                     if (firstPair != secondPair && firstPair < numberOfAsteroid && firstPair >= 0 && secondPair < numberOfAsteroid && secondPair >= 0) {
@@ -324,10 +317,10 @@ public class Map {
             System.out.println("Do you want to have a solar storm this turn?");
             System.out.println("Yes - Press 1");
             System.out.println("No - Press 0");
-            Scanner kb = new Scanner(System.in);
             int num = 0;
-            if (kb.hasNextInt()) {
-                num = kb.nextInt();
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                num = in.nextInt();
             }
             if (num == 1) {
                 for (Asteroid a : drawSolarArea()) {
@@ -434,10 +427,10 @@ public class Map {
 
         // Beállítható a játék megnyerhetőségének ellenőrzése
         System.out.println("Should I check whether the game is winnable or not?\n1 - Yes\n0 - No");
-        Scanner kb = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         int gameEndCheckChoice;
-        if (kb.hasNextInt()) {
-            gameEndCheckChoice = kb.nextInt();
+        if (in.hasNextInt()) {
+            gameEndCheckChoice = in.nextInt();
             if (gameEndCheckChoice == 1) {
                 shouldCheckGameEnd = true;
             } else if (gameEndCheckChoice != 0)

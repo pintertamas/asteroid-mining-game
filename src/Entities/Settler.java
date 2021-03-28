@@ -46,10 +46,10 @@ public class Settler extends Figure implements IMine, IDrill {
         int neighborChoice = -2;
         while (neighborChoice <= -1 || neighborChoice > neighbors.size() - 1) {
             System.out.println("Pick an asteroid by its number:");
-            Scanner kb = new Scanner(System.in);
+            Scanner in = new Scanner(System.in);
 
-            if (kb.hasNextInt()) {
-                neighborChoice = kb.nextInt();
+            if (in.hasNextInt()) {
+                neighborChoice = in.nextInt();
             }
             if (neighborChoice == -1) {
                 System.out.println("Move NOT done, back");
@@ -246,10 +246,10 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("4 - put down portal");
             System.out.println("5 - put back material");
             System.out.println("6 - Show details about the current asteroid");
-            Scanner kb = new Scanner(System.in);
+            Scanner in = new Scanner(System.in);
             int choice = 0;
-            if (kb.hasNextInt()) {
-                choice = kb.nextInt();
+            if (in.hasNextInt()) {
+                choice = in.nextInt();
             }
             switch (choice) {
                 case 0:
@@ -301,9 +301,9 @@ public class Settler extends Figure implements IMine, IDrill {
 
             int choice = 5;
             while (choice <= 0 || choice >= i) {
-                Scanner kb = new Scanner(System.in);
-                if (kb.hasNextInt()) {
-                    choice = kb.nextInt();
+                Scanner in = new Scanner(System.in);
+                if (in.hasNextInt()) {
+                    choice = in.nextInt();
                 }
             }
             asteroid.removeFigure(this);
@@ -325,10 +325,10 @@ public class Settler extends Figure implements IMine, IDrill {
         System.out.println("1 - Build Portal");
         System.out.println("2 - Build Robot");
         System.out.println("3 - Build Base");
-        Scanner kb = new Scanner(System.in);
+        Scanner in = new Scanner(System.in);
         int choice = 0;
-        if (kb.hasNextInt()) {
-            choice = kb.nextInt();
+        if (in.hasNextInt()) {
+            choice = in.nextInt();
         }
         switch (choice) {
             case 0:
