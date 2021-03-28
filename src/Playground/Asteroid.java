@@ -350,5 +350,6 @@ public class Asteroid {
         System.out.println("\tLayers: " + this.getLayers());
         System.out.println("\tMaterial: " + this.getMaterial().getClass().toString().replace("class Materials.", ""));
         System.out.println("\tHollow: " + this.isHollow());
+        System.out.println("\tPortals: " + this.getPortals().toString());
     }
 }
