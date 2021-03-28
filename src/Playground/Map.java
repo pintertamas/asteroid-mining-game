@@ -111,18 +111,15 @@ public class Map {
                 }
             }
 
-
             //Az aszteroidák belső tulajdonságainak az eldöntése:
             for (int i = 0; i < numberOfAsteroid; i++) {
-                while (mat < 0 || mat > 3) {
-                    System.out.println("What kind of Material does the Asteroid " + i + " contain? ");
-                    System.out.println("0 - Uranium");
-                    System.out.println("1 - Ice");
-                    System.out.println("2 - Coal");
-                    System.out.println("3 - Iron");
-                    if (in.hasNextInt()) {
-                        mat = in.nextInt();
-                    }
+                System.out.println("What kind of Material does the Asteroid " + i + " contain? ");
+                System.out.println("0 - Uranium");
+                System.out.println("1 - Ice");
+                System.out.println("2 - Coal");
+                System.out.println("3 - Iron");
+                if (in.hasNextInt()) {
+                    mat = in.nextInt();
                 }
                 Material m = null;
                 switch (mat) {
@@ -140,13 +137,11 @@ public class Map {
                 }
 
                 //Napközelben legyen-e vagy sem az asteroida:
-                while (sun < 0 || sun > 1) {
-                    System.out.println("Is the Asteroid near sun?");
-                    System.out.println("1 - Yes");
-                    System.out.println("0 - No");
-                    if (in.hasNextInt()) {
-                        sun = in.nextInt();
-                    }
+                System.out.println("Is the Asteroid near sun?");
+                System.out.println("1 - Yes");
+                System.out.println("0 - No");
+                if (in.hasNextInt()) {
+                    sun = in.nextInt();
                 }
                 switch (sun) {
                     case 0:
@@ -159,13 +154,11 @@ public class Map {
                 }
 
 
-                while (hollow < 0 || hollow > 1) {
-                    System.out.println("Is the Asteroid hollow? ");
-                    System.out.println("1 - Yes");
-                    System.out.println("0 - No");
-                    if (in.hasNextInt()) {
-                        hollow = in.nextInt();
-                    }
+                System.out.println("Is the Asteroid hollow? ");
+                System.out.println("1 - Yes");
+                System.out.println("0 - No");
+                if (in.hasNextInt()) {
+                    hollow = in.nextInt();
                 }
                 switch (hollow) {
                     case 0:
@@ -235,8 +228,7 @@ public class Map {
                         asteroids.get(firstPair).addNeighbor(asteroids.get(secondPair));
                         asteroids.get(secondPair).addNeighbor(asteroids.get(firstPair));
                         System.out.println("Thiese asteroids are now connected: " + asteroids.get(firstPair) + " - " + asteroids.get(secondPair));
-                    }
-                    else {
+                    } else {
                         System.out.println("Wrong format!");
                     }
                 }
