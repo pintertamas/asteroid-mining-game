@@ -17,5 +17,3 @@ public class BillOfPortal extends BillOfMaterials {
         this.addToBill(new Uranium(), 1);
     }
 }
-
-

@@ -3,6 +3,9 @@ package Playground;
 import Interfaces.IMove;
 import Test.TestLogger;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 /**
  * Teleportkapu osztály.
  * Megvalósítja az IMove interfészt a napviharok miatt.
@@ -58,6 +61,13 @@ public class Portal implements IMove {
      */
     @Override
     public void move() {
-        
+        Asteroid currentAsteroid = this.getAsteroid();
+        ArrayList<Asteroid> possibleDestinations = currentAsteroid.getNeighbors();
+        Random rand = new Random();
+        int nextAsteroidIndex = rand.nextInt(possibleDestinations.size());
+        Asteroid nextAsteroid = possibleDestinations.get(nextAsteroidIndex);
+        this.asteroid.removePortal(this);
+        this.asteroid = nextAsteroid;
+        this.asteroid.addPortal(this);
     }
 }
