@@ -242,8 +242,8 @@ public class Map {
                 }
             }
         } else {
-            int minimumNumberOfAsteroids = 5;
-            int maximumNumberOfAsteroids = 20;
+            int minimumNumberOfAsteroids = 50;
+            int maximumNumberOfAsteroids = 200;
             double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
             for (int i = 0; i < numberOfAsteroids; i++) {
                 Random rand = new Random();
@@ -400,12 +400,21 @@ public class Map {
      */
     public boolean checkIfWinnable() {
         TestLogger.functionCalled(this, "checkIfWinnable", "boolean");
-
-        boolean hasAll = hasAllMaterials() && hasAnyFigure();
-        TestLogger.functionReturned(String.valueOf(hasAll));
-        if (!hasAll)
+        boolean hasAllMaterials = hasAllMaterials();
+        boolean hasAnyFigure = hasAnyFigure();
+        if (!hasAllMaterials) {
+            System.out.println("The map does not contain enough materials thats required to win the game!");
+            TestLogger.functionReturned(String.valueOf(false));
             switchGameState(GameState.LOST);
-        return hasAll;
+            return false;
+        }
+        if (!hasAnyFigure) {
+            System.out.println();
+            TestLogger.functionReturned(String.valueOf(false));
+            switchGameState(GameState.LOST);
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -413,13 +422,15 @@ public class Map {
      */
     public void setupRound() {
         TestLogger.functionCalled(this, "setupRound", "void");
-        if (stormComing()) {
-            for (Asteroid a : asteroids) {
-                a.handleFigures();
-            }
-        } else {
-            for (Asteroid a : asteroids) {
-                a.invokeFigures();
+        if (!checkGameEnd()) {
+            if (stormComing()) {
+                for (Asteroid a : asteroids) {
+                    a.handleFigures();
+                }
+            } else {
+                for (Asteroid a : asteroids) {
+                    a.invokeFigures();
+                }
             }
         }
         TestLogger.functionReturned();

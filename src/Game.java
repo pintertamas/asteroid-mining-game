@@ -25,7 +25,7 @@ public class Game implements IGameState {
         TestLogger.setShow(false);
 
         //Játék előkészítése:
-        System.out.println("Adja meg a játékosok számát, 1-től 4-ig");
+        System.out.println("How many players would you like to play with? (Must be between 1-4)");
         Scanner kb = new Scanner(System.in);
         int numOfPlayers = 0;
         if (kb.hasNextInt()) {
@@ -42,17 +42,22 @@ public class Game implements IGameState {
         //Játék iniciaizálása:
         m.initGame(numOfPlayers);
 
-        switch (gameState) {
-            case IN_PROGRESS:
-                inProgress(m);
-                break;
-            case WON:
-                m.gameEnd(true);
-                System.exit(0);
-                break;
-            default:
-                m.gameEnd(false);
-                System.exit(0);
+        boolean shouldRun = true;
+
+        while(shouldRun) {
+            switch (gameState) {
+                case IN_PROGRESS:
+                    inProgress(m);
+                    break;
+                case WON:
+                    m.gameEnd(true);
+                    shouldRun = false;
+                    break;
+                default:
+                    m.gameEnd(false);
+                    shouldRun = false;
+                    break;
+            }
         }
     }
 
