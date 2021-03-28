@@ -245,6 +245,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("3 - build");
             System.out.println("4 - put down portal");
             System.out.println("5 - put back material");
+            System.out.println("6 - Show details about the current asteroid");
             Scanner kb = new Scanner(System.in);
             int choice = 0;
             if (kb.hasNextInt()) {
@@ -269,6 +270,9 @@ public class Settler extends Figure implements IMine, IDrill {
                 case 5:
                     Material m = chooseMaterial();
                     putMaterialBack(m);
+                    break;
+                case 6:
+                    this.getAsteroid().printAsteroidDetails();
                     break;
                 default:
                     break;

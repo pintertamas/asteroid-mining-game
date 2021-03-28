@@ -66,10 +66,10 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
         if (asteroid.drilled()) {
             setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
-            System.out.println("Drill done");
+            System.out.println("Asteroid has been drilled");
             return true;
         }
-        System.out.println("Drill NOT done");
+        System.out.println("Drill could not be done");
         TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
@@ -85,9 +85,9 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     //TODO Ez így jó?
     public void die() {
         TestLogger.functionCalled(this, "die", "void");
-        //asteroid.removeFigure(this);
-        //this = null;
-        //System.out.println(this + " died");
+        asteroid.removeFigure(this);
+        this.asteroid = null;
+        System.out.println(this + " died");
         TestLogger.functionReturned();
     }
 

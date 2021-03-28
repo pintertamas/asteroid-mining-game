@@ -316,6 +316,14 @@ public class Asteroid {
     }
 
     /**
+     * isHollow getter
+     * @return
+     */
+    public boolean isHollow() {
+        return isHollow;
+    }
+
+    /**
      * Üregesre állítja az aszteroidát.
      *
      * @param b
@@ -335,5 +343,12 @@ public class Asteroid {
             for (Figure f : figures)
                 f.die();
         TestLogger.functionReturned();
+    }
+
+    public void printAsteroidDetails() {
+        System.out.println("Current asteroid properties:");
+        System.out.println("\tLayers: " + this.getLayers());
+        System.out.println("\tMaterial: " + this.getMaterial().getClass().toString().replace("class Materials.", ""));
+        System.out.println("\tHollow: " + this.isHollow());
     }
 }
