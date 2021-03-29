@@ -333,7 +333,7 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    /**
+    /**bu
      * Kezeli a figurákat napviharban.
      */
     public void handleFigures() {

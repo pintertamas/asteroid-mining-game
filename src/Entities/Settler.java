@@ -332,14 +332,12 @@ public class Settler extends Figure implements IMine, IDrill {
         }
         switch (choice) {
             case 0:
-                return;
-            case 1:
                 buildPortal();
                 break;
-            case 2:
+            case 1:
                 buildRobot();
                 break;
-            case 3:
+            case 2:
                 buildBase();
                 break;
             default:
