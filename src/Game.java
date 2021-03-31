@@ -3,7 +3,10 @@ import Playground.Asteroid;
 import Playground.GameState;
 import Playground.Map;
 import Test.TestLogger;
+import Test.UserIO;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Game implements IGameState {
@@ -14,29 +17,22 @@ public class Game implements IGameState {
         this.gameState = gameState;
     }
 
-    public void run() {
+    public void run() throws IOException {
         //Tesztek kiírásának be/kikakpcsolása
         TestLogger.setShow(true);
+        UserIO.setShowInput(true);
+        UserIO.setFileName("IO.txt");
+        UserIO.openFile();
 
-        Menu menu = new Menu();
-        menu.run();
+        //Menu menu = new Menu();
+        //menu.run();
 
         Map m = new Map();
         m.addStateListener(this);
 
         //Játék előkészítése:
         System.out.println("How many players would you like to play with? (Must be between 1-4)");
-        Scanner in = new Scanner(System.in);
-        int numOfPlayers = 0;
-        if (in.hasNextInt()) {
-            numOfPlayers = in.nextInt();
-        }
-
-        while (1 > numOfPlayers || numOfPlayers > 4) {
-            if (in.hasNextInt()) {
-                numOfPlayers = in.nextInt();
-            }
-        }
+        int numOfPlayers = UserIO.readInt();
 
         //Játék iniciaizálása:
         m.initGame(numOfPlayers);
@@ -55,6 +51,7 @@ public class Game implements IGameState {
                 default:
                     m.gameEnd(false);
                     shouldRun = false;
+                    UserIO.closeFile();
                     break;
             }
         }

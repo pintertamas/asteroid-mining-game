@@ -78,6 +78,7 @@ public class Map {
         System.out.println("Manual - Press 1");
         System.out.println("Automatic - Press 0");
         int generator = -1;
+
         while (generator < 0 || generator > 1) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
