@@ -9,6 +9,7 @@ import Materials.*;
 import Test.TestLogger;
 import Test.UserIO;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -367,11 +368,11 @@ public class Map {
     /**
      * Felállít egy kört.
      */
-    public void setupRound() {
-        boolean shouldCheckGameEnd = false;
+    public void setupRound() throws IOException {
+        boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
 
         TestLogger.functionCalled(this, "setupRound", "void");
-        if (!(UserIO.checkIfWinnable() && !checkGameEnd())) {
+        if (!(shouldCheckGameEnd && checkGameEnd())) {
             if (stormComing()) {
                 for (Asteroid a : asteroids) {
                     a.handleFigures();

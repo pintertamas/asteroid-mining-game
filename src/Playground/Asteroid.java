@@ -5,6 +5,7 @@ import Entities.Settler;
 import Materials.Material;
 import Test.TestLogger;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -281,7 +282,7 @@ public class Asteroid {
     /**
      * A következő figurát lépteti.
      */
-    public void invokeFigures() {
+    public void invokeFigures() throws IOException {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
         while (f != null) {

@@ -3,6 +3,7 @@ package Test;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -14,9 +15,15 @@ public class UserIO {
     public static ArrayList<String> temporaryInput = new ArrayList<>();
     public static boolean readFromFile = false;
     public static boolean checkIfWinnable = false;
+    public enum Phrase {INIT, TEST}
+    public static Phrase testPhrase = Phrase.INIT;
 
     public static boolean isManual() {
         return UserIO.readFromFile;
+    }
+
+    public static void setPhrase(Phrase newPhrase) {
+        UserIO.testPhrase = newPhrase;
     }
 
     public static boolean checkIfWinnable() {
@@ -106,6 +113,27 @@ public class UserIO {
             temporaryInput.clear();
             customInput.add(str.toString());
         }
+    }
+
+    public static void choosePath(Phrase phrase) throws IOException {
+        ArrayList<String> paths = new ArrayList<>();
+        String current = new java.io.File(".").getCanonicalPath();
+        String dirName = current + "/src/Test/IO/";
+        if (phrase == Phrase.INIT)
+            dirName = dirName + "init/";
+        else if (phrase == Phrase.TEST)
+            dirName = dirName + "test/";
+        Files.list(new File(dirName).toPath())
+                .forEach(path -> {
+                    paths.add(path.toString());
+                });
+        System.out.println("Which file would you like to pick?");
+        for (int i = 0; i < paths.size(); i++) {
+            String[] tmp = paths.get(i).split("/");
+            System.out.println(i + 1 + ": " + tmp[tmp.length - 1]);
+        }
+        int pathChoice = new Scanner(System.in).nextInt();
+        UserIO.setPath(paths.get(pathChoice - 1));
     }
 
     public static void saveCustomInput(String txtFile) throws IOException {

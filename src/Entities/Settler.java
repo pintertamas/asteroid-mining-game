@@ -6,7 +6,9 @@ import Interfaces.IMine;
 import Materials.*;
 import Playground.*;
 import Test.TestLogger;
+import Test.UserIO;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -235,8 +237,18 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Lépés.
      */
-    public void step() {
+    @Override
+    public void step() throws IOException {
         TestLogger.functionCalled(this, "step", "void");
+        System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
+        boolean loadFromFiles = false;
+        if (new Scanner(System.in).nextInt() == 1) {
+            UserIO.setReadFromFile(true);
+            loadFromFiles = true;
+        }
+        if (loadFromFiles) {
+            UserIO.choosePath(UserIO.Phrase.TEST);
+        }
         while (!this.roundFinished) {
             System.out.println("What would you like to do?");
             System.out.println("0 - drill");

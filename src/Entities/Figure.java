@@ -3,6 +3,8 @@ import Interfaces.*;
 import Playground.*;
 import Test.TestLogger;
 
+import java.io.IOException;
+
 /**
  * Figura absztrakt osztály, amely megvalósítja a következő interfészeket:
  * ISteppable, IPortalMove, IMove.
@@ -47,7 +49,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     /**
      * Lépés.
      */
-    public abstract void step();
+    public abstract void step() throws IOException;
 
     /**
      * Visszaadja, hogy az adott figura körének vége van-e már.
