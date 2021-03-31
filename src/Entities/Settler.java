@@ -48,25 +48,18 @@ public class Settler extends Figure implements IMine, IDrill {
         for (int i = 0; i < neighbors.size(); i++) {
             System.out.println(i + " - " + neighbors.get(i));
         }
-        int neighborChoice = -2;
-        while (neighborChoice <= -1 || neighborChoice > neighbors.size() - 1) {
-            System.out.println("Pick an asteroid by its number:");
-
-            neighborChoice = UserIO.isManual()
-                    ? Integer.parseInt(UserIO.currentLine().get(1))
-                    : UserIO.readInt();
-
-            if (neighborChoice == -1) {
-                System.out.println("Move NOT done, back");
-                return;
-            } else {
-                this.asteroid.removeFigure(this);
-                neighbors.get(neighborChoice).addFigure(this);
-                this.setAsteroid(neighbors.get(neighborChoice));
-                this.setRoundFinished(true);
-                TestLogger.functionReturned();
-                System.out.println("Move done");
-            }
+        int neighborChoice = UserIO.isManual()
+                ? Integer.parseInt(UserIO.currentLine().get(1)) :
+                UserIO.readInt();
+        if (neighborChoice < 0 || neighborChoice > neighbors.size() - 1) {
+            System.out.println("Wrong neighbor number, could not move settler.");
+        } else {
+            this.asteroid.removeFigure(this);
+            neighbors.get(neighborChoice).addFigure(this);
+            this.setAsteroid(neighbors.get(neighborChoice));
+            this.setRoundFinished(true);
+            TestLogger.functionReturned();
+            System.out.println("Move done");
         }
     }
 
@@ -224,8 +217,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("You don't have any materials!");
             return null;
         }
-        Scanner in = new Scanner(System.in);
-        int materialChoice = in.nextInt();
+        int materialChoice = UserIO.readInt();
         if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
             System.out.println("Not a valid choice, sorry!");
             return null;
@@ -288,6 +280,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     this.getAsteroid().printAsteroidDetails();
                     break;
                 default:
+                    System.out.println("Something went wrong! Check the test files!");
                     break;
             }
             TestLogger.functionReturned();
@@ -315,10 +308,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
             int choice = 5;
             while (choice <= 0 || choice >= i) {
-                Scanner in = new Scanner(System.in);
-                if (in.hasNextInt()) {
-                    choice = in.nextInt();
-                }
+                choice = UserIO.readInt();
             }
             asteroid.removeFigure(this);
             tmpArray.get(choice - 1).addFigure(this);
@@ -336,23 +326,19 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     private void build() {
         System.out.println("What would you like to build?");
-        System.out.println("0 - Nothing");
-        System.out.println("1 - Build Portal");
-        System.out.println("2 - Build Robot");
-        System.out.println("3 - Build Base");
-        Scanner in = new Scanner(System.in);
-        int choice = 0;
-        if (in.hasNextInt()) {
-            choice = in.nextInt();
-        }
-        switch (choice) {
-            case 0:
+        System.out.println("(any key) Nothing");
+        System.out.println("(portal) Build Portal");
+        System.out.println("(robot) Build Robot");
+        System.out.println("(base) Build Base");
+
+        switch (UserIO.currentLine().get(1)) {
+            case "portal":
                 buildPortal();
                 break;
-            case 1:
+            case "robot":
                 buildRobot();
                 break;
-            case 2:
+            case "base":
                 buildBase();
                 break;
             default:

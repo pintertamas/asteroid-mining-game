@@ -50,11 +50,6 @@ public class Game implements IGameState {
         TestLogger.setShow(showTestLogger);
         UserIO.setShowInput(showInput);
 
-        /*
-        Menu menu = new Menu();
-        menu.run();
-        */
-
         Map m = new Map();
         m.addStateListener(this);
 
@@ -71,8 +66,7 @@ public class Game implements IGameState {
             UserIO.closeFile();
             UserIO.choosePath(UserIO.Phrase.TEST);
             UserIO.openFile();
-        }
-        else UserIO.setReadFromFile(false);
+        } else UserIO.setReadFromFile(false);
 
         boolean shouldRun = true;
 
@@ -100,9 +94,7 @@ public class Game implements IGameState {
     @SuppressWarnings("SpellCheckingInspection")
     private void inProgress(Map m) throws IOException {
         //A játék menete
-        for (Asteroid a : m.getAsteroids()) {
-            a.resetStep();
-        }
+        m.reset();
         m.setupRound();
         System.out.println("\n---------ROUND ENDED----------\n");
     }

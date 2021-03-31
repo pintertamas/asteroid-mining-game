@@ -1,1 +1,2 @@
 move;0
+build;portal

@@ -66,7 +66,8 @@ public class UserIO {
             addToTemporary(result);
             return result;
         }
-        return "";
+        System.out.println("No more lines found!");
+        return null;
     }
 
     public static ArrayList<String> readLine() {
@@ -74,6 +75,7 @@ public class UserIO {
         String input = readNextLine();
         if (showInput)
             System.out.println(input);
+        assert input != null;
         String[] splitStr = input.split(";");
         currentLine.addAll(Arrays.asList(splitStr));
         return currentLine;
