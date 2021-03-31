@@ -10,6 +10,7 @@ import java.util.Random;
  * Teleportkapu osztály.
  * Megvalósítja az IMove interfészt a napviharok miatt.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Portal implements IMove {
     private Portal pair;
     private Asteroid asteroid;
@@ -19,6 +20,7 @@ public class Portal implements IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Portal getPair() {
         return pair;
     }
@@ -28,6 +30,7 @@ public class Portal implements IMove {
      *
      * @param pair
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setPair(Portal pair) {
         TestLogger.functionCalled(this, "setPair", "Playground.Portal pair", "void");
         this.pair = pair;
@@ -39,6 +42,7 @@ public class Portal implements IMove {
      *
      * @param asteroid
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
         if (pair.asteroid != null) {
@@ -52,6 +56,7 @@ public class Portal implements IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid getAsteroid() {
         return asteroid;
     }
@@ -59,6 +64,7 @@ public class Portal implements IMove {
     /**
      * Mozog a teleportkapu.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void move() {
         Asteroid currentAsteroid = this.getAsteroid();

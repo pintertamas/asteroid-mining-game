@@ -17,6 +17,7 @@ import java.util.Scanner;
  * Telepes osztály, képes mozogni, fúrni és bányászni.
  * A Figure leszármazottja.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Settler extends Figure implements IMine, IDrill {
     private final Inventory inventory;
 
@@ -26,6 +27,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @param asteroid
      * @param roundFinished
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
@@ -34,6 +36,7 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Mozgás.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
@@ -48,11 +51,11 @@ public class Settler extends Figure implements IMine, IDrill {
         int neighborChoice = -2;
         while (neighborChoice <= -1 || neighborChoice > neighbors.size() - 1) {
             System.out.println("Pick an asteroid by its number:");
-            Scanner in = new Scanner(System.in);
 
-            if (in.hasNextInt()) {
-                neighborChoice = in.nextInt();
-            }
+            neighborChoice = UserIO.isManual()
+                    ? Integer.parseInt(UserIO.currentLine().get(1))
+                    : UserIO.readInt();
+
             if (neighborChoice == -1) {
                 System.out.println("Move NOT done, back");
                 return;
@@ -72,6 +75,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
         if (asteroid.mined(this)) {
@@ -90,6 +94,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public Inventory getInventory() {
         TestLogger.functionCalled(this, "getInventory", "inventory");
@@ -103,6 +108,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
@@ -127,6 +133,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
@@ -148,6 +155,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
@@ -165,6 +173,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
         ArrayList<Portal> portals = inventory.getPortals();
@@ -185,6 +194,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @param m
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         if (this.asteroid.setMaterial(m)) {
@@ -202,6 +212,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Material chooseMaterial() {
         ArrayList<Material> allMaterials = getInventory().getMaterials();
         System.out.println("Your inventory has the following:");
@@ -227,6 +238,7 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Reagálás robbanásra: meghal.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
@@ -237,53 +249,42 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Lépés.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void step() throws IOException {
         TestLogger.functionCalled(this, "step", "void");
-        System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
-        boolean loadFromFiles = false;
-        if (new Scanner(System.in).nextInt() == 1) {
-            UserIO.setReadFromFile(true);
-            loadFromFiles = true;
-        }
-        if (loadFromFiles) {
-            UserIO.choosePath(UserIO.Phrase.TEST);
-        }
-        while (!this.roundFinished) {
+        if (!this.roundFinished) {
             System.out.println("What would you like to do?");
-            System.out.println("0 - drill");
-            System.out.println("1 - mine");
-            System.out.println("2 - move");
-            System.out.println("3 - build");
-            System.out.println("4 - put down portal");
-            System.out.println("5 - put back material");
-            System.out.println("6 - Show details about the current asteroid");
-            Scanner in = new Scanner(System.in);
-            int choice = 0;
-            if (in.hasNextInt()) {
-                choice = in.nextInt();
-            }
-            switch (choice) {
-                case 0:
+            System.out.println("(drill) Drill the asteroid");
+            System.out.println("(mine) Mine the asteroid core");
+            System.out.println("(move) Move the settler");
+            System.out.println("(build) Build something");
+            System.out.println("(putPortalDown) Place a portal on the current asteroid");
+            System.out.println("(putMaterialBack) Fill the asteroid's core with a selected material");
+            System.out.println("(show) Show details about the current asteroid");
+
+            ArrayList<String> choice = UserIO.readLine();
+            switch (choice.get(0).toLowerCase()) {
+                case "drill":
                     drill();
                     break;
-                case 1:
+                case "mine":
                     mine();
                     break;
-                case 2:
+                case "move":
                     move();
                     break;
-                case 3:
+                case "build":
                     build();
                     break;
-                case 4:
+                case "putPortalDown":
                     putPortalDown();
                     break;
-                case 5:
+                case "putMaterialBack":
                     Material m = chooseMaterial();
                     putMaterialBack(m);
                     break;
-                case 6:
+                case "show":
                     this.getAsteroid().printAsteroidDetails();
                     break;
                 default:
@@ -298,6 +299,7 @@ public class Settler extends Figure implements IMine, IDrill {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean moveThroughPortal() {
         int i = 1;
         ArrayList<Asteroid> tmpArray = new ArrayList<>();
@@ -331,6 +333,7 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Építés.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private void build() {
         System.out.println("What would you like to build?");
         System.out.println("0 - Nothing");

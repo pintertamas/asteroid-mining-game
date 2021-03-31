@@ -3,11 +3,9 @@
 2
 Uranium
 notNearSun
-notHollow
 3
-Ice
-nearSun
 hollow
+nearSun
 4
 0
 1

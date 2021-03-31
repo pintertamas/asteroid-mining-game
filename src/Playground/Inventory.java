@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /**
  * Inventory osztály, amelyben a játékosok a nyersanyagaikat tárolják.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Inventory {
     private final ArrayList<Portal> portals;
     private final ArrayList<Material> materials;
@@ -17,6 +18,7 @@ public class Inventory {
     /**
      * Konstruktor.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Inventory() {
         this.portals = new ArrayList<>();
         this.materials = new ArrayList<>();
@@ -29,6 +31,7 @@ public class Inventory {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private boolean isMaterialInventoryFull() {
         TestLogger.functionCalled(this, "isMaterialInventoryFull", "boolean");
         TestLogger.functionReturned(String.valueOf(materials.size() >= materialCapacity));
@@ -40,6 +43,7 @@ public class Inventory {
      *
      * @param m
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addMaterial(Material m) {
         TestLogger.functionCalled(this, "addMaterial", "Materials.Material m", "void");
         if (!isMaterialInventoryFull()) {
@@ -53,6 +57,7 @@ public class Inventory {
      *
      * @param m
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void removeMaterial(Material m) {
         TestLogger.functionCalled(this, "removeMaterial", "Materials.Material m", "void");
         for (int i = 0; i < materials.size(); i++) {
@@ -67,6 +72,7 @@ public class Inventory {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private boolean isPortalInventoryFull() {
         TestLogger.functionCalled(this, "isPortalInventoryFull", "boolean");
         int itemCount = portals.size();
@@ -79,6 +85,7 @@ public class Inventory {
      *
      * @param p
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", "Playground.Portal p", "void");
         if (!isPortalInventoryFull())
@@ -91,6 +98,7 @@ public class Inventory {
      *
      * @param p
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void removePortal(Portal p) {
         TestLogger.functionCalled(this, "removePortal", "Playground.Portal p", "void");
         if (portals.size() != 0 && p != null)
@@ -103,6 +111,7 @@ public class Inventory {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Portal> getPortals() {
         return portals;
     }
@@ -112,6 +121,7 @@ public class Inventory {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Material> getMaterials() {
         return materials;
     }

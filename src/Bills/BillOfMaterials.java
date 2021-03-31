@@ -7,15 +7,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /** Recept osztály az építésekhez. */
+@SuppressWarnings("SpellCheckingInspection")
 public class BillOfMaterials {
     /**
      * Egy ArrayList-ben tároljuk a recepthez szükséges nyersanyagokat.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private final ArrayList<Material> bill;
 
     /**
      * Konstruktor.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public BillOfMaterials() {
         bill = new ArrayList<>();
     }
@@ -26,6 +29,7 @@ public class BillOfMaterials {
      * @param materials
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public HashMap<Class<?>, Integer> countMaterials(ArrayList<Material> materials) {
         HashMap<Class<?>, Integer> result = new HashMap<>();
         for (Material m : materials) {
@@ -43,6 +47,7 @@ public class BillOfMaterials {
      * @param inventoryMaterials
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean hasEnoughMaterials(ArrayList<Material> inventoryMaterials) {
         TestLogger.functionCalled(this, "hasEnoughMaterial", "boolean");
         HashMap<Class<?>, Integer> allMaterials = countMaterials(inventoryMaterials);
@@ -69,6 +74,7 @@ public class BillOfMaterials {
      *
      * @param inventoryMaterials
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void pay(ArrayList<Material> inventoryMaterials) {
         TestLogger.functionCalled(this, "pay", "ArrayList<Material> inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
@@ -89,6 +95,7 @@ public class BillOfMaterials {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Material> getBill() {
         return bill;
     }
@@ -99,6 +106,7 @@ public class BillOfMaterials {
      * @param m
      * @param count
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addToBill(Material m, int count) {
         for (int i = 0; i < count; i++)
             bill.add(m);

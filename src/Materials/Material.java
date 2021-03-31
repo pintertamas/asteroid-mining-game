@@ -6,6 +6,7 @@ import Test.TestLogger;
 /**
  * Nyersanyag osztály.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public abstract class Material {
     private Asteroid asteroid;
     private int nearSunCount;
@@ -13,12 +14,14 @@ public abstract class Material {
     /**
      * Konstruktor.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Material() {
     }
 
     /**
      * Az utolsó réteg lefúrása után a nyersanyag reakciója a napközelség függvényében.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine()", "void");
         TestLogger.functionReturned();
@@ -29,6 +32,7 @@ public abstract class Material {
      *
      * @param s
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addToInventory(Settler s) {
         TestLogger.functionCalled(this, "addToInventory", "Entities.Settler s", "void");
         s.getInventory().addMaterial(this);
@@ -40,6 +44,7 @@ public abstract class Material {
      *
      * @param asteroid
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
     }
@@ -49,6 +54,7 @@ public abstract class Material {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid getAsteroid() {
         return asteroid;
     }
@@ -58,6 +64,7 @@ public abstract class Material {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public int getNearSunCount() {
         return nearSunCount;
     }

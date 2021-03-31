@@ -5,25 +5,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class UserIO {
     private static Scanner scanner;
-    public static boolean showInput = false;
-    public static String path = "";
-    public static ArrayList<String> customInput = new ArrayList<>();
-    public static ArrayList<String> temporaryInput = new ArrayList<>();
-    public static boolean readFromFile = false;
-    public static boolean checkIfWinnable = false;
+    private static boolean showInput = false;
+    private static String path = "";
+    private static final ArrayList<String> customInput = new ArrayList<>();
+    private static final ArrayList<String> temporaryInput = new ArrayList<>();
+    private static boolean readFromFile = false;
+    private static boolean checkIfWinnable = false;
+    private static final ArrayList<String> currentLine = new ArrayList<>();
+
     public enum Phrase {INIT, TEST}
-    public static Phrase testPhrase = Phrase.INIT;
 
     public static boolean isManual() {
         return UserIO.readFromFile;
     }
 
-    public static void setPhrase(Phrase newPhrase) {
-        UserIO.testPhrase = newPhrase;
+    public static ArrayList<String> currentLine () {
+        return currentLine;
     }
 
     public static boolean checkIfWinnable() {
@@ -67,11 +69,14 @@ public class UserIO {
         return "";
     }
 
-    public static String[] readLine() {
+    public static ArrayList<String> readLine() {
+        currentLine.clear();
         String input = readNextLine();
         if (showInput)
             System.out.println(input);
-        return input.split(";");
+        String[] splitStr = input.split(";");
+        currentLine.addAll(Arrays.asList(splitStr));
+        return currentLine;
     }
 
     public static int readInt() {

@@ -6,10 +6,12 @@ import Test.TestLogger;
  * Urán osztály.
  * A Material leszármazottja.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Uranium extends Material {
     /**
      * Az utolsó réteg lefúrása után, ha harmadszorra napközelben van az aszteroida, az urán felrobbantja az aszteroidát.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine()", "void");

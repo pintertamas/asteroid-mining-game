@@ -6,6 +6,7 @@ import java.util.Stack;
 /**
  * TestLogger osztály a tesztek logolásához.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class TestLogger {
     public static final Stack<String> activeFunctionCalls = new Stack<>();
     public static boolean showTests = false;
@@ -14,6 +15,7 @@ public class TestLogger {
      * Tabulálás
      * @param numberOfIterations
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private static void printTabs(int numberOfIterations) {
         for (int i = 0; i < numberOfIterations; i++)
             System.out.print("\t");
@@ -23,6 +25,7 @@ public class TestLogger {
      * Beállítja, hogy kiírja-e a teszteket.
      * @param showTests
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static void setShow(boolean showTests){
         TestLogger.showTests = showTests;
     }
@@ -35,6 +38,7 @@ public class TestLogger {
      * @param returnType
      * @param <T>
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static <T> void functionCalled(T t, String funcName, String param, String returnType) {
         if (showTests) {
             printTabs(activeFunctionCalls.size());
@@ -52,6 +56,7 @@ public class TestLogger {
      * @param returnType
      * @param <T>
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static <T> void functionCalled(T t, String funcName, String returnType) {
         if (showTests) {
             printTabs(activeFunctionCalls.size());
@@ -66,6 +71,7 @@ public class TestLogger {
      * Függvény visszatérésének a logolása.
      * @param returned
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static void functionReturned(String returned) {
         if (showTests) {
             printTabs(activeFunctionCalls.size() - 1);
@@ -77,6 +83,7 @@ public class TestLogger {
     /**
      * void típusú függvény visszatérésének a logolása.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static void functionReturned() {
         if (showTests) {
             printTabs(activeFunctionCalls.size() - 1);
@@ -90,6 +97,7 @@ public class TestLogger {
      * @param question
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static boolean ask(String question) {
         System.out.println(question + " (y/n)");
         Scanner in = new Scanner(System.in);
@@ -101,6 +109,7 @@ public class TestLogger {
      * Hiba üzenet.
      * @param errorMessage
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public static void errorMessage(String errorMessage) {
         printTabs(activeFunctionCalls.size());
         System.out.println("Error: " + errorMessage);

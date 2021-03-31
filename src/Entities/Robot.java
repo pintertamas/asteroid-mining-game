@@ -9,6 +9,7 @@ import java.util.Random;
  * Robot osztály, amely képes mozogni és fúrni.
  * A Figure leszármazottja.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Robot extends Figure {
 
     /**
@@ -17,6 +18,7 @@ public class Robot extends Figure {
      * @param asteroid
      * @param roundFinished
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
     }
@@ -24,6 +26,7 @@ public class Robot extends Figure {
     /**
      * Mozgás.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void move() {
         TestLogger.functionCalled(this, "move", "void");
         Asteroid a = chooseNextDestination();
@@ -45,6 +48,7 @@ public class Robot extends Figure {
     /**
      * Reagálása robbanásra: átkerül egy szomszédos aszteroidára.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void onExplosion() {
         TestLogger.functionCalled(this, "onExplosion", "void");
@@ -57,6 +61,7 @@ public class Robot extends Figure {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid chooseNextDestination() {
         TestLogger.functionCalled(this, "chooseNextDestination", "Asteroid");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
@@ -76,6 +81,7 @@ public class Robot extends Figure {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean moveThroughPortal() {
         return false;
     }
@@ -83,6 +89,7 @@ public class Robot extends Figure {
     /**
      * Lépés.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void step() {
         TestLogger.functionCalled(this, "step", "void");
         if(this.asteroid.getLayers() == 0) {

@@ -7,10 +7,12 @@ import Playground.*;
 /**
  * Teszt osztály, a különböző tesztesetek lefuttatásához.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Test {
     /**
      * Move to Neighbor teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test1() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Iron(), 3, true, false);
@@ -23,6 +25,7 @@ public class Test {
     /**
      * Drill Asteroid (layers > 1) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test2() {
         Asteroid a = new Asteroid(new Iron(), 2, true, false);
         Settler s = new Settler(a, false);
@@ -32,6 +35,7 @@ public class Test {
     /**
      * Drill Asteroid (layers = 0) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test3() {
         Asteroid a = new Asteroid(new Iron(), 0, true, false);
         Settler s = new Settler(a, false);
@@ -41,6 +45,7 @@ public class Test {
     /**
      * Drill Asteroid with common material (layers = 1) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test4() {
         Asteroid a = new Asteroid(new Iron(), 1, true, false);
         Settler s = new Settler(a, false);
@@ -50,6 +55,7 @@ public class Test {
     /**
      * Drill Uranium (Settler, layers = 1, nearSun) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test5() {
         Asteroid a = new Asteroid(new Uranium(), 1, true, false);
         Settler s = new Settler(a, false);
@@ -59,6 +65,7 @@ public class Test {
     /**
      * Drill Uranium (Robot, layers = 1, nearSun) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test6() {
         Asteroid a = new Asteroid(new Uranium(), 1, true, false);
         Robot r = new Robot(a, false);
@@ -68,6 +75,7 @@ public class Test {
     /**
      * Drill Ice (layers = 1, nearSun) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test7() {
         Asteroid a = new Asteroid(new Ice(), 1, true, false);
         Settler s = new Settler(a, false);
@@ -77,6 +85,7 @@ public class Test {
     /**
      * Mine Material Layers > 0 teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test8() {
         Asteroid a = new Asteroid(new Iron(), 1, false, false);
         Settler s = new Settler(a, false);
@@ -86,6 +95,7 @@ public class Test {
     /**
      * Mine Material Layers = 0 teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test9() {
         Asteroid a = new Asteroid(new Uranium(), 0, false, false);
         Settler s = new Settler(a, false);
@@ -95,6 +105,7 @@ public class Test {
     /**
      * Move Settler through Portal teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test10() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
@@ -117,6 +128,7 @@ public class Test {
     /**
      * Build Teleport Portal (Enough Material) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test11() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -130,6 +142,7 @@ public class Test {
     /**
      * Build Teleport Portal (Not Enough Material) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test12() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -139,6 +152,7 @@ public class Test {
     /**
      * Build Base (Enough Material) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test13() {
         Asteroid a = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a, true);
@@ -163,6 +177,7 @@ public class Test {
     /**
      * Build Base (Not Enough Material) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test14() {
         Asteroid a = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a, false);
@@ -173,6 +188,7 @@ public class Test {
     /**
      * Storm Kills Player teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test15() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, false);
@@ -184,6 +200,7 @@ public class Test {
     /**
      * Storm Does Not Kill Player teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test16() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, true);
@@ -196,6 +213,7 @@ public class Test {
     /**
      * Put down Portal (Settler has 0 Portals) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test17() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -206,6 +224,7 @@ public class Test {
     /**
      * Put down Portal (Settler has 1 Portal) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test18() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Asteroid a2 = new Asteroid(new Uranium(), 0, false, false);
@@ -221,6 +240,7 @@ public class Test {
     /**
      * Put down Portal (Settler has 2 Portals) teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test19() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Portal p1 = new Portal();
@@ -235,6 +255,7 @@ public class Test {
     /**
      * Put Back Material Asteroid Hollow teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test20() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, true);
         Settler s = new Settler(a1, false);
@@ -246,6 +267,7 @@ public class Test {
     /**
      * Put Back Material Asteroid Not Hollow teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test21() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -255,6 +277,7 @@ public class Test {
     /**
      * Build Robot Enough Material teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test22() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);
@@ -267,6 +290,7 @@ public class Test {
     /**
      * Build Robot Not Enough Material teszt.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void test23() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
         Settler s = new Settler(a1, false);

@@ -15,6 +15,7 @@ import java.util.*;
 /**
  * Pálya osztály.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Map {
 
     private final ArrayList<Asteroid> asteroids;
@@ -24,6 +25,7 @@ public class Map {
     /**
      * Konstruktor
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Map() {
         this.asteroids = new ArrayList<>();
     }
@@ -33,6 +35,7 @@ public class Map {
      *
      * @param manual
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setManual(boolean manual) {
         this.manual = manual;
     }
@@ -42,6 +45,7 @@ public class Map {
      *
      * @param a
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "AddAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.add(a);
@@ -53,6 +57,7 @@ public class Map {
      *
      * @param a
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void removeAsteroid(Asteroid a) {
         TestLogger.functionCalled(this, "removeAsteroid", "Playground.Asteroid a", "void");
         this.asteroids.remove(a);
@@ -64,6 +69,7 @@ public class Map {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Asteroid> getAsteroids() {
         return this.asteroids;
     }
@@ -73,6 +79,7 @@ public class Map {
      *
      * @param numberOfPlayers
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void initGame(int numberOfPlayers) {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
@@ -87,12 +94,12 @@ public class Map {
             int numberOfAsteroids;
             String choice;
             int initLayer;
-            int numberOfPairs = -1;
+            int numberOfPairs;
             boolean nearSun = false;
             boolean isHollow = false;
-            int numberOfUfos = -1;
-            int ufoAsteroid = -1;
-            int settlerAsteroid = -1;
+            int numberOfUfos;
+            int ufoAsteroid;
+            int settlerAsteroid;
 
             //Itt lehet az aszteroidák számát megadni
             System.out.println("How many Asteroids would you like to set up?");
@@ -106,12 +113,15 @@ public class Map {
                 System.out.println("Ice");
                 System.out.println("Coal");
                 System.out.println("Iron");
+                System.out.println("Hollow");
 
                 choice = UserIO.readString();
 
-                Material material;
+                Material material = new Iron();
                 switch (choice.toLowerCase()) {
                     case "uranium":
+                        material = new Uranium();
+                        break;
                     case "ice":
                         material = new Ice();
                         break;
@@ -121,8 +131,12 @@ public class Map {
                     case "iron":
                         material = new Iron();
                         break;
+                    case "hollow":
+                        isHollow = true;
+                        break;
                     default:
-                        material = new Uranium();
+                        material = new Iron();
+                        isHollow = true;
                 }
 
                 //Napközelben legyen-e vagy sem az asteroida:
@@ -132,12 +146,6 @@ public class Map {
                 choice = UserIO.readString();
                 if (choice.equalsIgnoreCase("nearSun"))
                     nearSun = true;
-
-                System.out.println("Is the Asteroid hollow? ");
-                System.out.println("hollow/notHollow");
-                choice = UserIO.readString();
-                if (choice.equalsIgnoreCase("yes"))
-                    isHollow = true;
 
                 //Mennyi legyen a layer az asteroidán:
                 System.out.println("How many layers does the Asteroid contain?");
@@ -176,9 +184,9 @@ public class Map {
                     System.out.println("Give me two asteroids that should be connected! (the format must be like this: 0;1)");
                     int firstPair;
                     int secondPair;
-                    String[] pairs = UserIO.readLine();
-                    firstPair = Integer.parseInt(pairs[0]);
-                    secondPair = Integer.parseInt(pairs[1]);
+                    ArrayList<String> pairs = UserIO.readLine();
+                    firstPair = Integer.parseInt(pairs.get(0));
+                    secondPair = Integer.parseInt(pairs.get(1));
                     if (firstPair != secondPair && firstPair < numberOfAsteroids && firstPair >= 0 && secondPair < numberOfAsteroids && secondPair >= 0) {
                         asteroids.get(firstPair).addNeighbor(asteroids.get(secondPair));
                         asteroids.get(secondPair).addNeighbor(asteroids.get(firstPair));
@@ -251,6 +259,7 @@ public class Map {
     /**
      * Napvihar.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
         if (!manual) {
@@ -284,6 +293,7 @@ public class Map {
      *
      * @return ArrayList<Asteroid>
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Asteroid> drawSolarArea() {
         ArrayList<Asteroid> tmp = new ArrayList<>();
         Random rand = new Random();
@@ -298,6 +308,7 @@ public class Map {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean checkGameEnd() {
         TestLogger.functionCalled(this, "checkGameEnd", "boolean");
         if (!checkIfWinnable()) {
@@ -314,6 +325,7 @@ public class Map {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean hasAllMaterials() {
         TestLogger.functionCalled(this, "hasAllMaterials", "boolean");
         ArrayList<Material> allMaterials = new ArrayList<>();
@@ -333,6 +345,7 @@ public class Map {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     private boolean hasAnyFigure() {
         for (Asteroid a : asteroids) {
             if (a.getFigures().size() > 0)
@@ -346,12 +359,13 @@ public class Map {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean checkIfWinnable() {
         TestLogger.functionCalled(this, "checkIfWinnable", "boolean");
         boolean hasAllMaterials = hasAllMaterials();
         boolean hasAnyFigure = hasAnyFigure();
         if (!hasAllMaterials) {
-            System.out.println("The map does not contain enough materials thats required to win the game!");
+            System.out.println("The map does not contain enough materials that's required to win the game!");
             TestLogger.functionReturned(String.valueOf(false));
             switchGameState(GameState.LOST);
             return false;
@@ -368,6 +382,7 @@ public class Map {
     /**
      * Felállít egy kört.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setupRound() throws IOException {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
 
@@ -391,6 +406,7 @@ public class Map {
      *
      * @param settlersWon
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void gameEnd(boolean settlersWon) {
         TestLogger.functionCalled(this, "gameEnd", "boolean settlersWon", "void");
         if (settlersWon)
@@ -405,6 +421,7 @@ public class Map {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean stormComing() {
         TestLogger.functionCalled(this, "stormComing", "boolean");
         Random rand = new Random();
@@ -420,6 +437,7 @@ public class Map {
     /**
      * Egy kör vége, egy új kör indítása.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void reset() {
         TestLogger.functionCalled(this, "reset", "void");
         for (Asteroid a : asteroids) {

@@ -7,6 +7,7 @@ import java.util.Scanner;
 /**
  * Menü osztály a tesztek futtatásához.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Menu {
     private final HashMap<Integer, Runnable> tests = new HashMap<>();
     private final HashMap<Integer, String> options = new HashMap<>();
@@ -15,6 +16,7 @@ public class Menu {
     /**
      * Konstruktor.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     Menu() {
         tests.put(1, test::test1);
         tests.put(2, test::test2);
@@ -68,6 +70,7 @@ public class Menu {
     /**
      * Kiírja a tesztek listáját.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     void show() {
         System.out.println("0. Exit");
         for (HashMap.Entry<Integer, String> entry : options.entrySet())
@@ -79,6 +82,7 @@ public class Menu {
      * Beolvassa a kiválasztott teszt sorszámát,
      * majd lefuttatja a hozzá tartozó tesztesetet.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     void run() {
         Scanner in = new Scanner(System.in);
 

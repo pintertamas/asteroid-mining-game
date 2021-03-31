@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  * Aszteroida osztály.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Asteroid {
     private Map map;
     private final ArrayList<Asteroid> neighbors;
@@ -31,6 +32,7 @@ public class Asteroid {
      * @param isNearSun
      * @param isHollow
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid(Map map, Material material, int layers, boolean isNearSun, boolean isHollow) {
         TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.map = map;
@@ -53,6 +55,7 @@ public class Asteroid {
      * @param isNearSun
      * @param isHollow
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
         TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.figures = new ArrayList<>();
@@ -71,6 +74,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Portal> getPortals() {
         return portals;
     }
@@ -80,6 +84,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Material getMaterial() {
         return this.material;
     }
@@ -89,6 +94,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Figure> getFigures() {
         return this.figures;
     }
@@ -98,6 +104,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public int getLayers() {
         return layers;
     }
@@ -105,6 +112,7 @@ public class Asteroid {
     /**
      * Az aszteroida felrobbanása.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
         for (Figure figure : figures) {
@@ -131,6 +139,7 @@ public class Asteroid {
      *
      * @param f
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addFigure(Figure f) {
         TestLogger.functionCalled(this, "addFigure", f.getClass().getName() + " " + f, "void");
         this.figures.add(f);
@@ -142,6 +151,7 @@ public class Asteroid {
      *
      * @param f
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void removeFigure(Figure f) {
         TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
         this.figures.remove(f);
@@ -153,6 +163,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean drilled() {
         TestLogger.functionCalled(this, "drilled", "boolean");
         if (this.layers > 0) {
@@ -175,6 +186,7 @@ public class Asteroid {
      * @param s
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean mined(Settler s) {
         TestLogger.functionCalled(this, "mined", "boolean");
         if (this.layers == 0 && !this.isHollow && this.material != null) {
@@ -193,6 +205,7 @@ public class Asteroid {
      * @param m
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean setMaterial(Material m) {
         TestLogger.functionCalled(this, "coreChanged", "void");
         if (this.isHollow) {
@@ -208,6 +221,7 @@ public class Asteroid {
     /**
      * Csökkenti az aszteroida köpenyeit eggyel.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void decreaseLayers() {
         TestLogger.functionCalled(this, "decreaseLayers", "void");
         this.layers--;
@@ -219,6 +233,7 @@ public class Asteroid {
      *
      * @param p
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addPortal(Portal p) {
         TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portals.add(p);
@@ -236,6 +251,7 @@ public class Asteroid {
      *
      * @param a
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void addNeighbor(Asteroid a) {
         TestLogger.functionCalled(this, "addNeighbor", "Playground.Asteroid a", "void");
         this.neighbors.add(a);
@@ -247,6 +263,7 @@ public class Asteroid {
      *
      * @param neighbor
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void removeNeighbor(Asteroid neighbor) {
         neighbors.remove(neighbor);
     }
@@ -256,6 +273,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Material> summarizeMaterials() {
         TestLogger.functionCalled(this, "summarizeMaterials", "HashMap<Class<?>, Integer>");
         ArrayList<Material> materials = new ArrayList<>();
@@ -271,6 +289,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Figure pickNextFigure() {
         for (Figure figure : figures) {
             if (!figure.getRoundFinished())
@@ -282,6 +301,7 @@ public class Asteroid {
     /**
      * A következő figurát lépteti.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void invokeFigures() throws IOException {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
@@ -296,6 +316,7 @@ public class Asteroid {
     /**
      * Még nem fejezte be a körét a figura.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void resetStep() {
         TestLogger.functionCalled(this, "resetStep", "void");
         for (Figure f : figures) {
@@ -309,6 +330,7 @@ public class Asteroid {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Asteroid> getNeighbors() {
         TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Playground.Asteroid>");
         TestLogger.functionReturned(neighbors.toString());
@@ -328,6 +350,7 @@ public class Asteroid {
      *
      * @param b
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setIsHollow(boolean b) {
         TestLogger.functionCalled(this, "setIsHollow", "boolean b", "void");
         isHollow = b;
@@ -337,6 +360,7 @@ public class Asteroid {
     /**bu
      * Kezeli a figurákat napviharban.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
         if (!isHollow)

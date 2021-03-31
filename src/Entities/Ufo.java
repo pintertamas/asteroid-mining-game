@@ -14,6 +14,7 @@ import java.util.Random;
  * Ufó osztály, amely képes mozogni és bányászni.
  * A Figure leszármazottja.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class Ufo extends Figure implements IMine {
     ArrayList<Material> materials;
 
@@ -23,6 +24,7 @@ public class Ufo extends Figure implements IMine {
      * @param asteroid
      * @param roundFinished
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Ufo(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
     }
@@ -30,11 +32,13 @@ public class Ufo extends Figure implements IMine {
     /**
      * Mozgás.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void move() {
         this.asteroid.removeFigure(this);
         this.asteroid = getNextDestination();
         this.asteroid.addFigure(this);
+        this.setRoundFinished(true);
     }
 
     /**
@@ -42,6 +46,7 @@ public class Ufo extends Figure implements IMine {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public boolean moveThroughPortal() {
         if(asteroid.getPortals().size() != 0) {
@@ -67,6 +72,7 @@ public class Ufo extends Figure implements IMine {
     /**
      * Lépés.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void step() {
         if(asteroid.getLayers()==0) {
@@ -80,6 +86,7 @@ public class Ufo extends Figure implements IMine {
     /**
      * Reagálás robbanásra.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void onExplosion() {
 
@@ -90,12 +97,14 @@ public class Ufo extends Figure implements IMine {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     @Override
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
         if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
             this.materials.add(this.asteroid.getMaterial());
             this.asteroid.setIsHollow(true);
+            this.setRoundFinished(true);
             System.out.println("Mine done");
             TestLogger.functionReturned(String.valueOf(true));
             return true;
@@ -110,6 +119,7 @@ public class Ufo extends Figure implements IMine {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid getNextDestination() {
         Random rand = new Random();
         int index = rand.nextInt(asteroid.getNeighbors().size());

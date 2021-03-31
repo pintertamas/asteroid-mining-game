@@ -9,6 +9,7 @@ import java.io.IOException;
  * Figura absztrakt osztály, amely megvalósítja a következő interfészeket:
  * ISteppable, IPortalMove, IMove.
  */
+@SuppressWarnings("SpellCheckingInspection")
 public abstract class Figure implements ISteppable, IPortalMove, IMove {
     protected Asteroid asteroid;
     protected boolean roundFinished;
@@ -19,6 +20,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      * @param asteroid
      * @param roundFinished
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Figure(Asteroid asteroid, boolean roundFinished) {
         this.asteroid = asteroid;
         asteroid.addFigure(this);
@@ -30,6 +32,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Asteroid getAsteroid() {
         return this.asteroid;
     }
@@ -37,6 +40,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     /**
      * Mozgás.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public abstract void move();
 
     /**
@@ -44,11 +48,13 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public abstract boolean moveThroughPortal();
 
     /**
      * Lépés.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public abstract void step() throws IOException;
 
     /**
@@ -56,6 +62,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean getRoundFinished(){return this.roundFinished;}
 
     /**
@@ -63,6 +70,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public boolean drill() {
         TestLogger.functionCalled(this, "drill", "boolean");
         if (asteroid.drilled()) {
@@ -79,12 +87,14 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     /**
      * Az adott figura reakciója robbanásra.
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public abstract void onExplosion();
 
     /**
      * Figura halála.
      */
     //TODO Ez így jó?
+    @SuppressWarnings("SpellCheckingInspection")
     public void die() {
         TestLogger.functionCalled(this, "die", "void");
         asteroid.removeFigure(this);
@@ -98,6 +108,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @return
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public Inventory getInventory() {
         return new Inventory();
     }
@@ -107,6 +118,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @param asteroid
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setAsteroid(Asteroid asteroid) {
         TestLogger.functionCalled(this, "setAsteroid", "Playground.Asteroid asteroid", "void");
         this.asteroid = asteroid;
@@ -118,6 +130,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      *
      * @param roundFinished
      */
+    @SuppressWarnings("SpellCheckingInspection")
     public void setRoundFinished(boolean roundFinished) {
         TestLogger.functionCalled(this, "setRoundFinished", "boolean roundFinished", "void");
         this.roundFinished = roundFinished;

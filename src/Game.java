@@ -20,6 +20,7 @@ public class Game implements IGameState {
         this.gameState = gameState;
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public void run() throws IOException {
         Scanner in = new Scanner(System.in);
         System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
@@ -49,8 +50,10 @@ public class Game implements IGameState {
         TestLogger.setShow(showTestLogger);
         UserIO.setShowInput(showInput);
 
-        //Menu menu = new Menu();
-        //menu.run();
+        /*
+        Menu menu = new Menu();
+        menu.run();
+        */
 
         Map m = new Map();
         m.addStateListener(this);
@@ -58,10 +61,18 @@ public class Game implements IGameState {
         //Játék előkészítése:
         System.out.println("How many players would you like to play with? (Must be between 1-4)");
         int numOfPlayers = UserIO.readInt();
-        UserIO.addToCustomInput(String.valueOf(numOfPlayers));
 
         //Játék iniciaizálása:
         m.initGame(numOfPlayers);
+
+        System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
+        if (new Scanner(System.in).nextInt() == 1) {
+            UserIO.setReadFromFile(true);
+            UserIO.closeFile();
+            UserIO.choosePath(UserIO.Phrase.TEST);
+            UserIO.openFile();
+        }
+        else UserIO.setReadFromFile(false);
 
         boolean shouldRun = true;
 
@@ -86,6 +97,7 @@ public class Game implements IGameState {
         }
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     private void inProgress(Map m) throws IOException {
         //A játék menete
         for (Asteroid a : m.getAsteroids()) {
