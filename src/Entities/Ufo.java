@@ -131,8 +131,7 @@ public class Ufo extends Figure implements IMine {
             while (invalidPortalIndex.contains(randomNumber)) {
                 randomNumber = rand.nextInt(asteroid.getPortals().size());
             }
-            Asteroid ast = asteroid.getPortals().get(randomNumber).getAsteroid();
-            return  ast;
+            return asteroid.getPortals().get(randomNumber).getAsteroid();
         }
         return null;
     }

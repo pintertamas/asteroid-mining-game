@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class UserIO {
     private static Scanner scanner;
     public static boolean showInput = false;
-    public static String fileName = "";
+    public static String path = "";
     public static ArrayList<String> customInput;
     public static ArrayList<String> temporaryInput;
 
@@ -17,13 +17,12 @@ public class UserIO {
         UserIO.showInput = showInput;
     }
 
-    public static void setFileName(String fileName) {
-        UserIO.fileName = fileName;
+    public static void setPath(String path) {
+        UserIO.path = path;
     }
 
     public static void openFile() throws IOException {
-        String current = new java.io.File( "." ).getCanonicalPath();
-        File file = new File(current + "/src/Test/" + fileName);
+        File file = new File(path);
         scanner = new Scanner(file);
     }
 
