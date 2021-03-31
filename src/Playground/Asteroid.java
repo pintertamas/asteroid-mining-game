@@ -339,8 +339,8 @@ public class Asteroid {
     public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
         if (!isHollow)
-            for (Figure f : figures)
-                f.die();
+            for (int i = 0; i < figures.size(); i++)
+                figures.get(i).die();
         TestLogger.functionReturned();
     }
 

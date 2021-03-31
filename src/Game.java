@@ -15,14 +15,14 @@ public class Game implements IGameState {
     }
 
     public void run() {
-        //Menu menu = new Menu();
-        //menu.run()
+        //Tesztek kiírásának be/kikakpcsolása
+        TestLogger.setShow(true);
+
+        Menu menu = new Menu();
+        menu.run();
 
         Map m = new Map();
         m.addStateListener(this);
-
-        //Tesztek kiírásának be/kikakpcsolása
-        TestLogger.setShow(false);
 
         //Játék előkészítése:
         System.out.println("How many players would you like to play with? (Must be between 1-4)");

@@ -176,8 +176,7 @@ public class Test {
     public void test15() {
         Map map = new Map();
         Asteroid a1 = new Asteroid(new Iron(), 0, true, false);
-        Settler s = new Settler(a1, false);
-        a1.addFigure(s);
+        new Settler(a1, false);
         map.addAsteroid(a1);
         map.solarStorm();
     }
@@ -205,7 +204,7 @@ public class Test {
     }
 
     /**
-     * Put down Portal (Settler has 1 Portals) teszt.
+     * Put down Portal (Settler has 1 Portal) teszt.
      */
     public void test18() {
         Asteroid a1 = new Asteroid(new Iron(), 3, true, false);
