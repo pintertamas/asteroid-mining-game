@@ -6,6 +6,7 @@ import Playground.Asteroid;
 import Playground.Portal;
 import Test.TestLogger;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -113,5 +114,26 @@ public class Ufo extends Figure implements IMine {
         Random rand = new Random();
         int index = rand.nextInt(asteroid.getNeighbors().size());
         return asteroid.getNeighbors().get(index);
+    }
+
+    public Asteroid getNextDestinationIfPortal() {
+        Random rand = new Random();
+        ArrayList<Integer> invalidPortalIndex = new ArrayList<>();
+        int n = 0;
+        for(Portal p : asteroid.getPortals()) {
+            if(p.getPair().getAsteroid() != null) {
+                invalidPortalIndex.add(n);
+                n++;
+            }
+        }
+        int randomNumber = -1;
+        if(n != asteroid.getPortals().size()) {
+            while (invalidPortalIndex.contains(randomNumber)) {
+                randomNumber = rand.nextInt(asteroid.getPortals().size());
+            }
+            Asteroid ast = asteroid.getPortals().get(randomNumber).getAsteroid();
+            return  ast;
+        }
+        return null;
     }
 }

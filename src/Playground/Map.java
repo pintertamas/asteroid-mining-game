@@ -92,7 +92,7 @@ public class Map {
             int mat = -1;
             int sun = -1;
             int hollow = -1;
-            int layer = -1;
+            int layer = 0;
             int numberOfPairs = -1;
             boolean nearSun = false;
             boolean isHollow = false;
@@ -182,9 +182,11 @@ public class Map {
 
                 //Mennyi legyen a layer az asteroidán:
                 System.out.println("How many layers does the Asteroid contain?");
-                kb = new Scanner(System.in);
-                if (kb.hasNextInt()) {
-                    layer = kb.nextInt();
+                while(layer <= 0) {
+                    kb = new Scanner(System.in);
+                    if (kb.hasNextInt()) {
+                        layer = kb.nextInt();
+                    }
                 }
 
                 //Asteroida létrehozása:
@@ -195,7 +197,7 @@ public class Map {
             //Settlerek létrehozása:
             for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
-                while (settlerAsteroid < 0 || settlerAsteroid > numberOfAsteroid) {
+                while (settlerAsteroid < 0 || settlerAsteroid >= numberOfAsteroid) { //TODO
                     kb = new Scanner(System.in);
                     if (kb.hasNextInt()) {
                         settlerAsteroid = kb.nextInt();
@@ -301,7 +303,6 @@ public class Map {
             }
 
             for (int i = 0; i < numberOfPlayers; i++) {
-
                 Settler s = new Settler(asteroids.get(0), false);
             }
         }
