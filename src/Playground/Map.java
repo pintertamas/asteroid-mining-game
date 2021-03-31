@@ -7,6 +7,7 @@ import Entities.Ufo;
 import Interfaces.IGameState;
 import Materials.*;
 import Test.TestLogger;
+import Test.UserIO;
 
 import java.util.*;
 
@@ -74,167 +75,118 @@ public class Map {
     public void initGame(int numberOfPlayers) {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
-        System.out.println("Would you like to generate the map manually or automatically?");
-        System.out.println("Manual - Press 1");
-        System.out.println("Automatic - Press 0");
-        int generator = -1;
-
-        while (generator < 0 || generator > 1) {
-            Scanner in = new Scanner(System.in);
-            if (in.hasNextInt()) {
-                generator = in.nextInt();
-            }
+        boolean manualSetup = true;
+        if (UserIO.isManual()) {
+            System.out.println("Would you like to generate the map manually or automatically? (Manual = 1)");
+            manualSetup = UserIO.readInt() == 1;
         }
 
-        if (generator == 1) {
-            Scanner in = new Scanner(System.in);
+        if (manualSetup) {
             //Változók, amelyeket a player inputnál használunk fel
-            int numberOfAsteroid = -1;
-            int mat = -1;
-            int sun = -1;
-            int hollow = -1;
-            int layer = -1;
+            int numberOfAsteroids;
+            String choice;
+            int initLayer;
             int numberOfPairs = -1;
             boolean nearSun = false;
             boolean isHollow = false;
-            int neighbour = -1;
             int numberOfUfos = -1;
             int ufoAsteroid = -1;
             int settlerAsteroid = -1;
 
             //Itt lehet az aszteroidák számát megadni
             System.out.println("How many Asteroids would you like to set up?");
-            if (in.hasNextInt()) {
-                numberOfAsteroid = in.nextInt();
-                if (numberOfAsteroid < 1) {
-                    numberOfAsteroid = 1;
-                    System.out.println("There will be 1 asteroid in the game");
-                }
-            }
+            numberOfAsteroids = UserIO.readInt();
 
+            Scanner in = new Scanner(System.in);
             //Az aszteroidák belső tulajdonságainak az eldöntése:
-            for (int i = 0; i < numberOfAsteroid; i++) {
+            for (int i = 0; i < numberOfAsteroids; i++) {
                 System.out.println("What kind of Material does the Asteroid " + i + " contain? ");
-                System.out.println("0 - Uranium");
-                System.out.println("1 - Ice");
-                System.out.println("2 - Coal");
-                System.out.println("3 - Iron");
-                if (in.hasNextInt()) {
-                    mat = in.nextInt();
-                }
-                Material m = null;
-                switch (mat) {
-                    case 0:
-                        m = new Uranium();
-                    case 1:
-                        m = new Ice();
+                System.out.println("Uranium");
+                System.out.println("Ice");
+                System.out.println("Coal");
+                System.out.println("Iron");
+
+                choice = UserIO.readString();
+
+                Material material;
+                switch (choice.toLowerCase()) {
+                    case "uranium":
+                    case "ice":
+                        material = new Ice();
                         break;
-                    case 2:
-                        m = new Coal();
+                    case "coal":
+                        material = new Coal();
                         break;
-                    case 3:
-                        m = new Iron();
+                    case "iron":
+                        material = new Iron();
                         break;
+                    default:
+                        material = new Uranium();
                 }
 
                 //Napközelben legyen-e vagy sem az asteroida:
                 System.out.println("Is the Asteroid near sun?");
-                System.out.println("1 - Yes");
-                System.out.println("0 - No");
-                if (in.hasNextInt()) {
-                    sun = in.nextInt();
-                }
-                switch (sun) {
-                    case 0:
-                    case 1:
-                        nearSun = true;
-                        break;
-                    default:
-                        System.out.println("Not a valid number dummy.");
-                        break;
-                }
+                System.out.println("nearSun/notNearSun");
 
+                choice = UserIO.readString();
+                if (choice.equalsIgnoreCase("nearSun"))
+                    nearSun = true;
 
                 System.out.println("Is the Asteroid hollow? ");
-                System.out.println("1 - Yes");
-                System.out.println("0 - No");
-                if (in.hasNextInt()) {
-                    hollow = in.nextInt();
-                }
-                switch (hollow) {
-                    case 0:
-                    case 1:
-                        isHollow = true;
-                        break;
-                    default:
-                        System.out.println("Not a valid number dummy.");
-                        break;
-                }
+                System.out.println("hollow/notHollow");
+                choice = UserIO.readString();
+                if (choice.equalsIgnoreCase("yes"))
+                    isHollow = true;
 
                 //Mennyi legyen a layer az asteroidán:
                 System.out.println("How many layers does the Asteroid contain?");
-                if (in.hasNextInt()) {
-                    layer = in.nextInt();
-                }
+                initLayer = UserIO.readInt();
 
                 //Asteroida létrehozása:
-                Asteroid ast = new Asteroid(this, m, layer, nearSun, isHollow);
+                Asteroid ast = new Asteroid(this, material, initLayer, nearSun, isHollow);
                 asteroids.add(ast);
             }
 
             //Settlerek létrehozása:
             for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
-                while (settlerAsteroid < 0 || settlerAsteroid > numberOfAsteroid) {
-                    if (in.hasNextInt()) {
-                        settlerAsteroid = in.nextInt();
-                    }
-                }
+                settlerAsteroid = UserIO.readInt();
                 Settler s = new Settler(asteroids.get(settlerAsteroid), false);
                 asteroids.get(settlerAsteroid).addFigure(s);
             }
 
             //Ufok létrehozása:
             System.out.println("How many Ufos would you like to set up?");
-            if (in.hasNextInt()) {
-                numberOfUfos = in.nextInt();
-            }
+            numberOfUfos = UserIO.readInt();
+
             for (int j = 0; j < numberOfUfos; j++) {
                 System.out.println("Where would you like to put the Ufo " + j + "? Write the number of Asteroid!");
-                while (ufoAsteroid < 0 || ufoAsteroid > numberOfAsteroid) {
-                    if (in.hasNextInt()) {
-                        ufoAsteroid = in.nextInt();
-                    }
-                }
+                ufoAsteroid = UserIO.readInt();
                 Ufo f = new Ufo(asteroids.get(ufoAsteroid), false);
                 asteroids.get(ufoAsteroid).addFigure(f);
             }
 
             System.out.println("How many asteroid connections would you like to make?");
-            if (in.hasNextInt()) {
-                numberOfPairs = in.nextInt();
-            }
+            numberOfPairs = UserIO.readInt();
 
             //Egyesével beállítani ki legyen a szomszéd:
-            if (numberOfPairs > 0 || numberOfPairs < (numberOfAsteroid - 1) * numberOfAsteroid / 2) {
+            if (numberOfPairs > 0 || numberOfPairs < (numberOfAsteroids - 1) * numberOfAsteroids / 2) {
                 for (int k = 0; k < numberOfPairs; k++) {
                     System.out.println("Give me two asteroids that should be connected! (the format must be like this: 0;1)");
                     int firstPair;
                     int secondPair;
-                    String pairs = "";
-                    pairs = in.next();
-                    firstPair = Integer.parseInt(pairs.split(";")[0]);
-                    secondPair = Integer.parseInt(pairs.split(";")[1]);
-                    if (firstPair != secondPair && firstPair < numberOfAsteroid && firstPair >= 0 && secondPair < numberOfAsteroid && secondPair >= 0) {
+                    String[] pairs = UserIO.readLine();
+                    firstPair = Integer.parseInt(pairs[0]);
+                    secondPair = Integer.parseInt(pairs[1]);
+                    if (firstPair != secondPair && firstPair < numberOfAsteroids && firstPair >= 0 && secondPair < numberOfAsteroids && secondPair >= 0) {
                         asteroids.get(firstPair).addNeighbor(asteroids.get(secondPair));
                         asteroids.get(secondPair).addNeighbor(asteroids.get(firstPair));
-                        System.out.println("Thiese asteroids are now connected: " + asteroids.get(firstPair) + " - " + asteroids.get(secondPair));
+                        System.out.println("These asteroids are now connected: " + asteroids.get(firstPair) + " - " + asteroids.get(secondPair));
                     } else {
                         System.out.println("Wrong format!");
                     }
                 }
             }
-
 
         } else {
             int minimumNumberOfAsteroids = 50;
@@ -418,20 +370,8 @@ public class Map {
     public void setupRound() {
         boolean shouldCheckGameEnd = false;
 
-        // Beállítható a játék megnyerhetőségének ellenőrzése
-        System.out.println("Should I check whether the game is winnable or not?\n1 - Yes\n0 - No");
-        Scanner in = new Scanner(System.in);
-        int gameEndCheckChoice;
-        if (in.hasNextInt()) {
-            gameEndCheckChoice = in.nextInt();
-            if (gameEndCheckChoice == 1) {
-                shouldCheckGameEnd = true;
-            } else if (gameEndCheckChoice != 0)
-                System.out.println("Not a valid choice. I won't check it");
-        }
-
         TestLogger.functionCalled(this, "setupRound", "void");
-        if (!(shouldCheckGameEnd && !checkGameEnd())) {
+        if (!(UserIO.checkIfWinnable() && !checkGameEnd())) {
             if (stormComing()) {
                 for (Asteroid a : asteroids) {
                     a.handleFigures();

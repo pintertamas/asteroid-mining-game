@@ -30,10 +30,15 @@ public class Game implements IGameState {
         boolean showInput = false;
         if (in.nextInt() == 1)
             showInput = true;
+        System.out.println("Should I check whether the game is winnable or not? (1 = Yes)");
+        if (in.nextInt() == 1)
+            UserIO.setCheckIfWinnable(true);
         System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
         boolean loadFromFiles = false;
-        if (in.nextInt() == 1)
+        if (in.nextInt() == 1) {
+            UserIO.setReadFromFile(true);
             loadFromFiles = true;
+        }
         if (loadFromFiles) {
             ArrayList<String> paths = new ArrayList<>();
             String current = new java.io.File(".").getCanonicalPath();
@@ -49,9 +54,9 @@ public class Game implements IGameState {
             }
             int pathChoice = in.nextInt();
             UserIO.setPath(paths.get(pathChoice - 1));
-            UserIO.openFile();
         }
 
+        UserIO.openFile();
         //Tesztek kiírásának be/kikakpcsolása
         TestLogger.setShow(showTestLogger);
         UserIO.setShowInput(showInput);
@@ -65,6 +70,7 @@ public class Game implements IGameState {
         //Játék előkészítése:
         System.out.println("How many players would you like to play with? (Must be between 1-4)");
         int numOfPlayers = UserIO.readInt();
+        UserIO.addToCustomInput(String.valueOf(numOfPlayers));
 
         //Játék iniciaizálása:
         m.initGame(numOfPlayers);

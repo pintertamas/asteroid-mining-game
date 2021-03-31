@@ -10,8 +10,22 @@ public class UserIO {
     private static Scanner scanner;
     public static boolean showInput = false;
     public static String path = "";
-    public static ArrayList<String> customInput;
-    public static ArrayList<String> temporaryInput;
+    public static ArrayList<String> customInput = new ArrayList<>();
+    public static ArrayList<String> temporaryInput = new ArrayList<>();
+    public static boolean readFromFile = false;
+    public static boolean checkIfWinnable = false;
+
+    public static boolean isManual() {
+        return UserIO.readFromFile;
+    }
+
+    public static boolean checkIfWinnable() {
+        return checkIfWinnable;
+    }
+
+    public static void setCheckIfWinnable(boolean checkIfWinnable) {
+        UserIO.checkIfWinnable = checkIfWinnable;
+    }
 
     public static void setShowInput(boolean showInput) {
         UserIO.showInput = showInput;
@@ -21,9 +35,16 @@ public class UserIO {
         UserIO.path = path;
     }
 
+    public static void setReadFromFile(boolean readFromFile) {
+        UserIO.readFromFile = readFromFile;
+    }
+
+
     public static void openFile() throws IOException {
-        File file = new File(path);
-        scanner = new Scanner(file);
+        if (readFromFile) {
+            File file = new File(path);
+            scanner = new Scanner(file);
+        } else scanner = new Scanner(System.in);
     }
 
     public static void closeFile() {
@@ -32,38 +53,63 @@ public class UserIO {
 
     private static String readNextLine() {
         if (scanner.hasNextLine()) {
-            return scanner.nextLine();
+            String result = scanner.nextLine();
+            addToTemporary(result);
+            return result;
         }
         return "";
     }
 
     public static String[] readLine() {
         String input = readNextLine();
-        System.out.println(input);
+        if (showInput)
+            System.out.println(input);
         return input.split(";");
     }
 
     public static int readInt() {
         String input = readNextLine();
+        if (showInput)
+            System.out.println(input);
+        input = input.split(";")[0];
         System.out.println(input);
-        return Integer.parseInt(input.split(";")[0]);
+        int result = Integer.parseInt(input);
+        addToCustomInput(String.valueOf(result));
+        return result;
+    }
+
+    public static String readString() {
+        String input = readNextLine();
+        if (showInput)
+            System.out.println(input);
+        String result = input.split(";")[0];
+        addToCustomInput(result);
+        return result;
     }
 
     public static void addToTemporary(String tmp) {
-        UserIO.temporaryInput.add(tmp);
+        if (!readFromFile)
+            UserIO.temporaryInput.add(tmp);
+    }
+
+    public static void addToCustomInput(String newLine) {
+        if (!readFromFile)
+            customInput.add(newLine);
     }
 
     public static void addToCustomInput() {
-        StringBuilder str = new StringBuilder();
-        for (String s : temporaryInput) {
-            str.append(";").append(s);
+        if (!readFromFile) {
+            StringBuilder str = new StringBuilder();
+            for (String s : temporaryInput) {
+                str.append(";").append(s);
+            }
+            temporaryInput.clear();
+            customInput.add(str.toString());
         }
-        temporaryInput.clear();
-        customInput.add(str.toString());
     }
 
     public static void saveCustomInput(String txtFile) throws IOException {
-        String current = new java.io.File( "." ).getCanonicalPath();
+        String current = new java.io.File(".").getCanonicalPath();
         File file = new File(current + "/src/Test/" + txtFile);
         if (!file.createNewFile()) {
             System.out.println("File already exists.");
