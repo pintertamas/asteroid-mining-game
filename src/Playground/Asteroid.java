@@ -333,22 +333,26 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    /**
+    /**bu
      * Kezeli a figurákat napviharban.
      */
     public void handleFigures() {
         TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
         if (!isHollow)
-            for (Figure f : figures)
-                f.die();
+            for (int i = 0; i < figures.size(); i++)
+                figures.get(i).die();
         TestLogger.functionReturned();
     }
 
     public void printAsteroidDetails() {
         System.out.println("Current asteroid properties:");
         System.out.println("\tLayers: " + this.getLayers());
-        System.out.println("\tMaterial: " + this.getMaterial().getClass().toString().replace("class Materials.", ""));
-        System.out.println("\tHollow: " + this.isHollow());
-        System.out.println("\tPortals: " + this.getPortals().toString());
+        if (this.isHollow()) {
+            System.out.println("\tHollow: " + this.isHollow());
+        } else {
+            System.out.println("\tMaterial: " + this.getMaterial().getClass().toString().replace("class Materials.", ""));
+        }
+        if (this.getPortals().size() > 0)
+            System.out.println("\tPortals: " + this.getPortals().toString());
     }
 }

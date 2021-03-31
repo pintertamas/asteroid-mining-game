@@ -70,11 +70,15 @@ public class BillOfMaterials {
      * @param inventoryMaterials
      */
     public void pay(ArrayList<Material> inventoryMaterials) {
-        TestLogger.functionCalled(this, "pay", "inventoryMaterials", "void");
+        TestLogger.functionCalled(this, "pay", "ArrayList<Material> inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
 
-        for (Material material : bill) {
-            inventoryMaterials.removeIf(inventoryMaterial -> inventoryMaterial.getClass() == material.getClass());
+        for (int i = 0; i < bill.size(); i++) {
+            for (int j = 0; j < inventoryMaterials.size(); j++) {
+                if (inventoryMaterials.get(j).getClass() == bill.get(i).getClass()) {
+                    inventoryMaterials.remove(j);
+                }
+            }
         }
 
         TestLogger.functionReturned();
