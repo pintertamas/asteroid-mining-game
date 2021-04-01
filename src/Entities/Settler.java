@@ -264,6 +264,9 @@ public class Settler extends Figure implements IMine, IDrill {
                 case "move":
                     move();
                     break;
+                case "movethroughportal":
+                    moveThroughPortal();
+                    break;
                 case "build":
                     build();
                     break;
@@ -304,10 +307,8 @@ public class Settler extends Figure implements IMine, IDrill {
                 }
             }
 
-            int choice = 5;
-            while (choice <= 0 || choice >= i) {
-                choice = UserIO.readInt();
-            }
+            int choice = UserIO.readInt();
+
             asteroid.removeFigure(this);
             tmpArray.get(choice - 1).addFigure(this);
             setAsteroid(tmpArray.get(choice - 1));

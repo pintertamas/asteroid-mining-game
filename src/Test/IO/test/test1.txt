@@ -1,3 +1,4 @@
+moveThroughPortal;0
 move;0
 drill
 drill
