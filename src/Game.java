@@ -46,7 +46,7 @@ public class Game implements IGameState {
 
         UserIO.openFile();
 
-        //Tesztek kiírásának be/kikakpcsolása
+        //Tesztek kiírásának be/kikapcsolása
         TestLogger.setShow(showTestLogger);
         UserIO.setShowInput(showInput);
 

@@ -93,7 +93,6 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     /**
      * Figura halála.
      */
-    //TODO Ez így jó?
     @SuppressWarnings("SpellCheckingInspection")
     public void die() {
         TestLogger.functionCalled(this, "die", "void");

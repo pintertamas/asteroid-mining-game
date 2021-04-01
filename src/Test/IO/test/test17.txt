@@ -1,0 +1,12 @@
+drill
+mine
+move;0
+drill
+mine
+move;1
+drill
+mine
+move;2
+drill
+mine
+putportaldown
