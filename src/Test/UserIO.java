@@ -20,7 +20,7 @@ public class UserIO {
 
     public enum Phrase {INIT, TEST}
 
-    public static boolean isManual() {
+    public static boolean readFromFile() {
         return UserIO.readFromFile;
     }
 
@@ -66,8 +66,9 @@ public class UserIO {
             addToTemporary(result);
             return result;
         }
-        System.out.println("No more lines found!");
-        return null;
+        System.out.println("No more lines found! Switching to manual input!");
+        scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 
     public static ArrayList<String> readLine() {

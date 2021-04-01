@@ -183,14 +183,14 @@ public class Asteroid {
     /**
      * Az aszteroida kibányászása.
      *
-     * @param s
+     * @param settler
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean mined(Settler s) {
+    public boolean mined(Settler settler) {
         TestLogger.functionCalled(this, "mined", "boolean");
         if (this.layers == 0 && !this.isHollow && this.material != null) {
-            material.addToInventory(s);
+            material.addToInventory(settler);
             setIsHollow(true);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
@@ -202,20 +202,20 @@ public class Asteroid {
     /**
      * Beállítja az aszteroida nyersanyagát.
      *
-     * @param m
+     * @param newMaterial
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean setMaterial(Material m) {
+    public boolean setMaterial(Material newMaterial) {
         TestLogger.functionCalled(this, "coreChanged", "void");
-        if (this.isHollow) {
-            this.material = m;
+        if (this.isHollow && newMaterial != null) {
+            this.material = newMaterial;
             isHollow = false;
-            TestLogger.functionReturned(String.valueOf(false));
-            return false;
+            TestLogger.functionReturned(String.valueOf(true));
+            return true;
         }
-        TestLogger.functionReturned(String.valueOf(true));
-        return true;
+        TestLogger.functionReturned(String.valueOf(false));
+        return false;
     }
 
     /**
@@ -348,12 +348,12 @@ public class Asteroid {
     /**
      * Üregesre állítja az aszteroidát.
      *
-     * @param b
+     * @param isHollow
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void setIsHollow(boolean b) {
+    public void setIsHollow(boolean isHollow) {
         TestLogger.functionCalled(this, "setIsHollow", "boolean b", "void");
-        isHollow = b;
+        this.isHollow = isHollow;
         TestLogger.functionReturned();
     }
 

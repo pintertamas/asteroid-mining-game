@@ -10,8 +10,6 @@ import Test.UserIO;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
 /**
  * Telepes osztály, képes mozogni, fúrni és bányászni.
@@ -48,7 +46,7 @@ public class Settler extends Figure implements IMine, IDrill {
         for (int i = 0; i < neighbors.size(); i++) {
             System.out.println(i + " - " + neighbors.get(i));
         }
-        int neighborChoice = UserIO.isManual()
+        int neighborChoice = UserIO.readFromFile()
                 ? Integer.parseInt(UserIO.currentLine().get(1)) :
                 UserIO.readInt();
         if (neighborChoice < 0 || neighborChoice > neighbors.size() - 1) {
@@ -217,7 +215,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("You don't have any materials!");
             return null;
         }
-        int materialChoice = UserIO.readInt();
+        int materialChoice = Integer.parseInt(UserIO.currentLine().get(1));
         if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
             System.out.println("Not a valid choice, sorry!");
             return null;
@@ -269,10 +267,10 @@ public class Settler extends Figure implements IMine, IDrill {
                 case "build":
                     build();
                     break;
-                case "putPortalDown":
+                case "putportaldown":
                     putPortalDown();
                     break;
-                case "putMaterialBack":
+                case "putmaterialback":
                     Material m = chooseMaterial();
                     putMaterialBack(m);
                     break;

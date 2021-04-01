@@ -84,7 +84,7 @@ public class Map {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
         boolean manualSetup = true;
-        if (UserIO.isManual()) {
+        if (UserIO.readFromFile()) {
             System.out.println("Would you like to generate the map manually or automatically? (Manual = 1)");
             manualSetup = UserIO.readInt() == 1;
         }
@@ -160,8 +160,7 @@ public class Map {
             for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
                 settlerAsteroid = UserIO.readInt();
-                Settler s = new Settler(asteroids.get(settlerAsteroid), false);
-                asteroids.get(settlerAsteroid).addFigure(s);
+                new Settler(asteroids.get(settlerAsteroid), false);
             }
 
             //Ufok létrehozása:
@@ -171,8 +170,7 @@ public class Map {
             for (int j = 0; j < numberOfUfos; j++) {
                 System.out.println("Where would you like to put the Ufo " + j + "? Write the number of Asteroid!");
                 ufoAsteroid = UserIO.readInt();
-                Ufo f = new Ufo(asteroids.get(ufoAsteroid), false);
-                asteroids.get(ufoAsteroid).addFigure(f);
+                new Ufo(asteroids.get(ufoAsteroid), false);
             }
 
             System.out.println("How many asteroid connections would you like to make?");
