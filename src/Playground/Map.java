@@ -257,6 +257,7 @@ public class Map {
     /**
      * Napvihar.
      */
+    //TODO
     @SuppressWarnings("SpellCheckingInspection")
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");

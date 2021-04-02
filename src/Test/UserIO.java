@@ -24,7 +24,7 @@ public class UserIO {
         return UserIO.readFromFile;
     }
 
-    public static ArrayList<String> currentLine () {
+    public static ArrayList<String> currentLine() {
         return currentLine;
     }
 
@@ -42,6 +42,8 @@ public class UserIO {
 
     public static void setPath(String path) {
         UserIO.path = path;
+        temporaryInput.clear();//TODO
+        customInput.clear();
     }
 
     public static void setReadFromFile(boolean readFromFile) {
@@ -62,9 +64,7 @@ public class UserIO {
 
     private static String readNextLine() {
         if (scanner.hasNextLine()) {
-            String result = scanner.nextLine();
-            addToTemporary(result);
-            return result;
+            return scanner.nextLine();
         }
         System.out.println("No more lines found! Switching to manual input!");
         scanner = new Scanner(System.in);
@@ -80,6 +80,7 @@ public class UserIO {
         assert input != null;
         String[] splitStr = input.split(";");
         currentLine.addAll(Arrays.asList(splitStr));
+        temporaryInput.addAll(currentLine);
         return currentLine;
     }
 
@@ -119,9 +120,14 @@ public class UserIO {
             for (String s : temporaryInput) {
                 str.append(";").append(s);
             }
+            str.delete(0, 1);
             temporaryInput.clear();
             customInput.add(str.toString());
         }
+    }
+
+    public static void clearTemporaryInput() {
+        temporaryInput.clear();
     }
 
     public static void choosePath(Phrase phrase) throws IOException {
@@ -145,16 +151,19 @@ public class UserIO {
         UserIO.setPath(paths.get(pathChoice - 1));
     }
 
-    public static void saveCustomInput(String txtFile) throws IOException {
+    public static void saveCustomInput() throws IOException {
+        String txtFile = currentLine.get(1);
         String current = new java.io.File(".").getCanonicalPath();
-        File file = new File(current + "/src/Test/" + txtFile);
+        File file = new File(current + "/src/Test/IO/" + txtFile);
         if (!file.createNewFile()) {
             System.out.println("File already exists.");
         }
         FileWriter fileWriter = new FileWriter(file);
         for (String s : customInput) {
-            fileWriter.write(s);
+            if (!s.equals(""))
+                fileWriter.write(s + "\n");
         }
+        fileWriter.close();
     }
 
 }

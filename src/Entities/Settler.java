@@ -46,9 +46,15 @@ public class Settler extends Figure implements IMine, IDrill {
         for (int i = 0; i < neighbors.size(); i++) {
             System.out.println(i + " - " + neighbors.get(i));
         }
-        int neighborChoice = UserIO.readFromFile()
-                ? Integer.parseInt(UserIO.currentLine().get(1)) :
-                UserIO.readInt();
+
+        int neighborChoice;
+
+        if (UserIO.readFromFile() || UserIO.currentLine().size() > 1)
+            neighborChoice = Integer.parseInt(UserIO.currentLine().get(1));
+        else {
+            neighborChoice = UserIO.readInt();
+        }
+
         if (neighborChoice < 0 || neighborChoice > neighbors.size() - 1) {
             System.out.println("Wrong neighbor number, could not move settler.");
         } else {
@@ -252,36 +258,54 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("(putPortalDown) Place a portal on the current asteroid");
             System.out.println("(putMaterialBack) Fill the asteroid's core with a selected material");
             System.out.println("(show) Show details about the current asteroid");
+            if (!UserIO.readFromFile())
+                System.out.println("(save;filename.txt) Save the user input as a test case in the specified file");
 
+            UserIO.clearTemporaryInput();
             ArrayList<String> choice = UserIO.readLine();
             switch (choice.get(0).toLowerCase()) {
                 case "drill":
                     drill();
+                    UserIO.addToCustomInput();
                     break;
                 case "mine":
                     mine();
+                    UserIO.addToCustomInput();
                     break;
                 case "move":
                     move();
+                    UserIO.addToCustomInput();
                     break;
                 case "movethroughportal":
                     moveThroughPortal();
+                    UserIO.addToCustomInput();
                     break;
                 case "build":
                     build();
+                    UserIO.addToCustomInput();
                     break;
                 case "putportaldown":
                     putPortalDown();
+                    UserIO.addToCustomInput();
                     break;
                 case "putmaterialback":
                     Material m = chooseMaterial();
                     putMaterialBack(m);
+                    UserIO.addToCustomInput();
                     break;
                 case "show":
                     this.getAsteroid().printAsteroidDetails();
+                    UserIO.clearTemporaryInput();
+                    break;
+                case "save":
+                    if (UserIO.readFromFile())
+                        break;
+                    UserIO.clearTemporaryInput();
+                    UserIO.saveCustomInput();
                     break;
                 default:
                     System.out.println("Something went wrong! Check the test files!");
+                    UserIO.clearTemporaryInput();
                     break;
             }
             TestLogger.functionReturned();
@@ -329,6 +353,10 @@ public class Settler extends Figure implements IMine, IDrill {
         System.out.println("(portal) Build Portal");
         System.out.println("(robot) Build Robot");
         System.out.println("(base) Build Base");
+
+        if (UserIO.currentLine().size() < 2) {
+            UserIO.currentLine().add(UserIO.readLine().get(0));
+        }
 
         switch (UserIO.currentLine().get(1)) {
             case "portal":
