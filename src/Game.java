@@ -53,12 +53,8 @@ public class Game implements IGameState {
         Map m = new Map();
         m.addStateListener(this);
 
-        //Játék előkészítése:
-        System.out.println("How many players would you like to play with? (Must be between 1-4)");
-        int numOfPlayers = UserIO.readInt();
-
         //Játék iniciaizálása:
-        m.initGame(numOfPlayers);
+        m.initGame();
 
         System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
         if (new Scanner(System.in).nextInt() == 1) {
