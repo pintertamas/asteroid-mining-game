@@ -1,5 +1,0 @@
-drill
-mine
-move;0
-drill
-putmaterialback
