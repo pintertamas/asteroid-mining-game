@@ -1,0 +1,6 @@
+drill
+mine
+move;0
+drill
+mine
+build;robot
