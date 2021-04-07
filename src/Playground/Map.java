@@ -214,6 +214,8 @@ public class Map {
                 Portal p2 = new Portal();
                 asteroids.get(portalPair1).addPortal(p1);
                 asteroids.get(portalPair2).addPortal(p2);
+                p1.setAsteroid(asteroids.get(portalPair1));
+                p2.setAsteroid(asteroids.get(portalPair2));
                 p1.setPair(p2);
                 p2.setPair(p1);
 

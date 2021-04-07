@@ -45,10 +45,6 @@ public class Portal implements IMove {
     @SuppressWarnings("SpellCheckingInspection")
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
-        if (pair.asteroid != null) {
-            this.asteroid.addNeighbor(pair.asteroid);
-            pair.asteroid.addNeighbor(this.asteroid);
-        }
     }
 
     /**
