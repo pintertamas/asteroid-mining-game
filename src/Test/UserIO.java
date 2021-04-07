@@ -42,7 +42,7 @@ public class UserIO {
 
     public static void setPath(String path) {
         UserIO.path = path;
-        temporaryInput.clear();//TODO
+        temporaryInput.clear();
         customInput.clear();
     }
 

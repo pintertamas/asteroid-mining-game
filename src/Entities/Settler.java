@@ -254,6 +254,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("(drill) Drill the asteroid");
             System.out.println("(mine) Mine the asteroid core");
             System.out.println("(move) Move the settler");
+            System.out.println("(moveThroughPortal) Move the settler through a portal");
             System.out.println("(build) Build something");
             System.out.println("(putPortalDown) Place a portal on the current asteroid");
             System.out.println("(putMaterialBack) Fill the asteroid's core with a selected material");
