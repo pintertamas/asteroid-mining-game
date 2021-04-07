@@ -1,2 +1,0 @@
-noSolarStorm
-putDownPortal;0

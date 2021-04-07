@@ -1,2 +1,4 @@
 noSolarStorm
+mine
+noSolarStorm
 putBackMaterial;iron

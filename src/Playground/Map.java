@@ -461,9 +461,7 @@ public class Map {
         TestLogger.functionCalled(this, "setupRound", "void");
         if (!(shouldCheckGameEnd && checkGameEnd())) {
             if (stormComing()) {
-                for (Asteroid a : asteroids) {
-                    a.handleFigures();
-                }
+                solarStorm();
             } else {
                 for (Asteroid a : asteroids) {
                     a.invokeFigures();
