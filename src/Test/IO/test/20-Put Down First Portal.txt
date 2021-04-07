@@ -1,6 +1,0 @@
-noSolarStorm
-build;portal
-drill
-noSolarStorm
-putDownPortal;0
-drill

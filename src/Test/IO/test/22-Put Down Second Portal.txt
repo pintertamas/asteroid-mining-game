@@ -1,2 +1,9 @@
 noSolarStorm
+build;portal
+drill
+noSolarStorm
+putDownPortal;0
+build;robot
+noSolarStorm
 putDownPortal;1
+move;0
