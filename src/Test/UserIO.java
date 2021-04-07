@@ -50,7 +50,6 @@ public class UserIO {
         UserIO.readFromFile = readFromFile;
     }
 
-
     public static void openFile() throws IOException {
         if (readFromFile) {
             File file = new File(path);
@@ -86,12 +85,11 @@ public class UserIO {
 
     public static int readInt() {
         String input = readNextLine();
+        input = input.split(";")[0];
         if (showInput)
             System.out.println(input);
-        input = input.split(";")[0];
-        System.out.println(input);
         int result = Integer.parseInt(input);
-        addToCustomInput(String.valueOf(result));
+        addToTemporary(String.valueOf(result));
         return result;
     }
 
@@ -100,7 +98,7 @@ public class UserIO {
         if (showInput)
             System.out.println(input);
         String result = input.split(";")[0];
-        addToCustomInput(result);
+        addToTemporary(result);
         return result;
     }
 
@@ -144,17 +142,40 @@ public class UserIO {
                 });
         System.out.println("Which file would you like to pick?");
         for (int i = 0; i < paths.size(); i++) {
-            String[] tmp = paths.get(i).split("/");
+            String separator;
+            String[] tmp;
+            if (paths.get(i).contains("/")) separator = "/";
+            else separator = "\\\\";
+            tmp = paths.get(i).split(separator);
             System.out.println(i + 1 + ": " + tmp[tmp.length - 1]);
         }
-        int pathChoice = new Scanner(System.in).nextInt();
+        Scanner tmpScanner = new Scanner(System.in);
+        int pathChoice = -1;
+        while (pathChoice > paths.size() || pathChoice <= 0) {
+            pathChoice = tmpScanner.nextInt();
+            if (pathChoice > paths.size() || pathChoice <= 0) {
+                System.out.println("That is not a valid index!");
+                System.out.println("Which file would you like to pick?");
+            }
+        }
         UserIO.setPath(paths.get(pathChoice - 1));
     }
 
-    public static void saveCustomInput() throws IOException {
+    public static void saveCustomInput(Phrase phrase) throws IOException {
         String txtFile = currentLine.get(1);
+        if (!txtFile.contains(".txt")) {
+            System.out.println("Wrong filename!");
+            return;
+        }
         String current = new java.io.File(".").getCanonicalPath();
-        File file = new File(current + "/src/Test/IO/" + txtFile);
+        String pathName = current + "/src/Test/IO/";
+        if (phrase == Phrase.INIT)
+            pathName += "init/";
+        else if (phrase == Phrase.TEST)
+            pathName += "test/";
+        pathName += txtFile;
+
+        File file = new File(pathName);
         if (!file.createNewFile()) {
             System.out.println("File already exists.");
         }
@@ -165,5 +186,4 @@ public class UserIO {
         }
         fileWriter.close();
     }
-
 }

@@ -25,18 +25,18 @@ public class Game implements IGameState {
         Scanner in = new Scanner(System.in);
         System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
         boolean showTestLogger = false;
-        if (in.nextInt() == 1)
+        if (in.nextLine().charAt(0) == '1')
             showTestLogger = true;
         System.out.println("Would you like to show input choices? (1 = Yes)");
         boolean showInput = false;
-        if (in.nextInt() == 1)
+        if (in.nextLine().charAt(0) == '1')
             showInput = true;
         System.out.println("Should I check whether the game is winnable or not? (1 = Yes)");
-        if (in.nextInt() == 1)
+        if (in.nextLine().charAt(0) == '1')
             UserIO.setCheckIfWinnable(true);
         System.out.println("Would you like to load initializations manually or from files? (1 = From files)");
         boolean loadFromFiles = false;
-        if (in.nextInt() == 1) {
+        if (in.nextLine().charAt(0) == '1') {
             UserIO.setReadFromFile(true);
             loadFromFiles = true;
         }
