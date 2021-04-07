@@ -116,7 +116,6 @@ public class Map {
             System.out.println("How many Asteroids would you like to set up?");
             numberOfAsteroids = UserIO.readInt();
 
-            Scanner in = new Scanner(System.in);
             //Az aszteroidák belső tulajdonságainak az eldöntése:
             for (int i = 0; i < numberOfAsteroids; i++) {
 

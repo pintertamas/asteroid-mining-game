@@ -11,12 +11,12 @@ import java.util.Scanner;
 public class UserIO {
     private static Scanner scanner;
     private static boolean showInput = false;
-    private static String path = "";
-    private static final ArrayList<String> customInput = new ArrayList<>();
-    private static final ArrayList<String> temporaryInput = new ArrayList<>();
     private static boolean readFromFile = false;
     private static boolean checkIfWinnable = false;
+    private static String path = "";
     private static final ArrayList<String> currentLine = new ArrayList<>();
+    private static final ArrayList<String> temporaryInput = new ArrayList<>();
+    private static final ArrayList<String> customInput = new ArrayList<>();
 
     public enum Phase {INIT, TEST}
 
