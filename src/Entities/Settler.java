@@ -320,15 +320,17 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean moveThroughPortal() {
+        int i = 0;
+        ArrayList<Asteroid> tmpArray = new ArrayList<>();
         if (asteroid.getPortals().size() != 0) {
             System.out.println("Which portal would you like to go through?");
-            int i = 0;
             for (Portal p : asteroid.getPortals()) {
                 System.out.println(i + ". asteroid: " + p.getPair().getAsteroid());
+                tmpArray.add(p.getPair().getAsteroid());
                 i++;
             }
 
-            /*int portalChoice = -1;
+            int portalChoice = -1;
             while (portalChoice > tmpArray.size() || portalChoice < 0) {
                 portalChoice = UserIO.currentLine().size() > 1
                         ? Integer.parseInt(UserIO.currentLine().get(1))
@@ -340,9 +342,9 @@ public class Settler extends Figure implements IMine, IDrill {
             }
 
             asteroid.removeFigure(this);
-            tmpArray.get(portalChoice - 1).addFigure(this);
-            setAsteroid(tmpArray.get(portalChoice - 1));
-            this.setRoundFinished(true);*/
+            tmpArray.get(portalChoice).addFigure(this);
+            setAsteroid(tmpArray.get(portalChoice));
+            this.setRoundFinished(true);
         } else {
             return false;
         }

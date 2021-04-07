@@ -371,6 +371,7 @@ public class Asteroid {
 
     public void printAsteroidDetails() {
         System.out.println("Current asteroid properties:");
+        System.out.println("\tCurrent asteroid: " + this);
         System.out.println("\tLayers: " + this.getLayers());
         if (this.isHollow()) {
             System.out.println("\tHollow: " + this.isHollow());
