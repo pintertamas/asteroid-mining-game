@@ -52,12 +52,15 @@ public class Game implements IGameState {
         m.initGame();
 
         System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
-        if (new Scanner(System.in).nextInt() == 1) {
+        if (in.nextLine().charAt(0) == '1') {
             UserIO.setReadFromFile(true);
             UserIO.closeFile();
             UserIO.choosePath(UserIO.Phase.TEST);
-            UserIO.openFile();
-        } else UserIO.setReadFromFile(false);
+        } else {
+            UserIO.setReadFromFile(false);
+            UserIO.closeFile();
+        }
+        UserIO.openFile();
 
         boolean shouldRun = true;
 
