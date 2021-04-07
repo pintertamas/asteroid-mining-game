@@ -1,15 +1,10 @@
 import Interfaces.IGameState;
-import Playground.Asteroid;
 import Playground.GameState;
 import Playground.Map;
 import Test.TestLogger;
 import Test.UserIO;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game implements IGameState {
@@ -41,7 +36,7 @@ public class Game implements IGameState {
             loadFromFiles = true;
         }
         if (loadFromFiles) {
-            UserIO.choosePath(UserIO.Phrase.INIT);
+            UserIO.choosePath(UserIO.Phase.INIT);
         }
 
         UserIO.openFile();
@@ -60,7 +55,7 @@ public class Game implements IGameState {
         if (new Scanner(System.in).nextInt() == 1) {
             UserIO.setReadFromFile(true);
             UserIO.closeFile();
-            UserIO.choosePath(UserIO.Phrase.TEST);
+            UserIO.choosePath(UserIO.Phase.TEST);
             UserIO.openFile();
         } else UserIO.setReadFromFile(false);
 

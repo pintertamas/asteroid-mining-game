@@ -18,7 +18,7 @@ public class UserIO {
     private static boolean checkIfWinnable = false;
     private static final ArrayList<String> currentLine = new ArrayList<>();
 
-    public enum Phrase {INIT, TEST}
+    public enum Phase {INIT, TEST}
 
     public static boolean readFromFile() {
         return UserIO.readFromFile;
@@ -128,13 +128,13 @@ public class UserIO {
         temporaryInput.clear();
     }
 
-    public static void choosePath(Phrase phrase) throws IOException {
+    public static void choosePath(Phase phase) throws IOException {
         ArrayList<String> paths = new ArrayList<>();
         String current = new java.io.File(".").getCanonicalPath();
         String dirName = current + "/src/Test/IO/";
-        if (phrase == Phrase.INIT)
+        if (phase == Phase.INIT)
             dirName = dirName + "init/";
-        else if (phrase == Phrase.TEST)
+        else if (phase == Phase.TEST)
             dirName = dirName + "test/";
         Files.list(new File(dirName).toPath())
                 .forEach(path -> {
@@ -161,7 +161,7 @@ public class UserIO {
         UserIO.setPath(paths.get(pathChoice - 1));
     }
 
-    public static void saveCustomInput(Phrase phrase) throws IOException {
+    public static void saveCustomInput(Phase phase) throws IOException {
         String txtFile = currentLine.get(1);
         if (!txtFile.contains(".txt")) {
             System.out.println("Wrong filename!");
@@ -169,9 +169,9 @@ public class UserIO {
         }
         String current = new java.io.File(".").getCanonicalPath();
         String pathName = current + "/src/Test/IO/";
-        if (phrase == Phrase.INIT)
+        if (phase == Phase.INIT)
             pathName += "init/";
-        else if (phrase == Phrase.TEST)
+        else if (phase == Phase.TEST)
             pathName += "test/";
         pathName += txtFile;
 

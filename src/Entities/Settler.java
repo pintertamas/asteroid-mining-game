@@ -302,7 +302,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     if (UserIO.readFromFile())
                         break;
                     UserIO.clearTemporaryInput();
-                    UserIO.saveCustomInput(UserIO.Phrase.TEST);
+                    UserIO.saveCustomInput(UserIO.Phase.TEST);
                     break;
                 default:
                     System.out.println("Something went wrong! Check the test files!");
@@ -332,11 +332,18 @@ public class Settler extends Figure implements IMine, IDrill {
                 }
             }
 
-            int choice = UserIO.readInt();
+            int portalChoice = -1;
+            while (portalChoice > tmpArray.size() || portalChoice <= 0) {
+                portalChoice = UserIO.readInt();
+                if (portalChoice > tmpArray.size() || portalChoice <= 0) {
+                    System.out.println("That is not a valid index!");
+                    System.out.println("Which neighbor would you like to pick?");
+                }
+            }
 
             asteroid.removeFigure(this);
-            tmpArray.get(choice - 1).addFigure(this);
-            setAsteroid(tmpArray.get(choice - 1));
+            tmpArray.get(portalChoice - 1).addFigure(this);
+            setAsteroid(tmpArray.get(portalChoice - 1));
             this.setRoundFinished(true);
         } else {
             return false;
