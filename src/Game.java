@@ -5,6 +5,7 @@ import Test.TestLogger;
 import Test.UserIO;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Game implements IGameState {
@@ -18,25 +19,35 @@ public class Game implements IGameState {
     @SuppressWarnings("SpellCheckingInspection")
     public void run() throws IOException {
         Scanner in = new Scanner(System.in);
+
         System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
         boolean showTestLogger = false;
         if (in.nextLine().charAt(0) == '1')
             showTestLogger = true;
+
         System.out.println("Would you like to show input choices? (1 = Yes)");
         boolean showInput = false;
         if (in.nextLine().charAt(0) == '1')
             showInput = true;
+
+        System.out.println("Would you like to generate the map automatically? (Yes/No)");
+        boolean manualSetup = in.nextLine().equalsIgnoreCase("no");
+        UserIO.setIsManual(manualSetup);
+
         System.out.println("Should I check whether the game is winnable or not? (1 = Yes)");
         if (in.nextLine().charAt(0) == '1')
             UserIO.setCheckIfWinnable(true);
-        System.out.println("Would you like to load initializations manually or from files? (1 = From files)");
+
         boolean loadFromFiles = false;
-        if (in.nextLine().charAt(0) == '1') {
-            UserIO.setReadFromFile(true);
-            loadFromFiles = true;
-        }
-        if (loadFromFiles) {
-            UserIO.choosePath(UserIO.Phase.INIT);
+        if (UserIO.isManual()) {
+            System.out.println("Would you like to load initializations manually or from files? (1 = From files)");
+            if (in.nextLine().charAt(0) == '1') {
+                UserIO.setReadFromFile(true);
+                loadFromFiles = true;
+            }
+            if (loadFromFiles) {
+                UserIO.choosePath(UserIO.Phase.INIT);
+            }
         }
 
         UserIO.openFile();

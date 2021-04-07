@@ -82,11 +82,6 @@ public class Map {
     public void initGame() {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
-        boolean manualSetup = true;
-        if (UserIO.readFromFile()) {
-            System.out.println("Would you like to generate the map manually or automatically? (Manual = 1)");
-            manualSetup = UserIO.readInt() == 1;
-        }
         UserIO.clearTemporaryInput();
 
         int numberOfPlayers;
@@ -96,7 +91,7 @@ public class Map {
         numberOfPlayers = UserIO.readInt();
         UserIO.addToCustomInput();
 
-        if (manualSetup) {
+        if (UserIO.isManual()) {
             //Változók, amelyeket a player inputnál használunk fel
             int numberOfAsteroids;
             String choice;
