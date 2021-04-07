@@ -6,7 +6,6 @@ import java.io.IOException;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Main {
-
     /**
      * main függvény.
      * @param args

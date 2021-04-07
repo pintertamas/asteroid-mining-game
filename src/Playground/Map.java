@@ -91,22 +91,10 @@ public class Map {
         numberOfPlayers = UserIO.readInt();
         UserIO.addToCustomInput();
 
-        if (UserIO.isManual()) {
+        if (!UserIO.isAutomatic()) {
             //Változók, amelyeket a player inputnál használunk fel
             int numberOfAsteroids;
             String choice;
-            int initLayer;
-            int numberOfPairs;
-            boolean nearSun = false;
-            boolean isHollow = false;
-            int numberOfUfos;
-            int ufoAsteroid;
-            int settlerAsteroid;
-            int numberOfRobots;
-            int numberOfPortals;
-            int portalAsteroid;
-            int portalpairAsteroid;
-            int robotAsteroid;
 
             //Itt lehet az aszteroidák számát megadni
             System.out.println("How many Asteroids would you like to set up?");
@@ -117,7 +105,7 @@ public class Map {
             for (int i = 0; i < numberOfAsteroids; i++) {
                 //Mennyi legyen a layer az asteroidán:
                 System.out.println("How many layers does the Asteroid contain?");
-                initLayer = Integer.parseInt(UserIO.readLine().get(0));
+                int initLayer = Integer.parseInt(UserIO.readLine().get(0));
 
                 System.out.println("What kind of Material does the Asteroid " + i + " contain? ");
                 System.out.println("Uranium");
@@ -131,6 +119,8 @@ public class Map {
                         : UserIO.readString();
 
                 Material material = new Iron();
+                boolean isHollow = false;
+
                 switch (choice.toLowerCase()) {
                     case "uranium":
                         material = new Uranium();
@@ -160,6 +150,7 @@ public class Map {
                         ? UserIO.currentLine().get(2)
                         : UserIO.readString();
 
+                boolean nearSun = false;
                 if (choice.equalsIgnoreCase("nearSun"))
                     nearSun = true;
 
@@ -170,15 +161,15 @@ public class Map {
 
             //Robotok száma:
             System.out.println("How many Robots would you like to set up?");
-            numberOfRobots = UserIO.readInt();
+            int numberOfRobots = UserIO.readInt();
 
             //Ufok száma:
             System.out.println("How many Ufos would you like to set up?");
-            numberOfUfos = UserIO.readInt();
+            int numberOfUfos = UserIO.readInt();
 
             //Aszteroida szomszéd szám:
-            System.out.println("How many asteroid connections would you like to make?");
-            numberOfPairs = UserIO.readInt();
+            System.out.println("How many asteroid connections would you like to create?");
+            int numberOfPairs = UserIO.readInt();
 
             //Egyesével beállítani ki legyen a szomszéd:
             if (numberOfPairs > 0 || numberOfPairs < (numberOfAsteroids - 1) * numberOfAsteroids / 2) {
@@ -199,63 +190,82 @@ public class Map {
                 }
             }
 
-            //Portálok létrehozása
-            System.out.println("How many Portal pairs would you like to set up?");
-            numberOfPortals = UserIO.readInt();
+            //Portálok létrehozása és összekötése
+            System.out.println("How many Portals would you like to create?");
+            int numberOfPortals = UserIO.readInt();
             for (int j = 0; j < numberOfPortals; j++) {
-                System.out.println("Where would you like to put the first Portal? Write the number of Asteroid!");
-                portalAsteroid = UserIO.readInt();
-                System.out.println("Where would you like to put the first Portal's pair? Write the number of Asteroid!");
-                portalpairAsteroid = UserIO.readInt();
+                ArrayList<String> portalPairs = UserIO.readLine();
+                System.out.println("Set the portal pairs' location!" +
+                        "(the format must be like this: 0;1 meaning the first portal will be on the 0th asteroid, and it's pair on the 1st one.)");
+                int portalPair1 = Integer.parseInt(portalPairs.get(0));
+                int portalPair2 = Integer.parseInt(portalPairs.get(1));
+
+                while(portalPair1 < 0 || portalPair2 < 0 || portalPair1 > asteroids.size()
+                        || portalPair2 > asteroids.size() || portalPair1 == portalPair2) {
+                    System.out.println("Wrong format!");
+                    if (UserIO.readFromFile())
+                        return;
+                    portalPairs = UserIO.readLine();
+                    portalPair1 = Integer.parseInt(portalPairs.get(0));
+                    portalPair2 = Integer.parseInt(portalPairs.get(1));
+                }
+
                 Portal p1 = new Portal();
                 Portal p2 = new Portal();
-                asteroids.get(portalAsteroid).addPortal(p1);
-                asteroids.get(portalpairAsteroid).addPortal(p2);
+                asteroids.get(portalPair1).addPortal(p1);
+                asteroids.get(portalPair2).addPortal(p2);
                 p1.setPair(p2);
                 p2.setPair(p1);
 
+                System.out.println("These portals are now connected: " + p1 + "(on asteroid " + portalPair1 + ") - " + p2 + "(on asteroid " + portalPair2 + ")");
             }
 
             //Robotok létrehozása
             for (int j = 0; j < numberOfRobots; j++) {
                 System.out.println("Where would you like to put the Robot " + j + "? Write the number of Asteroid!");
-                robotAsteroid = UserIO.readInt();
+                int robotAsteroid = UserIO.readInt();
                 new Robot(asteroids.get(robotAsteroid), false);
             }
 
             //Ufók létrehozása
             for (int j = 0; j < numberOfUfos; j++) {
                 System.out.println("Where would you like to put the Ufo " + j + "? Write the number of Asteroid!");
-                ufoAsteroid = UserIO.readInt();
+                int ufoAsteroid = UserIO.readInt();
                 new Ufo(asteroids.get(ufoAsteroid), false);
             }
 
             //Settlerek létrehozása:
             for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
-                settlerAsteroid = UserIO.readInt();
-                int settlerMaterialNumber;
+                int settlerAsteroid = UserIO.readInt();
                 Settler s1 = new Settler(asteroids.get(settlerAsteroid), false);
 
-                System.out.println("How many Uranium Settler " + j + " has?");
-                settlerMaterialNumber = UserIO.readInt();
-                for (int k = 0; k < settlerMaterialNumber; k++) {
+                System.out.println("How many materials and portals Settler " + j + " has? (The format must be: Uranium;Ice;Coal;Iron;Portals)");
+                ArrayList<String> settlerInventory = UserIO.readLine();
+
+                for (int k = 0; k < Integer.parseInt(UserIO.currentLine().get(0)); k++) {
                     s1.getInventory().addMaterial(new Uranium());
                 }
-                System.out.println("How much Ice Settler " + j + " has?");
-                settlerMaterialNumber = UserIO.readInt();
-                for (int k = 0; k < settlerMaterialNumber; k++) {
+
+                for (int k = 0; k < Integer.parseInt(UserIO.currentLine().get(1)); k++) {
                     s1.getInventory().addMaterial(new Ice());
                 }
-                System.out.println("How much Coal Settler " + j + " has?");
-                settlerMaterialNumber = UserIO.readInt();
-                for (int k = 0; k < settlerMaterialNumber; k++) {
+
+                for (int k = 0; k < Integer.parseInt(UserIO.currentLine().get(2)); k++) {
                     s1.getInventory().addMaterial(new Coal());
                 }
-                System.out.println("How many Iron Settler " + j + " has?");
-                settlerMaterialNumber = UserIO.readInt();
-                for (int k = 0; k < settlerMaterialNumber; k++) {
+
+                for (int k = 0; k < Integer.parseInt(UserIO.currentLine().get(3)); k++) {
                     s1.getInventory().addMaterial(new Iron());
+                }
+
+                for (int k = 0; k < Integer.parseInt(UserIO.currentLine().get(4)); k++) {
+                    Portal p1 = new Portal();
+                    Portal p2 = new Portal();
+                    p1.setPair(p2);
+                    p2.setPair(p1);
+                    s1.getInventory().addPortal(p1);
+                    s1.getInventory().addPortal(p2);
                 }
             }
 

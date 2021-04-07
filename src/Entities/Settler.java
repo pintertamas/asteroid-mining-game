@@ -320,22 +320,20 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean moveThroughPortal() {
-        int i = 1;
-        ArrayList<Asteroid> tmpArray = new ArrayList<>();
         if (asteroid.getPortals().size() != 0) {
-            System.out.println("Which portal would you like to go through? Choose the number seen before its memory code! ");
+            System.out.println("Which portal would you like to go through?");
+            int i = 0;
             for (Portal p : asteroid.getPortals()) {
-                if (p.getPair().getAsteroid() != null) {
-                    System.out.println("Az " + i + ". asteroida ahova el tudsz mozogni: " + p.getPair().getAsteroid());
-                    tmpArray.add(p.getPair().getAsteroid());
-                    i++;
-                }
+                System.out.println(i + ". asteroid: " + p.getPair().getAsteroid());
+                i++;
             }
 
-            int portalChoice = -1;
-            while (portalChoice > tmpArray.size() || portalChoice <= 0) {
-                portalChoice = UserIO.readInt();
-                if (portalChoice > tmpArray.size() || portalChoice <= 0) {
+            /*int portalChoice = -1;
+            while (portalChoice > tmpArray.size() || portalChoice < 0) {
+                portalChoice = UserIO.currentLine().size() > 1
+                        ? Integer.parseInt(UserIO.currentLine().get(1))
+                        : UserIO.readInt();
+                if (portalChoice > tmpArray.size() || portalChoice < 0) {
                     System.out.println("That is not a valid index!");
                     System.out.println("Which neighbor would you like to pick?");
                 }
@@ -344,7 +342,7 @@ public class Settler extends Figure implements IMine, IDrill {
             asteroid.removeFigure(this);
             tmpArray.get(portalChoice - 1).addFigure(this);
             setAsteroid(tmpArray.get(portalChoice - 1));
-            this.setRoundFinished(true);
+            this.setRoundFinished(true);*/
         } else {
             return false;
         }

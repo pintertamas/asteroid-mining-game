@@ -5,7 +5,6 @@ import Test.TestLogger;
 import Test.UserIO;
 
 import java.io.IOException;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Game implements IGameState {
@@ -21,26 +20,24 @@ public class Game implements IGameState {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
-        boolean showTestLogger = false;
-        if (in.nextLine().charAt(0) == '1')
-            showTestLogger = true;
+        boolean showTestLogger = in.nextLine().equals("1");
+        TestLogger.setShow(showTestLogger);
 
         System.out.println("Would you like to show input choices? (1 = Yes)");
-        boolean showInput = false;
-        if (in.nextLine().charAt(0) == '1')
-            showInput = true;
+        boolean showInput = in.nextLine().equals("1");
+        UserIO.setShowInput(showInput);
 
-        System.out.println("Would you like to generate the map automatically? (Yes/No)");
-        boolean manualSetup = in.nextLine().equalsIgnoreCase("no");
-        UserIO.setIsManual(manualSetup);
+        System.out.println("Would you like to generate the map automatically? (1 = Yes)");
+        boolean automaticSetup = in.nextLine().equals("1");
+        UserIO.setIsAutomatic(automaticSetup);
 
         System.out.println("Should I check whether the game is winnable or not? (1 = Yes)");
-        if (in.nextLine().charAt(0) == '1')
-            UserIO.setCheckIfWinnable(true);
+        boolean shouldCheckIfWinnable = in.nextLine().charAt(0) == '1';
+        UserIO.setCheckIfWinnable(shouldCheckIfWinnable);
 
         boolean loadFromFiles = false;
-        if (UserIO.isManual()) {
-            System.out.println("Would you like to load initializations manually or from files? (1 = From files)");
+        if (!UserIO.isAutomatic()) {
+            System.out.println("Would you like to load initializations by hand or from files? (1 = From files)");
             if (in.nextLine().charAt(0) == '1') {
                 UserIO.setReadFromFile(true);
                 loadFromFiles = true;
@@ -49,12 +46,7 @@ public class Game implements IGameState {
                 UserIO.choosePath(UserIO.Phase.INIT);
             }
         }
-
         UserIO.openFile();
-
-        //Tesztek kiírásának be/kikapcsolása
-        TestLogger.setShow(showTestLogger);
-        UserIO.setShowInput(showInput);
 
         Map m = new Map();
         m.addStateListener(this);
