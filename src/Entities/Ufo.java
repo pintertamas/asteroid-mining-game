@@ -96,7 +96,7 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void onExplosion() {
-
+        die();
     }
 
     /**

@@ -77,24 +77,21 @@ public class Map {
 
     /**
      * Játék inicializálása.
-     *
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void initGame() {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
-        boolean manualSetup = true;
-        if (UserIO.readFromFile()) {
-            System.out.println("Would you like to generate the map manually or automatically? (Manual = 1)");
-            manualSetup = UserIO.readInt() == 1;
-        }
+        UserIO.clearTemporaryInput();
+
         int numberOfPlayers;
 
         //Játék előkészítése:
         System.out.println("How many players would you like to play with? (Must be between 1-4)");
         numberOfPlayers = UserIO.readInt();
+        UserIO.addToCustomInput();
 
-        if (manualSetup) {
+        if (UserIO.isManual()) {
             //Változók, amelyeket a player inputnál használunk fel
             int numberOfAsteroids;
             String choice;
@@ -111,18 +108,16 @@ public class Map {
             int portalpairAsteroid;
             int robotAsteroid;
 
-
             //Itt lehet az aszteroidák számát megadni
             System.out.println("How many Asteroids would you like to set up?");
             numberOfAsteroids = UserIO.readInt();
+            UserIO.addToCustomInput();
 
-            Scanner in = new Scanner(System.in);
             //Az aszteroidák belső tulajdonságainak az eldöntése:
             for (int i = 0; i < numberOfAsteroids; i++) {
-
                 //Mennyi legyen a layer az asteroidán:
                 System.out.println("How many layers does the Asteroid contain?");
-                initLayer = UserIO.readInt();
+                initLayer = Integer.parseInt(UserIO.readLine().get(0));
 
                 System.out.println("What kind of Material does the Asteroid " + i + " contain? ");
                 System.out.println("Uranium");
@@ -131,7 +126,9 @@ public class Map {
                 System.out.println("Iron");
                 System.out.println("Hollow");
 
-                choice = UserIO.readString();
+                choice = UserIO.currentLine().size() > 1
+                        ? UserIO.currentLine().get(1)
+                        : UserIO.readString();
 
                 Material material = new Iron();
                 switch (choice.toLowerCase()) {
@@ -159,7 +156,10 @@ public class Map {
                 System.out.println("Is the Asteroid near sun?");
                 System.out.println("nearSun/notNearSun");
 
-                choice = UserIO.readString();
+                choice = UserIO.currentLine().size() > 2
+                        ? UserIO.currentLine().get(2)
+                        : UserIO.readString();
+
                 if (choice.equalsIgnoreCase("nearSun"))
                     nearSun = true;
 
@@ -204,11 +204,11 @@ public class Map {
             numberOfPortals = UserIO.readInt();
             for (int j = 0; j < numberOfPortals; j++) {
                 System.out.println("Where would you like to put the first Portal? Write the number of Asteroid!");
-                portalAsteroid= UserIO.readInt();
+                portalAsteroid = UserIO.readInt();
                 System.out.println("Where would you like to put the first Portal's pair? Write the number of Asteroid!");
-                portalpairAsteroid=UserIO.readInt();
-                Portal p1=new Portal();
-                Portal p2=new Portal();
+                portalpairAsteroid = UserIO.readInt();
+                Portal p1 = new Portal();
+                Portal p2 = new Portal();
                 asteroids.get(portalAsteroid).addPortal(p1);
                 asteroids.get(portalpairAsteroid).addPortal(p2);
                 p1.setPair(p2);
@@ -239,22 +239,22 @@ public class Map {
 
                 System.out.println("How many Uranium Settler " + j + " has?");
                 settlerMaterialNumber = UserIO.readInt();
-                for (int k=0; k<settlerMaterialNumber;k++){
+                for (int k = 0; k < settlerMaterialNumber; k++) {
                     s1.getInventory().addMaterial(new Uranium());
                 }
                 System.out.println("How much Ice Settler " + j + " has?");
                 settlerMaterialNumber = UserIO.readInt();
-                for (int k=0; k<settlerMaterialNumber;k++){
+                for (int k = 0; k < settlerMaterialNumber; k++) {
                     s1.getInventory().addMaterial(new Ice());
                 }
                 System.out.println("How much Coal Settler " + j + " has?");
                 settlerMaterialNumber = UserIO.readInt();
-                for (int k=0; k<settlerMaterialNumber;k++){
+                for (int k = 0; k < settlerMaterialNumber; k++) {
                     s1.getInventory().addMaterial(new Coal());
                 }
                 System.out.println("How many Iron Settler " + j + " has?");
                 settlerMaterialNumber = UserIO.readInt();
-                for (int k=0; k<settlerMaterialNumber;k++){
+                for (int k = 0; k < settlerMaterialNumber; k++) {
                     s1.getInventory().addMaterial(new Iron());
                 }
             }
@@ -310,8 +310,7 @@ public class Map {
             }
 
             for (int i = 0; i < numberOfPlayers; i++) {
-
-                Settler s = new Settler(asteroids.get(0), false);
+                new Settler(asteroids.get(0), false);
             }
         }
 
