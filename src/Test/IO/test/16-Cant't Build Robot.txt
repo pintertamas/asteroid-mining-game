@@ -1,6 +1,2 @@
-drill
-mine
-move;0
-drill
-mine
+noSolarStorm
 build;robot
