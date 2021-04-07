@@ -1,10 +1,2 @@
-drill
-drill
-mine
-move;0
-drill
-mine
-move;1
-drill
-mine
+noSolarStorm
 build;portal

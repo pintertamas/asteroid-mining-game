@@ -1,1 +1,2 @@
-move;0
+noSolarStorm
+move;1
