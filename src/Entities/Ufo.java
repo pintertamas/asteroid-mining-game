@@ -79,7 +79,14 @@ public class Ufo extends Figure implements IMine {
             mine();
         }
         else {
-            move();
+            Random rand = new Random();
+            int number = rand.nextInt(2);
+            if (number == 0) {
+                move();
+            }
+            else {
+                moveThroughPortal();
+            }
         }
     }
 

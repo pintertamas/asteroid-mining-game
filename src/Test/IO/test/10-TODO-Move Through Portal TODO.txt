@@ -1,1 +1,2 @@
-movethroughportal;0
+noSolarStorm
+moveThroughPortal;0
