@@ -13,6 +13,7 @@ public class UserIO {
     private static boolean showInput = false;
     private static boolean readFromFile = false;
     private static boolean checkIfWinnable = false;
+    private static boolean isManual = false;
     private static String path = "";
     private static final ArrayList<String> currentLine = new ArrayList<>();
     private static final ArrayList<String> temporaryInput = new ArrayList<>();
@@ -23,6 +24,8 @@ public class UserIO {
     public static boolean readFromFile() {
         return UserIO.readFromFile;
     }
+
+    public static boolean isManual() { return isManual; }
 
     public static ArrayList<String> currentLine() {
         return currentLine;
@@ -38,6 +41,10 @@ public class UserIO {
 
     public static void setShowInput(boolean showInput) {
         UserIO.showInput = showInput;
+    }
+
+    public static void setIsManual(boolean isManual) {
+        UserIO.isManual = isManual;
     }
 
     public static void setPath(String path) {
