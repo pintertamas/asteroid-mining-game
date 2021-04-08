@@ -1,3 +1,1 @@
-init működjön az új nyelvvel
-portálok a bemeneti nyelv szerint legyenek párbaállítva
 init menthetőségének megoldása
