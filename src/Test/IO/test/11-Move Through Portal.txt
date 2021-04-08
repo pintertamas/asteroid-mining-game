@@ -1,3 +1,1 @@
-show
-movethroughportal;0
-show
+moveThroughPortal;0

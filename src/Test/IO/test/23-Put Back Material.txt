@@ -1,4 +1,1 @@
-noSolarStorm
-mine
-noSolarStorm
-putBackMaterial;iron
+putMaterialBack;iron

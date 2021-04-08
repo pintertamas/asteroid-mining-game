@@ -26,7 +26,7 @@ public class Ufo extends Figure implements IMine {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Ufo(Asteroid asteroid, boolean roundFinished) {
-        super(asteroid, roundFinished);
+        super(asteroid, roundFinished); materials = new ArrayList<>();
     }
 
     /**

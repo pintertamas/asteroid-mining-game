@@ -162,6 +162,7 @@ public class Settler extends Figure implements IMine, IDrill {
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        System.out.println("FAAAASZ0");
         return false;
     }
 
