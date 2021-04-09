@@ -21,7 +21,6 @@ public class Map {
 
     private final ArrayList<Asteroid> asteroids;
     private final ArrayList<IGameState> listeners = new ArrayList<>();
-    public boolean manual = false;
 
     /**
      * Konstruktor
@@ -29,16 +28,6 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
         this.asteroids = new ArrayList<>();
-    }
-
-    /**
-     * Beállítja, hogy manuális legyen-e a solarstormok generálása.
-     *
-     * @param manual
-     */
-    @SuppressWarnings("SpellCheckingInspection")
-    public void setManual(boolean manual) {
-        this.manual = manual;
     }
 
     /**
@@ -149,10 +138,9 @@ public class Map {
                 choice = UserIO.currentLine().size() > 2
                         ? UserIO.currentLine().get(2)
                         : UserIO.readString();
+                UserIO.addToCustomInput();
 
-                boolean nearSun = false;
-                if (choice.equalsIgnoreCase("nearSun"))
-                    nearSun = true;
+                boolean nearSun = choice.equalsIgnoreCase("nearSun");
 
                 //Asteroida létrehozása:
                 Asteroid ast = new Asteroid(this, material, initLayer, nearSun, isHollow);
@@ -162,14 +150,17 @@ public class Map {
             //Robotok száma:
             System.out.println("How many Robots would you like to set up?");
             int numberOfRobots = UserIO.readInt();
+            UserIO.addToCustomInput();
 
             //Ufok száma:
             System.out.println("How many Ufos would you like to set up?");
             int numberOfUfos = UserIO.readInt();
+            UserIO.addToCustomInput();
 
             //Aszteroida szomszéd szám:
             System.out.println("How many asteroid connections would you like to create?");
             int numberOfPairs = UserIO.readInt();
+            UserIO.addToCustomInput();
 
             //Egyesével beállítani ki legyen a szomszéd:
             if (numberOfPairs > 0 || numberOfPairs < (numberOfAsteroids - 1) * numberOfAsteroids / 2) {
@@ -178,6 +169,7 @@ public class Map {
                     int firstPair;
                     int secondPair;
                     ArrayList<String> pairs = UserIO.readLine();
+                    UserIO.addToCustomInput();
                     firstPair = Integer.parseInt(pairs.get(0));
                     secondPair = Integer.parseInt(pairs.get(1));
                     if (firstPair != secondPair && firstPair < numberOfAsteroids && firstPair >= 0 && secondPair < numberOfAsteroids && secondPair >= 0) {
@@ -193,19 +185,23 @@ public class Map {
             //Portálok létrehozása és összekötése
             System.out.println("How many Portals would you like to create?");
             int numberOfPortals = UserIO.readInt();
+            UserIO.addToCustomInput();
+
             for (int j = 0; j < numberOfPortals; j++) {
-                ArrayList<String> portalPairs = UserIO.readLine();
                 System.out.println("Set the portal pairs' location!" +
                         "(the format must be like this: 0;1 meaning the first portal will be on the 0th asteroid, and it's pair on the 1st one.)");
+                ArrayList<String> portalPairs = UserIO.readLine();
+
                 int portalPair1 = Integer.parseInt(portalPairs.get(0));
                 int portalPair2 = Integer.parseInt(portalPairs.get(1));
 
-                while(portalPair1 < 0 || portalPair2 < 0 || portalPair1 > asteroids.size()
+                while (portalPair1 < 0 || portalPair2 < 0 || portalPair1 > asteroids.size()
                         || portalPair2 > asteroids.size() || portalPair1 == portalPair2) {
                     System.out.println("Wrong format!");
                     if (UserIO.readFromFile())
                         return;
                     portalPairs = UserIO.readLine();
+                    UserIO.addToCustomInput();
                     portalPair1 = Integer.parseInt(portalPairs.get(0));
                     portalPair2 = Integer.parseInt(portalPairs.get(1));
                 }
@@ -226,6 +222,7 @@ public class Map {
             for (int j = 0; j < numberOfRobots; j++) {
                 System.out.println("Where would you like to put the Robot " + j + "? Write the number of Asteroid!");
                 int robotAsteroid = UserIO.readInt();
+                UserIO.addToCustomInput();
                 new Robot(asteroids.get(robotAsteroid), false);
             }
 
@@ -233,6 +230,7 @@ public class Map {
             for (int j = 0; j < numberOfUfos; j++) {
                 System.out.println("Where would you like to put the Ufo " + j + "? Write the number of Asteroid!");
                 int ufoAsteroid = UserIO.readInt();
+                UserIO.addToCustomInput();
                 new Ufo(asteroids.get(ufoAsteroid), false);
             }
 
@@ -240,10 +238,12 @@ public class Map {
             for (int j = 0; j < numberOfPlayers; j++) {
                 System.out.println("Where would you like to put the Settler " + j + "? Write the number of Asteroid!");
                 int settlerAsteroid = UserIO.readInt();
+                UserIO.addToCustomInput();
                 Settler s1 = new Settler(asteroids.get(settlerAsteroid), false);
 
                 System.out.println("How many materials and portals Settler " + j + " has? (The format must be: Uranium;Ice;Coal;Iron;Portals)");
-                ArrayList<String> settlerInventory = UserIO.readLine();
+                UserIO.readLine();
+                UserIO.addToCustomInput();
 
                 for (int k = 0; k < Integer.parseInt(UserIO.currentLine().get(0)); k++) {
                     s1.getInventory().addMaterial(new Uranium());
@@ -271,7 +271,7 @@ public class Map {
                 }
             }
 
-        } else {
+        } else { // Generating the map randomly...
             int minimumNumberOfAsteroids = 50;
             int maximumNumberOfAsteroids = 200;
             double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
@@ -325,7 +325,6 @@ public class Map {
                 new Settler(asteroids.get(0), false);
             }
         }
-
         TestLogger.functionReturned();
     }
 
@@ -336,7 +335,7 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
-        if (!manual) {
+        if (UserIO.isAutomatic()) {
             for (Asteroid a : drawSolarArea()) {
                 if (a.isNearSun) {
                     a.handleFigures();
@@ -496,6 +495,9 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public boolean stormComing() {
         TestLogger.functionCalled(this, "stormComing", "boolean");
+
+        boolean manualSolarStorm = !UserIO.isAutomatic();
+
         Random rand = new Random();
         int stormNumber = rand.nextInt(200);
         if (stormNumber == 100) {

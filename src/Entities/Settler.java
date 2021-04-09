@@ -303,7 +303,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     if (UserIO.readFromFile())
                         break;
                     UserIO.clearTemporaryInput();
-                    UserIO.saveCustomInput(UserIO.Phase.TEST);
+                    UserIO.saveCustomInput(UserIO.Phase.TEST, UserIO.currentLine().get(1));
                     break;
                 default:
                     System.out.println("Something went wrong! Check the test files!");

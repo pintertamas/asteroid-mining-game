@@ -114,9 +114,10 @@ public class UserIO {
             UserIO.temporaryInput.add(tmp);
     }
 
-    public static void addToCustomInput(String newLine) {
-        if (!readFromFile)
-            customInput.add(newLine);
+    public static void clear() {
+        temporaryInput.clear();
+        customInput.clear();
+        currentLine.clear();
     }
 
     public static void addToCustomInput() {
@@ -168,9 +169,8 @@ public class UserIO {
         UserIO.setPath(paths.get(pathChoice - 1));
     }
 
-    public static void saveCustomInput(Phase phase) throws IOException {
-        String txtFile = currentLine.get(1);
-        if (!txtFile.contains(".txt")) {
+    public static void saveCustomInput(Phase phase, String filename) throws IOException {
+        if (!filename.contains(".txt")) {
             System.out.println("Wrong filename!");
             return;
         }
@@ -180,7 +180,7 @@ public class UserIO {
             pathName += "init/";
         else if (phase == Phase.TEST)
             pathName += "test/";
-        pathName += txtFile;
+        pathName += filename;
 
         File file = new File(pathName);
         if (!file.createNewFile()) {

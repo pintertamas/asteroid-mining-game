@@ -54,14 +54,25 @@ public class Game implements IGameState {
         //Játék iniciaizálása:
         m.initGame();
 
+        if (!UserIO.readFromFile()) {
+            System.out.println("Would you like to save this input as a custom init file? (1 = Yes)");
+            if (in.nextLine().charAt(0) == '1') {
+                System.out.println("What file name would you like to call it?");
+                String filename = UserIO.readString();
+                UserIO.saveCustomInput(UserIO.Phase.INIT, filename);
+            }
+        }
+
+        UserIO.clear();
+
         System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
-        if (in.nextLine().charAt(0) == '1') {
+        if (UserIO.readString().charAt(0) == '1') {
             UserIO.setReadFromFile(true);
-            UserIO.closeFile();
+            UserIO.clearTemporaryInput();
             UserIO.choosePath(UserIO.Phase.TEST);
         } else {
+            UserIO.clearTemporaryInput();
             UserIO.setReadFromFile(false);
-            UserIO.closeFile();
         }
         UserIO.openFile();
 
