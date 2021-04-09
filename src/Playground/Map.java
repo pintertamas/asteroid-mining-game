@@ -131,12 +131,21 @@ public class Map {
                         isHollow = true;
                 }
 
+                //Hányszor volt már napközelben a material:
+                System.out.println("How many time were the material near the Sun?");
+
+                choice = UserIO.currentLine().size() > 2
+                        ? UserIO.currentLine().get(2)
+                        : UserIO.readString();
+
+                material.setNearSunCount(Integer.parseInt(choice));
+
                 //Napközelben legyen-e vagy sem az asteroida:
                 System.out.println("Is the Asteroid near sun?");
                 System.out.println("nearSun/notNearSun");
 
-                choice = UserIO.currentLine().size() > 2
-                        ? UserIO.currentLine().get(2)
+                choice = UserIO.currentLine().size() > 3
+                        ? UserIO.currentLine().get(3)
                         : UserIO.readString();
                 UserIO.addToCustomInput();
 
