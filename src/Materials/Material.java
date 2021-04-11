@@ -60,12 +60,21 @@ public abstract class Material {
     }
 
     /**
-     * Visszaadja, hogy napközelben van-e.
+     * Visszaadja, hogy hányszor volt napközelben.
      *
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
     public int getNearSunCount() {
         return nearSunCount;
+    }
+
+    /**
+     * Beállítja, hogy hányszor volt napközelben a nyersanyag.
+     *
+     * @return
+     */
+    public void setNearSunCount(int nearSunCount) {
+        this.nearSunCount = nearSunCount;
     }
 }
