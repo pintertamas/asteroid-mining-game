@@ -381,4 +381,9 @@ public class Asteroid {
         if (this.getPortals().size() > 0)
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
+
+    // ez csak a teszteléshez kell, mert így a settler is tud solarstormot generálni
+    public Map getMap() {
+        return map;
+    }
 }

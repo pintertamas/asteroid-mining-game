@@ -340,7 +340,6 @@ public class Map {
     /**
      * Napvihar.
      */
-    //TODO
     @SuppressWarnings("SpellCheckingInspection")
     public void solarStorm() {
         TestLogger.functionCalled(this, "solarStorm", "void");
@@ -351,21 +350,14 @@ public class Map {
                 }
             }
         } else {
-            System.out.println("Do you want to have a solar storm this turn?");
-            System.out.println("Yes - Press 1");
-            System.out.println("No - Press 0");
-            int num = 0;
-            Scanner in = new Scanner(System.in);
-            if (in.hasNextInt()) {
-                num = in.nextInt();
-            }
-            if (num == 1) {
-                for (Asteroid a : drawSolarArea()) {
-                    if (a.isNearSun) {
-                        a.handleFigures();
-                    }
+            System.out.println("Where do you want to generate the solar storm?");
+            int num = UserIO.readInt();
+            for (Asteroid a : drawSolarArea()) {
+                if (a.isNearSun) {
+                    a.handleFigures();
                 }
             }
+
         }
         TestLogger.functionReturned();
     }
@@ -505,13 +497,13 @@ public class Map {
     public boolean stormComing() {
         TestLogger.functionCalled(this, "stormComing", "boolean");
 
-        boolean manualSolarStorm = !UserIO.isAutomatic();
-
-        Random rand = new Random();
-        int stormNumber = rand.nextInt(200);
-        if (stormNumber == 100) {
-            TestLogger.functionReturned(String.valueOf(true));
-            return true;
+        if (UserIO.isAutomatic()) {
+            Random rand = new Random();
+            int stormNumber = rand.nextInt(200);
+            if (stormNumber == 100) {
+                TestLogger.functionReturned(String.valueOf(true));
+                return true;
+            }
         }
         TestLogger.functionReturned(String.valueOf(false));
         return false;

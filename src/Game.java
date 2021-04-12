@@ -59,7 +59,7 @@ public class Game implements IGameState {
             if (in.nextLine().charAt(0) == '1') {
                 System.out.println("What file name would you like to call it?");
                 String filename = UserIO.readString();
-                UserIO.saveCustomInput(UserIO.Phase.INIT, filename);
+                UserIO.saveCustomIO(UserIO.Phase.INIT, filename);
             }
         }
 
