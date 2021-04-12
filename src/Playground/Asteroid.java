@@ -384,6 +384,6 @@ public class Asteroid {
 
     // ez csak a teszteléshez kell, mert így a settler is tud solarstormot generálni
     public Map getMap() {
-        return map;
+        return this.map;
     }
 }

@@ -305,7 +305,7 @@ public class Map {
                 int boolOfSun = rand.nextInt(2);
                 boolean sun;
                 sun = boolOfSun != 0;
-                Asteroid a = new Asteroid(m, numberOfLayers, sun, false);
+                Asteroid a = new Asteroid(this, m, numberOfLayers, sun, false);
                 this.asteroids.add(a);
             }
 
@@ -350,8 +350,8 @@ public class Map {
                 }
             }
         } else {
-            System.out.println("Where do you want to generate the solar storm?");
-            int num = UserIO.readInt();
+            // TODO
+            System.out.println("Solar storm will be generated on your asteroid!");
             for (Asteroid a : drawSolarArea()) {
                 if (a.isNearSun) {
                     a.handleFigures();

@@ -57,6 +57,14 @@ public class UserIO {
         customInput.clear();
     }
 
+    public static String getPathName() {
+        String separator;
+        if (path.contains("/")) separator = "/";
+        else separator = "\\\\";
+        String[] fullPath = path.split(separator);
+        return fullPath[fullPath.length - 1];
+    }
+
     public static void setReadFromFile(boolean readFromFile) {
         UserIO.readFromFile = readFromFile;
     }
@@ -120,7 +128,7 @@ public class UserIO {
 
     public static void addToTemporaryOutput(String tmp) {
         if (!readFromFile)
-            UserIO.temporaryInput.add(tmp);
+            UserIO.temporaryOutput.add(tmp);
     }
 
     public static void clear() {
@@ -170,8 +178,8 @@ public class UserIO {
                 });
         System.out.println("Which file would you like to pick?");
         for (int i = 0; i < paths.size(); i++) {
-            String separator;
             String[] tmp;
+            String separator;
             if (paths.get(i).contains("/")) separator = "/";
             else separator = "\\\\";
             tmp = paths.get(i).split(separator);

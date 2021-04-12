@@ -54,7 +54,7 @@ public class Game implements IGameState {
         //Játék iniciaizálása:
         m.initGame();
 
-        if (!UserIO.readFromFile()) {
+        if (!UserIO.readFromFile() && !UserIO.isAutomatic()) {
             System.out.println("Would you like to save this input as a custom init file? (1 = Yes)");
             if (in.nextLine().charAt(0) == '1') {
                 System.out.println("What file name would you like to call it?");
@@ -64,7 +64,7 @@ public class Game implements IGameState {
         }
 
         UserIO.clear();
-
+        
         System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
         if (UserIO.readString().charAt(0) == '1') {
             UserIO.setReadFromFile(true);
@@ -97,6 +97,8 @@ public class Game implements IGameState {
                     break;
             }
         }
+        UserIO.addToResultOutput();
+        UserIO.saveCustomIO(UserIO.Phase.RESULT, UserIO.getPathName());
     }
 
     @SuppressWarnings("SpellCheckingInspection")

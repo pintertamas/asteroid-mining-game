@@ -40,6 +40,7 @@ public class Settler extends Figure implements IMine, IDrill {
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         if (neighbors.size() == 0) {
             System.out.println("The current asteroid has no neighbors so it is not possible to move :(");
+
             return;
         }
         System.out.println("Neighbors of the current asteroid: ");
@@ -222,7 +223,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("You don't have any materials!");
             return null;
         }
-        int materialChoice = Integer.parseInt(UserIO.currentLine().get(1)); // TODO: Exception
+        int materialChoice = UserIO.currentLine().size() >= 1 ? UserIO.readInt() : Integer.parseInt(UserIO.currentLine().get(1)); // TODO: Exception
         if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
             System.out.println("Not a valid choice, sorry!");
             return null;
