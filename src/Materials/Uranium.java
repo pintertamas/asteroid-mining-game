@@ -17,6 +17,7 @@ public class Uranium extends Material {
         TestLogger.functionCalled(this, "readyToMine()", "void");
         if (this.getNearSunCount() >= 3) {
             this.getAsteroid().explode();
+            System.out.println("Uranium exploded");
         }
         TestLogger.functionReturned();
     }
