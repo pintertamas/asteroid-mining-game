@@ -357,7 +357,6 @@ public class Map {
                     a.handleFigures();
                 }
             }
-
         }
         TestLogger.functionReturned();
     }

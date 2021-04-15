@@ -46,7 +46,7 @@ public class Robot extends Figure {
     }
 
     /**
-     * Reagálása robbanásra: átkerül egy szomszédos aszteroidára.
+     * Reagálás a robbanásra: átkerül egy szomszédos aszteroidára.
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
