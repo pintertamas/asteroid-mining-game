@@ -160,14 +160,12 @@ public class Settler extends Figure implements IMine, IDrill {
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
             //TODO: WIN!
-            System.out.println("bemegy");
-            //this.asteroid.getMap().gameEnd(true);
-            //this.asteroid.getMap().switchGameState(GameState.WON);
+            this.asteroid.getMap().gameEnd(true);
+            this.asteroid.getMap().switchGameState(GameState.WON);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
-        System.out.println("FAAAASZ0");
         return false;
     }
 
