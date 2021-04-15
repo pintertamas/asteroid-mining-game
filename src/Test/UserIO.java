@@ -127,11 +127,9 @@ public class UserIO {
     }
 
     public static void addToTemporaryOutput(String tmp) {
-        if (!readFromFile) {
-            UserIO.temporaryOutput.add(tmp);
-            if (tmp.equalsIgnoreCase("successful") || tmp.equalsIgnoreCase("unsuccessful"))
-                UserIO.addToResultOutput();
-        }
+        UserIO.temporaryOutput.add(tmp);
+        if (tmp.equalsIgnoreCase("successful") || tmp.equalsIgnoreCase("unsuccessful"))
+            UserIO.addToResultOutput();
     }
 
     public static void clear() {
@@ -152,13 +150,14 @@ public class UserIO {
         }
     }
 
-    // TODO: a sikerességét az elejére kell írni!
     public static void addToResultOutput() {
+        if (temporaryOutput.isEmpty())
+            return;
         StringBuilder str = new StringBuilder();
-        for (String s : temporaryOutput) {
-            str.append(";").append(s);
+        str.append(temporaryOutput.get(temporaryOutput.size() - 1));
+        for (int i = 0; i < temporaryOutput.size() - 1; i++) {
+            str.append(";").append(temporaryOutput.get(i));
         }
-        str.delete(0, 1);
         temporaryOutput.clear();
         finalOutput.add(str.toString());
     }
@@ -229,9 +228,7 @@ public class UserIO {
                 if (!s.equals(""))
                     fileWriter.write(s + "\n");
             }
-        }
-
-        else
+        } else
             for (String s : customInput) {
                 if (!s.equals(""))
                     fileWriter.write(s + "\n");

@@ -6,7 +6,6 @@ import Playground.Asteroid;
 import Playground.Portal;
 import Test.TestLogger;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 

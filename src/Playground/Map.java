@@ -21,6 +21,7 @@ public class Map {
 
     private final ArrayList<Asteroid> asteroids;
     private final ArrayList<IGameState> listeners = new ArrayList<>();
+    private boolean shouldRunAnyMore = true;
 
     /**
      * Konstruktor
@@ -435,15 +436,13 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public boolean checkIfWinnable() {
         TestLogger.functionCalled(this, "checkIfWinnable", "boolean");
-        boolean hasAllMaterials = hasAllMaterials();
-        boolean hasAnyFigure = hasAnyFigure();
-        if (!hasAllMaterials) {
+        if (!hasAllMaterials()) {
             System.out.println("The map does not contain enough materials that's required to win the game!");
             TestLogger.functionReturned(String.valueOf(false));
             switchGameState(GameState.LOST);
             return false;
         }
-        if (!hasAnyFigure) {
+        if (!hasAnyFigure()) {
             System.out.println();
             TestLogger.functionReturned(String.valueOf(false));
             switchGameState(GameState.LOST);
@@ -520,6 +519,10 @@ public class Map {
         TestLogger.functionReturned();
     }
 
+    public boolean shouldRun() {
+        return shouldRunAnyMore;
+    }
+
     public void addStateListener(IGameState listener) {
         listeners.add(listener);
     }
@@ -528,6 +531,7 @@ public class Map {
         for (IGameState gs : listeners) {
             gs.changeGameState(gameState);
         }
+        shouldRunAnyMore = gameState == GameState.IN_PROGRESS;
     }
 }
 

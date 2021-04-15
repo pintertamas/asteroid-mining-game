@@ -4,6 +4,7 @@ import Entities.Figure;
 import Entities.Settler;
 import Materials.Material;
 import Test.TestLogger;
+import Test.UserIO;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -173,9 +174,13 @@ public class Asteroid {
                     material.readyToMine();
                 }
             }
+            System.out.println("Asteroid has been drilled");
+            UserIO.addToTemporaryOutput("successful");
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
+        System.out.println("Drill could not be done");
+        UserIO.addToTemporaryOutput("unsuccessful");
         TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
@@ -305,7 +310,7 @@ public class Asteroid {
     public void invokeFigures() throws IOException {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
-        while (f != null) {
+        while (this.getMap().shouldRun() && f != null) {
             System.out.println(f + " is going to step now.");
             f.step();
             f = pickNextFigure();

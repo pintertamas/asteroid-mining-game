@@ -125,4 +125,12 @@ public class Inventory {
     public ArrayList<Material> getMaterials() {
         return materials;
     }
+
+    public int getMaterialCapacity() {
+        return materialCapacity;
+    }
+
+    public int getPortalCapacity() {
+        return portalCapacity;
+    }
 }

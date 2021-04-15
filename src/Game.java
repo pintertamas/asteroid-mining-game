@@ -106,6 +106,7 @@ public class Game implements IGameState {
         //A játék menete
         m.reset();
         m.setupRound();
-        System.out.println("\n---------ROUND ENDED----------\n");
+        if (m.shouldRun())
+            System.out.println("\n---------ROUND ENDED----------\n");
     }
 }

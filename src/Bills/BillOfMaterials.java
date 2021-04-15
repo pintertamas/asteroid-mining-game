@@ -5,6 +5,7 @@ import Test.TestLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Recept osztály az építésekhez.
@@ -83,25 +84,10 @@ public class BillOfMaterials {
         TestLogger.functionCalled(this, "pay", "ArrayList<Material> inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
 
-        for (int i = 0; i < bill.size(); i++) {
-            for (int j = 0; j < inventoryMaterials.size(); j++) {
-                if (inventoryMaterials.get(j).getClass() == bill.get(i).getClass()) {
-                    inventoryMaterials.remove(j);
-                }
-            }
+        for (Material material : bill) {
+            inventoryMaterials.removeIf(m -> m.getClass() == material.getClass());
         }
-
         TestLogger.functionReturned();
-    }
-
-    /**
-     * Visszaadja a recepthez tartozó nyersanyagok listáját.
-     *
-     * @return
-     */
-    @SuppressWarnings("SpellCheckingInspection")
-    public ArrayList<Material> getBill() {
-        return bill;
     }
 
     /**

@@ -2,7 +2,6 @@ package Entities;
 import Interfaces.*;
 import Playground.*;
 import Test.TestLogger;
-import Test.UserIO;
 
 import java.io.IOException;
 
@@ -77,12 +76,8 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
         if (asteroid.drilled()) {
             setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
-            System.out.println("Asteroid has been drilled");
-            UserIO.addToTemporaryOutput("successful");
             return true;
         }
-        System.out.println("Drill could not be done");
-        UserIO.addToTemporaryOutput("unsuccessful");
         TestLogger.functionReturned(String.valueOf(false));
         return false;
     }

@@ -112,26 +112,25 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean buildPortal() {
+    public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())) {
-            billOfPortal.pay(billOfPortal.getBill());
+            billOfPortal.pay(inventory.getMaterials());
             Portal p1 = new Portal();
             Portal p2 = new Portal();
             p1.setPair(p2);
             p2.setPair(p1);
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
+            this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
             System.out.println("You built a portal!");
             UserIO.addToTemporaryOutput("successful");
-            return true;
         } else {
             TestLogger.functionReturned(String.valueOf(false));
             System.out.println("You could not build a portal!");
             UserIO.addToTemporaryOutput("unsuccessful");
-            return false;
         }
     }
 
@@ -141,7 +140,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean buildRobot() {
+    public void buildRobot() {
         TestLogger.functionCalled(this, "buildRobot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
 
@@ -149,16 +148,15 @@ public class Settler extends Figure implements IMine, IDrill {
             TestLogger.functionReturned(String.valueOf(false));
             System.out.println("You could not build a robot!");
             UserIO.addToTemporaryOutput("unsuccessful");
-            return false;
+            return;
         }
 
-        billOfRobot.pay(billOfRobot.getBill());
+        billOfRobot.pay(inventory.getMaterials());
         new Robot(this.asteroid, true);
         this.setRoundFinished(true);
         TestLogger.functionReturned(String.valueOf(true));
         System.out.println("You built a robot!");
         UserIO.addToTemporaryOutput("successful");
-        return true;
     }
 
     /**
@@ -167,21 +165,21 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean buildBase() {
+    public void buildBase() {
         TestLogger.functionCalled(this, "buildBase", "void");
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
             //TODO: WIN!
+            this.setRoundFinished(true);
             this.asteroid.getMap().gameEnd(true);
             this.asteroid.getMap().switchGameState(GameState.WON);
             TestLogger.functionReturned(String.valueOf(true));
             UserIO.addToTemporaryOutput("successful");
-            return true;
+            return;
         }
         TestLogger.functionReturned(String.valueOf(false));
         System.out.println("You could not build a base!");
         UserIO.addToTemporaryOutput("unsuccessful");
-        return false;
     }
 
     /**
@@ -190,7 +188,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean putPortalDown() {
+    public void putPortalDown() {
         TestLogger.functionCalled(this, "putPortalDown", "boolean");
         ArrayList<Portal> portals = inventory.getPortals();
         if (portals.size() >= 1) {
@@ -198,10 +196,10 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
-            return true;
+            return;
         }
         TestLogger.functionReturned(String.valueOf(false));
-        return false;
+        return;
     }
 
     /**
@@ -211,16 +209,15 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean putMaterialBack(Material m) {
+    public void putMaterialBack(Material m) {
         TestLogger.functionCalled(this, "putMaterialBack", "boolean");
         if (this.asteroid.setMaterial(m)) {
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
-            return true;
+            return;
         }
         TestLogger.functionReturned(String.valueOf(false));
-        return false;
     }
 
     /**
@@ -381,12 +378,11 @@ public class Settler extends Figure implements IMine, IDrill {
             this.setRoundFinished(true);
             UserIO.addToTemporaryOutput(Integer.toString(portalChoice));
             UserIO.addToTemporaryOutput("successful");
+            return true;
         } else {
             UserIO.addToTemporaryOutput("unsuccessful");
             return false;
         }
-        UserIO.addToTemporaryOutput("unsuccessful");
-        return false;
     }
 
     /**
