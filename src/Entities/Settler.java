@@ -2,6 +2,7 @@ package Entities;
 
 import Bills.*;
 import Interfaces.IDrill;
+import Interfaces.IGameState;
 import Interfaces.IMine;
 import Materials.*;
 import Playground.*;
@@ -159,6 +160,9 @@ public class Settler extends Figure implements IMine, IDrill {
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
             //TODO: WIN!
+            System.out.println("bemegy");
+            //this.asteroid.getMap().gameEnd(true);
+            //this.asteroid.getMap().switchGameState(GameState.WON);
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
