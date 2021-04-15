@@ -115,11 +115,11 @@ public class Asteroid {
     @SuppressWarnings("SpellCheckingInspection")
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
-        for (Figure figure : figures) {
-            figure.onExplosion();
-            if (figures.isEmpty())
-                break;
+
+        while(!figures.isEmpty()) {
+            figures.get(0).onExplosion();
         }
+
         for (Asteroid neighbor : getNeighbors()) {
             neighbor.removeNeighbor(this);
         }
