@@ -115,7 +115,8 @@ public class Settler extends Figure implements IMine, IDrill {
     public void buildPortal() {
         TestLogger.functionCalled(this, "buildPortal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
-        if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())) {
+        if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())
+                && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
             billOfPortal.pay(inventory.getMaterials());
             Portal p1 = new Portal();
             Portal p2 = new Portal();

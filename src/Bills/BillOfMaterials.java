@@ -84,8 +84,13 @@ public class BillOfMaterials {
         TestLogger.functionCalled(this, "pay", "ArrayList<Material> inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
 
-        for (Material material : bill) {
-            inventoryMaterials.removeIf(m -> m.getClass() == material.getClass());
+        for (Material billMaterial : bill) {
+            for (Material inventoryMaterial : inventoryMaterials) {
+                if (billMaterial.getClass() == inventoryMaterial.getClass()) {
+                    inventoryMaterials.remove(inventoryMaterial);
+                    break;
+                }
+            }
         }
         TestLogger.functionReturned();
     }
