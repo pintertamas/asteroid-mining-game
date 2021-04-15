@@ -2,7 +2,6 @@ package Entities;
 
 import Bills.*;
 import Interfaces.IDrill;
-import Interfaces.IGameState;
 import Interfaces.IMine;
 import Materials.*;
 import Playground.*;
@@ -41,7 +40,7 @@ public class Settler extends Figure implements IMine, IDrill {
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         if (neighbors.size() == 0) {
             System.out.println("The current asteroid has no neighbors so it is not possible to move :(");
-
+            UserIO.addToTemporaryOutput("unsuccessful");
             return;
         }
         System.out.println("Neighbors of the current asteroid: ");
@@ -59,6 +58,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
         if (neighborChoice < 0 || neighborChoice > neighbors.size() - 1) {
             System.out.println("Wrong neighbor number, could not move settler.");
+            UserIO.addToTemporaryOutput("unsuccessful");
         } else {
             this.asteroid.removeFigure(this);
             neighbors.get(neighborChoice).addFigure(this);
@@ -66,6 +66,8 @@ public class Settler extends Figure implements IMine, IDrill {
             this.setRoundFinished(true);
             TestLogger.functionReturned();
             System.out.println("Move done");
+            UserIO.addToTemporaryOutput(Integer.toString(neighborChoice));
+            UserIO.addToTemporaryOutput("successful");
         }
     }
 
@@ -81,10 +83,12 @@ public class Settler extends Figure implements IMine, IDrill {
             setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
             System.out.println("Mine done");
+            UserIO.addToTemporaryOutput("successful");
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
         System.out.println("Mine NOT done");
+        UserIO.addToTemporaryOutput("unsuccessful");
         return false;
     }
 
@@ -120,9 +124,13 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
             TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("You built a portal!");
+            UserIO.addToTemporaryOutput("successful");
             return true;
         } else {
             TestLogger.functionReturned(String.valueOf(false));
+            System.out.println("You could not build a portal!");
+            UserIO.addToTemporaryOutput("unsuccessful");
             return false;
         }
     }
@@ -139,6 +147,8 @@ public class Settler extends Figure implements IMine, IDrill {
 
         if (!billOfRobot.hasEnoughMaterials(this.getInventory().getMaterials())) {
             TestLogger.functionReturned(String.valueOf(false));
+            System.out.println("You could not build a robot!");
+            UserIO.addToTemporaryOutput("unsuccessful");
             return false;
         }
 
@@ -146,6 +156,8 @@ public class Settler extends Figure implements IMine, IDrill {
         new Robot(this.asteroid, true);
         this.setRoundFinished(true);
         TestLogger.functionReturned(String.valueOf(true));
+        System.out.println("You built a robot!");
+        UserIO.addToTemporaryOutput("successful");
         return true;
     }
 
@@ -163,9 +175,12 @@ public class Settler extends Figure implements IMine, IDrill {
             this.asteroid.getMap().gameEnd(true);
             this.asteroid.getMap().switchGameState(GameState.WON);
             TestLogger.functionReturned(String.valueOf(true));
+            UserIO.addToTemporaryOutput("successful");
             return true;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        System.out.println("You could not build a base!");
+        UserIO.addToTemporaryOutput("unsuccessful");
         return false;
     }
 
@@ -192,7 +207,7 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Nyersanyag visszarakása üres aszteroidába.
      *
-     * @param
+     * @param m
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
@@ -271,30 +286,37 @@ public class Settler extends Figure implements IMine, IDrill {
             ArrayList<String> choice = UserIO.readLine();
             switch (choice.get(0).toLowerCase()) {
                 case "drill":
+                    UserIO.addToTemporaryOutput("drill");
                     drill();
                     UserIO.addToCustomInput();
                     break;
                 case "mine":
+                    UserIO.addToTemporaryOutput("mine");
                     mine();
                     UserIO.addToCustomInput();
                     break;
                 case "move":
+                    UserIO.addToTemporaryOutput("move");
                     move();
                     UserIO.addToCustomInput();
                     break;
                 case "movethroughportal":
+                    UserIO.addToTemporaryOutput("movethroughportal");
                     moveThroughPortal();
                     UserIO.addToCustomInput();
                     break;
                 case "build":
+                    UserIO.addToTemporaryOutput("build");
                     build();
                     UserIO.addToCustomInput();
                     break;
                 case "putportaldown":
+                    UserIO.addToTemporaryOutput("putportaldown");
                     putPortalDown();
                     UserIO.addToCustomInput();
                     break;
                 case "putmaterialback":
+                    UserIO.addToTemporaryOutput("putmaterialback");
                     Material m = chooseMaterial();
                     putMaterialBack(m);
                     UserIO.addToCustomInput();
@@ -310,6 +332,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
                     break;
                 case "solarstorm":
+                    UserIO.addToTemporaryOutput("solarstorm");
                     this.asteroid.getMap().solarStorm();
                     break;
                 case "quit":
@@ -356,9 +379,13 @@ public class Settler extends Figure implements IMine, IDrill {
             tmpArray.get(portalChoice).addFigure(this);
             setAsteroid(tmpArray.get(portalChoice));
             this.setRoundFinished(true);
+            UserIO.addToTemporaryOutput(Integer.toString(portalChoice));
+            UserIO.addToTemporaryOutput("successful");
         } else {
+            UserIO.addToTemporaryOutput("unsuccessful");
             return false;
         }
+        UserIO.addToTemporaryOutput("unsuccessful");
         return false;
     }
 
@@ -379,12 +406,15 @@ public class Settler extends Figure implements IMine, IDrill {
 
         switch (UserIO.currentLine().get(1)) {
             case "portal":
+                UserIO.addToTemporaryOutput("buildPortal");
                 buildPortal();
                 break;
             case "robot":
+                UserIO.addToTemporaryOutput("buildRobot");
                 buildRobot();
                 break;
             case "base":
+                UserIO.addToTemporaryOutput("buildBase");
                 buildBase();
                 break;
             default:

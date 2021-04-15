@@ -6,7 +6,9 @@ import Test.TestLogger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/** Recept osztály az építésekhez. */
+/**
+ * Recept osztály az építésekhez.
+ */
 @SuppressWarnings("SpellCheckingInspection")
 public class BillOfMaterials {
     /**
@@ -51,6 +53,7 @@ public class BillOfMaterials {
     public boolean hasEnoughMaterials(ArrayList<Material> inventoryMaterials) {
         TestLogger.functionCalled(this, "hasEnoughMaterial", "boolean");
         HashMap<Class<?>, Integer> allMaterials = countMaterials(inventoryMaterials);
+        HashMap<Class<?>, Integer> billMaterials = countMaterials(bill);
 
         if (allMaterials.isEmpty()) {
             TestLogger.functionReturned(String.valueOf(false));
@@ -59,11 +62,12 @@ public class BillOfMaterials {
         for (Class<?> m : allMaterials.keySet()) {
             if (!allMaterials.containsKey(m))
                 return false;
-            if (countMaterials(bill).get(m) > allMaterials.get(m)) {
-                TestLogger.errorMessage("Insufficient materials!");
-                TestLogger.functionReturned(String.valueOf(false));
-                return false;
-            }
+            if (billMaterials.containsKey(m))
+                if (billMaterials.get(m) > allMaterials.get(m)) {
+                    TestLogger.errorMessage("Insufficient materials!");
+                    TestLogger.functionReturned(String.valueOf(false));
+                    return false;
+                }
         }
         TestLogger.functionReturned(String.valueOf(true));
         return true;

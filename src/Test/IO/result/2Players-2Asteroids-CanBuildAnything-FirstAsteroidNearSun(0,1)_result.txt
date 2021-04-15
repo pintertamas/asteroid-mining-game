@@ -1,0 +1,4 @@
+build;buildPortal;successful
+build;buildRobot;successful
+build;buildBase;successful
+move;0;successful

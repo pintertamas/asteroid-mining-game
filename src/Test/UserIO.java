@@ -127,8 +127,11 @@ public class UserIO {
     }
 
     public static void addToTemporaryOutput(String tmp) {
-        if (!readFromFile)
+        if (!readFromFile) {
             UserIO.temporaryOutput.add(tmp);
+            if (tmp.equalsIgnoreCase("successful") || tmp.equalsIgnoreCase("unsuccessful"))
+                UserIO.addToResultOutput();
+        }
     }
 
     public static void clear() {
@@ -202,26 +205,32 @@ public class UserIO {
             System.out.println("Wrong filename!");
             return;
         }
+        filename = filename.replace(".txt", "");
+
         String current = new java.io.File(".").getCanonicalPath();
         String pathName = current + "/src/Test/IO/";
         if (phase == Phase.INIT)
             pathName += "init/";
         else if (phase == Phase.TEST)
             pathName += "test/";
-        else if (phase == Phase.RESULT)
+        else if (phase == Phase.RESULT) {
             pathName += "result/";
-        pathName += filename;
+            filename += "_result";
+        }
+        pathName += filename + ".txt";
 
         File file = new File(pathName);
         if (!file.createNewFile()) {
             System.out.println("File already exists.");
         }
         FileWriter fileWriter = new FileWriter(file);
-        if (phase == Phase.RESULT)
+        if (phase == Phase.RESULT) {
             for (String s : finalOutput) {
                 if (!s.equals(""))
                     fileWriter.write(s + "\n");
             }
+        }
+
         else
             for (String s : customInput) {
                 if (!s.equals(""))
