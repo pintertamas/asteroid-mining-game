@@ -1,1 +1,0 @@
-a tesztek írásánál a buildportalt az 1 emberes inittel kell futatni és akkor tuti nem lesz bugos
