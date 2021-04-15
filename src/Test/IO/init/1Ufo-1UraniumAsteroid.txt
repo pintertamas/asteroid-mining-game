@@ -1,6 +1,6 @@
 0
 1
-0;uranium;1;0
+0;uranium;1;notnearsun
 0
 1
 0

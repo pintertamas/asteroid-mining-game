@@ -40,6 +40,7 @@ public class Settler extends Figure implements IMine, IDrill {
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         if (neighbors.size() == 0) {
             System.out.println("The current asteroid has no neighbors so it is not possible to move :(");
+
             return;
         }
         System.out.println("Neighbors of the current asteroid: ");
@@ -222,7 +223,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("You don't have any materials!");
             return null;
         }
-        int materialChoice = Integer.parseInt(UserIO.currentLine().get(1));
+        int materialChoice = UserIO.currentLine().size() >= 1 ? UserIO.readInt() : Integer.parseInt(UserIO.currentLine().get(1)); // TODO: Exception
         if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
             System.out.println("Not a valid choice, sorry!");
             return null;
@@ -260,6 +261,7 @@ public class Settler extends Figure implements IMine, IDrill {
             System.out.println("(putPortalDown) Place a portal on the current asteroid");
             System.out.println("(putMaterialBack) Fill the asteroid's core with a selected material");
             System.out.println("(show) Show details about the current asteroid");
+            System.out.println("(solarStorm) Generate a storm near a given asteroid");
             if (!UserIO.readFromFile())
                 System.out.println("(save;filename.txt) Save the user input as a test case in the specified file");
 
@@ -303,7 +305,13 @@ public class Settler extends Figure implements IMine, IDrill {
                     if (UserIO.readFromFile())
                         break;
                     UserIO.clearTemporaryInput();
-                    UserIO.saveCustomInput(UserIO.Phase.TEST, UserIO.currentLine().get(1));
+                    UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
+                    break;
+                case "solarstorm":
+                    this.asteroid.getMap().solarStorm();
+                    break;
+                case "quit":
+                    this.getAsteroid().getMap().switchGameState(GameState.WON);
                     break;
                 default:
                     System.out.println("Something went wrong! Check the test files!");

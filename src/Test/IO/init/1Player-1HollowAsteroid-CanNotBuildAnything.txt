@@ -1,6 +1,6 @@
 1
 1
-0;hollow;1;0;
+0;hollow;1;notneaersun
 0
 0
 0

@@ -18,14 +18,18 @@ public class UserIO {
     private static final ArrayList<String> currentLine = new ArrayList<>();
     private static final ArrayList<String> temporaryInput = new ArrayList<>();
     private static final ArrayList<String> customInput = new ArrayList<>();
+    private static final ArrayList<String> temporaryOutput = new ArrayList<>();
+    private static final ArrayList<String> finalOutput = new ArrayList<>();
 
-    public enum Phase {INIT, TEST}
+    public enum Phase {INIT, TEST, RESULT}
 
     public static boolean readFromFile() {
         return UserIO.readFromFile;
     }
 
-    public static boolean isAutomatic() { return isAutomatic; }
+    public static boolean isAutomatic() {
+        return isAutomatic;
+    }
 
     public static ArrayList<String> currentLine() {
         return currentLine;
@@ -51,6 +55,14 @@ public class UserIO {
         UserIO.path = path;
         temporaryInput.clear();
         customInput.clear();
+    }
+
+    public static String getPathName() {
+        String separator;
+        if (path.contains("/")) separator = "/";
+        else separator = "\\\\";
+        String[] fullPath = path.split(separator);
+        return fullPath[fullPath.length - 1];
     }
 
     public static void setReadFromFile(boolean readFromFile) {
@@ -96,7 +108,7 @@ public class UserIO {
         if (showInput)
             System.out.println(input);
         int result = Integer.parseInt(input);
-        addToTemporary(String.valueOf(result));
+        addToTemporaryInput(String.valueOf(result));
         return result;
     }
 
@@ -105,13 +117,18 @@ public class UserIO {
         if (showInput)
             System.out.println(input);
         String result = input.split(";")[0];
-        addToTemporary(result);
+        addToTemporaryInput(result);
         return result;
     }
 
-    public static void addToTemporary(String tmp) {
+    public static void addToTemporaryInput(String tmp) {
         if (!readFromFile)
             UserIO.temporaryInput.add(tmp);
+    }
+
+    public static void addToTemporaryOutput(String tmp) {
+        if (!readFromFile)
+            UserIO.temporaryOutput.add(tmp);
     }
 
     public static void clear() {
@@ -132,6 +149,17 @@ public class UserIO {
         }
     }
 
+    // TODO: a sikerességét az elejére kell írni!
+    public static void addToResultOutput() {
+        StringBuilder str = new StringBuilder();
+        for (String s : temporaryOutput) {
+            str.append(";").append(s);
+        }
+        str.delete(0, 1);
+        temporaryOutput.clear();
+        finalOutput.add(str.toString());
+    }
+
     public static void clearTemporaryInput() {
         temporaryInput.clear();
     }
@@ -150,8 +178,8 @@ public class UserIO {
                 });
         System.out.println("Which file would you like to pick?");
         for (int i = 0; i < paths.size(); i++) {
-            String separator;
             String[] tmp;
+            String separator;
             if (paths.get(i).contains("/")) separator = "/";
             else separator = "\\\\";
             tmp = paths.get(i).split(separator);
@@ -169,7 +197,7 @@ public class UserIO {
         UserIO.setPath(paths.get(pathChoice - 1));
     }
 
-    public static void saveCustomInput(Phase phase, String filename) throws IOException {
+    public static void saveCustomIO(Phase phase, String filename) throws IOException {
         if (!filename.contains(".txt")) {
             System.out.println("Wrong filename!");
             return;
@@ -180,6 +208,8 @@ public class UserIO {
             pathName += "init/";
         else if (phase == Phase.TEST)
             pathName += "test/";
+        else if (phase == Phase.RESULT)
+            pathName += "result/";
         pathName += filename;
 
         File file = new File(pathName);
@@ -187,10 +217,16 @@ public class UserIO {
             System.out.println("File already exists.");
         }
         FileWriter fileWriter = new FileWriter(file);
-        for (String s : customInput) {
-            if (!s.equals(""))
-                fileWriter.write(s + "\n");
-        }
+        if (phase == Phase.RESULT)
+            for (String s : finalOutput) {
+                if (!s.equals(""))
+                    fileWriter.write(s + "\n");
+            }
+        else
+            for (String s : customInput) {
+                if (!s.equals(""))
+                    fileWriter.write(s + "\n");
+            }
         fileWriter.close();
     }
 }
