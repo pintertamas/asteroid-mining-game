@@ -1,6 +1,6 @@
 1
 1
-1;ice;1;nearsun
+1;ice;1;nearSun
 0
 0
 0

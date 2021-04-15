@@ -194,7 +194,7 @@ public class Settler extends Figure implements IMine, IDrill {
     /**
      * Nyersanyag visszarakása üres aszteroidába.
      *
-     * @param m
+     * @param
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
