@@ -331,7 +331,8 @@ public class Settler extends Figure implements IMine, IDrill {
                     break;
                 case "solarstorm":
                     UserIO.addToTemporaryOutput("solarstorm");
-                    this.asteroid.getMap().solarStorm();
+                    this.asteroid.getMap().solarStorm(this.asteroid);
+                    UserIO.addToResultOutput();
                     break;
                 case "quit":
                     this.getAsteroid().getMap().switchGameState(GameState.WON);

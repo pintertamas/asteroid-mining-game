@@ -1,0 +1,2 @@
+portál mozgása napszél hatására!!
+result mentés tesztesetből futtatás nélkül

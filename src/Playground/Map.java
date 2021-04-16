@@ -342,21 +342,25 @@ public class Map {
      * Napvihar.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void solarStorm() {
+    public void solarStorm(Asteroid... asteroid) {
+        assert asteroid.length <= 1;
         TestLogger.functionCalled(this, "solarStorm", "void");
         if (UserIO.isAutomatic()) {
             for (Asteroid a : drawSolarArea()) {
-                if (a.isNearSun) {
+                if (a.isHollow && a.layers == 0) {
                     a.handleFigures();
                 }
+                for (Portal portal : a.getPortals())
+                    portal.move();
             }
         } else {
-            // TODO
             System.out.println("Solar storm will be generated on your asteroid!");
-            for (Asteroid a : drawSolarArea()) {
-                if (a.isNearSun) {
+            for (Asteroid a : drawSolarArea(asteroid)) {
+                if (a.isHollow && a.layers == 0) {
                     a.handleFigures();
                 }
+                for (Portal portal : a.getPortals())
+                    portal.move();
             }
         }
         TestLogger.functionReturned();
@@ -368,12 +372,17 @@ public class Map {
      * @return ArrayList<Asteroid>
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public ArrayList<Asteroid> drawSolarArea() {
+    public ArrayList<Asteroid> drawSolarArea(Asteroid... asteroid) {
         ArrayList<Asteroid> tmp = new ArrayList<>();
-        Random rand = new Random();
-        int asteroidNumber = rand.nextInt(asteroids.size());
+        int asteroidNumber;
+        if (asteroid.length == 0) {
+            Random rand = new Random();
+            asteroidNumber = rand.nextInt(asteroids.size());
+        } else asteroidNumber = asteroids.indexOf(asteroid[0]);
+
         tmp.add(asteroids.get(asteroidNumber));
         tmp.addAll(asteroids.get(asteroidNumber).getNeighbors());
+        UserIO.addToTemporaryOutput(Integer.toString(asteroidNumber));
         return tmp;
     }
 
