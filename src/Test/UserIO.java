@@ -200,11 +200,9 @@ public class UserIO {
     }
 
     public static void saveCustomIO(Phase phase, String filename) throws IOException {
-        if (!filename.contains(".txt")) {
-            System.out.println("Wrong filename!");
-            return;
+        if (filename.contains(".txt")) {
+            filename = filename.replace(".txt", "");
         }
-        filename = filename.replace(".txt", "");
 
         String current = new java.io.File(".").getCanonicalPath();
         String pathName = current + "/src/Test/IO/";

@@ -6,6 +6,7 @@ import Test.UserIO;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.UUID;
 
 public class Game implements IGameState {
     private GameState gameState = GameState.IN_PROGRESS;
@@ -98,7 +99,11 @@ public class Game implements IGameState {
             }
         }
         UserIO.addToResultOutput();
-        UserIO.saveCustomIO(UserIO.Phase.RESULT, UserIO.getPathName());
+        String resultFileName;
+        if (UserIO.readFromFile())
+            resultFileName = UserIO.getPathName();
+        else resultFileName = "CustomInput_" + UUID.randomUUID().toString() + ".txt";
+        UserIO.saveCustomIO(UserIO.Phase.RESULT, resultFileName);
     }
 
     @SuppressWarnings("SpellCheckingInspection")
