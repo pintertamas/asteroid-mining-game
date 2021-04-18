@@ -132,6 +132,7 @@ public class Asteroid {
         }
         this.map.removeAsteroid(this);
         System.out.println("Asteroid exploded");
+        UserIO.addToTemporaryOutput("asteroidExploded");
         TestLogger.functionReturned();
     }
 

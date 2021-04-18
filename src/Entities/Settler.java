@@ -113,7 +113,7 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void buildPortal() {
-        TestLogger.functionCalled(this, "buildPortal", "boolean");
+        TestLogger.functionCalled(this, "portal", "boolean");
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())
                 && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
@@ -142,7 +142,7 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void buildRobot() {
-        TestLogger.functionCalled(this, "buildRobot", "void");
+        TestLogger.functionCalled(this, "robot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
 
         if (!billOfRobot.hasEnoughMaterials(this.getInventory().getMaterials())) {
@@ -167,7 +167,7 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void buildBase() {
-        TestLogger.functionCalled(this, "buildBase", "void");
+        TestLogger.functionCalled(this, "base", "void");
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
             //TODO: WIN!
@@ -404,15 +404,15 @@ public class Settler extends Figure implements IMine, IDrill {
 
         switch (UserIO.currentLine().get(1)) {
             case "portal":
-                UserIO.addToTemporaryOutput("buildPortal");
+                UserIO.addToTemporaryOutput("portal");
                 buildPortal();
                 break;
             case "robot":
-                UserIO.addToTemporaryOutput("buildRobot");
+                UserIO.addToTemporaryOutput("robot");
                 buildRobot();
                 break;
             case "base":
-                UserIO.addToTemporaryOutput("buildBase");
+                UserIO.addToTemporaryOutput("base");
                 buildBase();
                 break;
             default:

@@ -1,1 +1,1 @@
-successful;drill
+successful;drill;asteroidExploded

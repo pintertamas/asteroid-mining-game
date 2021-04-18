@@ -1,6 +1,7 @@
 package Materials;
 
 import Test.TestLogger;
+import Test.UserIO;
 
 /**
  * Vízjég osztály.
@@ -15,7 +16,8 @@ public class Ice extends Material {
     @Override
     public void readyToMine() {
         TestLogger.functionCalled(this, "readyToMine", "void");
-        System.out.println("Ice disappeared");
+        UserIO.addToTemporaryOutput("iceMelted");
+        System.out.println("Ice sublimated");
         getAsteroid().setIsHollow(true);
         TestLogger.functionReturned();
     }

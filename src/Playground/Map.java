@@ -431,8 +431,10 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     private boolean hasAnyFigure() {
         for (Asteroid a : asteroids) {
-            if (a.getFigures().size() > 0)
-                return true;
+            for (Figure f : a.getFigures()) {
+                if (f.getClass().equals(Settler.class))
+                    return true;
+            }
         }
         return false;
     }

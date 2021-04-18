@@ -102,7 +102,7 @@ public class Game implements IGameState {
         String resultFileName;
         if (UserIO.readFromFile())
             resultFileName = UserIO.getPathName();
-        else resultFileName = "CustomInput_" + UUID.randomUUID().toString() + ".txt";
+        else resultFileName = "CustomInput_" + UUID.randomUUID() + ".txt";
         UserIO.saveCustomIO(UserIO.Phase.RESULT, resultFileName);
     }
 

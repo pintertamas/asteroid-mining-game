@@ -5,6 +5,7 @@ import Materials.Material;
 import Playground.Asteroid;
 import Playground.Portal;
 import Test.TestLogger;
+import Test.UserIO;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -77,7 +78,7 @@ public class Ufo extends Figure implements IMine {
         if(asteroid.getLayers()==0) {
             mine();
         }
-        else {
+        else if (ufoCanStep()){
             Random rand = new Random();
             int number = rand.nextInt(2);
             if (number == 0) {
@@ -87,6 +88,23 @@ public class Ufo extends Figure implements IMine {
                 moveThroughPortal();
             }
         }
+        this.setRoundFinished(true);
+    }
+
+    /**
+     * Megmondja hogy tud-e lépni az ufó
+     * @return
+     */
+    private boolean ufoCanStep() {
+        if (this.asteroid.getNeighbors().size() > 0)
+            return true;
+        if (this.asteroid.getPortals().size() > 0) {
+            for (Portal p : this.asteroid.getPortals()) {
+                if (p.getPair() != null)
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -107,15 +125,19 @@ public class Ufo extends Figure implements IMine {
     @Override
     public boolean mine() {
         TestLogger.functionCalled(this, "mine", "boolean");
+        UserIO.addToTemporaryOutput("ufoMine");
         if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
             this.materials.add(this.asteroid.getMaterial());
             this.asteroid.setIsHollow(true);
             this.setRoundFinished(true);
-            System.out.println("Mine done");
+            System.out.println("Ufo Mine done");
+            UserIO.addToTemporaryOutput("successful");
             TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
-        System.out.println("Mine NOT done");
+        UserIO.addToTemporaryOutput("unsuccessful");
+        System.out.println("Ufo Mine NOT done");
+
         TestLogger.functionReturned(String.valueOf(false));
         return false;
     }

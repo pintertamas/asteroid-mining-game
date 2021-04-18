@@ -86,7 +86,6 @@ public class UserIO {
         }
         System.out.println("No more lines found! Switching to manual input!");
         scanner = new Scanner(System.in);
-        readFromFile = false;
         return scanner.nextLine();
     }
 
