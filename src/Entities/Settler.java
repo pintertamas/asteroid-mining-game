@@ -218,9 +218,11 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
+            UserIO.addToTemporaryOutput("successful");
             return;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        UserIO.addToTemporaryOutput("unsuccessful");
     }
 
     /**
@@ -232,14 +234,60 @@ public class Settler extends Figure implements IMine, IDrill {
     public Material chooseMaterial() {
         ArrayList<Material> allMaterials = getInventory().getMaterials();
         System.out.println("Your inventory has the following:");
-        int i = 0;
         for (Material m : allMaterials) {
-            System.out.println(++i + "\t" + m.getClass().toString().replace("class Materials.", ""));
+            System.out.println(m.getClass().toString().replace("class Materials.", ""));
         }
         if (allMaterials.size() == 0) {
             System.out.println("You don't have any materials!");
             return null;
         }
+
+        ArrayList<String> materialChoice = UserIO.currentLine();
+        switch(materialChoice.get(1).toLowerCase()){
+            case "iron":
+                for (Material m: getInventory().getMaterials()){
+                    System.out.println(m.getClass().toString());
+                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Iron")){
+                        UserIO.addToTemporaryOutput("iron");
+                        UserIO.addToCustomInput();
+                        return new Iron();
+                    }
+                }
+                System.out.println("You don't have any iron in your inventory!");
+                return null;
+            case "uranium":
+                for (Material m: getInventory().getMaterials()){
+                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Uranium")){
+                        UserIO.addToTemporaryOutput("uranium");
+                        UserIO.addToCustomInput();
+                        return new Uranium();
+                    }
+                }
+                System.out.println("You don't have any uranium in your inventory!");
+                return null;
+            case "ice":
+                for (Material m: getInventory().getMaterials()){
+                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Ice")){
+                        UserIO.addToTemporaryOutput("ice");
+                        UserIO.addToCustomInput();
+                        return new Ice();
+                    }
+                }
+                System.out.println("You don't have any ice in your inventory!");
+                return null;
+            case "coal":
+                for (Material m: getInventory().getMaterials()){
+                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Coal")){
+                        UserIO.addToTemporaryOutput("coal");
+                        UserIO.addToCustomInput();
+                        return new Coal();
+                    }
+                }
+                System.out.println("You don't have any coal in your inventory!");
+                return null;
+        }
+
+        /*
         int materialChoice = UserIO.currentLine().size() >= 1 ? UserIO.readInt() : Integer.parseInt(UserIO.currentLine().get(1)); // TODO: Exception
         if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
             System.out.println("Not a valid choice, sorry!");
@@ -248,6 +296,9 @@ public class Settler extends Figure implements IMine, IDrill {
         System.out.println("The chosen material is: " +
                 allMaterials.get(materialChoice - 1).getClass().toString().replace("class Materials.", ""));
         return getInventory().getMaterials().get(materialChoice - 1);
+
+         */
+        return null;
     }
 
     /**
@@ -316,7 +367,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.addToCustomInput();
                     break;
                 case "putmaterialback":
-                    UserIO.addToTemporaryOutput("putmaterialback");
+                    UserIO.addToTemporaryOutput("putMaterialBack");
                     Material m = chooseMaterial();
                     putMaterialBack(m);
                     UserIO.addToCustomInput();
