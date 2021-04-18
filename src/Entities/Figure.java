@@ -2,6 +2,7 @@ package Entities;
 import Interfaces.*;
 import Playground.*;
 import Test.TestLogger;
+import Test.UserIO;
 
 import java.io.IOException;
 
@@ -94,9 +95,10 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     @SuppressWarnings("SpellCheckingInspection")
     public void die() {
         TestLogger.functionCalled(this, "die", "void");
+        System.out.println(this + " died");
+        UserIO.addToTemporaryOutput(this.toString() + "Dead");
         asteroid.removeFigure(this);
         this.asteroid = null;
-        System.out.println(this + " died");
         TestLogger.functionReturned();
     }
 

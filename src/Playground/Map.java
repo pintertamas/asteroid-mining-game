@@ -356,7 +356,7 @@ public class Map {
         } else {
             System.out.println("Solar storm will be generated on your asteroid!");
             for (Asteroid a : drawSolarArea(asteroid)) {
-                if (a.isHollow && a.layers == 0) {
+                if (!a.isHollow && a.layers != 0) {
                     a.handleFigures();
                 }
                 for (Portal portal : a.getPortals())

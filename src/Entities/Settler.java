@@ -145,7 +145,7 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionCalled(this, "robot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
 
-        if (!billOfRobot.hasEnoughMaterials(this.getInventory().getMaterials())) {
+        if (!billOfRobot.hasEnoughMaterials(this.inventory.getMaterials())) {
             TestLogger.functionReturned(String.valueOf(false));
             System.out.println("You could not build a robot!");
             UserIO.addToTemporaryOutput("unsuccessful");
@@ -197,9 +197,11 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
             TestLogger.functionReturned(String.valueOf(true));
+            UserIO.addToTemporaryOutput("successful");
             return;
         }
         TestLogger.functionReturned(String.valueOf(false));
+        UserIO.addToTemporaryOutput("unsuccessful");
         return;
     }
 
@@ -309,7 +311,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.addToCustomInput();
                     break;
                 case "putportaldown":
-                    UserIO.addToTemporaryOutput("putportaldown");
+                    UserIO.addToTemporaryOutput("putPortalDown");
                     putPortalDown();
                     UserIO.addToCustomInput();
                     break;
@@ -330,8 +332,9 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
                     break;
                 case "solarstorm":
-                    UserIO.addToTemporaryOutput("solarstorm");
+
                     this.asteroid.getMap().solarStorm(this.asteroid);
+                    UserIO.addToTemporaryOutput("solarstorm");
                     UserIO.addToResultOutput();
                     break;
                 case "quit":
