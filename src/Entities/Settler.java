@@ -10,6 +10,8 @@ import Test.UserIO;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * Telepes osztály, képes mozogni, fúrni és bányászni.
@@ -234,9 +236,12 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     public Material chooseMaterial() {
         ArrayList<Material> allMaterials = getInventory().getMaterials();
+        HashMap<String, Material> materialNames = new HashMap<>();
         System.out.println("Your inventory has the following:");
         for (Material m : allMaterials) {
-            System.out.println(m.getClass().toString().replace("class Materials.", ""));
+            String name = m.getClass().toString().replace("class Materials.", "");
+            materialNames.put(name.toLowerCase(), m);
+            System.out.println(name);
         }
         if (allMaterials.size() == 0) {
             System.out.println("You don't have any materials!");
@@ -244,67 +249,17 @@ public class Settler extends Figure implements IMine, IDrill {
             return null;
         }
 
-        ArrayList<String> materialChoice = UserIO.currentLine();
-        String material = materialChoice.size() > 1 ? materialChoice.get(1).toLowerCase() : UserIO.readString();
-        switch(material){
-            case "iron":
-                for (Material m: getInventory().getMaterials()){
-                    System.out.println(m.getClass().toString());
-                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Iron")){
-                        UserIO.addToTemporaryOutput("iron");
-                        UserIO.addToCustomInput();
-                        return new Iron();
-                    }
-                }
-                System.out.println("You don't have any iron in your inventory!");
-                return null;
-            case "uranium":
-                for (Material m: getInventory().getMaterials()){
-                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Uranium")){
-                        UserIO.addToTemporaryOutput("uranium");
-                        UserIO.addToCustomInput();
-                        return new Uranium();
-                    }
-                }
-                System.out.println("You don't have any uranium in your inventory!");
-                return null;
-            case "ice":
-                for (Material m: getInventory().getMaterials()){
-                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Ice")){
-                        UserIO.addToTemporaryOutput("ice");
-                        UserIO.addToCustomInput();
-                        return new Ice();
-                    }
-                }
-                System.out.println("You don't have any ice in your inventory!");
-                return null;
-            case "coal":
-                for (Material m: getInventory().getMaterials()){
-                    if(m.getClass().toString().equalsIgnoreCase("class Materials.Coal")){
-                        UserIO.addToTemporaryOutput("coal");
-                        UserIO.addToCustomInput();
-                        return new Coal();
-                    }
-                }
-                System.out.println("You don't have any coal in your inventory!");
-                return null;
-        }
-
-        /*
-        int materialChoice = UserIO.currentLine().size() >= 1 ? UserIO.readInt() : Integer.parseInt(UserIO.currentLine().get(1)); // TODO: Exception
-        if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
+        String materialChoice = UserIO.currentLine().size() > 1 ? UserIO.currentLine().get(1) : UserIO.readString();
+        materialChoice = materialChoice.toLowerCase();
+        if (!allMaterials.contains(materialNames.get(materialChoice))) {
             System.out.println("Not a valid choice, sorry!");
             UserIO.addToTemporaryOutput("unsuccessful");
             return null;
         }
-        System.out.println("The chosen material is: " +
-                allMaterials.get(materialChoice - 1).getClass().toString().replace("class Materials.", ""));
-        Material chosenMaterial = getInventory().getMaterials().get(materialChoice - 1);
+        System.out.println("The chosen material is: " + materialNames.get(materialChoice).getClass().toString().replace("class Materials.", ""));
+        Material chosenMaterial = materialNames.get(materialChoice);
         UserIO.addToTemporaryOutput(chosenMaterial.toString());
         return chosenMaterial;
-
-         */
-        return null;
     }
 
     /**
