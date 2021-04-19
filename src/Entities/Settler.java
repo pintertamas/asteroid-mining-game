@@ -389,9 +389,8 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
                     break;
                 case "solarstorm":
-
-                    this.asteroid.getMap().solarStorm(this.asteroid);
                     UserIO.addToTemporaryOutput("solarstorm");
+                    this.asteroid.getMap().solarStorm(this.asteroid);
                     UserIO.addToResultOutput();
                     break;
                 case "quit":

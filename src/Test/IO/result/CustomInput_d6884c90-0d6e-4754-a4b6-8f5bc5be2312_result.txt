@@ -1,5 +1,0 @@
-successful;drill
-unsuccessful;mine
-unsuccessful;drill
-unsuccessful;mine
-successful;putmaterialback;Materials.Ice@7960847b
