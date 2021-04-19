@@ -153,10 +153,19 @@ public class UserIO {
         if (temporaryOutput.isEmpty())
             return;
         StringBuilder str = new StringBuilder();
-        str.append(temporaryOutput.get(temporaryOutput.size() - 1));
-        for (int i = 0; i < temporaryOutput.size() - 1; i++) {
-            str.append(";").append(temporaryOutput.get(i));
+        String lastString = temporaryOutput.get(temporaryOutput.size() - 1);
+        if (lastString.contains("successful")) {
+            str.append(lastString);
+            for (int i = 0; i < temporaryOutput.size() - 1; i++) {
+                str.append(";").append(temporaryOutput.get(i));
+            }
+        } else {
+            for (String s : temporaryOutput) {
+                str.append(";").append(s);
+            }
+            str.delete(0,1);
         }
+
         temporaryOutput.clear();
         finalOutput.add(str.toString());
     }

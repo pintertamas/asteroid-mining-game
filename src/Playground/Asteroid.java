@@ -117,7 +117,7 @@ public class Asteroid {
     public void explode() {
         TestLogger.functionCalled(this, "explode", "void");
 
-        while(!figures.isEmpty()) {
+        while (!figures.isEmpty()) {
             figures.get(0).onExplosion();
         }
 
@@ -345,6 +345,7 @@ public class Asteroid {
 
     /**
      * isHollow getter
+     *
      * @return
      */
     public boolean isHollow() {
@@ -363,15 +364,16 @@ public class Asteroid {
         TestLogger.functionReturned();
     }
 
-    /**bu
+    /**
+     * bu
      * Kezeli a figurákat napviharban.
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void handleFigures() {
-        TestLogger.functionCalled(this, "handleFigures", "Entities.Figure f", "void");
-        if (!isHollow)
-            for (int i = 0; i < figures.size(); i++)
-                figures.get(i).die();
+        TestLogger.functionCalled(this, "handleFigures", "void");
+        assert (!isHollow);
+        for (int i = 0; i < figures.size(); i++)
+            figures.get(i).die();
         TestLogger.functionReturned();
     }
 

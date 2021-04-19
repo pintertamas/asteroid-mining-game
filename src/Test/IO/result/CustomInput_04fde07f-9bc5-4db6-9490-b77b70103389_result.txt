@@ -1,0 +1,2 @@
+solarstorm;0
+SettlerDied

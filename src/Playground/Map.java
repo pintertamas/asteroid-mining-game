@@ -345,9 +345,9 @@ public class Map {
     public void solarStorm(Asteroid... asteroid) {
         assert asteroid.length <= 1;
         TestLogger.functionCalled(this, "solarStorm", "void");
-        if (UserIO.isAutomatic()) {
+        if (UserIO.isAutomatic() && asteroid.length == 0) {
             for (Asteroid a : drawSolarArea()) {
-                if (a.isHollow && a.layers == 0) {
+                if (!a.isHollow || a.layers != 0) {
                     a.handleFigures();
                 }
                 for (Portal portal : a.getPortals())
@@ -356,7 +356,7 @@ public class Map {
         } else {
             System.out.println("Solar storm will be generated on your asteroid!");
             for (Asteroid a : drawSolarArea(asteroid)) {
-                if (!a.isHollow && a.layers != 0) {
+                if (!a.isHollow || a.layers != 0) {
                     a.handleFigures();
                 }
                 for (Portal portal : a.getPortals())
@@ -383,6 +383,7 @@ public class Map {
         tmp.add(asteroids.get(asteroidNumber));
         tmp.addAll(asteroids.get(asteroidNumber).getNeighbors());
         UserIO.addToTemporaryOutput(Integer.toString(asteroidNumber));
+        UserIO.addToResultOutput();
         return tmp;
     }
 

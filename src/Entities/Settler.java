@@ -245,7 +245,8 @@ public class Settler extends Figure implements IMine, IDrill {
         }
 
         ArrayList<String> materialChoice = UserIO.currentLine();
-        switch(materialChoice.get(1).toLowerCase()){
+        String material = materialChoice.size() > 1 ? materialChoice.get(1).toLowerCase() : UserIO.readString();
+        switch(material){
             case "iron":
                 for (Material m: getInventory().getMaterials()){
                     System.out.println(m.getClass().toString());
@@ -388,9 +389,8 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
                     break;
                 case "solarstorm":
-
-                    this.asteroid.getMap().solarStorm(this.asteroid);
                     UserIO.addToTemporaryOutput("solarstorm");
+                    this.asteroid.getMap().solarStorm(this.asteroid);
                     UserIO.addToResultOutput();
                     break;
                 case "quit":
