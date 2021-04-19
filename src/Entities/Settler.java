@@ -217,6 +217,7 @@ public class Settler extends Figure implements IMine, IDrill {
         if (this.asteroid.setMaterial(m)) {
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
+            UserIO.addToTemporaryOutput("successful");
             TestLogger.functionReturned(String.valueOf(true));
             UserIO.addToTemporaryOutput("successful");
             return;
@@ -239,6 +240,7 @@ public class Settler extends Figure implements IMine, IDrill {
         }
         if (allMaterials.size() == 0) {
             System.out.println("You don't have any materials!");
+            UserIO.addToTemporaryOutput("unsuccessful");
             return null;
         }
 
@@ -291,11 +293,14 @@ public class Settler extends Figure implements IMine, IDrill {
         int materialChoice = UserIO.currentLine().size() >= 1 ? UserIO.readInt() : Integer.parseInt(UserIO.currentLine().get(1)); // TODO: Exception
         if (materialChoice < 0 || materialChoice > allMaterials.size() + 1) {
             System.out.println("Not a valid choice, sorry!");
+            UserIO.addToTemporaryOutput("unsuccessful");
             return null;
         }
         System.out.println("The chosen material is: " +
                 allMaterials.get(materialChoice - 1).getClass().toString().replace("class Materials.", ""));
-        return getInventory().getMaterials().get(materialChoice - 1);
+        Material chosenMaterial = getInventory().getMaterials().get(materialChoice - 1);
+        UserIO.addToTemporaryOutput(chosenMaterial.toString());
+        return chosenMaterial;
 
          */
         return null;
