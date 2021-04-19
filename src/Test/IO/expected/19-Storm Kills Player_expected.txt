@@ -1,1 +1,2 @@
-solarStorm;0;player0Dead
+solarstorm;0
+SettlerDied
