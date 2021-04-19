@@ -60,15 +60,14 @@ public class BillOfMaterials {
             TestLogger.functionReturned(String.valueOf(false));
             return false;
         }
-        for (Class<?> m : allMaterials.keySet()) {
+        for (Class<?> m : billMaterials.keySet()) {
             if (!allMaterials.containsKey(m))
                 return false;
-            if (billMaterials.containsKey(m))
-                if (billMaterials.get(m) > allMaterials.get(m)) {
-                    TestLogger.errorMessage("Insufficient materials!");
-                    TestLogger.functionReturned(String.valueOf(false));
-                    return false;
-                }
+            else if (billMaterials.get(m) > allMaterials.get(m)) {
+                TestLogger.errorMessage("Insufficient materials!");
+                TestLogger.functionReturned(String.valueOf(false));
+                return false;
+            }
         }
         TestLogger.functionReturned(String.valueOf(true));
         return true;

@@ -145,19 +145,19 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionCalled(this, "robot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
 
-        if (!billOfRobot.hasEnoughMaterials(this.inventory.getMaterials())) {
+        if (billOfRobot.hasEnoughMaterials(this.inventory.getMaterials())
+                && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
+            billOfRobot.pay(inventory.getMaterials());
+            this.asteroid.addFigure(new Robot(this.asteroid, true));
+            this.setRoundFinished(true);
+            TestLogger.functionReturned(String.valueOf(true));
+            System.out.println("You built a robot!");
+            UserIO.addToTemporaryOutput("successful");
+        } else {
             TestLogger.functionReturned(String.valueOf(false));
             System.out.println("You could not build a robot!");
             UserIO.addToTemporaryOutput("unsuccessful");
-            return;
         }
-
-        billOfRobot.pay(inventory.getMaterials());
-        new Robot(this.asteroid, true);
-        this.setRoundFinished(true);
-        TestLogger.functionReturned(String.valueOf(true));
-        System.out.println("You built a robot!");
-        UserIO.addToTemporaryOutput("successful");
     }
 
     /**
