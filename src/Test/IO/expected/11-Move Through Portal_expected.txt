@@ -1,1 +1,1 @@
-movethroughportal;0;successful
+successful;moveThroughPortal;0
