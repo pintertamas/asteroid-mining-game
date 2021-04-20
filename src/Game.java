@@ -3,21 +3,79 @@ import Playground.GameState;
 import Playground.Map;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.animation.AnimationTimer;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class Game implements IGameState {
-    private GameState gameState = GameState.IN_PROGRESS;
+    private GameState gameState = GameState.LOAD;
 
     @Override
     public void changeGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
+    public void run(Group root, Canvas canvas, Scene scene, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
+        //double screenWidth = screenBounds.getWidth();
+        //double screenHeight = screenBounds.getHeight();
+        //MainMenu menu = new MainMenu();
+        // itt lehet hozzáadogatni a listenereket amikor kellenek majd
+        new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                switch (gameState) {
+                    //case menu -> menu.showMenu(root, canvas, gc);
+                    case LOAD -> {
+                        try {
+                            init(map);
+                            map.placeAsteroids();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        gameState = GameState.IN_PROGRESS;
+                    }
+                    case IN_PROGRESS -> {
+                        map.refreshMap(root);
+                        try {
+                            inProgress(root, map);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    case LOST -> {
+                        try {
+                            gameEnd();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        map.gameEnd(false);
+                        if (UserIO.readFromFile())
+                            UserIO.closeFile();
+                    }
+                    case WON -> {
+                        try {
+                            gameEnd();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        map.gameEnd(true);
+                        if (UserIO.readFromFile())
+                            UserIO.closeFile();
+                    }
+                }
+            }
+        }.start();
+    }
+
     @SuppressWarnings("SpellCheckingInspection")
-    public void run() throws IOException {
+    public void init(Map map) throws IOException {
         Scanner in = new Scanner(System.in);
 
         System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
@@ -49,11 +107,10 @@ public class Game implements IGameState {
         }
         UserIO.openFile();
 
-        Map m = new Map();
-        m.addStateListener(this);
+        map.addStateListener(this);
 
         //Játék iniciaizálása:
-        m.initGame();
+        map.initGame();
 
         if (!UserIO.readFromFile() && !UserIO.isAutomatic()) {
             System.out.println("Would you like to save this input as a custom init file? (1 = Yes)");
@@ -76,28 +133,9 @@ public class Game implements IGameState {
             UserIO.setReadFromFile(false);
         }
         UserIO.openFile();
+    }
 
-        boolean shouldRun = true;
-
-        while (shouldRun) {
-            switch (gameState) {
-                case IN_PROGRESS:
-                    inProgress(m);
-                    break;
-                case WON:
-                    m.gameEnd(true);
-                    shouldRun = false;
-                    if (loadFromFiles)
-                        UserIO.closeFile();
-                    break;
-                case LOST:
-                    m.gameEnd(false);
-                    shouldRun = false;
-                    if (loadFromFiles)
-                        UserIO.closeFile();
-                    break;
-            }
-        }
+    private void gameEnd() throws IOException {
         UserIO.addToResultOutput();
         String resultFileName;
         if (UserIO.readFromFile())
@@ -107,10 +145,10 @@ public class Game implements IGameState {
     }
 
     @SuppressWarnings("SpellCheckingInspection")
-    private void inProgress(Map m) throws IOException {
+    private void inProgress(Group root, Map m) throws IOException {
         //A játék menete
         m.reset();
-        m.setupRound();
+        m.setupRound(root);
         if (m.shouldRun())
             System.out.println("\n---------ROUND ENDED----------\n");
     }

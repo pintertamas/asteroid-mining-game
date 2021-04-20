@@ -6,6 +6,7 @@ import Playground.Asteroid;
 import Playground.Portal;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.scene.Group;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -26,7 +27,9 @@ public class Ufo extends Figure implements IMine {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Ufo(Asteroid asteroid, boolean roundFinished) {
-        super(asteroid, roundFinished); materials = new ArrayList<>();
+        super(asteroid, roundFinished);
+        materials = new ArrayList<>();
+        this.imagePath = "/figures/ufos/ufo1.png";
     }
 
     /**
@@ -74,7 +77,7 @@ public class Ufo extends Figure implements IMine {
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public void step() {
+    public void step(Group root) {
         if(asteroid.getLayers()==0) {
             mine();
         }

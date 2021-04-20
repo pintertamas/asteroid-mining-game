@@ -5,4 +5,5 @@ package Materials;
  * A Material leszármazottja.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class Iron extends Material {}
+public class Iron extends Material {
+}

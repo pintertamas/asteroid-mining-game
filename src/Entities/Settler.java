@@ -7,11 +7,13 @@ import Materials.*;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.scene.Group;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Random;
 
 /**
  * Telepes osztály, képes mozogni, fúrni és bányászni.
@@ -31,6 +33,8 @@ public class Settler extends Figure implements IMine, IDrill {
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
+        int settlerNumber = new Random().nextInt(4) + 1;
+        this.imagePath = "/figures/spaceships/spaceship" + settlerNumber + ".png";
     }
 
     /**
@@ -278,7 +282,7 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public void step() throws IOException {
+    public void step(Group root) throws IOException {
         TestLogger.functionCalled(this, "step", "void");
         if (!this.roundFinished) {
             System.out.println("What would you like to do?");
@@ -356,6 +360,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.clearTemporaryInput();
                     break;
             }
+            this.asteroid.getMap().refreshMap(root);
             TestLogger.functionReturned();
         }
     }

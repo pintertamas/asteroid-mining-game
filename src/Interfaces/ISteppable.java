@@ -1,5 +1,7 @@
 package Interfaces;
 
+import javafx.scene.Group;
+
 import java.io.IOException;
 
 /**
@@ -7,5 +9,5 @@ import java.io.IOException;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public interface ISteppable {
-    void step() throws IOException;
+    void step(Group root) throws IOException;
 }

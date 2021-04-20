@@ -7,8 +7,10 @@ import Entities.Settler;
 import Entities.Ufo;
 import Interfaces.IGameState;
 import Materials.*;
+import Maths.Vec2;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.scene.Group;
 
 import java.io.IOException;
 import java.util.*;
@@ -467,7 +469,7 @@ public class Map {
      * Felállít egy kört.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void setupRound() throws IOException {
+    public void setupRound(Group root) throws IOException {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
 
         TestLogger.functionCalled(this, "setupRound", "void");
@@ -476,7 +478,7 @@ public class Map {
                 solarStorm();
             } else {
                 for (Asteroid a : asteroids) {
-                    a.invokeFigures();
+                    a.invokeFigures(root);
                 }
             }
         }
@@ -535,15 +537,46 @@ public class Map {
         return shouldRunAnyMore;
     }
 
+    /**
+     * hozzáad egy listenert a listára
+     * @param listener
+     */
     public void addStateListener(IGameState listener) {
         listeners.add(listener);
     }
 
+    /**
+     * megváltoztatja a játék állapotát a paraméterben kapott értékre
+     * @param gameState
+     */
     public void switchGameState(GameState gameState) {
         for (IGameState gs : listeners) {
             gs.changeGameState(gameState);
         }
         shouldRunAnyMore = gameState == GameState.IN_PROGRESS;
+    }
+
+    /**
+     * Kiszámolja az aszteroidák x és y koordinátáját úgy hogy szépen egyenletesen legyenek a térképen
+     */
+    public void placeAsteroids() {
+        for (int i = 0; i < this.asteroids.size(); i++) {
+            asteroids.get(i).setPosition(new Vec2(10, 10));
+        }
+
+    }
+
+    /**
+     * Elmozgat egy irányban minden aszteroidát
+     */
+    public void moveAllAsteroids(float x, float y) {
+        for (Asteroid a : asteroids)
+            a.updatePosition(x, y);
+    }
+
+    public void refreshMap(Group root) {
+        for (Asteroid asteroid : this.asteroids)
+            asteroid.refresh(root);
     }
 }
 

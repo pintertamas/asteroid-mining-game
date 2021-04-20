@@ -1,0 +1,5 @@
+kell egy oldalsó menü szerű cucc amin lehet követni az aktuális játékos inventoryját meg az esetleges szükséges dolgokat
+kellenek függvények amik kirajzolnak adott objektumokat a helyükre
+kell gombnyomásra mozgatás
+kell olyan függvény ami rendesen beállítja az aszteroidák pozícióját, inicializálja a játék eleje előtt
+kell olyan függvény ami mozgatja az egész térképet

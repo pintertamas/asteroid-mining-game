@@ -6,6 +6,7 @@ package Playground;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public enum GameState {
+    LOAD,
     IN_PROGRESS,
     WON,
     LOST,

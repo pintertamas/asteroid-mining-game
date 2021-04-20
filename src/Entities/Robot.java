@@ -1,6 +1,7 @@
 package Entities;
 import Playground.Asteroid;
 import Test.TestLogger;
+import javafx.scene.Group;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,6 +22,8 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
+        int robotNumber = new Random().nextInt(4) + 1;
+        this.imagePath = "/figures/robots/robot" + robotNumber + ".png";
     }
 
     /**
@@ -90,7 +93,7 @@ public class Robot extends Figure {
      * Lépés.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void step() {
+    public void step(Group root) {
         TestLogger.functionCalled(this, "step", "void");
         if(this.asteroid.getLayers() == 0) {
             move();

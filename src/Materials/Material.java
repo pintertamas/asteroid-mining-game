@@ -10,6 +10,7 @@ import Test.TestLogger;
 public abstract class Material {
     private Asteroid asteroid;
     private int nearSunCount;
+    protected String imagePath;
 
     /**
      * Az utolsó réteg lefúrása után a nyersanyag reakciója a napközelség függvényében.

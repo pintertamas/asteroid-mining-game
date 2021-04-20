@@ -1,8 +1,12 @@
 package Entities;
 import Interfaces.*;
+import Maths.Vec2;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
@@ -11,9 +15,10 @@ import java.io.IOException;
  * ISteppable, IPortalMove, IMove.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public abstract class Figure implements ISteppable, IPortalMove, IMove {
+public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawable {
     protected Asteroid asteroid;
     protected boolean roundFinished;
+    protected String imagePath;
 
     /**
      * Konstruktor.
@@ -56,7 +61,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      * Lépés.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public abstract void step() throws IOException;
+    public abstract void step(Group root) throws IOException;
 
     /**
      * Visszaadja, hogy az adott figura körének vége van-e már.
@@ -136,5 +141,15 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
         TestLogger.functionCalled(this, "setRoundFinished", "boolean roundFinished", "void");
         this.roundFinished = roundFinished;
         TestLogger.functionReturned(String.valueOf(roundFinished));
+    }
+
+    @Override
+    public void draw(Group root) {
+        Vec2 position = this.asteroid.getPosition();
+        Image image = new Image(this.imagePath, position.getSize(), position.getSize(), true, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setX(position.getX());
+        imageView.setY(position.getY());
+        root.getChildren().add(imageView);
     }
 }

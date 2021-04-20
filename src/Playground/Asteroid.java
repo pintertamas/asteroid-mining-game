@@ -5,6 +5,10 @@ import Entities.Settler;
 import Materials.Material;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.scene.Group;
+import Maths.Vec2;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +18,8 @@ import java.util.ArrayList;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Asteroid {
+    private Vec2 position = new Vec2();
+    private final String imagePath = "/asteroids.jpeg";
     private Map map;
     private final ArrayList<Asteroid> neighbors;
     private final ArrayList<Figure> figures;
@@ -308,12 +314,12 @@ public class Asteroid {
      * A következő figurát lépteti.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void invokeFigures() throws IOException {
+    public void invokeFigures(Group root) throws IOException {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
         while (this.getMap().shouldRun() && f != null) {
             System.out.println(f + " is going to step now.");
-            f.step();
+            f.step(root);
             f = pickNextFigure();
         }
         TestLogger.functionReturned();
@@ -390,8 +396,30 @@ public class Asteroid {
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
+    private void draw(Group root) {
+
+    }
+
+    public void updatePosition(float x, float y) {
+        this.position.add(new Vec2(x, y));
+    }
+
+    public void refresh(Group root) {
+        this.draw(root);
+        for (Figure figure : this.figures)
+            figure.draw(root);
+    }
+
     // ez csak a teszteléshez kell, mert így a settler is tud solarstormot generálni
     public Map getMap() {
         return this.map;
+    }
+
+    public Vec2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vec2 position) {
+        this.position = position;
     }
 }
