@@ -12,13 +12,6 @@ public abstract class Material {
     private int nearSunCount;
 
     /**
-     * Konstruktor.
-     */
-    @SuppressWarnings("SpellCheckingInspection")
-    public Material() {
-    }
-
-    /**
      * Az utolsó réteg lefúrása után a nyersanyag reakciója a napközelség függvényében.
      */
     @SuppressWarnings("SpellCheckingInspection")
