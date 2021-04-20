@@ -2,13 +2,12 @@ package Playground;
 
 import Entities.Figure;
 import Entities.Settler;
+import Interfaces.IDrawable;
 import Materials.Material;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.scene.Group;
 import Maths.Vec2;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
  * Aszteroida osztály.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class Asteroid {
+public class Asteroid implements IDrawable {
     private Vec2 position = new Vec2();
     private final String imagePath = "/asteroids.jpeg";
     private Map map;
@@ -396,7 +395,8 @@ public class Asteroid {
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
-    private void draw(Group root) {
+    @Override
+    public void draw(Group root) {
 
     }
 

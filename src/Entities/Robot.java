@@ -22,7 +22,7 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
-        int robotNumber = new Random().nextInt(4) + 1;
+        int robotNumber = new Random().nextInt(5) + 1;
         this.imagePath = "/figures/robots/robot" + robotNumber + ".png";
     }
 

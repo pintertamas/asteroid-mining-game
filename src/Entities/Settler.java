@@ -33,7 +33,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
-        int settlerNumber = new Random().nextInt(4) + 1;
+        int settlerNumber = new Random().nextInt(5) + 1;
         this.imagePath = "/figures/spaceships/spaceship" + settlerNumber + ".png";
     }
 
