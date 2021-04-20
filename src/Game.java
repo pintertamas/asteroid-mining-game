@@ -22,7 +22,7 @@ public class Game implements IGameState {
         this.gameState = gameState;
     }
 
-    public void run(Group root, Canvas canvas, Scene scene, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
+    public void run(Group root, Canvas canvas, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
         //double screenWidth = screenBounds.getWidth();
         //double screenHeight = screenBounds.getHeight();
         //MainMenu menu = new MainMenu();
@@ -42,6 +42,7 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
+                        drawPlayground();
                         map.refreshMap(root);
                         try {
                             inProgress(root, map);

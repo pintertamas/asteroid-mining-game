@@ -8,9 +8,12 @@ import Test.TestLogger;
 import Test.UserIO;
 import javafx.scene.Group;
 import Maths.Vec2;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Aszteroida osztály.
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("SpellCheckingInspection")
 public class Asteroid implements IDrawable {
     private Vec2 position = new Vec2();
-    private final String imagePath = "/asteroids.jpeg";
+    private final String imagePath;
     private Map map;
     private final ArrayList<Asteroid> neighbors;
     private final ArrayList<Figure> figures;
@@ -50,6 +53,8 @@ public class Asteroid implements IDrawable {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
+        int imageNumber = new Random().nextInt(5) + 1;
+        this.imagePath = "/asteroids/asteroid" + imageNumber + ".png";
         TestLogger.functionReturned();
     }
 
@@ -72,6 +77,8 @@ public class Asteroid implements IDrawable {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
+        int imageNumber = new Random().nextInt(5) + 1;
+        this.imagePath = "/asteroids/asteroid" + imageNumber + ".png";
         TestLogger.functionReturned();
     }
 
@@ -395,9 +402,12 @@ public class Asteroid implements IDrawable {
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
-    @Override
     public void draw(Group root) {
-
+        Image image = new Image(this.imagePath, position.getSize(), position.getSize(), true, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setX(position.getX());
+        imageView.setY(position.getY());
+        root.getChildren().add(imageView);
     }
 
     public void updatePosition(float x, float y) {

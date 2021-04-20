@@ -17,10 +17,10 @@ import java.io.IOException;
 @SuppressWarnings("SpellCheckingInspection")
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws IOException {
+    public void start(Stage primaryStage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-        double screenWidth = screenBounds.getWidth();
-        double screenHeight = screenBounds.getHeight();
+        double screenWidth = 800;//screenBounds.getWidth();
+        double screenHeight = 600;//screenBounds.getHeight();
         primaryStage.setX(screenBounds.getMinX());
         primaryStage.setY(screenBounds.getMinY());
         primaryStage.setWidth(screenWidth);
@@ -35,9 +35,8 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         gc = canvas.getGraphicsContext2D();
         primaryStage.show();
-        Map map = new Map();
         Game game = new Game();
-        game.run(root, canvas, scene, gc, screenBounds, map);
+        game.run(root, canvas, gc, screenBounds, new Map());
     }
 
     /**
