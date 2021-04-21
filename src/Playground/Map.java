@@ -16,6 +16,7 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.util.*;
