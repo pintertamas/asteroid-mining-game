@@ -172,13 +172,13 @@ public class Game implements IGameState {
     }
 
     public void drawBackground(Group root, Rectangle2D screenBounds) {
-        root.getChildren().removeIf((o) -> root.getChildren().get(0) != o);
-        if (root.getChildren().size() == 1) {
-            Image image = new Image("/background.png", screenBounds.getWidth(), screenBounds.getHeight(), true, true);
-            ImageView imageView = new ImageView(image);
-            imageView.setX(0);
-            imageView.setY(0);
-            root.getChildren().add(imageView);
-        }
+        root.getChildren().clear();
+        //root.getChildren().removeIf((o) -> root.getChildren().get(0) != o);
+        Image image = new Image("/background.png", screenBounds.getWidth(), screenBounds.getHeight(), true, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setX(0);
+        imageView.setY(0);
+        root.getChildren().add(imageView);
+
     }
 }

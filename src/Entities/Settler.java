@@ -284,7 +284,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @param root
      */
     private void drawGUI(Group root, Rectangle2D screenBounds) {
-
+        //System.out.println(this);
     }
 
     /**
