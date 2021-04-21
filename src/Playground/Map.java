@@ -13,11 +13,13 @@ import Test.UserIO;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
-import Maths.Drawable;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Pálya osztály.
@@ -575,7 +577,7 @@ public class Map {
             double r = radius(k, n, boundaryPoints);
             double theta = 2 * Math.PI * k / (phi * phi);
             //System.out.println((r * Math.cos(theta) + 1) * screenBounds.getWidth() * gapMultiplier + " " + (r * Math.sin(theta) + 1) * screenBounds.getHeight() * gapMultiplier);
-            asteroids.get((int)k).setPosition(new Drawable(r * Math.cos(theta) * screenBounds.getWidth() * gapMultiplier, r * Math.sin(theta) * screenBounds.getHeight() * gapMultiplier));
+            asteroids.get((int) k).setPosition(new Drawable(r * Math.cos(theta) * screenBounds.getWidth() * gapMultiplier, r * Math.sin(theta) * screenBounds.getHeight() * gapMultiplier));
         }
     }
 
@@ -622,8 +624,25 @@ public class Map {
     }
 
     public void handleMouseActions(Group root, Rectangle2D screenBounds) {
+        int speed = 30;
 
-        moveAllAsteroids(root, screenBounds, 10, 10);
+        root.getScene().setOnKeyPressed(keyEvent -> {
+            int horizontal = 0;
+            int vertical = 0;
+            KeyCode code = keyEvent.getCode();
+            if (code == KeyCode.LEFT) {
+                horizontal += speed;
+            } else if (code == KeyCode.RIGHT) {
+                horizontal -= speed;
+            } else if (code == KeyCode.UP) {
+                vertical += speed;
+            } else if (code == KeyCode.DOWN) {
+                vertical -= speed;
+            }
+
+            moveAllAsteroids(root, screenBounds, horizontal, vertical);
+        });
+        drawWholeMap(root, screenBounds);
     }
 }
 
