@@ -615,6 +615,8 @@ public class Map {
     public void drawWholeMap(Group root, Rectangle2D screenBounds) {
         int counter = 0;
         System.out.println(asteroids.size());
+        for (Asteroid asteroid : this.asteroids)
+            asteroid.connectNeighbors(root);
         for (Asteroid asteroid : this.asteroids) {
             if (asteroid.getPosition().isInside(screenBounds)) {
                 asteroid.refresh(root, screenBounds);

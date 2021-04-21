@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
@@ -420,20 +421,21 @@ public class Asteroid implements IDrawable {
         this.position.move(new Drawable(x, y));
     }
 
-    private void connectNeighbors(Group root) {
+    public void connectNeighbors(Group root) {
         for (Asteroid asteroid : this.getNeighbors()) {
+            double offset = this.getPosition().getSize() / 2;
+            double offset2 = asteroid.getPosition().getSize() / 2;
             Line line = new Line();
-            line.setStartX(this.getPosition().getX());
-            line.setStartY(this.getPosition().getY());
-            line.setEndX(asteroid.getPosition().getX());
-            line.setEndY(asteroid.getPosition().getY());
-            line.setId("line");
+            line.setStartX(this.getPosition().getX() + offset);
+            line.setStartY(this.getPosition().getY() + offset);
+            line.setEndX(asteroid.getPosition().getX() + offset2);
+            line.setEndY(asteroid.getPosition().getY() + offset2);
+            line.setStroke(Color.WHITE);
             root.getChildren().add(line);
         }
     }
 
     public void refresh(Group root, Rectangle2D screenBounds) {
-        this.connectNeighbors(root);
         this.draw(root, screenBounds);
         for (Portal portal : this.portals)
             portal.draw(root, screenBounds);

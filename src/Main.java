@@ -31,7 +31,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        String style = getClass().getResource("/style.css").toExternalForm();
+        String style = getClass().getResource("/style.css").toString();
         scene.getStylesheets().addAll(style);
         root.getStylesheets().addAll(style);
         Game game = new Game();
