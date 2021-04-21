@@ -27,13 +27,15 @@ public class Main extends Application {
         Canvas canvas = new Canvas(screenWidth, screenHeight);
         root.getChildren().add(canvas);
         Scene scene = new Scene(root);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
         primaryStage.setTitle("Asteroid Mining Game");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        String style = getClass().getResource("/style.css").toExternalForm();
+        scene.getStylesheets().addAll(style);
+        root.getStylesheets().addAll(style);
         Game game = new Game();
-        game.run(root, gc, screenBounds, new Map());
+        game.run(root, screenBounds, new Map());
     }
 
     /**

@@ -1,1 +1,10 @@
-.
+@font-face {
+    font-family: 'Nasalization Rg';
+    src: url('/fonts/nasalization-rg.ttf');
+}
+
+#text {
+    -fx-font-family: "Nasalization Rg";
+    -fx-fill: -fx-text-inner-color;
+    -fx-font-size: 48;
+}

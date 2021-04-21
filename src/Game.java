@@ -9,6 +9,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -23,7 +28,7 @@ public class Game implements IGameState {
         this.gameState = gameState;
     }
 
-    public void run(Group root, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
+    public void run(Group root, Rectangle2D screenBounds, Map map) {
         //double screenWidth = screenBounds.getWidth();
         //double screenHeight = screenBounds.getHeight();
         //MainMenu menu = new MainMenu();
@@ -44,7 +49,7 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
-                        drawPlayground(root);
+                        drawPlayground(root, screenBounds);
                         map.handleMouseActions(root, screenBounds);
                         try {
                             inProgress(root, map);
@@ -77,7 +82,6 @@ public class Game implements IGameState {
         }.start();
     }
 
-    @SuppressWarnings("SpellCheckingInspection")
     public void init(Map map) throws IOException {
         Scanner in = new Scanner(System.in);
 
@@ -170,11 +174,38 @@ public class Game implements IGameState {
             System.out.println("\n---------ROUND ENDED----------\n");
     }
 
+    private void drawBackground(Group root, Rectangle2D screenBounds) {
+        Image image = new Image("/background.png", screenBounds.getWidth(), screenBounds.getHeight(), true, true);
+        ImageView imageView = new ImageView(image);
+        imageView.setX(0);
+        imageView.setY(0);
+        root.getChildren().add(imageView);
+    }
+
+    private void drawSideBar(Group root, Rectangle2D screenBounds) {
+        double width = screenBounds.getWidth() / 5;
+        double height = screenBounds.getHeight();
+        double posX = 4 * screenBounds.getWidth() / 5;
+        double posY = 0;
+
+        BorderPane borderPane = new BorderPane();
+        Text tekszt = new Text("asdasdasdasd");
+        tekszt.setX(borderPane.getLayoutX());
+        tekszt.setY(borderPane.getLayoutY());
+        tekszt.setId("text");
+        tekszt.setStyle("-fx-text-inner-color: red;");
+        borderPane.setCenter(tekszt);
+        root.getChildren().add(borderPane);
+
+
+    }
+
     /**
-     *
      * @param root
      */
-    private void drawPlayground(Group root) {
-        root.getChildren().clear();
+    private void drawPlayground(Group root, Rectangle2D screenBounds) {
+        root.getChildren().removeIf((o) -> root.getChildren().get(0) != o);
+        drawBackground(root, screenBounds);
+        drawSideBar(root, screenBounds);
     }
 }
