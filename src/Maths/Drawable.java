@@ -4,7 +4,7 @@ import javafx.geometry.Rectangle2D;
 
 public class Drawable {
     double x, y;
-    double size = 100.0f;
+    double size = 1000.0f;
 
     public Drawable() {
         this.x = 0;
