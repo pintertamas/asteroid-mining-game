@@ -20,8 +20,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
         System.out.println(screenBounds);
-        double screenWidth = 800;//screenBounds.getWidth();
-        double screenHeight = 600;//screenBounds.getHeight();
+        double screenWidth = screenBounds.getWidth();
+        double screenHeight = screenBounds.getHeight();
         primaryStage.setX(screenBounds.getMinX());
         primaryStage.setY(screenBounds.getMinY());
         primaryStage.setWidth(screenWidth);
