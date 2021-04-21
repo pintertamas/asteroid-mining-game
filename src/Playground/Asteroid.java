@@ -6,12 +6,17 @@ import Interfaces.IDrawable;
 import Materials.Material;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import Maths.Drawable;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -320,6 +325,22 @@ public class Asteroid implements IDrawable {
         return null;
     }
 
+    private void drawSideBar(Group root, Rectangle2D screenBounds) {
+        double width = screenBounds.getWidth() / 5;
+        double height = screenBounds.getHeight();
+        double posX = 4 * screenBounds.getWidth() / 5;
+        double posY = 0;
+
+        VBox mainContainer = new VBox();
+        mainContainer.setAlignment(Pos.TOP_CENTER);
+        mainContainer.setLayoutX(posX);
+        mainContainer.setLayoutY(posY);
+        mainContainer.setPrefWidth(width);
+        mainContainer.setPrefHeight(height);
+        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
+        root.getChildren().add(mainContainer);
+    }
+
     /**
      * A következő figurát lépteti.
      */
@@ -327,11 +348,12 @@ public class Asteroid implements IDrawable {
     public void invokeFigures(Group root, Rectangle2D screenBounds) throws IOException {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
-        while (this.getMap().shouldRun() && f != null) {
+        if (this.getMap().shouldRun() && f != null) {
             System.out.println(f + " is going to step now.");
-            f.step(root);
+            map.handleMouseActions(root, screenBounds);
             f.draw(root, screenBounds);
-            f = pickNextFigure();
+            f.step(root, screenBounds);
+            drawSideBar(root, screenBounds);
         }
         TestLogger.functionReturned();
     }

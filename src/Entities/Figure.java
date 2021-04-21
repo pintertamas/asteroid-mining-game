@@ -63,7 +63,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawabl
      * Lépés.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public abstract void step(Group root) throws IOException;
+    public abstract void step(Group root, Rectangle2D screenBounds) throws IOException;
 
     /**
      * Visszaadja, hogy az adott figura körének vége van-e már.

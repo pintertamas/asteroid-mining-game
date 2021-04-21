@@ -85,9 +85,10 @@ public class UserIO {
     }
 
     private static String readNextLine() {
-        if (scanner.hasNextLine()) {
-            return scanner.nextLine();
-        }
+        if (scanner != null)
+            if (scanner.hasNextLine()) {
+                return scanner.nextLine();
+            }
         System.out.println("No more lines found! Switching to manual input!");
         scanner = new Scanner(System.in);
         return scanner.nextLine();
@@ -167,7 +168,7 @@ public class UserIO {
             for (String s : temporaryOutput) {
                 str.append(";").append(s);
             }
-            str.delete(0,1);
+            str.delete(0, 1);
         }
 
         temporaryOutput.clear();

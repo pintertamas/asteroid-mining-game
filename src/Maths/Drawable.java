@@ -33,6 +33,12 @@ public class Drawable {
         else return !(this.getY() - this.getSize() > height);
     }
 
+    public double distance(Drawable other) {
+        double xDist = this.x - other.x;
+        double yDist = this.y - other.y;
+        return Math.sqrt(xDist * xDist + yDist * yDist);
+    }
+
     public double getX() {
         return x;
     }

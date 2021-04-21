@@ -78,7 +78,7 @@ public class Map {
      * Játék inicializálása.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void initGame() {
+    public void initGame(Rectangle2D screenBounds) {
         TestLogger.functionCalled(this, "initGame", "int numberOfPlayers", "void");
 
         UserIO.clearTemporaryInput();
@@ -322,24 +322,18 @@ public class Map {
                 this.asteroids.add(a);
             }
 
-            for (int i = 0; i < numberOfAsteroids; i++) {
-                if (i < numberOfAsteroids - 1) {
-                    asteroids.get(i).addNeighbor(asteroids.get(i + 1));
-                    asteroids.get(i + 1).addNeighbor(asteroids.get(i));
-                } else {
-                    asteroids.get(i).addNeighbor(asteroids.get(0));
-                    asteroids.get(0).addNeighbor(asteroids.get(i));
-                }
-            }
+            placeAsteroids(screenBounds);
 
-            //Kisorsol 20 random asteroida párt, felveszi egymásnak őket.
-            for (int i = 0; i < 20; i++) {
-                Random rand = new Random();
-                int a1 = rand.nextInt((int) numberOfAsteroids);
-                int a2 = rand.nextInt((int) numberOfAsteroids);
-                if (a1 != a2 || asteroids.get(a1).getNeighbors().contains(asteroids.get(a2))) {
-                    asteroids.get(a1).addNeighbor(asteroids.get(a2));
-                    asteroids.get(a2).addNeighbor(asteroids.get(a1));
+            double threshold = screenBounds.getWidth() / 2;
+
+            for (Asteroid asteroid : this.asteroids) {
+                for (Asteroid possibleNeighbor : this.asteroids) {
+                    if (asteroid == possibleNeighbor)
+                        continue;
+                    if (asteroid.getPosition().distance(possibleNeighbor.getPosition()) < threshold) {
+                        asteroid.addNeighbor(possibleNeighbor);
+                        possibleNeighbor.addNeighbor(asteroid);
+                    }
                 }
             }
 
@@ -428,7 +422,7 @@ public class Map {
         for (Asteroid asteroid : asteroids) {
             for (Figure f : asteroid.getFigures())
                 allMaterials.addAll(f.getInventory().getMaterials());
-            if (!asteroid.isHollow)
+            if (!asteroid.isHollow && asteroid.getNeighbors().size() > 0)
                 allMaterials.add(asteroid.getMaterial());
         }
         boolean hasAll = new BillOfBase().hasEnoughMaterials(allMaterials);
@@ -480,18 +474,15 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setupRound(Group root, Rectangle2D screenBounds) throws IOException {
-        boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
-
         TestLogger.functionCalled(this, "setupRound", "void");
-        if (!(shouldCheckGameEnd && checkGameEnd())) {
-            if (stormComing()) {
-                solarStorm();
-            } else {
-                for (Asteroid a : asteroids) {
-                    a.invokeFigures(root, screenBounds);
-                }
+        if (stormComing()) {
+            solarStorm();
+        } else {
+            for (Asteroid a : asteroids) {
+                a.invokeFigures(root, screenBounds);
             }
         }
+
         TestLogger.functionReturned();
     }
 

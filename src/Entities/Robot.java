@@ -1,6 +1,7 @@
 package Entities;
 import Playground.Asteroid;
 import Test.TestLogger;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -94,7 +95,7 @@ public class Robot extends Figure {
      * Lépés.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void step(Group root) {
+    public void step(Group root, Rectangle2D screenBounds) {
         TestLogger.functionCalled(this, "step", "void");
         if(this.asteroid.getLayers() == 0) {
             move();

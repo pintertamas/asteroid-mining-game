@@ -7,6 +7,7 @@ import Materials.*;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -278,96 +279,106 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     /**
+     * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
+     *
+     * @param root
+     */
+    private void drawGUI(Group root, Rectangle2D screenBounds) {
+
+    }
+
+    /**
      * Lépés.
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public void step(Group root) throws IOException {
+    public void step(Group root, Rectangle2D screenBounds) throws IOException {
         TestLogger.functionCalled(this, "step", "void");
-        if (!this.roundFinished) {
-            System.out.println("What would you like to do?");
-            System.out.println("(drill) Drill the asteroid");
-            System.out.println("(mine) Mine the asteroid core");
-            System.out.println("(move) Move the settler");
-            System.out.println("(moveThroughPortal) Move the settler through a portal");
-            System.out.println("(build) Build something");
-            System.out.println("(putPortalDown) Place a portal on the current asteroid");
-            System.out.println("(putMaterialBack) Fill the asteroid's core with a selected material");
-            System.out.println("(show) Show details about the current asteroid");
-            System.out.println("(solarStorm) Generate a storm near a given asteroid");
-            if (!UserIO.readFromFile())
-                System.out.println("(save;filename.txt) Save the user input as a test case in the specified file");
+        if (UserIO.isConsole()) {
+            if (!this.roundFinished) {
+                UserIO.clearTemporaryInput();
+                ArrayList<String> choice;
 
-            UserIO.clearTemporaryInput();
-            ArrayList<String> choice;
-            if (UserIO.isConsole())
                 choice = UserIO.readLine();
-            else {
-                choice = new ArrayList<>();
-                choice.add("move;0");
-            }
-            switch (choice.get(0).toLowerCase()) {
-                case "drill":
-                    UserIO.addToTemporaryOutput("drill");
-                    drill();
-                    UserIO.addToCustomInput();
-                    break;
-                case "mine":
-                    UserIO.addToTemporaryOutput("mine");
-                    mine();
-                    UserIO.addToCustomInput();
-                    break;
-                case "move":
-                    UserIO.addToTemporaryOutput("move");
-                    move();
-                    UserIO.addToCustomInput();
-                    break;
-                case "movethroughportal":
-                    UserIO.addToTemporaryOutput("movethroughportal");
-                    moveThroughPortal();
-                    UserIO.addToCustomInput();
-                    break;
-                case "build":
-                    UserIO.addToTemporaryOutput("build");
-                    build();
-                    UserIO.addToCustomInput();
-                    break;
-                case "putportaldown":
-                    UserIO.addToTemporaryOutput("putPortalDown");
-                    putPortalDown();
-                    UserIO.addToCustomInput();
-                    break;
-                case "putmaterialback":
-                    UserIO.addToTemporaryOutput("putMaterialBack");
-                    Material m = chooseMaterial();
-                    putMaterialBack(m);
-                    UserIO.addToCustomInput();
-                    break;
-                case "show":
-                    this.getAsteroid().printAsteroidDetails();
-                    UserIO.clearTemporaryInput();
-                    break;
-                case "save":
-                    if (UserIO.readFromFile())
+
+                System.out.println("What would you like to do?");
+                System.out.println("(drill) Drill the asteroid");
+                System.out.println("(mine) Mine the asteroid core");
+                System.out.println("(move) Move the settler");
+                System.out.println("(moveThroughPortal) Move the settler through a portal");
+                System.out.println("(build) Build something");
+                System.out.println("(putPortalDown) Place a portal on the current asteroid");
+                System.out.println("(putMaterialBack) Fill the asteroid's core with a selected material");
+                System.out.println("(show) Show details about the current asteroid");
+                System.out.println("(solarStorm) Generate a storm near a given asteroid");
+                if (!UserIO.readFromFile())
+                    System.out.println("(save;filename.txt) Save the user input as a test case in the specified file");
+                switch (choice.get(0).toLowerCase()) {
+                    case "drill":
+                        UserIO.addToTemporaryOutput("drill");
+                        drill();
+                        UserIO.addToCustomInput();
                         break;
-                    UserIO.clearTemporaryInput();
-                    UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
-                    break;
-                case "solarstorm":
-                    UserIO.addToTemporaryOutput("solarstorm");
-                    this.asteroid.getMap().solarStorm(this.asteroid);
-                    UserIO.addToResultOutput();
-                    break;
-                case "quit":
-                    this.getAsteroid().getMap().switchGameState(GameState.WON);
-                    break;
-                default:
-                    System.out.println("Something went wrong! Check the test files!");
-                    UserIO.clearTemporaryInput();
-                    break;
+                    case "mine":
+                        UserIO.addToTemporaryOutput("mine");
+                        mine();
+                        UserIO.addToCustomInput();
+                        break;
+                    case "move":
+                        UserIO.addToTemporaryOutput("move");
+                        move();
+                        UserIO.addToCustomInput();
+                        break;
+                    case "movethroughportal":
+                        UserIO.addToTemporaryOutput("movethroughportal");
+                        moveThroughPortal();
+                        UserIO.addToCustomInput();
+                        break;
+                    case "build":
+                        UserIO.addToTemporaryOutput("build");
+                        build();
+                        UserIO.addToCustomInput();
+                        break;
+                    case "putportaldown":
+                        UserIO.addToTemporaryOutput("putPortalDown");
+                        putPortalDown();
+                        UserIO.addToCustomInput();
+                        break;
+                    case "putmaterialback":
+                        UserIO.addToTemporaryOutput("putMaterialBack");
+                        Material m = chooseMaterial();
+                        putMaterialBack(m);
+                        UserIO.addToCustomInput();
+                        break;
+                    case "show":
+                        this.getAsteroid().printAsteroidDetails();
+                        UserIO.clearTemporaryInput();
+                        break;
+                    case "save":
+                        if (UserIO.readFromFile())
+                            break;
+                        UserIO.clearTemporaryInput();
+                        UserIO.saveCustomIO(UserIO.Phase.TEST, UserIO.currentLine().get(1));
+                        break;
+                    case "solarstorm":
+                        UserIO.addToTemporaryOutput("solarstorm");
+                        this.asteroid.getMap().solarStorm(this.asteroid);
+                        UserIO.addToResultOutput();
+                        break;
+                    case "quit":
+                        this.getAsteroid().getMap().switchGameState(GameState.WON);
+                        break;
+                    default:
+                        System.out.println("Something went wrong! Check the test files!");
+                        UserIO.clearTemporaryInput();
+                        break;
+                }
+                TestLogger.functionReturned();
             }
-            TestLogger.functionReturned();
+        } else {
+            //setRoundFinished(true); //TODO itt kellene kezelni majd valahogy a köröket
         }
+        drawGUI(root, screenBounds);
     }
 
     /**

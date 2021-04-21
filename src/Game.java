@@ -5,19 +5,14 @@ import Test.TestLogger;
 import Test.UserIO;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -32,8 +27,7 @@ public class Game implements IGameState {
     }
 
     public void run(Group root, Rectangle2D screenBounds, Map map) {
-        //double screenWidth = screenBounds.getWidth();
-        //double screenHeight = screenBounds.getHeight();
+        boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
         //MainMenu menu = new MainMenu();
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
         new AnimationTimer() {
@@ -43,8 +37,7 @@ public class Game implements IGameState {
                     //case menu -> menu.showMenu(root, canvas, gc);
                     case LOAD -> {
                         try {
-                            init(map);
-                            map.placeAsteroids(screenBounds);
+                            init(map, screenBounds);
                             map.drawWholeMap(root, screenBounds);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -52,14 +45,14 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
-                        drawBackground(root, screenBounds);
-                        map.handleMouseActions(root, screenBounds);
-                        try {
-                            inProgress(root, map);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        if (!(shouldCheckGameEnd && map.checkGameEnd())) {
+                            drawBackground(root, screenBounds);
+                            try {
+                                inProgress(root, screenBounds, map);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                        drawPlayground(root, screenBounds);
                     }
                     case LOST -> {
                         try {
@@ -86,7 +79,7 @@ public class Game implements IGameState {
         }.start();
     }
 
-    public void init(Map map) throws IOException {
+    public void init(Map map, Rectangle2D screenBounds) throws IOException {
         Scanner in = new Scanner(System.in);
 
         boolean showTestLogger = false;
@@ -133,7 +126,7 @@ public class Game implements IGameState {
 
 
         map.addStateListener(this);
-        map.initGame();
+        map.initGame(screenBounds);
 
         if (!UserIO.readFromFile() && !UserIO.isAutomatic()) {
             System.out.println("Would you like to save this input as a custom init file? (1 = Yes)");
@@ -170,11 +163,11 @@ public class Game implements IGameState {
     }
 
     @SuppressWarnings("SpellCheckingInspection")
-    private void inProgress(Group root, Map m) throws IOException {
+    private void inProgress(Group root, Rectangle2D screenBounds, Map map) throws IOException {
         //A játék menete
-        m.reset();
-        //m.setupRound(root);
-        if (m.shouldRun())
+        map.reset();
+        map.setupRound(root, screenBounds);
+        if (map.shouldRun())
             System.out.println("\n---------ROUND ENDED----------\n");
     }
 
@@ -187,36 +180,5 @@ public class Game implements IGameState {
             imageView.setY(0);
             root.getChildren().add(imageView);
         }
-    }
-
-    private void drawSideBar(Group root, Rectangle2D screenBounds) {
-        double width = screenBounds.getWidth() / 5;
-        double height = screenBounds.getHeight();
-        double posX = 4 * screenBounds.getWidth() / 5;
-        double posY = 0;
-
-        VBox mainContainer = new VBox();
-        mainContainer.setAlignment(Pos.TOP_CENTER);
-        mainContainer.setLayoutX(posX);
-        mainContainer.setLayoutY(posY);
-        mainContainer.setPrefWidth(width);
-        mainContainer.setPrefHeight(height);
-        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 250, 250), CornerRadii.EMPTY, Insets.EMPTY)));
-
-        Button btn = new Button();
-        btn.setLayoutX(mainContainer.getLayoutX());
-        btn.setLayoutY(mainContainer.getLayoutY());
-        btn.setStyle("-fx-text-inner-color: red;");
-        //mainContainer.getChildren().add(btn);
-        root.getChildren().add(mainContainer);
-
-
-    }
-
-    /**
-     * @param root
-     */
-    private void drawPlayground(Group root, Rectangle2D screenBounds) {
-        drawSideBar(root, screenBounds);
     }
 }

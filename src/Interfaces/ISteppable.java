@@ -1,5 +1,6 @@
 package Interfaces;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -10,5 +11,5 @@ import java.io.IOException;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public interface ISteppable {
-    void step(Group root) throws IOException;
+    void step(Group root, Rectangle2D screenBounds) throws IOException;
 }

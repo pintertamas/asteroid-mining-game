@@ -6,6 +6,7 @@ import Playground.Asteroid;
 import Playground.Portal;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -78,7 +79,7 @@ public class Ufo extends Figure implements IMine {
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public void step(Group root) {
+    public void step(Group root, Rectangle2D screenBounds) {
         if(asteroid.getLayers()==0) {
             mine();
         }
