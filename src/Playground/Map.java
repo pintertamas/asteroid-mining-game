@@ -14,6 +14,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
 import Maths.Drawable;
+import javafx.scene.input.MouseEvent;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -620,6 +622,7 @@ public class Map {
     }
 
     public void handleMouseActions(Group root, Rectangle2D screenBounds) {
+
         moveAllAsteroids(root, screenBounds, 10, 10);
     }
 }
