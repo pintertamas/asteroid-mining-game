@@ -19,6 +19,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        System.out.println(screenBounds);
         double screenWidth = 800;//screenBounds.getWidth();
         double screenHeight = 600;//screenBounds.getHeight();
         primaryStage.setX(screenBounds.getMinX());
@@ -29,18 +30,18 @@ public class Main extends Application {
         Canvas canvas = new Canvas(screenWidth, screenHeight);
         root.getChildren().add(canvas);
         Scene scene = new Scene(root);
-        GraphicsContext gc;
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         primaryStage.setTitle("Asteroid Mining Game");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        gc = canvas.getGraphicsContext2D();
         primaryStage.show();
         Game game = new Game();
-        game.run(root, canvas, gc, screenBounds, new Map());
+        game.run(root, gc, screenBounds, new Map());
     }
 
     /**
      * main függvény.
+     *
      * @param args
      */
     @SuppressWarnings("SpellCheckingInspection")

@@ -23,6 +23,10 @@ public class UserIO {
 
     public enum Phase {INIT, TEST, RESULT}
 
+    public static boolean isConsole() {
+        return false;
+    }
+
     public static boolean readFromFile() {
         return UserIO.readFromFile;
     }

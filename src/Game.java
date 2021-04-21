@@ -9,6 +9,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class Game implements IGameState {
         this.gameState = gameState;
     }
 
-    public void run(Group root, Canvas canvas, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
+    public void run(Group root, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
         //double screenWidth = screenBounds.getWidth();
         //double screenHeight = screenBounds.getHeight();
         //MainMenu menu = new MainMenu();
@@ -35,15 +36,16 @@ public class Game implements IGameState {
                     case LOAD -> {
                         try {
                             init(map);
-                            map.placeAsteroids();
+                            map.placeAsteroids(screenBounds);
+                            map.drawWholeMap(root, screenBounds);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
-                        drawPlayground();
-                        map.refreshMap(root);
+                        drawPlayground(root);
+                        map.moveAllAsteroids(root, screenBounds, 10, 10);
                         try {
                             inProgress(root, map);
                         } catch (IOException e) {
@@ -79,20 +81,32 @@ public class Game implements IGameState {
     public void init(Map map) throws IOException {
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
-        boolean showTestLogger = in.nextLine().equals("1");
+        boolean showTestLogger = false;
+        if (UserIO.isConsole()) {
+            System.out.println("Would you like to show TestLogger messages?  (1 = Yes)");
+            showTestLogger = in.nextLine().equals("1");
+        }
         TestLogger.setShow(showTestLogger);
 
-        System.out.println("Would you like to show input choices? (1 = Yes)");
-        boolean showInput = in.nextLine().equals("1");
+        boolean showInput = false;
+        if (UserIO.isConsole()) {
+            System.out.println("Would you like to show input choices? (1 = Yes)");
+            showInput = in.nextLine().equals("1");
+        }
         UserIO.setShowInput(showInput);
 
-        System.out.println("Would you like to generate the map automatically? (1 = Yes)");
-        boolean automaticSetup = in.nextLine().equals("1");
+        boolean automaticSetup = true;
+        if (UserIO.isConsole()) {
+            System.out.println("Would you like to generate the map automatically? (1 = Yes)");
+            automaticSetup = in.nextLine().equals("1");
+        }
         UserIO.setIsAutomatic(automaticSetup);
 
-        System.out.println("Should I check whether the game is winnable or not? (1 = Yes)");
-        boolean shouldCheckIfWinnable = in.nextLine().charAt(0) == '1';
+        boolean shouldCheckIfWinnable = true;
+        if (UserIO.isConsole()) {
+            System.out.println("Should I check whether the game is winnable or not? (1 = Yes)");
+            shouldCheckIfWinnable = in.nextLine().charAt(0) == '1';
+        }
         UserIO.setCheckIfWinnable(shouldCheckIfWinnable);
 
         boolean loadFromFiles = false;
@@ -106,11 +120,11 @@ public class Game implements IGameState {
                 UserIO.choosePath(UserIO.Phase.INIT);
             }
         }
-        UserIO.openFile();
+        if (UserIO.isConsole())
+            UserIO.openFile();
+
 
         map.addStateListener(this);
-
-        //Játék iniciaizálása:
         map.initGame();
 
         if (!UserIO.readFromFile() && !UserIO.isAutomatic()) {
@@ -123,17 +137,19 @@ public class Game implements IGameState {
         }
 
         UserIO.clear();
-        
-        System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
-        if (UserIO.readString().charAt(0) == '1') {
-            UserIO.setReadFromFile(true);
-            UserIO.clearTemporaryInput();
-            UserIO.choosePath(UserIO.Phase.TEST);
-        } else {
-            UserIO.clearTemporaryInput();
-            UserIO.setReadFromFile(false);
+
+        if (UserIO.isConsole()) {
+            System.out.println("Would you like to load test cases manually or from files? (1 = From files)");
+            if (UserIO.readString().charAt(0) == '1') {
+                UserIO.setReadFromFile(true);
+                UserIO.clearTemporaryInput();
+                UserIO.choosePath(UserIO.Phase.TEST);
+            } else {
+                UserIO.clearTemporaryInput();
+                UserIO.setReadFromFile(false);
+            }
+            UserIO.openFile();
         }
-        UserIO.openFile();
     }
 
     private void gameEnd() throws IOException {
@@ -149,8 +165,16 @@ public class Game implements IGameState {
     private void inProgress(Group root, Map m) throws IOException {
         //A játék menete
         m.reset();
-        m.setupRound(root);
+        //m.setupRound(root);
         if (m.shouldRun())
             System.out.println("\n---------ROUND ENDED----------\n");
+    }
+
+    /**
+     *
+     * @param root
+     */
+    private void drawPlayground(Group root) {
+        root.getChildren().clear();
     }
 }

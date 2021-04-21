@@ -8,6 +8,7 @@ import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -176,7 +177,6 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionCalled(this, "base", "void");
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
-            //TODO: WIN!
             this.setRoundFinished(true);
             this.asteroid.getMap().gameEnd(true);
             this.asteroid.getMap().switchGameState(GameState.WON);
@@ -299,7 +299,13 @@ public class Settler extends Figure implements IMine, IDrill {
                 System.out.println("(save;filename.txt) Save the user input as a test case in the specified file");
 
             UserIO.clearTemporaryInput();
-            ArrayList<String> choice = UserIO.readLine();
+            ArrayList<String> choice;
+            if (UserIO.isConsole())
+                choice = UserIO.readLine();
+            else {
+                choice = new ArrayList<>();
+                choice.add("move;0");
+            }
             switch (choice.get(0).toLowerCase()) {
                 case "drill":
                     UserIO.addToTemporaryOutput("drill");
@@ -360,7 +366,6 @@ public class Settler extends Figure implements IMine, IDrill {
                     UserIO.clearTemporaryInput();
                     break;
             }
-            this.asteroid.getMap().refreshMap(root);
             TestLogger.functionReturned();
         }
     }

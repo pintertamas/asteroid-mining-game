@@ -1,6 +1,7 @@
 package Interfaces;
 
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.io.IOException;
 

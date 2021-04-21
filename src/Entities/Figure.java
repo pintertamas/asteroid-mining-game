@@ -1,10 +1,12 @@
 package Entities;
 import Interfaces.*;
-import Maths.Vec2;
+import Maths.Drawable;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -144,12 +146,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawabl
     }
 
     @Override
-    public void draw(Group root) {
-        Vec2 position = this.asteroid.getPosition();
-        Image image = new Image(this.imagePath, position.getSize(), position.getSize(), true, true);
-        ImageView imageView = new ImageView(image);
-        imageView.setX(position.getX());
-        imageView.setY(position.getY());
-        root.getChildren().add(imageView);
+    public void draw(Group root, Rectangle2D screeBounds) {
+
     }
 }

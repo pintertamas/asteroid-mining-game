@@ -7,6 +7,7 @@ import Playground.Portal;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Random;

@@ -6,8 +6,10 @@ import Interfaces.IDrawable;
 import Materials.Material;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Rectangle2D;
+import Maths.Drawable;
 import javafx.scene.Group;
-import Maths.Vec2;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -20,7 +22,7 @@ import java.util.Random;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Asteroid implements IDrawable {
-    private Vec2 position = new Vec2();
+    private Drawable position = new Drawable();
     private final String imagePath;
     private Map map;
     private final ArrayList<Asteroid> neighbors;
@@ -320,12 +322,13 @@ public class Asteroid implements IDrawable {
      * A következő figurát lépteti.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void invokeFigures(Group root) throws IOException {
+    public void invokeFigures(Group root, Rectangle2D screenBounds) throws IOException {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
         while (this.getMap().shouldRun() && f != null) {
             System.out.println(f + " is going to step now.");
             f.step(root);
+            f.draw(root, screenBounds);
             f = pickNextFigure();
         }
         TestLogger.functionReturned();
@@ -402,22 +405,26 @@ public class Asteroid implements IDrawable {
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
-    public void draw(Group root) {
-        Image image = new Image(this.imagePath, position.getSize(), position.getSize(), true, true);
-        ImageView imageView = new ImageView(image);
-        imageView.setX(position.getX());
-        imageView.setY(position.getY());
-        root.getChildren().add(imageView);
+    public void draw(Group root, Rectangle2D screenBounds) {
+        if (getPosition().isInside(screenBounds)) {
+            Image image = new Image(imagePath, this.position.getSize(), this.position.getSize(), true, true);
+            ImageView imageView = new ImageView(image);
+            imageView.setX(this.position.getX());
+            imageView.setY(this.position.getY());
+            root.getChildren().add(imageView);
+        }
     }
 
     public void updatePosition(float x, float y) {
-        this.position.add(new Vec2(x, y));
+        this.position.move(new Drawable(x, y));
     }
 
-    public void refresh(Group root) {
-        this.draw(root);
+    public void refresh(Group root, Rectangle2D screenBounds) {
+        this.draw(root, screenBounds);
+        for (Portal portal : this.portals)
+            portal.draw(root, screenBounds);
         for (Figure figure : this.figures)
-            figure.draw(root);
+            figure.draw(root, screenBounds);
     }
 
     // ez csak a teszteléshez kell, mert így a settler is tud solarstormot generálni
@@ -425,11 +432,11 @@ public class Asteroid implements IDrawable {
         return this.map;
     }
 
-    public Vec2 getPosition() {
+    public Drawable getPosition() {
         return position;
     }
 
-    public void setPosition(Vec2 position) {
+    public void setPosition(Drawable position) {
         this.position = position;
     }
 }

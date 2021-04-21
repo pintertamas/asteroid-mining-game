@@ -2,6 +2,7 @@ package Entities;
 import Playground.Asteroid;
 import Test.TestLogger;
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Random;

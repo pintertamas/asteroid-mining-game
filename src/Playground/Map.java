@@ -7,11 +7,13 @@ import Entities.Settler;
 import Entities.Ufo;
 import Interfaces.IGameState;
 import Materials.*;
-import Maths.Vec2;
+import Maths.Drawable;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
+import Maths.Drawable;
 import java.io.IOException;
 import java.util.*;
 
@@ -79,11 +81,14 @@ public class Map {
         int numberOfPlayers;
 
         //Játék előkészítése:
-        System.out.println("How many players would you like to play with? (Must be between 1-4)");
-        numberOfPlayers = UserIO.readInt();
-        UserIO.addToCustomInput();
+        if (UserIO.isConsole()) {
+            System.out.println("How many players would you like to play with? (Must be between 1-4)");
+            numberOfPlayers = UserIO.readInt();
+            UserIO.addToCustomInput();
+        } else numberOfPlayers = 1; // TODO
 
         if (!UserIO.isAutomatic()) {
+            assert (UserIO.isConsole());
             //Változók, amelyeket a player inputnál használunk fel
             int numberOfAsteroids;
             String choice;
@@ -469,7 +474,7 @@ public class Map {
      * Felállít egy kört.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void setupRound(Group root) throws IOException {
+    public void setupRound(Group root, Rectangle2D screenBounds) throws IOException {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
 
         TestLogger.functionCalled(this, "setupRound", "void");
@@ -478,7 +483,7 @@ public class Map {
                 solarStorm();
             } else {
                 for (Asteroid a : asteroids) {
-                    a.invokeFigures(root);
+                    a.invokeFigures(root, screenBounds);
                 }
             }
         }
@@ -539,6 +544,7 @@ public class Map {
 
     /**
      * hozzáad egy listenert a listára
+     *
      * @param listener
      */
     public void addStateListener(IGameState listener) {
@@ -547,6 +553,7 @@ public class Map {
 
     /**
      * megváltoztatja a játék állapotát a paraméterben kapott értékre
+     *
      * @param gameState
      */
     public void switchGameState(GameState gameState) {
@@ -556,27 +563,58 @@ public class Map {
         shouldRunAnyMore = gameState == GameState.IN_PROGRESS;
     }
 
+    private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
+        int n = asteroids.size(); //  example: n=500, alpha=2
+        int alpha = 2;
+        long boundaryPoints = Math.round(alpha * Math.sqrt(n)); //number of boundary points
+        double phi = (Math.sqrt(5) + 1) / 2; //golden ratio
+        for (double k = 1; k < n; k++) {
+            double r = radius(k, n, boundaryPoints);
+            double theta = 2 * Math.PI * k / (phi * phi);
+            asteroids.get((int)k).setPosition(new Drawable(r * Math.cos(theta) * screenBounds.getWidth(), r * Math.sin(theta) * screenBounds.getHeight()));
+        }
+    }
+
+    private double radius(double k, int n, long b) {
+        if (k > n - b)
+            return 1; //put on the boundary
+        else
+            return Math.sqrt(k - 1 / 2.0f) / Math.sqrt(n - (b + 1) / 2.0f); //apply square root
+    }
+
     /**
      * Kiszámolja az aszteroidák x és y koordinátáját úgy hogy szépen egyenletesen legyenek a térképen
      */
-    public void placeAsteroids() {
-        for (int i = 0; i < this.asteroids.size(); i++) {
-            asteroids.get(i).setPosition(new Vec2(10, 10));
-        }
-
+    public void placeAsteroids(Rectangle2D screenBounds) {
+        sunflower(asteroids, screenBounds);
     }
 
     /**
      * Elmozgat egy irányban minden aszteroidát
      */
-    public void moveAllAsteroids(float x, float y) {
-        for (Asteroid a : asteroids)
+    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float x, float y) {
+        for (Asteroid a : asteroids) {
             a.updatePosition(x, y);
+            a.refresh(root, screenBounds);
+        }
     }
 
-    public void refreshMap(Group root) {
-        for (Asteroid asteroid : this.asteroids)
-            asteroid.refresh(root);
+    /**
+     * Felrajzolja az egész térképet
+     *
+     * @param root
+     * @param screenBounds
+     */
+    public void drawWholeMap(Group root, Rectangle2D screenBounds) {
+        int counter = 0;
+        System.out.println(asteroids.size());
+        for (Asteroid asteroid : this.asteroids) {
+            if (asteroid.getPosition().isInside(screenBounds)) {
+                asteroid.refresh(root, screenBounds);
+                counter++;
+            }
+        }
+        System.out.println(counter);
     }
 }
 

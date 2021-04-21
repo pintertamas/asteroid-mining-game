@@ -3,3 +3,4 @@ kellenek függvények amik kirajzolnak adott objektumokat a helyükre
 kell gombnyomásra mozgatás
 kell olyan függvény ami rendesen beállítja az aszteroidák pozícióját, inicializálja a játék eleje előtt
 kell olyan függvény ami mozgatja az egész térképet
+!!!initben lehetnek szar default értékek az első beállításokra!!!
