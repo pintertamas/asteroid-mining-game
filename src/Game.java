@@ -45,7 +45,7 @@ public class Game implements IGameState {
                     }
                     case IN_PROGRESS -> {
                         drawPlayground(root);
-                        map.moveAllAsteroids(root, screenBounds, 10, 10);
+                        map.moveAllAsteroids(root, screenBounds, 2, 2);
                         try {
                             inProgress(root, map);
                         } catch (IOException e) {

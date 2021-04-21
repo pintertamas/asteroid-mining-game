@@ -566,14 +566,14 @@ public class Map {
     private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
         int n = asteroids.size(); //  example: n=500, alpha=2
         int alpha = 2;
-        int gapMultiplier = 4;
+        double gapMultiplier = 2;
         long boundaryPoints = Math.round(alpha * Math.sqrt(n)); //number of boundary points
         double phi = (Math.sqrt(5) + 1) / 2; //golden ratio
         for (double k = 1; k < n; k++) {
             double r = radius(k, n, boundaryPoints);
             double theta = 2 * Math.PI * k / (phi * phi);
-            System.out.println((r * Math.cos(theta) + 1) * screenBounds.getWidth() * gapMultiplier + " " + (r * Math.sin(theta) + 1) * screenBounds.getHeight() * gapMultiplier);
-            //asteroids.get((int)k).setPosition(new Drawable((r * Math.cos(theta) + 1) * screenBounds.getWidth() * gapMultiplier, (r * Math.sin(theta) + 1) * screenBounds.getHeight() * gapMultiplier));
+            //System.out.println((r * Math.cos(theta) + 1) * screenBounds.getWidth() * gapMultiplier + " " + (r * Math.sin(theta) + 1) * screenBounds.getHeight() * gapMultiplier);
+            asteroids.get((int)k).setPosition(new Drawable(r * Math.cos(theta) * screenBounds.getWidth() * gapMultiplier, r * Math.sin(theta) * screenBounds.getHeight() * gapMultiplier));
         }
     }
 

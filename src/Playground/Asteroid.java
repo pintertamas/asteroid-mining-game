@@ -420,7 +420,7 @@ public class Asteroid implements IDrawable {
     }
 
     public void refresh(Group root, Rectangle2D screenBounds) {
-        //this.draw(root, screenBounds);
+        this.draw(root, screenBounds);
         for (Portal portal : this.portals)
             portal.draw(root, screenBounds);
         for (Figure figure : this.figures)
