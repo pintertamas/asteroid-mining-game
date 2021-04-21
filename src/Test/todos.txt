@@ -3,3 +3,5 @@ kellenek függvények amik kirajzolnak adott objektumokat a helyükre
 !!!initben lehetnek szar default értékek az első beállításokra!!!
 ki kell találni hogy miért tűnik el az egész cucc x idő után (tipp: root méretét követni)
 megrajzolni a gui-t
+figurákat el kell helezni az aszteroidákon valami kör formában (valami googleon talált képlettel körvonalon elhelyezni minden figuret)
+középre be kell rakni valami portált ha van az azsteroidán
