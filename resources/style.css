@@ -3,7 +3,7 @@
     src: url('/fonts/nasalization-rg.ttf');
 }
 
-#text {
+#text, .button {
     -fx-font-family: "Nasalization Rg";
     -fx-fill: -fx-text-inner-color;
     -fx-font-size: 48;

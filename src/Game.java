@@ -4,6 +4,9 @@ import Playground.Map;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.animation.AnimationTimer;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,7 +15,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -49,13 +52,14 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
-                        drawPlayground(root, screenBounds);
+                        drawBackground(root, screenBounds);
                         map.handleMouseActions(root, screenBounds);
                         try {
                             inProgress(root, map);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        drawPlayground(root, screenBounds);
                     }
                     case LOST -> {
                         try {
@@ -174,12 +178,15 @@ public class Game implements IGameState {
             System.out.println("\n---------ROUND ENDED----------\n");
     }
 
-    private void drawBackground(Group root, Rectangle2D screenBounds) {
-        Image image = new Image("/background.png", screenBounds.getWidth(), screenBounds.getHeight(), true, true);
-        ImageView imageView = new ImageView(image);
-        imageView.setX(0);
-        imageView.setY(0);
-        root.getChildren().add(imageView);
+    public void drawBackground(Group root, Rectangle2D screenBounds) {
+        root.getChildren().removeIf((o) -> root.getChildren().get(0) != o);
+        if (root.getChildren().size() == 1) {
+            Image image = new Image("/background.png", screenBounds.getWidth(), screenBounds.getHeight(), true, true);
+            ImageView imageView = new ImageView(image);
+            imageView.setX(0);
+            imageView.setY(0);
+            root.getChildren().add(imageView);
+        }
     }
 
     private void drawSideBar(Group root, Rectangle2D screenBounds) {
@@ -188,16 +195,20 @@ public class Game implements IGameState {
         double posX = 4 * screenBounds.getWidth() / 5;
         double posY = 0;
 
-        BorderPane borderPane = new BorderPane();
-        borderPane.setLayoutX(posX);
-        borderPane.setLayoutY(posY);
-        Text tekszt = new Text("asdasdasdasd");
-        tekszt.setX(borderPane.getLayoutX());
-        tekszt.setY(borderPane.getLayoutY());
-        tekszt.setId("text");
-        tekszt.setStyle("-fx-text-inner-color: red;");
-        borderPane.setCenter(tekszt);
-        root.getChildren().add(borderPane);
+        VBox mainContainer = new VBox();
+        mainContainer.setAlignment(Pos.TOP_CENTER);
+        mainContainer.setLayoutX(posX);
+        mainContainer.setLayoutY(posY);
+        mainContainer.setPrefWidth(width);
+        mainContainer.setPrefHeight(height);
+        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 250, 250), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        Button btn = new Button();
+        btn.setLayoutX(mainContainer.getLayoutX());
+        btn.setLayoutY(mainContainer.getLayoutY());
+        btn.setStyle("-fx-text-inner-color: red;");
+        //mainContainer.getChildren().add(btn);
+        root.getChildren().add(mainContainer);
 
 
     }
@@ -206,8 +217,6 @@ public class Game implements IGameState {
      * @param root
      */
     private void drawPlayground(Group root, Rectangle2D screenBounds) {
-        root.getChildren().removeIf((o) -> root.getChildren().get(0) != o);
-        drawBackground(root, screenBounds);
         drawSideBar(root, screenBounds);
     }
 }
