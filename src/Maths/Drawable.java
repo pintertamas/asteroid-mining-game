@@ -3,8 +3,8 @@ package Maths;
 import javafx.geometry.Rectangle2D;
 
 public class Drawable {
-    double x, y;
-    double size = 150;
+    private double x, y;
+    private double size = 200;
 
     public Drawable() {
         this.x = 0;

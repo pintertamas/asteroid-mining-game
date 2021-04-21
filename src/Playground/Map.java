@@ -566,7 +566,7 @@ public class Map {
     private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
         int n = asteroids.size(); //  example: n=500, alpha=2
         int alpha = 2;
-        double gapMultiplier = 2;
+        double gapMultiplier = 2.5;
         long boundaryPoints = Math.round(alpha * Math.sqrt(n)); //number of boundary points
         double phi = (Math.sqrt(5) + 1) / 2; //golden ratio
         for (double k = 1; k < n; k++) {
@@ -617,6 +617,10 @@ public class Map {
             }
         }
         System.out.println(counter);
+    }
+
+    public void handleMouseActions(Group root, Rectangle2D screenBounds) {
+        moveAllAsteroids(root, screenBounds, 10, 10);
     }
 }
 
