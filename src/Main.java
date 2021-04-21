@@ -1,5 +1,4 @@
 import Playground.Map;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -9,8 +8,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * Main osztály.
  */
@@ -18,7 +15,7 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
-        Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
         System.out.println(screenBounds);
         double screenWidth = screenBounds.getWidth();
         double screenHeight = screenBounds.getHeight();
