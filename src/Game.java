@@ -189,6 +189,8 @@ public class Game implements IGameState {
         double posY = 0;
 
         BorderPane borderPane = new BorderPane();
+        borderPane.setLayoutX(posX);
+        borderPane.setLayoutY(posY);
         Text tekszt = new Text("asdasdasdasd");
         tekszt.setX(borderPane.getLayoutX());
         tekszt.setY(borderPane.getLayoutY());
