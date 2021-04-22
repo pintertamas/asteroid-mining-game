@@ -324,22 +324,6 @@ public class Asteroid implements IDrawable {
         return null;
     }
 
-    private void drawSideBar(Group root, Rectangle2D screenBounds) {
-        double width = screenBounds.getWidth() / 5;
-        double height = screenBounds.getHeight();
-        double posX = 4 * screenBounds.getWidth() / 5;
-        double posY = 0;
-
-        VBox mainContainer = new VBox();
-        mainContainer.setAlignment(Pos.TOP_CENTER);
-        mainContainer.setLayoutX(posX);
-        mainContainer.setLayoutY(posY);
-        mainContainer.setPrefWidth(width);
-        mainContainer.setPrefHeight(height);
-        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
-        root.getChildren().add(mainContainer);
-    }
-
     /**
      * A következő figurát lépteti.
      */
@@ -352,7 +336,6 @@ public class Asteroid implements IDrawable {
             map.handleMouseActions(root, screenBounds);
             f.draw(root, screenBounds);
             f.step(root, screenBounds);
-            drawSideBar(root, screenBounds);
         }
         TestLogger.functionReturned();
     }

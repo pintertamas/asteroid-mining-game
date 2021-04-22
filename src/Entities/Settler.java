@@ -7,9 +7,17 @@ import Materials.*;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
+import Controllers.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -278,13 +286,39 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionReturned();
     }
 
+    private void drawSettlerInfo(VBox vBox, Rectangle2D screenBounds) {
+        Text text = new Text("Current settler" + this.toString());
+        text.setId("text");
+        text.setX(screenBounds.getWidth() * 4 / 5 + text.getWrappingWidth() / 2);
+        vBox.getChildren().add(text);
+    }
+
+    private void drawSideBar(Group root, Rectangle2D screenBounds) {
+        double width = screenBounds.getWidth() / 5;
+        double height = screenBounds.getHeight();
+        double posX = 4 * screenBounds.getWidth() / 5;
+        double posY = 0;
+
+        VBox mainContainer = new VBox();
+        mainContainer.setAlignment(Pos.TOP_CENTER);
+        mainContainer.setLayoutX(posX);
+        mainContainer.setLayoutY(posY);
+        mainContainer.setPrefWidth(width);
+        mainContainer.setPrefHeight(height);
+        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        drawSettlerInfo(mainContainer, screenBounds);
+
+        root.getChildren().add(mainContainer);
+    }
+
     /**
      * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
      *
      * @param root
      */
     private void drawGUI(Group root, Rectangle2D screenBounds) {
-        //System.out.println(this);
+        drawSideBar(root, screenBounds);
     }
 
     /**
@@ -376,9 +410,9 @@ public class Settler extends Figure implements IMine, IDrill {
                 TestLogger.functionReturned();
             }
         } else {
+            drawGUI(root, screenBounds);
             //setRoundFinished(true); //TODO itt kellene kezelni majd valahogy a köröket
         }
-        drawGUI(root, screenBounds);
     }
 
     /**

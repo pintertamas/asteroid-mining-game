@@ -1,19 +1,18 @@
+package Controllers;
+
+import Entities.Settler;
 import Interfaces.IGameState;
-import Playground.Asteroid;
 import Playground.GameState;
 import Playground.Map;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.animation.AnimationTimer;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -29,7 +28,7 @@ public class Game implements IGameState {
 
     public void run(Group root, Rectangle2D screenBounds, Map map) {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
-        //MainMenu menu = new MainMenu();
+        //Controllers.MainMenu menu = new Controllers.MainMenu();
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
         new AnimationTimer() {
             @Override
@@ -181,6 +180,5 @@ public class Game implements IGameState {
         imageView.setX(0);
         imageView.setY(0);
         root.getChildren().add(imageView);
-
     }
 }
