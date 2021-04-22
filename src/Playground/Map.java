@@ -16,6 +16,7 @@ import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
@@ -292,10 +293,9 @@ public class Map {
                     s1.getInventory().addPortal(p2);
                 }
             }
-
         } else { // Generating the map randomly...
-            int minimumNumberOfAsteroids = 50;
-            int maximumNumberOfAsteroids = 200;
+            int minimumNumberOfAsteroids = 70;
+            int maximumNumberOfAsteroids = 150;
             double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
             for (int i = 0; i < numberOfAsteroids; i++) {
                 Random rand = new Random();
@@ -560,24 +560,27 @@ public class Map {
     }
 
     private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
-        int n = asteroids.size(); //  example: n=500, alpha=2
+        int nodes = asteroids.size(); //  example: n=500, alpha=2
         int alpha = 2;
-        double gapMultiplier = 2.5;
-        long boundaryPoints = Math.round(alpha * Math.sqrt(n)); //number of boundary points
+        long boundaryPoints = Math.round(alpha * Math.sqrt(nodes)); //number of boundary points
         double phi = (Math.sqrt(5) + 1) / 2; //golden ratio
-        for (double k = 1; k < n; k++) {
-            double r = radius(k, n, boundaryPoints);
-            double theta = 2 * Math.PI * k / (phi * phi);
-            //System.out.println((r * Math.cos(theta) + 1) * screenBounds.getWidth() * gapMultiplier + " " + (r * Math.sin(theta) + 1) * screenBounds.getHeight() * gapMultiplier);
-            asteroids.get((int) k).setPosition(new Drawable(r * Math.cos(theta) * screenBounds.getWidth() * gapMultiplier, r * Math.sin(theta) * screenBounds.getHeight() * gapMultiplier));
+        for (double k = 0; k < nodes; k++) {
+            double r = radius(k, nodes, boundaryPoints);
+            double theta = -k * 360 * phi;
+            double xPos = r * Math.cos(theta);
+            double yPos = r * Math.sin(theta);
+            //double points = nodes / Math.PI / 4.0; // ha jól számoltam akkor ez a sugáron elhelyezkedő aszteroidák száma lesz, minél több van rajta, annál inkább kellene szétnyújtani az egészet
+            double gapMultiplier = 2.5; //TODO ezt meg kell változtatni, hogy bármennyi azsteroidára kb ugyan akkora legyen a távolság a széthúzás után
+            Drawable newPoint = new Drawable(xPos * screenBounds.getWidth() * gapMultiplier, yPos * screenBounds.getHeight() * gapMultiplier);
+            asteroids.get((int) k).setPosition(newPoint);
         }
     }
 
-    private double radius(double k, int n, long b) {
-        if (k > n - b)
+    private double radius(double index, int nodes, long boundaryPoints) {
+        if (index > nodes - boundaryPoints)
             return 1; //put on the boundary
         else
-            return Math.sqrt(k - 1 / 2.0f) / Math.sqrt(n - (b + 1) / 2.0f); //apply square root
+            return Math.sqrt(index - 1 / 2.0f) / Math.sqrt(nodes - (boundaryPoints + 1) / 2.0f); //apply square root
     }
 
     /**
@@ -597,6 +600,27 @@ public class Map {
         }
     }
 
+    public void connectNeighbors(Group root) {
+        ArrayList<Asteroid> alreadyConnected = new ArrayList<>();
+        for (Asteroid asteroid : this.asteroids) {
+            for (Asteroid neighbor : asteroid.getNeighbors()) {
+                if (alreadyConnected.contains(neighbor)) {
+                    continue;
+                }
+                double offset = neighbor.getPosition().getSize() / 2;
+                double offset2 = asteroid.getPosition().getSize() / 2;
+                Line line = new Line();
+                line.setStartX(neighbor.getPosition().getX() + offset);
+                line.setStartY(neighbor.getPosition().getY() + offset);
+                line.setEndX(asteroid.getPosition().getX() + offset2);
+                line.setEndY(asteroid.getPosition().getY() + offset2);
+                line.setStroke(Color.WHITE);
+                root.getChildren().add(line);
+            }
+            alreadyConnected.add(asteroid);
+        }
+    }
+
     /**
      * Felrajzolja az egész térképet
      *
@@ -604,17 +628,16 @@ public class Map {
      * @param screenBounds
      */
     public void drawWholeMap(Group root, Rectangle2D screenBounds) {
-        int counter = 0;
-        System.out.println(asteroids.size());
-        for (Asteroid asteroid : this.asteroids)
-            asteroid.connectNeighbors(root);
+        //int counter = 0;
+        //System.out.println(asteroids.size());
+        connectNeighbors(root);
         for (Asteroid asteroid : this.asteroids) {
             if (asteroid.getPosition().isInside(screenBounds)) {
                 asteroid.refresh(root, screenBounds);
-                counter++;
+                //counter++;
             }
         }
-        System.out.println(counter);
+        //System.out.println(counter);
     }
 
     public void handleMouseActions(Group root, Rectangle2D screenBounds) {

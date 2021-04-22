@@ -18,7 +18,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -441,20 +440,6 @@ public class Asteroid implements IDrawable {
 
     public void updatePosition(float x, float y) {
         this.position.move(new Drawable(x, y));
-    }
-
-    public void connectNeighbors(Group root) {
-        for (Asteroid asteroid : this.getNeighbors()) {
-            double offset = this.getPosition().getSize() / 2;
-            double offset2 = asteroid.getPosition().getSize() / 2;
-            Line line = new Line();
-            line.setStartX(this.getPosition().getX() + offset);
-            line.setStartY(this.getPosition().getY() + offset);
-            line.setEndX(asteroid.getPosition().getX() + offset2);
-            line.setEndY(asteroid.getPosition().getY() + offset2);
-            line.setStroke(Color.WHITE);
-            root.getChildren().add(line);
-        }
     }
 
     public void refresh(Group root, Rectangle2D screenBounds) {

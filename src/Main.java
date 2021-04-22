@@ -31,9 +31,8 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
-        String style = getClass().getResource("/style.css").toString();
-        scene.getStylesheets().addAll(style);
-        root.getStylesheets().addAll(style);
+        scene.getStylesheets().add("style.css");
+        root.getStylesheets().addAll("style.css");
         Game game = new Game();
         game.run(root, screenBounds, new Map());
     }
