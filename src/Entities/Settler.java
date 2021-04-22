@@ -12,11 +12,13 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import Controllers.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -286,11 +288,28 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionReturned();
     }
 
-    private void drawSettlerInfo(VBox vBox, Rectangle2D screenBounds) {
-        Text text = new Text("Current settler" + this.toString());
-        text.setId("text");
-        text.setX(screenBounds.getWidth() * 4 / 5 + text.getWrappingWidth() / 2);
+    private void drawSettlerInfo(VBox vBox) {
+        Text text = new Text("Current settler:\n" + this);
+        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
         vBox.getChildren().add(text);
+    }
+
+    private void drawInventory(VBox vbox, Rectangle2D screenBounds) {
+        FlowPane inventory = new FlowPane();
+        this.getInventory().addMaterial(new Iron());
+        this.getInventory().addMaterial(new Ice());
+        this.getInventory().addMaterial(new Coal());
+        this.getInventory().addMaterial(new Uranium());
+        this.getInventory().addMaterial(new Iron());
+        for (Material material : this.inventory.getMaterials()) {
+            double imgSize = screenBounds.getWidth() / 30;
+            Image image = new Image(material.getImagePath(), imgSize, imgSize, true, true);
+            ImageView imageView = new ImageView(image);
+            imageView.setFitWidth(imgSize);
+            imageView.setFitHeight(imgSize);
+            inventory.getChildren().add(imageView);
+        }
+        vbox.getChildren().add(inventory);
     }
 
     private void drawSideBar(Group root, Rectangle2D screenBounds) {
@@ -300,14 +319,15 @@ public class Settler extends Figure implements IMine, IDrill {
         double posY = 0;
 
         VBox mainContainer = new VBox();
-        mainContainer.setAlignment(Pos.TOP_CENTER);
+        mainContainer.setAlignment(Pos.CENTER);
         mainContainer.setLayoutX(posX);
         mainContainer.setLayoutY(posY);
         mainContainer.setPrefWidth(width);
         mainContainer.setPrefHeight(height);
         mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        drawSettlerInfo(mainContainer, screenBounds);
+        drawSettlerInfo(mainContainer);
+        drawInventory(mainContainer, screenBounds);
 
         root.getChildren().add(mainContainer);
     }

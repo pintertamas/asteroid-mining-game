@@ -71,4 +71,8 @@ public abstract class Material {
     public void setNearSunCount(int nearSunCount) {
         this.nearSunCount = nearSunCount;
     }
+
+    public String getImagePath() {
+        return imagePath;
+    }
 }

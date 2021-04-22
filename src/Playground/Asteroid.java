@@ -29,7 +29,6 @@ import java.util.Random;
 @SuppressWarnings("SpellCheckingInspection")
 public class Asteroid implements IDrawable {
     private Drawable position = new Drawable();
-    private final String imagePath;
     private Map map;
     private final ArrayList<Asteroid> neighbors;
     private final ArrayList<Figure> figures;
@@ -61,8 +60,6 @@ public class Asteroid implements IDrawable {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        int imageNumber = new Random().nextInt(5) + 1;
-        this.imagePath = "/asteroids/asteroid" + imageNumber + ".png";
         TestLogger.functionReturned();
     }
 
@@ -85,8 +82,6 @@ public class Asteroid implements IDrawable {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        int imageNumber = new Random().nextInt(5) + 1;
-        this.imagePath = "/asteroids/asteroid" + imageNumber + ".png";
         TestLogger.functionReturned();
     }
 
@@ -413,7 +408,8 @@ public class Asteroid implements IDrawable {
 
     public void draw(Group root, Rectangle2D screenBounds) {
         if (getPosition().isInside(screenBounds)) {
-            Image image = new Image(imagePath, this.position.getSize(), this.position.getSize(), true, true);
+            String img = this.layers > 0 ? "asteroids/rock.png" : this.isHollow ? "/asteroids/hollow.png" : this.material.getImagePath();
+            Image image = new Image(img, this.position.getSize(), this.position.getSize(), true, true);
             ImageView imageView = new ImageView(image);
             imageView.setX(this.position.getX());
             imageView.setY(this.position.getY());

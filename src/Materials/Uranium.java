@@ -9,6 +9,10 @@ import Test.UserIO;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Uranium extends Material {
+    public Uranium() {
+        imagePath = "/asteroids/uranium.png";
+    }
+
     /**
      * Az utolsó réteg lefúrása után, ha harmadszorra napközelben van az aszteroida, az urán felrobbantja az aszteroidát.
      */
