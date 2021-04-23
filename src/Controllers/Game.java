@@ -51,6 +51,11 @@ public class Game implements IGameState {
                         if (!(shouldCheckGameEnd && map.checkGameEnd())) {
                             try {
                                 inProgress(root, screenBounds, map);
+                                if (map.getCurrentFigure() != null) {
+                                    map.handleMouseActions(root, screenBounds);
+                                    map.getCurrentFigure().draw(root, screenBounds);
+                                    map.getCurrentFigure().drawGUI(root, screenBounds);
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

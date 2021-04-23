@@ -329,9 +329,7 @@ public class Asteroid implements IDrawable {
         Figure f = pickNextFigure();
         if (this.getMap().shouldRun() && f != null) {
             System.out.println(f + " is going to step now.");
-            map.handleMouseActions(root, screenBounds);
-            f.draw(root, screenBounds);
-            f.drawGUI(root, screenBounds);
+            this.getMap().setCurrentFigure(f);
             f.step(root, screenBounds);
         }
         TestLogger.functionReturned();

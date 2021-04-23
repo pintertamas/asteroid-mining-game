@@ -10,21 +10,13 @@ import Materials.*;
 import Maths.Drawable;
 import Test.TestLogger;
 import Test.UserIO;
-import javafx.animation.AnimationTimer;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Pálya osztály.
@@ -35,6 +27,7 @@ public class Map {
     private final ArrayList<Asteroid> asteroids;
     private final ArrayList<IGameState> listeners = new ArrayList<>();
     private boolean shouldRunAnyMore = true;
+    private Figure currentFigure;
 
     /**
      * Konstruktor
@@ -42,6 +35,14 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
         this.asteroids = new ArrayList<>();
+    }
+
+    public Figure getCurrentFigure() {
+        return currentFigure;
+    }
+
+    public void setCurrentFigure(Figure currentFigure) {
+        this.currentFigure = currentFigure;
     }
 
     /**
