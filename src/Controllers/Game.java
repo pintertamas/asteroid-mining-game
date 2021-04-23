@@ -9,6 +9,7 @@ import Test.UserIO;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -26,7 +27,7 @@ public class Game implements IGameState {
         this.gameState = gameState;
     }
 
-    public void run(Group root, Rectangle2D screenBounds, Map map) {
+    public void run(Group root, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
         //Controllers.MainMenu menu = new Controllers.MainMenu();
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
@@ -44,10 +45,11 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
+                        drawBackground(root, screenBounds);
+
                         System.out.println("ast count:" + map.getAsteroids().size());
                         System.out.println("root size:" + root.getChildren().size());
                         if (!(shouldCheckGameEnd && map.checkGameEnd())) {
-                            drawBackground(root, screenBounds);
                             try {
                                 inProgress(root, screenBounds, map);
                             } catch (IOException e) {

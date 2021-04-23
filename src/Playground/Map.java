@@ -10,12 +10,15 @@ import Materials.*;
 import Maths.Drawable;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -640,25 +643,59 @@ public class Map {
         //System.out.println(counter);
     }
 
+    boolean moving, goNorth, goSouth, goEast, goWest;
+
     public void handleMouseActions(Group root, Rectangle2D screenBounds) {
         int speed = 30;
 
-        root.getScene().setOnKeyPressed(keyEvent -> {
-            int horizontal = 0;
-            int vertical = 0;
-            KeyCode code = keyEvent.getCode();
-            if (code == KeyCode.LEFT) {
-                horizontal += speed;
-            } else if (code == KeyCode.RIGHT) {
-                horizontal -= speed;
-            } else if (code == KeyCode.UP) {
-                vertical += speed;
-            } else if (code == KeyCode.DOWN) {
-                vertical -= speed;
+        root.getScene().setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case UP:
+                    goNorth = true;
+                    break;
+                case DOWN:
+                    goSouth = true;
+                    break;
+                case LEFT:
+                    goWest = true;
+                    break;
+                case RIGHT:
+                    goEast = true;
+                    break;
+                case SHIFT:
+                    moving = true;
+                    break;
             }
-
-            moveAllAsteroids(root, screenBounds, horizontal, vertical);
         });
+
+        root.getScene().setOnKeyReleased(event -> {
+            switch (event.getCode()) {
+                case UP:
+                    goNorth = false;
+                    break;
+                case DOWN:
+                    goSouth = false;
+                    break;
+                case LEFT:
+                    goWest = false;
+                    break;
+                case RIGHT:
+                    goEast = false;
+                    break;
+                case SHIFT:
+                    moving = false;
+                    break;
+            }
+        });
+
+        int dx = 0, dy = 0;
+
+        if (goNorth) dy += speed;
+        if (goSouth) dy -= speed;
+        if (goEast) dx -= speed;
+        if (goWest) dx += speed;
+
+        moveAllAsteroids(root, screenBounds, dx, dy);
         drawWholeMap(root, screenBounds);
     }
 }

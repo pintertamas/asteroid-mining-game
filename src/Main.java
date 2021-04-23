@@ -5,6 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -33,8 +34,9 @@ public class Main extends Application {
         primaryStage.show();
         scene.getStylesheets().add("style.css");
         root.getStylesheets().addAll("style.css");
+        GraphicsContext gc = canvas.getGraphicsContext2D();
         Game game = new Game();
-        game.run(root, screenBounds, new Map());
+        game.run(root, gc, screenBounds, new Map());
     }
 
     /**
