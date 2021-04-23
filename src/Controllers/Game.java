@@ -22,11 +22,22 @@ import java.util.UUID;
 public class Game implements IGameState {
     private GameState gameState = GameState.LOAD;
 
+    /**
+     * Setter a GameState megváltoztatásához
+     */
     @Override
     public void changeGameState(GameState gameState) {
         this.gameState = gameState;
     }
 
+
+    /**
+     * A játék futtatását felügyeli, az alapján, hogy melyik GameState-ben vagyunk
+     * @param root
+     * @param gc
+     * @param screenBounds
+     * @param map
+     */
     public void run(Group root, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
         //Controllers.MainMenu menu = new Controllers.MainMenu();
@@ -87,6 +98,11 @@ public class Game implements IGameState {
         }.start();
     }
 
+    /**
+     * A játék inicializálásához használjuk, itt kérdezzük meg, hogy maunális van automatikus a generálás továbbá egyéb logger és játék beállításokat kérdez meg
+     * @param map
+     * @param screenBounds
+     */
     public void init(Map map, Rectangle2D screenBounds) throws IOException {
         Scanner in = new Scanner(System.in);
 
@@ -161,6 +177,10 @@ public class Game implements IGameState {
         }
     }
 
+
+    /**
+     * Amikor véget ér a játék ez a függvény menti el a kimenetet
+     */
     private void gameEnd() throws IOException {
         UserIO.addToResultOutput();
         String resultFileName;
@@ -170,6 +190,13 @@ public class Game implements IGameState {
         UserIO.saveCustomIO(UserIO.Phase.RESULT, resultFileName);
     }
 
+
+    /**
+     * Ez a függvény vezérli a köröket és frissíti a lépéseket
+     * @param root
+     * @param screenBounds
+     * @param map
+     */
     @SuppressWarnings("SpellCheckingInspection")
     private void inProgress(Group root, Rectangle2D screenBounds, Map map) throws IOException {
         //A játék menete
@@ -179,6 +206,12 @@ public class Game implements IGameState {
             System.out.println("\n---------ROUND ENDED----------\n");
     }
 
+
+    /**
+     * Ez a függvény rajzolja ki a játék hátterét (background.png)
+     * @param gc
+     * @param screenBounds
+     */
     public void drawBackground(GraphicsContext gc, Rectangle2D screenBounds) {
         Image image = new Image("/background.png");
         gc.drawImage(image, 0, 0);

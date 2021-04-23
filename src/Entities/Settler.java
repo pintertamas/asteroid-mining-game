@@ -170,7 +170,8 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void buildRobot() {
+    public void
+    buildRobot() {
         TestLogger.functionCalled(this, "robot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
 
@@ -390,6 +391,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
      *
      * @param root
+     * @param screenBounds
      */
     public void drawGUI(Group root, Rectangle2D screenBounds) {
         double width = 2 * screenBounds.getWidth() / 9;

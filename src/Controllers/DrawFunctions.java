@@ -7,7 +7,17 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+
+/**
+ * Ez az osztály valósítja meg a képek és a text-ek létrehozását függvényeken kereszül
+ */
 public class DrawFunctions {
+
+    /**
+     * Egy kép létrehozásáért felel egy méret és egy kép elérési út alapján
+     * @param imgPath
+     * @param imgSize
+     */
     public static ImageView image(String imgPath, double... imgSize) {
         assert imgSize.length <= 2;
         Image image;
@@ -16,6 +26,11 @@ public class DrawFunctions {
         return new ImageView(image);
     }
 
+    /**
+     * Egy text létrehozásáért felel egy megadott szöveg és méret alapján
+     * @param text
+     * @param size
+     */
     public static Text text(String text, int size) {
         Text newText = new Text(text);
         newText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, size));
