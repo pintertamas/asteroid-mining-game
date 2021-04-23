@@ -46,7 +46,6 @@ public class Game implements IGameState {
                     }
                     case IN_PROGRESS -> {
                         drawBackground(root, screenBounds);
-
                         System.out.println("ast count:" + map.getAsteroids().size());
                         System.out.println("root size:" + root.getChildren().size());
                         if (!(shouldCheckGameEnd && map.checkGameEnd())) {
@@ -176,8 +175,7 @@ public class Game implements IGameState {
 
     public void drawBackground(Group root, Rectangle2D screenBounds) {
         root.getChildren().clear();
-        Image image = new Image("/background.png", screenBounds.getWidth(), screenBounds.getHeight(), true, true);
-        ImageView imageView = new ImageView(image);
+        ImageView imageView = DrawFunctions.image("/background.png", screenBounds.getWidth(), screenBounds.getHeight());
         imageView.setX(0);
         imageView.setY(0);
         root.getChildren().add(imageView);

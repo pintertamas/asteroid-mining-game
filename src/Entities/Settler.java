@@ -1,6 +1,7 @@
 package Entities;
 
 import Bills.*;
+import Controllers.DrawFunctions;
 import Interfaces.IDrill;
 import Interfaces.IMine;
 import Materials.*;
@@ -293,28 +294,57 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     private void drawSettlerInfo(VBox vBox) {
-        Text text = new Text("Current settler:\n" + this);
-        text.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+        Text text = DrawFunctions.text("Current settler:\n" + this, 15);
         vBox.getChildren().add(text);
     }
 
-    private void drawInventory(VBox vbox, Rectangle2D screenBounds) {
+    private void drawInventory(VBox vBox, Rectangle2D screenBounds) {
         FlowPane inventory = new FlowPane();
         inventory.setHgap(10);
         inventory.setAlignment(Pos.CENTER);
         inventory.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(10.0), Insets.EMPTY)));
         for (Material material : this.inventory.getMaterials()) {
             double imgSize = screenBounds.getWidth() / 30;
-            Image image = new Image(material.getImagePath(), imgSize, imgSize, true, true);
-            ImageView imageView = new ImageView(image);
-            imageView.setFitWidth(imgSize);
-            imageView.setFitHeight(imgSize);
+            ImageView imageView = DrawFunctions.image(material.getImagePath(), imgSize);
             inventory.getChildren().add(imageView);
         }
-        vbox.getChildren().add(inventory);
+        vBox.getChildren().add(inventory);
     }
 
+    private void drawPortals(VBox vBox, Rectangle2D screenBounds) {
 
+    }
+
+    private void drawActions(VBox vBox, Rectangle2D screenBounds) {
+
+    }
+
+    private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {
+        drawPortals(vBox, screenBounds);
+        drawActions(vBox, screenBounds);
+    }
+
+    private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds) {
+        HBox detailContainer = new HBox(25);
+
+        double imgSize = screenBounds.getWidth() / 10;
+        String imgPath = this.getAsteroid().getImage();
+        ImageView imageView = DrawFunctions.image(imgPath, imgSize);
+
+        detailContainer.getChildren().add(imageView);
+
+        VBox details = new VBox(10);
+        details.setAlignment(Pos.CENTER_LEFT);
+        Text asteroidName = DrawFunctions.text("Asteroid ID:\n" + this.getAsteroid().toString().replace("Playground.Asteroid@", ""), 15);
+        Text asteroidLayers = DrawFunctions.text("Layers: " + this.getAsteroid().getLayers(), 15);
+        Text asteroidCore = DrawFunctions.text("Material:\n" + this.getAsteroid().getMaterial().toString().replace("Materials.", ""), 15);
+
+        details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore);
+
+        detailContainer.getChildren().add(details);
+
+        vBox.getChildren().add(detailContainer);
+    }
 
     /**
      * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
@@ -337,6 +367,8 @@ public class Settler extends Figure implements IMine, IDrill {
 
         drawSettlerInfo(mainContainer);
         drawInventory(mainContainer, screenBounds);
+        drawPortalsAndActions(mainContainer, screenBounds);
+        drawAsteroidDetails(mainContainer, screenBounds);
 
         root.getChildren().add(mainContainer);
     }

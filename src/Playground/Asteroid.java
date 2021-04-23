@@ -1,5 +1,6 @@
 package Playground;
 
+import Controllers.DrawFunctions;
 import Entities.Figure;
 import Entities.Settler;
 import Interfaces.IDrawable;
@@ -407,11 +408,14 @@ public class Asteroid implements IDrawable {
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
+    public String getImage() {
+        return this.layers > 0 ? "asteroids/rock.png" : this.isHollow ? "/asteroids/hollow.png" : this.material.getImagePath();
+    }
+
     public void draw(Group root, Rectangle2D screenBounds) {
         if (getPosition().isInside(screenBounds)) {
-            String img = this.layers > 0 ? "asteroids/rock.png" : this.isHollow ? "/asteroids/hollow.png" : this.material.getImagePath();
-            Image image = new Image(img, this.position.getSize(), this.position.getSize(), true, true);
-            ImageView imageView = new ImageView(image);
+            String img = getImage();
+            ImageView imageView = DrawFunctions.image(img, this.position.getSize());
             imageView.setX(this.position.getX());
             imageView.setY(this.position.getY());
             root.getChildren().add(imageView);

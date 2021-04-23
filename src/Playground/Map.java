@@ -297,7 +297,7 @@ public class Map {
                 }
             }
         } else { // Generating the map randomly...
-            int minimumNumberOfAsteroids = 70;
+            int minimumNumberOfAsteroids = 100;
             int maximumNumberOfAsteroids = 150;
             double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
             for (int i = 0; i < numberOfAsteroids; i++) {
