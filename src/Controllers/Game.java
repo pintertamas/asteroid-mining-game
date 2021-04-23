@@ -42,10 +42,11 @@ public class Game implements IGameState {
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                        drawBackground(gc, screenBounds);
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
-                        drawBackground(root, screenBounds);
+                        root.getChildren().removeIf((o) -> root.getChildren().indexOf(o) != 0);
                         System.out.println("ast count:" + map.getAsteroids().size());
                         System.out.println("root size:" + root.getChildren().size());
                         if (!(shouldCheckGameEnd && map.checkGameEnd())) {
@@ -178,11 +179,8 @@ public class Game implements IGameState {
             System.out.println("\n---------ROUND ENDED----------\n");
     }
 
-    public void drawBackground(Group root, Rectangle2D screenBounds) {
-        root.getChildren().clear();
-        ImageView imageView = DrawFunctions.image("/background.png", screenBounds.getWidth(), screenBounds.getHeight());
-        imageView.setX(0);
-        imageView.setY(0);
-        root.getChildren().add(imageView);
+    public void drawBackground(GraphicsContext gc, Rectangle2D screenBounds) {
+        Image image = new Image("/background.png");
+        gc.drawImage(image, 0, 0);
     }
 }

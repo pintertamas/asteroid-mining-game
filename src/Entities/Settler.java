@@ -47,6 +47,12 @@ public class Settler extends Figure implements IMine, IDrill {
         inventory.addMaterial(new Coal());
         inventory.addMaterial(new Uranium());
         inventory.addMaterial(new Ice());
+        inventory.addMaterial(new Iron());
+        inventory.addMaterial(new Coal());
+        inventory.addMaterial(new Uranium());
+        inventory.addMaterial(new Ice());
+        inventory.addMaterial(new Ice());
+        inventory.addMaterial(new Ice());
 
         inventory.addPortal(new Portal());
         inventory.addPortal(new Portal());
@@ -297,6 +303,7 @@ public class Settler extends Figure implements IMine, IDrill {
         GridPane grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
+        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(10, 10, 10, 10));
         Text text = DrawFunctions.text("Current settler:\n" + this, 15);
@@ -308,10 +315,11 @@ public class Settler extends Figure implements IMine, IDrill {
         GridPane grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
+        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
         grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        Text text = DrawFunctions.text("Inventory", 15);
+        Text text = DrawFunctions.text("\nInventory\n", 15);
         grid.getChildren().add(text);
+        vBox.getChildren().add(grid);
 
         FlowPane inventory = new FlowPane();
         inventory.setAlignment(Pos.CENTER);
@@ -321,8 +329,7 @@ public class Settler extends Figure implements IMine, IDrill {
             ImageView imageView = DrawFunctions.image(material.getImagePath(), imgSize);
             inventory.getChildren().add(imageView);
         }
-        grid.getChildren().add(inventory);
-        vBox.getChildren().add(grid);
+        vBox.getChildren().add(inventory);
     }
 
     private void drawPortals(VBox vBox) {
@@ -385,12 +392,12 @@ public class Settler extends Figure implements IMine, IDrill {
      * @param root
      */
     public void drawGUI(Group root, Rectangle2D screenBounds) {
-        double width = screenBounds.getWidth() / 5;
+        double width = 2 * screenBounds.getWidth() / 9;
         double height = screenBounds.getHeight();
-        double posX = 4 * screenBounds.getWidth() / 5;
+        double posX = 7 * screenBounds.getWidth() / 9;
         double posY = 0;
 
-        VBox mainContainer = new VBox();
+        VBox mainContainer = new VBox(20);
         mainContainer.setAlignment(Pos.CENTER);
         mainContainer.setLayoutX(posX);
         mainContainer.setLayoutY(posY);
@@ -402,6 +409,8 @@ public class Settler extends Figure implements IMine, IDrill {
         drawInventory(mainContainer, screenBounds);
         drawPortalsAndActions(mainContainer, screenBounds);
         drawAsteroidDetails(mainContainer, screenBounds);
+
+        mainContainer.setPadding(new Insets(10, 10, 10, 10));
 
         root.getChildren().add(mainContainer);
     }
