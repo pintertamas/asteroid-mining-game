@@ -300,6 +300,10 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Ez a függvény rajzolja ki a settler id-ját
+     * @param vBox
+     */
     private void drawSettlerInfo(VBox vBox) {
         GridPane grid = new GridPane();
         grid.setHgap(20);
@@ -312,6 +316,11 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(grid);
     }
 
+    /**
+     * Ez a függvény rajzolja ki a settler inventoryjában található nyersanyagoakt
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawInventory(VBox vBox, Rectangle2D screenBounds) {
         GridPane grid = new GridPane();
         grid.setHgap(20);
@@ -333,6 +342,10 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(inventory);
     }
 
+    /**
+     * Ez a függvény rajzolja ki a settler inventoryjában található portálokat
+     * @param vBox
+     */
     private void drawPortals(VBox vBox) {
         HBox portalBox = new HBox();
         portalBox.setAlignment(Pos.CENTER);
@@ -352,6 +365,11 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(portalBox);
     }
 
+    /**
+     * Ez a függvény rajzolja ki a buttonoket amikre kattintva akciókat tudunk elindítani
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawActions(VBox vBox, Rectangle2D screenBounds) {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
@@ -359,11 +377,21 @@ public class Settler extends Figure implements IMine, IDrill {
         actions.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(70.0), Insets.EMPTY)));
     }
 
+    /**
+     * Ez a függvény hívja meg a a portálok és akciók kirajzolását
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {
         drawPortals(vBox);
         drawActions(vBox, screenBounds);
     }
 
+    /**
+     * Ez a függvény rajzolja ki az settler aszteroidájának az információit
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds) {
         HBox detailContainer = new HBox(20);
         detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));

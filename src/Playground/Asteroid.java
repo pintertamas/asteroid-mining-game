@@ -393,6 +393,9 @@ public class Asteroid implements IDrawable {
         TestLogger.functionReturned();
     }
 
+    /**
+     * Ez a függvény rajzolja ki az aszteroida adatait
+     */
     public void printAsteroidDetails() {
         System.out.println("Current asteroid properties:");
         System.out.println("\tCurrent asteroid: " + this);
@@ -406,10 +409,18 @@ public class Asteroid implements IDrawable {
             System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
+    /**
+     * Ez a függvény az aszeroida állapota alapján visszaad egy image-t
+     */
     public String getImage() {
         return this.layers > 0 ? "asteroids/rock.png" : this.isHollow ? "/asteroids/hollow.png" : this.material.getImagePath();
     }
 
+    /**
+     * Ez a függvény rajzolja ki az aszteroidákat
+     * @param root
+     * @param screenBounds
+     */
     public void draw(Group root, Rectangle2D screenBounds) {
         if (getPosition().isInside(screenBounds)) {
             String img = getImage();
@@ -420,6 +431,11 @@ public class Asteroid implements IDrawable {
         }
     }
 
+    /**
+     * Ez a függvény frissíti az aktuális  pozíciót
+     * @param x
+     * @param y
+     */
     public void updatePosition(float x, float y) {
         this.position.move(new Drawable(x, y));
     }
@@ -437,10 +453,16 @@ public class Asteroid implements IDrawable {
         return this.map;
     }
 
+    /**
+     * Getter a pozicíóhoz
+     */
     public Drawable getPosition() {
         return position;
     }
 
+    /**
+     * Setter a pocícióhoz
+     */
     public void setPosition(Drawable position) {
         this.position = position;
     }

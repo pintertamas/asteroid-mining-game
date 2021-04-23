@@ -126,10 +126,16 @@ public class Inventory {
         return materials;
     }
 
+    /**
+     * Getter a materialok kapacitásához
+     */
     public int getMaterialCapacity() {
         return materialCapacity;
     }
 
+    /**
+     * Getter a portálok kapacitásához
+     */
     public int getPortalCapacity() {
         return portalCapacity;
     }
