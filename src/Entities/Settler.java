@@ -11,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import Controllers.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -24,7 +23,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Random;
 
 /**
@@ -47,6 +45,12 @@ public class Settler extends Figure implements IMine, IDrill {
         this.inventory = new Inventory();
         int settlerNumber = new Random().nextInt(5) + 1;
         this.imagePath = "/figures/spaceships/spaceship" + settlerNumber + ".png";
+        //-----
+        inventory.addMaterial(new Iron());
+        inventory.addMaterial(new Coal());
+        inventory.addMaterial(new Uranium());
+        inventory.addMaterial(new Ice());
+        //-----
     }
 
     /**
@@ -296,11 +300,9 @@ public class Settler extends Figure implements IMine, IDrill {
 
     private void drawInventory(VBox vbox, Rectangle2D screenBounds) {
         FlowPane inventory = new FlowPane();
-        this.getInventory().addMaterial(new Iron());
-        this.getInventory().addMaterial(new Ice());
-        this.getInventory().addMaterial(new Coal());
-        this.getInventory().addMaterial(new Uranium());
-        this.getInventory().addMaterial(new Iron());
+        inventory.setHgap(10);
+        inventory.setAlignment(Pos.CENTER);
+        inventory.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(10.0), Insets.EMPTY)));
         for (Material material : this.inventory.getMaterials()) {
             double imgSize = screenBounds.getWidth() / 30;
             Image image = new Image(material.getImagePath(), imgSize, imgSize, true, true);
@@ -312,7 +314,14 @@ public class Settler extends Figure implements IMine, IDrill {
         vbox.getChildren().add(inventory);
     }
 
-    private void drawSideBar(Group root, Rectangle2D screenBounds) {
+
+
+    /**
+     * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
+     *
+     * @param root
+     */
+    public void drawGUI(Group root, Rectangle2D screenBounds) {
         double width = screenBounds.getWidth() / 5;
         double height = screenBounds.getHeight();
         double posX = 4 * screenBounds.getWidth() / 5;
@@ -330,15 +339,6 @@ public class Settler extends Figure implements IMine, IDrill {
         drawInventory(mainContainer, screenBounds);
 
         root.getChildren().add(mainContainer);
-    }
-
-    /**
-     * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
-     *
-     * @param root
-     */
-    private void drawGUI(Group root, Rectangle2D screenBounds) {
-        drawSideBar(root, screenBounds);
     }
 
     /**
@@ -430,7 +430,6 @@ public class Settler extends Figure implements IMine, IDrill {
                 TestLogger.functionReturned();
             }
         } else {
-            drawGUI(root, screenBounds);
             //setRoundFinished(true); //TODO itt kellene kezelni majd valahogy a köröket
         }
     }

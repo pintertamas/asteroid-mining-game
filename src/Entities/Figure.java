@@ -1,14 +1,10 @@
 package Entities;
 import Interfaces.*;
-import Maths.Drawable;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 
@@ -147,6 +143,10 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawabl
 
     @Override
     public void draw(Group root, Rectangle2D screeBounds) {
+
+    }
+
+    public void drawGUI(Group root, Rectangle2D screenBounds) {
 
     }
 }

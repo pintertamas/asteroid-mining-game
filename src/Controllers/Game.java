@@ -34,7 +34,6 @@ public class Game implements IGameState {
             @Override
             public void handle(long l) {
                 switch (gameState) {
-                    //case menu -> menu.showMenu(root, canvas, gc);
                     case LOAD -> {
                         try {
                             init(map, screenBounds);

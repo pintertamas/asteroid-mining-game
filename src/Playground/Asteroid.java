@@ -330,6 +330,7 @@ public class Asteroid implements IDrawable {
             System.out.println(f + " is going to step now.");
             map.handleMouseActions(root, screenBounds);
             f.draw(root, screenBounds);
+            f.drawGUI(root, screenBounds);
             f.step(root, screenBounds);
         }
         TestLogger.functionReturned();
