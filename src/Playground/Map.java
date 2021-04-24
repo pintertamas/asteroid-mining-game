@@ -646,7 +646,6 @@ public class Map {
      * @param screenBounds//TODO
      */
     public void drawWholeMap(Group root, Rectangle2D screenBounds) {
-        connectNeighbors(root);
         for (Asteroid asteroid : this.asteroids) {
             if (asteroid.getPosition().isInside(screenBounds)) {
                 asteroid.refresh(root, screenBounds);

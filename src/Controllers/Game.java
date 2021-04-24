@@ -55,7 +55,7 @@ public class Game implements IGameState {
                     case LOAD -> {
                         try {
                             init(map, screenBounds);
-                            map.drawWholeMap(root, screenBounds);
+                            map.connectNeighbors(root);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -70,6 +70,7 @@ public class Game implements IGameState {
                             try {
                                 inProgress(root, screenBounds, map);
                                 if (map.getCurrentFigure() != null) {
+                                    map.connectNeighbors(root);//TODO ez így nagyon nem jó
                                     map.handleMouseActions(root, screenBounds);
                                     map.getCurrentFigure().draw(root, screenBounds);
                                     map.getCurrentFigure().drawGUI(root, screenBounds);

@@ -383,7 +383,6 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.addEventHandler(EventType.ROOT, event -> {
             System.out.println("asd");
         });
-        vBox.getChildren().add(btn);
     }
 
     /**
