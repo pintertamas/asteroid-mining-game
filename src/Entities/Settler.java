@@ -8,15 +8,24 @@ import Materials.*;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -333,34 +342,44 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     private void drawPortals(VBox vBox) {
-        HBox portalBox = new HBox();
+        HBox portalBox = new HBox(20);
         portalBox.setAlignment(Pos.CENTER);
-        portalBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
         grid.setVgap(20);
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
 
         ImageView portalImage = DrawFunctions.image("/portal.png", 100);
         portalBox.getChildren().add(portalImage);
 
         Text text = DrawFunctions.text("No. Portals: " + this.inventory.getPortals().size(), 20);
         portalBox.getChildren().add(text);
-        vBox.getChildren().add(portalBox);
+
+        grid.getChildren().add(portalBox);
+        vBox.getChildren().add(grid);
     }
 
-    private void drawActions(VBox vBox, Rectangle2D screenBounds) {
+    private void drawActions(VBox vBox) {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
         actions.setAlignment(Pos.CENTER);
         actions.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(70.0), Insets.EMPTY)));
+
+        String[] moves = {"Move", "MoveThroughPortal"};
+        Button btn = new Button();
+        btn.setText("asd");
+        vBox.addEventHandler(EventType.ROOT, event -> {
+            System.out.println("asd");
+        });
+        vBox.getChildren().add(btn);
     }
 
-    private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {
+    private void drawPortalsAndActions(VBox vBox) {
         drawPortals(vBox);
-        drawActions(vBox, screenBounds);
+        drawActions(vBox);
     }
 
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds) {
@@ -407,7 +426,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
         drawSettlerInfo(mainContainer);
         drawInventory(mainContainer, screenBounds);
-        drawPortalsAndActions(mainContainer, screenBounds);
+        drawPortalsAndActions(mainContainer);
         drawAsteroidDetails(mainContainer, screenBounds);
 
         mainContainer.setPadding(new Insets(10, 10, 10, 10));
