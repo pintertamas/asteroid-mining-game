@@ -25,7 +25,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -341,9 +340,14 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(inventory);
     }
 
+    /**
+     * Ez a függvény rajzolja ki a settler inventoryjában található portálokat
+     * @param vBox
+     */
     private void drawPortals(VBox vBox) {
         HBox portalBox = new HBox(20);
         portalBox.setAlignment(Pos.CENTER);
+        portalBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -362,7 +366,12 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(grid);
     }
 
-    private void drawActions(VBox vBox) {
+    /**
+     * Ez a függvény rajzolja ki a buttonoket amikre kattintva akciókat tudunk elindítani
+     * @param vBox
+     * @param screenBounds
+     */
+    private void drawActions(VBox vBox, Rectangle2D screenBounds) {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
         actions.setAlignment(Pos.CENTER);
@@ -377,11 +386,21 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(btn);
     }
 
-    private void drawPortalsAndActions(VBox vBox) {
+    /**
+     * Ez a függvény hívja meg a a portálok és akciók kirajzolását
+     * @param vBox
+     * @param screenBounds
+     */
+    private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {
         drawPortals(vBox);
-        drawActions(vBox);
+        drawActions(vBox, screenBounds);
     }
 
+    /**
+     * Ez a függvény rajzolja ki az settler aszteroidájának az információit
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds) {
         HBox detailContainer = new HBox(20);
         detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
@@ -409,6 +428,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
      *
      * @param root
+     * @param screenBounds
      */
     public void drawGUI(Group root, Rectangle2D screenBounds) {
         double width = 2 * screenBounds.getWidth() / 9;
@@ -426,7 +446,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
         drawSettlerInfo(mainContainer);
         drawInventory(mainContainer, screenBounds);
-        drawPortalsAndActions(mainContainer);
+        drawPortalsAndActions(mainContainer, screenBounds);
         drawAsteroidDetails(mainContainer, screenBounds);
 
         mainContainer.setPadding(new Insets(10, 10, 10, 10));

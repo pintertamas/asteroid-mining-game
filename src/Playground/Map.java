@@ -563,6 +563,11 @@ public class Map {
         shouldRunAnyMore = gameState == GameState.IN_PROGRESS;
     }
 
+    /**
+     * Ez a napraforgó alakzatban elrendezi az aszteroidákat
+     * @param asteroids
+     * @param screenBounds
+     */
     private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
         int nodes = asteroids.size(); //  example: n=500, alpha=2
         int alpha = 2;
@@ -580,6 +585,12 @@ public class Map {
         }
     }
 
+    /**
+     * Ez a függvény visszaadj a sugarat
+     * @param index
+     * @param nodes
+     * @param boundaryPoints
+     */
     private double radius(double index, int nodes, long boundaryPoints) {
         if (index > nodes - boundaryPoints)
             return 1; //put on the boundary
@@ -604,6 +615,9 @@ public class Map {
         }
     }
 
+    /**
+     * Ez a függvény kapcsolja össze az aszteroidákat, és rajzol közéjük vonalat
+     */
     public void connectNeighbors(Group root) {
         ArrayList<Asteroid> alreadyConnected = new ArrayList<>();
         for (Asteroid asteroid : this.asteroids) {
@@ -642,6 +656,9 @@ public class Map {
 
     boolean moving, goNorth, goSouth, goEast, goWest;
 
+    /**
+     * Ez a függvény felel a mozgásért
+     */
     public void handleMouseActions(Group root, Rectangle2D screenBounds) {
         int speed = 30;
 

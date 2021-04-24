@@ -141,11 +141,22 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawabl
         TestLogger.functionReturned(String.valueOf(roundFinished));
     }
 
+    /**
+     * //TODO
+     *
+     * @param root
+     * @param screeBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screeBounds) {
 
     }
 
+    /**
+     * Ezt a függvényt overrideoljuk a settler osztályban, ez felel a jobb oldali panel kirajzolásáért
+     *
+     * @param root
+     */
     public void drawGUI(Group root, Rectangle2D screenBounds) {
 
     }
