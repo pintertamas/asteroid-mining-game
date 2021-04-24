@@ -328,7 +328,8 @@ public class Asteroid implements IDrawable {
         TestLogger.functionCalled(this, "invokeFigures", "void");
         Figure f = pickNextFigure();
         if (this.getMap().shouldRun() && f != null) {
-            System.out.println(f + " is going to step now.");
+            if (UserIO.isConsole())
+                System.out.println(f + " is going to step now.");
             this.getMap().setCurrentFigure(f);
             f.step(root, screenBounds);
         }
@@ -413,7 +414,11 @@ public class Asteroid implements IDrawable {
      * Ez a függvény az aszeroida állapota alapján visszaad egy image-t
      */
     public String getImage() {
-        return this.layers > 0 ? "asteroids/rock.png" : this.isHollow ? "/asteroids/hollow.png" : this.material.getImagePath();
+        if(this.layers > 0)
+            return "asteroids/rock.png";
+        if(this.isHollow)
+            return "/asteroids/hollow.png";
+        else return this.material.getImagePath();
     }
 
     /**
@@ -453,7 +458,6 @@ public class Asteroid implements IDrawable {
             figure.draw(root, screenBounds);
     }
 
-    // ez csak a teszteléshez kell, mert így a settler is tud solarstormot generálni
     public Map getMap() {
         return this.map;
     }

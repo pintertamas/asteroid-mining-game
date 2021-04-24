@@ -1,6 +1,5 @@
 package Controllers;
 
-import Entities.Settler;
 import Interfaces.IGameState;
 import Playground.GameState;
 import Playground.Map;
@@ -11,9 +10,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -21,6 +17,16 @@ import java.util.UUID;
 
 public class Game implements IGameState {
     private GameState gameState = GameState.LOAD;
+    /*private Group asteroidGroup, figureGroup, portalGroup;
+    boolean asteroidsWereMoved = true;
+    boolean figureMoved = true;
+    boolean portalMoved = true;*/
+
+    public Game() {
+        /*asteroidGroup = new Group();
+        figureGroup = new Group();
+        portalGroup = new Group();*/
+    }
 
     /**
      * Setter a GameState megváltoztatásához
@@ -40,7 +46,7 @@ public class Game implements IGameState {
      */
     public void run(Group root, GraphicsContext gc, Rectangle2D screenBounds, Map map) {
         boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
-        //Controllers.MainMenu menu = new Controllers.MainMenu();
+
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
         new AnimationTimer() {
             @Override
@@ -58,8 +64,8 @@ public class Game implements IGameState {
                     }
                     case IN_PROGRESS -> {
                         root.getChildren().removeIf((o) -> root.getChildren().indexOf(o) != 0);
-                        System.out.println("ast count:" + map.getAsteroids().size());
-                        System.out.println("root size:" + root.getChildren().size());
+                        //System.out.println("ast count:" + map.getAsteroids().size());
+                        //System.out.println("root size:" + root.getChildren().size());
                         if (!(shouldCheckGameEnd && map.checkGameEnd())) {
                             try {
                                 inProgress(root, screenBounds, map);
@@ -203,7 +209,8 @@ public class Game implements IGameState {
         map.reset();
         map.setupRound(root, screenBounds);
         if (map.shouldRun())
-            System.out.println("\n---------ROUND ENDED----------\n");
+            if (UserIO.isConsole())
+                System.out.println("\n---------ROUND ENDED----------\n");
     }
 
 

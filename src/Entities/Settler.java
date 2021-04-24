@@ -8,10 +8,18 @@ import Materials.*;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -170,8 +178,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void
-    buildRobot() {
+    public void buildRobot() {
         TestLogger.functionCalled(this, "robot", "void");
         BillOfRobot billOfRobot = new BillOfRobot();
 
@@ -300,10 +307,6 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionReturned();
     }
 
-    /**
-     * Ez a függvény rajzolja ki a settler id-ját
-     * @param vBox
-     */
     private void drawSettlerInfo(VBox vBox) {
         GridPane grid = new GridPane();
         grid.setHgap(20);
@@ -316,11 +319,6 @@ public class Settler extends Figure implements IMine, IDrill {
         vBox.getChildren().add(grid);
     }
 
-    /**
-     * Ez a függvény rajzolja ki a settler inventoryjában található nyersanyagokat
-     * @param vBox
-     * @param screenBounds
-     */
     private void drawInventory(VBox vBox, Rectangle2D screenBounds) {
         GridPane grid = new GridPane();
         grid.setHgap(20);
@@ -347,7 +345,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @param vBox
      */
     private void drawPortals(VBox vBox) {
-        HBox portalBox = new HBox();
+        HBox portalBox = new HBox(20);
         portalBox.setAlignment(Pos.CENTER);
         portalBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
 
@@ -356,13 +354,16 @@ public class Settler extends Figure implements IMine, IDrill {
         grid.setVgap(20);
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
 
         ImageView portalImage = DrawFunctions.image("/portal.png", 100);
         portalBox.getChildren().add(portalImage);
 
         Text text = DrawFunctions.text("No. Portals: " + this.inventory.getPortals().size(), 20);
         portalBox.getChildren().add(text);
-        vBox.getChildren().add(portalBox);
+
+        grid.getChildren().add(portalBox);
+        vBox.getChildren().add(grid);
     }
 
     /**
@@ -375,10 +376,18 @@ public class Settler extends Figure implements IMine, IDrill {
         actions.setHgap(10);
         actions.setAlignment(Pos.CENTER);
         actions.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(70.0), Insets.EMPTY)));
+
+        String[] moves = {"Move", "MoveThroughPortal"};
+        Button btn = new Button();
+        btn.setText("asd");
+        vBox.addEventHandler(EventType.ROOT, event -> {
+            System.out.println("asd");
+        });
+        vBox.getChildren().add(btn);
     }
 
     /**
-     * Ez a függvény hívja meg a portálok és akciók kirajzolását
+     * Ez a függvény hívja meg a a portálok és akciók kirajzolását
      * @param vBox
      * @param screenBounds
      */

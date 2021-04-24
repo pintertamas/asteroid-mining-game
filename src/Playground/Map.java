@@ -643,19 +643,15 @@ public class Map {
      * Felrajzolja az egész térképet
      *
      * @param root
-     * @param screenBounds
+     * @param screenBounds//TODO
      */
     public void drawWholeMap(Group root, Rectangle2D screenBounds) {
-        //int counter = 0;
-        //System.out.println(asteroids.size());
         connectNeighbors(root);
         for (Asteroid asteroid : this.asteroids) {
             if (asteroid.getPosition().isInside(screenBounds)) {
                 asteroid.refresh(root, screenBounds);
-                //counter++;
             }
         }
-        //System.out.println(counter);
     }
 
     boolean moving, goNorth, goSouth, goEast, goWest;
@@ -667,6 +663,7 @@ public class Map {
         int speed = 30;
 
         root.getScene().setOnKeyPressed(event -> {
+            //System.out.println(event.toString());
             switch (event.getCode()) {
                 case UP:
                     goNorth = true;

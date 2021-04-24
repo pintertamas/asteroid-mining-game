@@ -19,6 +19,7 @@ public class DrawFunctions {
      * @param imgSize
      */
     public static ImageView image(String imgPath, double... imgSize) {
+        assert imgSize.length > 0;
         assert imgSize.length <= 2;
         Image image;
         if (imgSize.length == 1) image = new Image(imgPath, imgSize[0], imgSize[0], true, true);
