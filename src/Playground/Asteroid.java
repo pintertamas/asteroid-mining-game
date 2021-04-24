@@ -440,6 +440,11 @@ public class Asteroid implements IDrawable {
         this.position.move(new Drawable(x, y));
     }
 
+    /**
+     * Ez a függvény frissíti a portálokat és figurákat
+     * @param root
+     * @param screenBounds
+     */
     public void refresh(Group root, Rectangle2D screenBounds) {
         this.draw(root, screenBounds);
         for (Portal portal : this.portals)

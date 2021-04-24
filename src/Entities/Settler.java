@@ -317,7 +317,7 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     /**
-     * Ez a függvény rajzolja ki a settler inventoryjában található nyersanyagoakt
+     * Ez a függvény rajzolja ki a settler inventoryjában található nyersanyagokat
      * @param vBox
      * @param screenBounds
      */
@@ -378,7 +378,7 @@ public class Settler extends Figure implements IMine, IDrill {
     }
 
     /**
-     * Ez a függvény hívja meg a a portálok és akciók kirajzolását
+     * Ez a függvény hívja meg a portálok és akciók kirajzolását
      * @param vBox
      * @param screenBounds
      */
