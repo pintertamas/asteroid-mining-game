@@ -12,8 +12,8 @@ public class UserIO {
     private static Scanner scanner;
     private static boolean showInput = false;
     private static boolean readFromFile = false;
-    private static boolean checkIfWinnable = false;
-    private static boolean isAutomatic = false;
+    private static boolean checkIfWinnable = true;
+    private static boolean isAutomatic = true;
     private static String path = "";
     private static final ArrayList<String> currentLine = new ArrayList<>();
     private static final ArrayList<String> temporaryInput = new ArrayList<>();

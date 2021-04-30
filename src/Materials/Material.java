@@ -2,6 +2,7 @@ package Materials;
 import Entities.Settler;
 import Playground.Asteroid;
 import Test.TestLogger;
+import Views.MaterialView;
 
 /**
  * Nyersanyag osztály.
@@ -10,7 +11,11 @@ import Test.TestLogger;
 public abstract class Material {
     private Asteroid asteroid;
     private int nearSunCount;
-    protected String imagePath;
+    protected MaterialView materialView = new MaterialView(this);
+
+    public MaterialView getMaterialView() {
+        return materialView;
+    }
 
     /**
      * Az utolsó réteg lefúrása után a nyersanyag reakciója a napközelség függvényében.
@@ -70,9 +75,5 @@ public abstract class Material {
      */
     public void setNearSunCount(int nearSunCount) {
         this.nearSunCount = nearSunCount;
-    }
-
-    public String getImagePath() {
-        return imagePath;
     }
 }

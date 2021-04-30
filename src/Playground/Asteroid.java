@@ -1,34 +1,24 @@
 package Playground;
 
-import Controllers.DrawFunctions;
+import Controllers.Map;
 import Entities.Figure;
 import Entities.Settler;
-import Interfaces.IDrawable;
 import Materials.Material;
 import Test.TestLogger;
 import Test.UserIO;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
+import Views.AsteroidView;
 import javafx.geometry.Rectangle2D;
 import Maths.Drawable;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Aszteroida osztály.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class Asteroid implements IDrawable {
+public class Asteroid {
     private Drawable position = new Drawable();
     private Map map;
     private final ArrayList<Asteroid> neighbors;
@@ -39,6 +29,8 @@ public class Asteroid implements IDrawable {
     int layers;
     final boolean isNearSun;
     boolean isHollow;
+
+    private AsteroidView asteroidView;
 
     /**
      * Konstruktor.
@@ -61,6 +53,7 @@ public class Asteroid implements IDrawable {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
+        this.asteroidView = new AsteroidView(this);
         TestLogger.functionReturned();
     }
 
@@ -83,6 +76,7 @@ public class Asteroid implements IDrawable {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
+        this.asteroidView = new AsteroidView(this);
         TestLogger.functionReturned();
     }
 
@@ -330,7 +324,6 @@ public class Asteroid implements IDrawable {
         if (this.getMap().shouldRun() && f != null) {
             if (UserIO.isConsole())
                 System.out.println(f + " is going to step now.");
-            this.getMap().setCurrentFigure(f);
             f.step(root, screenBounds);
         }
         TestLogger.functionReturned();
@@ -382,16 +375,13 @@ public class Asteroid implements IDrawable {
     }
 
     /**
-     * bu
-     * Kezeli a figurákat napviharban.
+     * Ez a függvény frissíti az aktuális  pozíciót
+     *
+     * @param x
+     * @param y
      */
-    @SuppressWarnings("SpellCheckingInspection")
-    public void handleFigures() {
-        TestLogger.functionCalled(this, "handleFigures", "void");
-        assert (!isHollow);
-        for (int i = 0; i < figures.size(); i++)
-            figures.get(i).die();
-        TestLogger.functionReturned();
+    public void updatePosition(float x, float y) {
+        this.position.move(new Drawable(x, y));
     }
 
     /**
@@ -411,51 +401,15 @@ public class Asteroid implements IDrawable {
     }
 
     /**
-     * Ez a függvény az aszeroida állapota alapján visszaad egy image-t
+     * Kezeli a figurákat napviharban.
      */
-    public String getImage() {
-        if(this.layers > 0)
-            return "asteroids/rock.png";
-        if(this.isHollow)
-            return "/asteroids/hollow.png";
-        else return this.material.getImagePath();
-    }
-
-    /**
-     * Ez a függvény rajzolja ki az aszteroidákat
-     * @param root
-     * @param screenBounds
-     */
-    public void draw(Group root, Rectangle2D screenBounds) {
-        if (getPosition().isInside(screenBounds)) {
-            String img = getImage();
-            ImageView imageView = DrawFunctions.image(img, this.position.getSize());
-            imageView.setX(this.position.getX());
-            imageView.setY(this.position.getY());
-            root.getChildren().add(imageView);
-        }
-    }
-
-    /**
-     * Ez a függvény frissíti az aktuális  pozíciót
-     * @param x
-     * @param y
-     */
-    public void updatePosition(float x, float y) {
-        this.position.move(new Drawable(x, y));
-    }
-
-    /**
-     * Ez a függvény frissíti a portálokat és figurákat
-     * @param root
-     * @param screenBounds
-     */
-    public void refresh(Group root, Rectangle2D screenBounds) {
-        this.draw(root, screenBounds);
-        for (Portal portal : this.portals)
-            portal.draw(root, screenBounds);
-        for (Figure figure : this.figures)
-            figure.draw(root, screenBounds);
+    @SuppressWarnings("SpellCheckingInspection")
+    public void handleFigures() {
+        TestLogger.functionCalled(this, "handleFigures", "void");
+        assert (!isHollow);
+        for (int i = 0; i < figures.size(); i++)
+            figures.get(i).die();
+        TestLogger.functionReturned();
     }
 
     public Map getMap() {

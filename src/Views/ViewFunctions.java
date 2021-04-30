@@ -1,4 +1,4 @@
-package Controllers;
+package Views;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 /**
  * Ez az osztály valósítja meg a képek és a text-ek létrehozását függvényeken kereszül
  */
-public class DrawFunctions {
+public class ViewFunctions {
 
     /**
      * Egy kép létrehozásáért felel egy méret és egy kép elérési út alapján

@@ -13,7 +13,7 @@ import java.io.IOException;
  * ISteppable, IPortalMove, IMove.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawable {
+public abstract class Figure implements ISteppable, IPortalMove, IMove {
     protected Asteroid asteroid;
     protected boolean roundFinished;
     protected String imagePath;
@@ -139,25 +139,5 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrawabl
         TestLogger.functionCalled(this, "setRoundFinished", "boolean roundFinished", "void");
         this.roundFinished = roundFinished;
         TestLogger.functionReturned(String.valueOf(roundFinished));
-    }
-
-    /**
-     * //TODO
-     *
-     * @param root
-     * @param screeBounds
-     */
-    @Override
-    public void draw(Group root, Rectangle2D screeBounds) {
-
-    }
-
-    /**
-     * Ezt a függvényt overrideoljuk a settler osztályban, ez felel a jobb oldali panel kirajzolásáért
-     *
-     * @param root
-     */
-    public void drawGUI(Group root, Rectangle2D screenBounds) {
-
     }
 }

@@ -1,29 +1,14 @@
 package Entities;
 
 import Bills.*;
-import Controllers.DrawFunctions;
 import Interfaces.IDrill;
 import Interfaces.IMine;
 import Materials.*;
 import Playground.*;
 import Test.TestLogger;
 import Test.UserIO;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -305,152 +290,6 @@ public class Settler extends Figure implements IMine, IDrill {
         TestLogger.functionCalled(this, "onExplosion", "void");
         this.die();
         TestLogger.functionReturned();
-    }
-
-    private void drawSettlerInfo(VBox vBox) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        Text text = DrawFunctions.text("Current settler:\n" + this, 15);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
-    }
-
-    private void drawInventory(VBox vBox, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        Text text = DrawFunctions.text("\nInventory\n", 15);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
-
-        FlowPane inventory = new FlowPane();
-        inventory.setAlignment(Pos.CENTER);
-        inventory.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
-        for (Material material : this.inventory.getMaterials()) {
-            double imgSize = screenBounds.getWidth() / 30;
-            ImageView imageView = DrawFunctions.image(material.getImagePath(), imgSize);
-            inventory.getChildren().add(imageView);
-        }
-        vBox.getChildren().add(inventory);
-    }
-
-    /**
-     * Ez a függvény rajzolja ki a settler inventoryjában található portálokat
-     * @param vBox
-     */
-    private void drawPortals(VBox vBox) {
-        HBox portalBox = new HBox(20);
-        portalBox.setAlignment(Pos.CENTER);
-        portalBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(20);
-        grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-
-        ImageView portalImage = DrawFunctions.image("/portal.png", 100);
-        portalBox.getChildren().add(portalImage);
-
-        Text text = DrawFunctions.text("No. Portals: " + this.inventory.getPortals().size(), 20);
-        portalBox.getChildren().add(text);
-
-        grid.getChildren().add(portalBox);
-        vBox.getChildren().add(grid);
-    }
-
-    /**
-     * Ez a függvény rajzolja ki a buttonoket amikre kattintva akciókat tudunk elindítani
-     * @param vBox
-     * @param screenBounds
-     */
-    private void drawActions(VBox vBox, Rectangle2D screenBounds) {
-        FlowPane actions = new FlowPane();
-        actions.setHgap(10);
-        actions.setAlignment(Pos.CENTER);
-        actions.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(70.0), Insets.EMPTY)));
-
-        String[] moves = {"Move", "MoveThroughPortal"};
-        Button btn = new Button();
-        btn.setText("asd");
-        vBox.addEventHandler(EventType.ROOT, event -> {
-            System.out.println("asd");
-        });
-    }
-
-    /**
-     * Ez a függvény hívja meg a a portálok és akciók kirajzolását
-     * @param vBox
-     * @param screenBounds
-     */
-    private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {
-        drawPortals(vBox);
-        drawActions(vBox, screenBounds);
-    }
-
-    /**
-     * Ez a függvény rajzolja ki az settler aszteroidájának az információit
-     * @param vBox
-     * @param screenBounds
-     */
-    private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds) {
-        HBox detailContainer = new HBox(20);
-        detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
-
-        double imgSize = screenBounds.getWidth() / 10;
-        String imgPath = this.getAsteroid().getImage();
-        ImageView imageView = DrawFunctions.image(imgPath, imgSize);
-
-        detailContainer.getChildren().add(imageView);
-
-        VBox details = new VBox(10);
-        details.setAlignment(Pos.CENTER_LEFT);
-        Text asteroidName = DrawFunctions.text("Asteroid ID:\n" + this.getAsteroid().toString().replace("Playground.Asteroid@", ""), 15);
-        Text asteroidLayers = DrawFunctions.text("Layers: " + this.getAsteroid().getLayers(), 15);
-        Text asteroidCore = DrawFunctions.text("Material:\n" + this.getAsteroid().getMaterial().toString().replace("Materials.", ""), 15);
-
-        details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore);
-
-        detailContainer.getChildren().add(details);
-
-        vBox.getChildren().add(detailContainer);
-    }
-
-    /**
-     * Kirajzolja a telepes inventoriját, lehetséges lépéseit és az aszteroidájának az adatait
-     *
-     * @param root
-     * @param screenBounds
-     */
-    public void drawGUI(Group root, Rectangle2D screenBounds) {
-        double width = 2 * screenBounds.getWidth() / 9;
-        double height = screenBounds.getHeight();
-        double posX = 7 * screenBounds.getWidth() / 9;
-        double posY = 0;
-
-        VBox mainContainer = new VBox(20);
-        mainContainer.setAlignment(Pos.CENTER);
-        mainContainer.setLayoutX(posX);
-        mainContainer.setLayoutY(posY);
-        mainContainer.setPrefWidth(width);
-        mainContainer.setPrefHeight(height);
-        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
-
-        drawSettlerInfo(mainContainer);
-        drawInventory(mainContainer, screenBounds);
-        drawPortalsAndActions(mainContainer, screenBounds);
-        drawAsteroidDetails(mainContainer, screenBounds);
-
-        mainContainer.setPadding(new Insets(10, 10, 10, 10));
-
-        root.getChildren().add(mainContainer);
     }
 
     /**

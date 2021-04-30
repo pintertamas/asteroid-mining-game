@@ -1,5 +1,6 @@
 package Test;
 
+import Controllers.Map;
 import Entities.*;
 import Materials.*;
 import Playground.*;

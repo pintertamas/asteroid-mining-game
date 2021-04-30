@@ -1,4 +1,4 @@
-package Controllers;
+package Views;
 
 public class MainMenu {
 

@@ -1,11 +1,9 @@
 package Playground;
 
-import Interfaces.IDrawable;
 import Interfaces.IMove;
 import Test.TestLogger;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -15,7 +13,7 @@ import java.util.Random;
  * Megvalósítja az IMove interfészt a napviharok miatt.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class Portal implements IMove, IDrawable {
+public class Portal implements IMove {
     private Portal pair;
     private Asteroid asteroid;
 
@@ -79,10 +77,5 @@ public class Portal implements IMove, IDrawable {
         this.asteroid.removePortal(this);
         this.asteroid = nextAsteroid;
         this.asteroid.addPortal(this);
-    }
-
-    @Override
-    public void draw(Group root, Rectangle2D screenBounds) {
-
     }
 }

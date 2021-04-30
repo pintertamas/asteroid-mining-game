@@ -1,5 +1,4 @@
-import Controllers.Game;
-import Playground.Map;
+import Controllers.Controller;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -24,9 +23,11 @@ public class Main extends Application {
         primaryStage.setY(screenBounds.getMinY());
         primaryStage.setWidth(screenWidth);
         primaryStage.setHeight(screenHeight);
+        primaryStage.setMaximized(true);
         Group root = new Group();
         Canvas canvas = new Canvas(screenWidth, screenHeight);
         root.getChildren().add(canvas);
+
         Scene scene = new Scene(root);
         primaryStage.setTitle("Asteroid Mining Controllers.Game");
         primaryStage.setScene(scene);
@@ -34,9 +35,10 @@ public class Main extends Application {
         primaryStage.show();
         scene.getStylesheets().add("style.css");
         root.getStylesheets().addAll("style.css");
+
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Game game = new Game();
-        game.run(root, gc, screenBounds, new Map());
+        Controller controller = new Controller();
+        controller.getGame().run(root, gc, screenBounds);
     }
 
     /**

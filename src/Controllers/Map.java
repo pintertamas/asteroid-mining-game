@@ -1,4 +1,4 @@
-package Playground;
+package Controllers;
 
 import Bills.*;
 import Entities.Figure;
@@ -8,6 +8,9 @@ import Entities.Ufo;
 import Interfaces.IGameState;
 import Materials.*;
 import Maths.Drawable;
+import Playground.Asteroid;
+import Playground.GameState;
+import Playground.Portal;
 import Test.TestLogger;
 import Test.UserIO;
 import javafx.geometry.Rectangle2D;
@@ -27,7 +30,6 @@ public class Map {
     private final ArrayList<Asteroid> asteroids;
     private final ArrayList<IGameState> listeners = new ArrayList<>();
     private boolean shouldRunAnyMore = true;
-    private Figure currentFigure;
 
     /**
      * Konstruktor
@@ -35,14 +37,6 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
         this.asteroids = new ArrayList<>();
-    }
-
-    public Figure getCurrentFigure() {
-        return currentFigure;
-    }
-
-    public void setCurrentFigure(Figure currentFigure) {
-        this.currentFigure = currentFigure;
     }
 
     /**
@@ -328,7 +322,7 @@ public class Map {
 
             placeAsteroids(screenBounds);
 
-            double threshold = screenBounds.getWidth() / 2;
+            double threshold = screenBounds.getWidth() / 3;
 
             for (Asteroid asteroid : this.asteroids) {
                 for (Asteroid possibleNeighbor : this.asteroids) {
@@ -357,7 +351,7 @@ public class Map {
         TestLogger.functionCalled(this, "solarStorm", "void");
         if (UserIO.isAutomatic() && asteroid.length == 0) {
             for (Asteroid a : drawSolarArea()) {
-                if (!a.isHollow || a.layers != 0) {
+                if (!a.isHollow() || a.getLayers() != 0) {
                     a.handleFigures();
                 }
                 for (Portal portal : a.getPortals())
@@ -366,7 +360,7 @@ public class Map {
         } else {
             System.out.println("Solar storm will be generated on your asteroid!");
             for (Asteroid a : drawSolarArea(asteroid)) {
-                if (!a.isHollow || a.layers != 0) {
+                if (!a.isHollow() || a.getLayers() != 0) {
                     a.handleFigures();
                 }
                 for (Portal portal : a.getPortals())
@@ -426,7 +420,7 @@ public class Map {
         for (Asteroid asteroid : asteroids) {
             for (Figure f : asteroid.getFigures())
                 allMaterials.addAll(f.getInventory().getMaterials());
-            if (!asteroid.isHollow && asteroid.getNeighbors().size() > 0)
+            if (!asteroid.isHollow() && asteroid.getNeighbors().size() > 0)
                 allMaterials.add(asteroid.getMaterial());
         }
         boolean hasAll = new BillOfBase().hasEnoughMaterials(allMaterials);
@@ -570,7 +564,7 @@ public class Map {
      */
     private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
         int nodes = asteroids.size(); //  example: n=500, alpha=2
-        int alpha = 2;
+        int alpha = 1;
         long boundaryPoints = Math.round(alpha * Math.sqrt(nodes)); //number of boundary points
         double phi = (Math.sqrt(5) + 1) / 2; //golden ratio
         for (double k = 0; k < nodes; k++) {
@@ -580,7 +574,7 @@ public class Map {
             double yPos = r * Math.sin(theta);
             //double points = nodes / Math.PI / 4.0; // ha jól számoltam akkor ez a sugáron elhelyezkedő aszteroidák száma lesz, minél több van rajta, annál inkább kellene szétnyújtani az egészet
             double gapMultiplier = 2.5; //TODO ezt meg kell változtatni, hogy bármennyi azsteroidára kb ugyan akkora legyen a távolság a széthúzás után
-            Drawable newPoint = new Drawable(xPos * screenBounds.getWidth() * gapMultiplier, yPos * screenBounds.getHeight() * gapMultiplier);
+            Drawable newPoint = new Drawable(xPos * screenBounds.getHeight() * gapMultiplier, yPos * screenBounds.getHeight() * gapMultiplier);
             asteroids.get((int) k).setPosition(newPoint);
         }
     }
@@ -603,114 +597,6 @@ public class Map {
      */
     public void placeAsteroids(Rectangle2D screenBounds) {
         sunflower(asteroids, screenBounds);
-    }
-
-    /**
-     * Elmozgat egy irányban minden aszteroidát
-     */
-    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float x, float y) {
-        for (Asteroid a : asteroids) {
-            a.updatePosition(x, y);
-            a.refresh(root, screenBounds);
-        }
-    }
-
-    /**
-     * Ez a függvény kapcsolja össze az aszteroidákat, és rajzol közéjük vonalat
-     */
-    public void connectNeighbors(Group root) {
-        ArrayList<Asteroid> alreadyConnected = new ArrayList<>();
-        for (Asteroid asteroid : this.asteroids) {
-            for (Asteroid neighbor : asteroid.getNeighbors()) {
-                if (alreadyConnected.contains(neighbor)) {
-                    continue;
-                }
-                double offset = neighbor.getPosition().getSize() / 2;
-                double offset2 = asteroid.getPosition().getSize() / 2;
-                Line line = new Line();
-                line.setStartX(neighbor.getPosition().getX() + offset);
-                line.setStartY(neighbor.getPosition().getY() + offset);
-                line.setEndX(asteroid.getPosition().getX() + offset2);
-                line.setEndY(asteroid.getPosition().getY() + offset2);
-                line.setStroke(Color.WHITE);
-                root.getChildren().add(line);
-            }
-            alreadyConnected.add(asteroid);
-        }
-    }
-
-    /**
-     * Felrajzolja az egész térképet
-     *
-     * @param root
-     * @param screenBounds//TODO
-     */
-    public void drawWholeMap(Group root, Rectangle2D screenBounds) {
-        for (Asteroid asteroid : this.asteroids) {
-            if (asteroid.getPosition().isInside(screenBounds)) {
-                asteroid.refresh(root, screenBounds);
-            }
-        }
-    }
-
-    boolean moving, goNorth, goSouth, goEast, goWest;
-
-    /**
-     * Ez a függvény felel a mozgásért
-     */
-    public void handleMouseActions(Group root, Rectangle2D screenBounds) {
-        int speed = 30;
-
-        root.getScene().setOnKeyPressed(event -> {
-            //System.out.println(event.toString());
-            switch (event.getCode()) {
-                case UP:
-                    goNorth = true;
-                    break;
-                case DOWN:
-                    goSouth = true;
-                    break;
-                case LEFT:
-                    goWest = true;
-                    break;
-                case RIGHT:
-                    goEast = true;
-                    break;
-                case SHIFT:
-                    moving = true;
-                    break;
-            }
-        });
-
-        root.getScene().setOnKeyReleased(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    goNorth = false;
-                    break;
-                case DOWN:
-                    goSouth = false;
-                    break;
-                case LEFT:
-                    goWest = false;
-                    break;
-                case RIGHT:
-                    goEast = false;
-                    break;
-                case SHIFT:
-                    moving = false;
-                    break;
-            }
-        });
-
-        int dx = 0, dy = 0;
-
-        if (goNorth) dy += speed;
-        if (goSouth) dy -= speed;
-        if (goEast) dx -= speed;
-        if (goWest) dx += speed;
-
-        moveAllAsteroids(root, screenBounds, dx, dy);
-        drawWholeMap(root, screenBounds);
     }
 }
 

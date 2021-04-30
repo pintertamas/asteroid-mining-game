@@ -1,4 +1,4 @@
-package Controllers;
+package Test;
 
 import Test.Test;
 import Test.TestLogger;

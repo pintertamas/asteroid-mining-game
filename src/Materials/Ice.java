@@ -9,10 +9,6 @@ import Test.UserIO;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Ice extends Material {
-    public Ice() {
-        imagePath = "/asteroids/ice.png";
-    }
-
     /**
      * Az utolsó réteg lefúrása után, ha napközelben van az aszteroida, a jég elolvad, eltűnik.
      */
