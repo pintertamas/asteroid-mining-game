@@ -2,16 +2,10 @@ package Controllers;
 
 import Interfaces.IGameState;
 import Playground.GameState;
-import Test.TestLogger;
-import Test.UserIO;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.canvas.GraphicsContext;
-
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.UUID;
 
 public class Game implements IGameState {
     private GameState gameState = GameState.LOAD;
@@ -40,7 +34,6 @@ public class Game implements IGameState {
      * @param screenBounds
      */
     public void run(Group root, GraphicsContext gc, Rectangle2D screenBounds) {
-        boolean shouldCheckGameEnd = UserIO.checkIfWinnable();
         controller.getMap().addStateListener(this);
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
         new AnimationTimer() {
@@ -53,24 +46,16 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                     }
                     case IN_PROGRESS -> {
-                        if (!(shouldCheckGameEnd && controller.getMap().checkGameEnd())) {
-                            controller.getMap().reset();
-                            try {
-                                controller.getMap().setupRound(root, screenBounds);
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+                        if (!controller.getMap().checkGameEnd()) {
+                            controller.getMap().resetRound();
+                            controller.getMap().setupRound(root, screenBounds);
                         }
                     }
                     case LOST -> {
-                        map.gameEnd(false);
-                        if (UserIO.readFromFile())
-                            UserIO.closeFile();
+                        controller.getMap().gameEnd(false);
                     }
                     case WON -> {
-                        map.gameEnd(true);
-                        if (UserIO.readFromFile())
-                            UserIO.closeFile();
+                        controller.getMap().gameEnd(true);
                     }
                 }
             }

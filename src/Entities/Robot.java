@@ -1,9 +1,7 @@
 package Entities;
 import Playground.Asteroid;
-import Test.TestLogger;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,12 +31,10 @@ public class Robot extends Figure {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void move() {
-        TestLogger.functionCalled(this, "move", "void");
         Asteroid a = chooseNextDestination();
         //if the current asteroid has no neighbors the robot can't move
         if(a == null){
             System.out.println("Robot move NOT done, no neighbors");
-            TestLogger.functionReturned();
             this.setRoundFinished(true);
             return;
         }
@@ -47,7 +43,6 @@ public class Robot extends Figure {
         a.addFigure(this);
         this.setRoundFinished(true);
         System.out.println("Robot move done");
-        TestLogger.functionReturned();
     }
 
     /**
@@ -56,9 +51,7 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void onExplosion() {
-        TestLogger.functionCalled(this, "onExplosion", "void");
         this.move();
-        TestLogger.functionReturned();
     }
 
     /**
@@ -68,7 +61,6 @@ public class Robot extends Figure {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Asteroid chooseNextDestination() {
-        TestLogger.functionCalled(this, "chooseNextDestination", "Asteroid");
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
         if (neighbors.size() == 0) {
             return null;
@@ -77,7 +69,6 @@ public class Robot extends Figure {
         Random rand = new Random();
         nextDestination = rand.nextInt(neighbors.size());
         Asteroid nextAsteroid = neighbors.get(nextDestination);
-        TestLogger.functionReturned(nextAsteroid.toString());
         return nextAsteroid;
     }
 
@@ -96,13 +87,11 @@ public class Robot extends Figure {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void step(Group root, Rectangle2D screenBounds) {
-        TestLogger.functionCalled(this, "step", "void");
         if(this.asteroid.getLayers() == 0) {
             move();
         }
         else {
             drill();
         }
-        TestLogger.functionReturned();
     }
 }

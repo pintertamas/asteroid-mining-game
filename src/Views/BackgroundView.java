@@ -64,7 +64,7 @@ public class BackgroundView extends View {
 
     public void draw(Group root, Rectangle2D screenBounds) {
         String img = "/background.png";
-        ImageView imageView = ViewFunctions.image(img, screenBounds.getHeight());
+        ImageView imageView = ViewFunctions.image(img, screenBounds.getWidth());
         imageView.setX(0);
         imageView.setY(0);
 

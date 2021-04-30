@@ -1,12 +1,8 @@
 package Entities;
 import Interfaces.*;
 import Playground.*;
-import Test.TestLogger;
-import Test.UserIO;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-
-import java.io.IOException;
 
 /**
  * Figura absztrakt osztály, amely megvalósítja a következő interfészeket:
@@ -59,7 +55,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      * Lépés.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public abstract void step(Group root, Rectangle2D screenBounds) throws IOException;
+    public abstract void step(Group root, Rectangle2D screenBounds);
 
     /**
      * Visszaadja, hogy az adott figura körének vége van-e már.
@@ -76,13 +72,10 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean drill() {
-        TestLogger.functionCalled(this, "drill", "boolean");
         if (asteroid.drilled()) {
             setRoundFinished(true);
-            TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
-        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 
@@ -97,14 +90,10 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void die() {
-        TestLogger.functionCalled(this, "die", "void");
         System.out.println(this + " died");
         String figureName = this.getClass().getName().replace("Entities.", "");
-        UserIO.addToTemporaryOutput(figureName + "Died");
-        UserIO.addToResultOutput();
         asteroid.removeFigure(this);
         this.asteroid = null;
-        TestLogger.functionReturned();
     }
 
     /**
@@ -124,9 +113,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setAsteroid(Asteroid asteroid) {
-        TestLogger.functionCalled(this, "setAsteroid", "Playground.Asteroid asteroid", "void");
         this.asteroid = asteroid;
-        TestLogger.functionReturned();
     }
 
     /**
@@ -136,8 +123,6 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setRoundFinished(boolean roundFinished) {
-        TestLogger.functionCalled(this, "setRoundFinished", "boolean roundFinished", "void");
         this.roundFinished = roundFinished;
-        TestLogger.functionReturned(String.valueOf(roundFinished));
     }
 }

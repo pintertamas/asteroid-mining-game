@@ -1,9 +1,6 @@
 package Playground;
 
 import Interfaces.IMove;
-import Test.TestLogger;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Group;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -34,9 +31,7 @@ public class Portal implements IMove {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setPair(Portal pair) {
-        TestLogger.functionCalled(this, "setPair", "Playground.Portal pair", "void");
         this.pair = pair;
-        TestLogger.functionReturned();
     }
 
     /**

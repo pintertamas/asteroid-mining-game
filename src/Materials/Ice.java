@@ -1,8 +1,5 @@
 package Materials;
 
-import Test.TestLogger;
-import Test.UserIO;
-
 /**
  * Vízjég osztály.
  * A Material osztály leszármazottja.
@@ -15,10 +12,7 @@ public class Ice extends Material {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void readyToMine() {
-        TestLogger.functionCalled(this, "readyToMine", "void");
-        UserIO.addToTemporaryOutput("iceMelted");
         System.out.println("Ice sublimated");
         getAsteroid().setIsHollow(true);
-        TestLogger.functionReturned();
     }
 }

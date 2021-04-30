@@ -1,7 +1,6 @@
 package Playground;
 
 import Materials.Material;
-import Test.TestLogger;
 
 import java.util.ArrayList;
 
@@ -33,8 +32,6 @@ public class Inventory {
      */
     @SuppressWarnings("SpellCheckingInspection")
     private boolean isMaterialInventoryFull() {
-        TestLogger.functionCalled(this, "isMaterialInventoryFull", "boolean");
-        TestLogger.functionReturned(String.valueOf(materials.size() >= materialCapacity));
         return materials.size() >= materialCapacity;
     }
 
@@ -45,11 +42,9 @@ public class Inventory {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void addMaterial(Material m) {
-        TestLogger.functionCalled(this, "addMaterial", "Materials.Material m", "void");
         if (!isMaterialInventoryFull()) {
             materials.add(m);
         }
-        TestLogger.functionReturned();
     }
 
     /**
@@ -59,12 +54,10 @@ public class Inventory {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void removeMaterial(Material m) {
-        TestLogger.functionCalled(this, "removeMaterial", "Materials.Material m", "void");
         for (int i = 0; i < materials.size(); i++) {
             if (materials.get(i).equals(m))
                 materials.remove(m);
         }
-        TestLogger.functionReturned();
     }
 
     /**
@@ -74,9 +67,7 @@ public class Inventory {
      */
     @SuppressWarnings("SpellCheckingInspection")
     private boolean isPortalInventoryFull() {
-        TestLogger.functionCalled(this, "isPortalInventoryFull", "boolean");
         int itemCount = portals.size();
-        TestLogger.functionReturned(String.valueOf(itemCount >= portalCapacity));
         return itemCount >= portalCapacity;
     }
 
@@ -87,10 +78,8 @@ public class Inventory {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void addPortal(Portal p) {
-        TestLogger.functionCalled(this, "addPortal", "Playground.Portal p", "void");
         if (!isPortalInventoryFull())
             portals.add(p);
-        TestLogger.functionReturned();
     }
 
     /**
@@ -100,10 +89,8 @@ public class Inventory {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void removePortal(Portal p) {
-        TestLogger.functionCalled(this, "removePortal", "Playground.Portal p", "void");
         if (portals.size() != 0 && p != null)
             portals.remove(p);
-        TestLogger.functionReturned();
     }
 
     /**

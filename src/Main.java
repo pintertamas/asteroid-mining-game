@@ -37,7 +37,7 @@ public class Main extends Application {
         root.getStylesheets().addAll("style.css");
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Controller controller = new Controller();
+        Controller controller = new Controller(root);
         controller.getGame().run(root, gc, screenBounds);
     }
 

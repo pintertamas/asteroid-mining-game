@@ -4,11 +4,8 @@ import Interfaces.IMine;
 import Materials.Material;
 import Playground.Asteroid;
 import Playground.Portal;
-import Test.TestLogger;
-import Test.UserIO;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -129,21 +126,14 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public boolean mine() {
-        TestLogger.functionCalled(this, "mine", "boolean");
-        UserIO.addToTemporaryOutput("ufoMine");
         if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
             this.materials.add(this.asteroid.getMaterial());
             this.asteroid.setIsHollow(true);
             this.setRoundFinished(true);
             System.out.println("Ufo Mine done");
-            UserIO.addToTemporaryOutput("successful");
-            TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
-        UserIO.addToTemporaryOutput("unsuccessful");
         System.out.println("Ufo Mine NOT done");
-
-        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 

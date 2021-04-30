@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 import java.util.ArrayList;
 
 public class AsteroidView extends View {
-    Asteroid asteroid;
+    private final Asteroid asteroid;
     private ArrayList<View> containedViews;
 
     public AsteroidView(Asteroid asteroid) {

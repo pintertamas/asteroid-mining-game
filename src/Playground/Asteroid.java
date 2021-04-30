@@ -4,14 +4,11 @@ import Controllers.Map;
 import Entities.Figure;
 import Entities.Settler;
 import Materials.Material;
-import Test.TestLogger;
-import Test.UserIO;
 import Views.AsteroidView;
 import javafx.geometry.Rectangle2D;
 import Maths.Drawable;
 import javafx.scene.Group;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +27,7 @@ public class Asteroid {
     final boolean isNearSun;
     boolean isHollow;
 
-    private AsteroidView asteroidView;
+    private final AsteroidView asteroidView;
 
     /**
      * Konstruktor.
@@ -43,7 +40,6 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Asteroid(Map map, Material material, int layers, boolean isNearSun, boolean isHollow) {
-        TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.map = map;
         this.figures = new ArrayList<>();
         this.portals = new ArrayList<>();
@@ -54,7 +50,6 @@ public class Asteroid {
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
         this.asteroidView = new AsteroidView(this);
-        TestLogger.functionReturned();
     }
 
     /**
@@ -67,7 +62,6 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Asteroid(Material material, int layers, boolean isNearSun, boolean isHollow) {
-        TestLogger.functionCalled(this, "Playground.Asteroid", "void");
         this.figures = new ArrayList<>();
         this.portals = new ArrayList<>();
         this.neighbors = new ArrayList<>();
@@ -77,7 +71,10 @@ public class Asteroid {
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
         this.asteroidView = new AsteroidView(this);
-        TestLogger.functionReturned();
+    }
+
+    public AsteroidView getAsteroidView() {
+        return asteroidView;
     }
 
     /**
@@ -125,7 +122,6 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void explode() {
-        TestLogger.functionCalled(this, "explode", "void");
 
         while (!figures.isEmpty()) {
             figures.get(0).onExplosion();
@@ -141,9 +137,6 @@ public class Asteroid {
             this.removePortal(portal);
         }
         this.map.removeAsteroid(this);
-        System.out.println("Asteroid exploded");
-        UserIO.addToTemporaryOutput("asteroidExploded");
-        TestLogger.functionReturned();
     }
 
     /**
@@ -153,9 +146,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void addFigure(Figure f) {
-        TestLogger.functionCalled(this, "addFigure", f.getClass().getName() + " " + f, "void");
         this.figures.add(f);
-        TestLogger.functionReturned();
     }
 
     /**
@@ -165,9 +156,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void removeFigure(Figure f) {
-        TestLogger.functionCalled(this, "removeFigure", f.getClass().getName() + " " + f, "void");
         this.figures.remove(f);
-        TestLogger.functionReturned();
     }
 
     /**
@@ -177,7 +166,6 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean drilled() {
-        TestLogger.functionCalled(this, "drilled", "boolean");
         if (this.layers > 0) {
             decreaseLayers();
             if (this.layers == 0) {
@@ -185,14 +173,8 @@ public class Asteroid {
                     material.readyToMine();
                 }
             }
-            System.out.println("Asteroid has been drilled");
-            UserIO.addToTemporaryOutput("successful");
-            TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
-        System.out.println("Drill could not be done");
-        UserIO.addToTemporaryOutput("unsuccessful");
-        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 
@@ -204,14 +186,11 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean mined(Settler settler) {
-        TestLogger.functionCalled(this, "mined", "boolean");
         if (this.layers == 0 && !this.isHollow && this.material != null) {
             material.addToInventory(settler);
             setIsHollow(true);
-            TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
-        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 
@@ -223,14 +202,11 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean setMaterial(Material newMaterial) {
-        TestLogger.functionCalled(this, "coreChanged", "void");
         if (this.isHollow && newMaterial != null) {
             this.material = newMaterial;
             isHollow = false;
-            TestLogger.functionReturned(String.valueOf(true));
             return true;
         }
-        TestLogger.functionReturned(String.valueOf(false));
         return false;
     }
 
@@ -239,9 +215,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void decreaseLayers() {
-        TestLogger.functionCalled(this, "decreaseLayers", "void");
         this.layers--;
-        TestLogger.functionReturned();
     }
 
     /**
@@ -251,15 +225,11 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void addPortal(Portal p) {
-        TestLogger.functionCalled(this, "addPortal", p.getClass().getName() + " " + p, "void");
         this.portals.add(p);
-        TestLogger.functionReturned();
     }
 
     public void removePortal(Portal p) {
-        TestLogger.functionCalled(this, "removePortal", p.getClass().getName() + " " + p, "void");
         this.portals.remove(p);
-        TestLogger.functionReturned();
     }
 
     /**
@@ -269,9 +239,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void addNeighbor(Asteroid a) {
-        TestLogger.functionCalled(this, "addNeighbor", "Playground.Asteroid a", "void");
         this.neighbors.add(a);
-        TestLogger.functionReturned();
     }
 
     /**
@@ -291,12 +259,10 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Material> summarizeMaterials() {
-        TestLogger.functionCalled(this, "summarizeMaterials", "HashMap<Class<?>, Integer>");
         ArrayList<Material> materials = new ArrayList<>();
         for (Figure f : this.figures) {
             materials.addAll(f.getInventory().getMaterials());
         }
-        TestLogger.functionReturned(materials.toString());
         return materials;
     }
 
@@ -318,15 +284,11 @@ public class Asteroid {
      * A következő figurát lépteti.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void invokeFigures(Group root, Rectangle2D screenBounds) throws IOException {
-        TestLogger.functionCalled(this, "invokeFigures", "void");
+    public void invokeFigures(Group root, Rectangle2D screenBounds) {
         Figure f = pickNextFigure();
         if (this.getMap().shouldRun() && f != null) {
-            if (UserIO.isConsole())
-                System.out.println(f + " is going to step now.");
             f.step(root, screenBounds);
         }
-        TestLogger.functionReturned();
     }
 
     /**
@@ -334,11 +296,9 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void resetStep() {
-        TestLogger.functionCalled(this, "resetStep", "void");
         for (Figure f : figures) {
             f.setRoundFinished(false);
         }
-        TestLogger.functionReturned();
     }
 
     /**
@@ -348,8 +308,6 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public ArrayList<Asteroid> getNeighbors() {
-        TestLogger.functionCalled(this, "getNeighbors", "ArrayList<Playground.Asteroid>");
-        TestLogger.functionReturned(neighbors.toString());
         return neighbors;
     }
 
@@ -369,9 +327,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setIsHollow(boolean isHollow) {
-        TestLogger.functionCalled(this, "setIsHollow", "boolean b", "void");
         this.isHollow = isHollow;
-        TestLogger.functionReturned();
     }
 
     /**
@@ -405,11 +361,9 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void handleFigures() {
-        TestLogger.functionCalled(this, "handleFigures", "void");
         assert (!isHollow);
         for (int i = 0; i < figures.size(); i++)
             figures.get(i).die();
-        TestLogger.functionReturned();
     }
 
     public Map getMap() {

@@ -1,6 +1,5 @@
 package Controllers;
 
-import Views.AsteroidView;
 import Views.BackgroundView;
 import Views.View;
 import javafx.geometry.Rectangle2D;
@@ -14,8 +13,8 @@ public class Controller {
     Group root;
     ArrayList<View> views;
 
-    public Controller() {
-        root = new Group();
+    public Controller(Group root) {
+        this.root = root;
         game = new Game(this);
         map = new Map();
         views = new ArrayList<>();
@@ -30,8 +29,8 @@ public class Controller {
         return map;
     }
 
-    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, double dx, double dy) {
-
+    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float dx, float dy) {
+        this.getMap().moveAllAsteroids(root, screenBounds, dx, dy);
     }
 
     public void drawAllViews(Rectangle2D screenBounds) {

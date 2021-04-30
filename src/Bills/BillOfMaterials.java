@@ -1,11 +1,9 @@
 package Bills;
 
 import Materials.*;
-import Test.TestLogger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 /**
  * Recept osztály az építésekhez.
@@ -52,24 +50,19 @@ public class BillOfMaterials {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean hasEnoughMaterials(ArrayList<Material> inventoryMaterials) {
-        TestLogger.functionCalled(this, "hasEnoughMaterial", "boolean");
         HashMap<Class<?>, Integer> allMaterials = countMaterials(inventoryMaterials);
         HashMap<Class<?>, Integer> billMaterials = countMaterials(bill);
 
         if (allMaterials.isEmpty()) {
-            TestLogger.functionReturned(String.valueOf(false));
             return false;
         }
         for (Class<?> m : billMaterials.keySet()) {
             if (!allMaterials.containsKey(m))
                 return false;
             else if (billMaterials.get(m) > allMaterials.get(m)) {
-                TestLogger.errorMessage("Insufficient materials!");
-                TestLogger.functionReturned(String.valueOf(false));
                 return false;
             }
         }
-        TestLogger.functionReturned(String.valueOf(true));
         return true;
     }
 
@@ -80,7 +73,6 @@ public class BillOfMaterials {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void pay(ArrayList<Material> inventoryMaterials) {
-        TestLogger.functionCalled(this, "pay", "ArrayList<Material> inventoryMaterials", "void");
         assert hasEnoughMaterials(inventoryMaterials);
 
         for (Material billMaterial : bill) {
@@ -91,7 +83,6 @@ public class BillOfMaterials {
                 }
             }
         }
-        TestLogger.functionReturned();
     }
 
     /**
