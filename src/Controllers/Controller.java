@@ -4,6 +4,8 @@ import Entities.Figure;
 import Playground.Asteroid;
 import Playground.Portal;
 import Views.BackgroundView;
+import Views.GUIView;
+import Views.MapView;
 import Views.View;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -31,12 +33,9 @@ public class Controller {
         return map;
     }
 
-    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float dx, float dy) {
-        this.getMap().moveAllAsteroids(root, screenBounds, dx, dy);
-    }
-
     public void addAllViews() {
-        this.views.add(new BackgroundView());
+        this.views.add(new BackgroundView(map));
+        this.views.add(map.getMapView());
         for (Asteroid asteroid : map.getAsteroids()) {
             this.views.add(asteroid.getAsteroidView());
             for (Figure figure : asteroid.getFigures())
@@ -44,6 +43,7 @@ public class Controller {
             for (Portal portal : asteroid.getPortals())
                 this.views.add(portal.getPortalView());
         }
+        this.views.add(new GUIView(map));
     }
 
     public void drawAllViews(Rectangle2D screenBounds) {

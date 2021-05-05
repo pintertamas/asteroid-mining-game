@@ -3,8 +3,6 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -25,8 +23,6 @@ public class Main extends Application {
         primaryStage.setHeight(screenHeight);
         primaryStage.setMaximized(true);
         Group root = new Group();
-        Canvas canvas = new Canvas(screenWidth, screenHeight);
-        root.getChildren().add(canvas);
 
         Scene scene = new Scene(root);
         primaryStage.setTitle("Asteroid Mining Controllers.Game");
@@ -36,9 +32,8 @@ public class Main extends Application {
         scene.getStylesheets().add("style.css");
         root.getStylesheets().addAll("style.css");
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
         Controller controller = new Controller(root);
-        controller.getGame().run(root, gc, screenBounds);
+        controller.getGame().run(root, screenBounds);
     }
 
     /**

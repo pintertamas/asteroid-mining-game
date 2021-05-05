@@ -1,14 +1,13 @@
 package Controllers;
 
-import Playground.Asteroid;
-import Events.ClickEvent;
+import Events.CustomEvent;
 import javafx.event.EventHandler;
 
-public abstract class ClickEventHandler implements EventHandler<ClickEvent> {
-    public abstract void onAsteroidClicked(Asteroid asteroid);
+public abstract class ClickEventHandler implements EventHandler<CustomEvent> {
+    public abstract void onAsteroidClicked();
 
     @Override
-    public void handle(ClickEvent event) {
+    public void handle(CustomEvent event) {
         event.invokeHandler(this);
     }
 }

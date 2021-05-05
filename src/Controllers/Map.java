@@ -9,6 +9,7 @@ import Maths.Drawable;
 import Playground.Asteroid;
 import Playground.GameState;
 import Playground.Portal;
+import Views.MapView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
@@ -19,17 +20,23 @@ import java.util.*;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Map {
-
+    private final MapView view;
     private final ArrayList<Asteroid> asteroids;
     private final ArrayList<IGameState> listeners = new ArrayList<>();
     private boolean shouldRunAnyMore = true;
+    private Asteroid currentAsteroid;
+    private Settler currentSettler;
+    private boolean goNorth, goSouth, goEast, goWest;
 
     /**
      * Konstruktor
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
+        this.view = new MapView(this);
         this.asteroids = new ArrayList<>();
+        this.currentAsteroid = new Asteroid(new Iron(), 1, false, false);
+        this.currentSettler = new Settler(getCurrentAsteroid(), false);
     }
 
     /**
@@ -364,10 +371,63 @@ public class Map {
      * Elmozgat egy irányban minden aszteroidát
      */
     public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float x, float y) {
+        getMapView().draw(root, screenBounds);
         for (Asteroid a : asteroids) {
             a.updatePosition(x, y);
             a.getAsteroidView().draw(root, screenBounds);
         }
     }
-}
 
+    public void setCurrentAsteroid(Asteroid asteroid) {
+        this.currentAsteroid = asteroid;
+        System.out.println(currentAsteroid);
+    }
+
+    public Asteroid getCurrentAsteroid() {
+        return currentAsteroid;
+    }
+
+    public Settler getCurrentSettler() {
+        return currentSettler;
+    }
+
+    public void setCurrentSettler(Settler currentSettler) {
+        this.currentSettler = currentSettler;
+    }
+
+    public boolean isGoNorth() {
+        return goNorth;
+    }
+
+    public boolean isGoSouth() {
+        return goSouth;
+    }
+
+    public boolean isGoEast() {
+        return goEast;
+    }
+
+    public boolean isGoWest() {
+        return goWest;
+    }
+
+    public void setGoNorth(boolean goNorth) {
+        this.goNorth = goNorth;
+    }
+
+    public void setGoSouth(boolean goSouth) {
+        this.goSouth = goSouth;
+    }
+
+    public void setGoEast(boolean goEast) {
+        this.goEast = goEast;
+    }
+
+    public void setGoWest(boolean goWest) {
+        this.goWest = goWest;
+    }
+
+    public MapView getMapView() {
+        return view;
+    }
+}

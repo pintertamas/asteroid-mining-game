@@ -1,67 +1,23 @@
 package Views;
 
-import Controllers.Controller;
+import Controllers.ClickEventHandler;
+import Controllers.KeyEventHandler;
+import Controllers.Map;
+import Events.AsteroidCustomEvent;
+import Events.BackgroundEvent;
+import Events.CustomEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 
 public class BackgroundView extends View {
-    Controller controller;
-    boolean moving, goNorth, goSouth, goEast, goWest;
+    Map map;
 
-    public void handleMouseActions(Group root, Rectangle2D screenBounds) {
-        int speed = 30;
-
-        root.getScene().setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    goNorth = true;
-                    break;
-                case DOWN:
-                    goSouth = true;
-                    break;
-                case LEFT:
-                    goWest = true;
-                    break;
-                case RIGHT:
-                    goEast = true;
-                    break;
-                case SHIFT:
-                    moving = true;
-                    break;
-            }
-        });
-
-        root.getScene().setOnKeyReleased(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    goNorth = false;
-                    break;
-                case DOWN:
-                    goSouth = false;
-                    break;
-                case LEFT:
-                    goWest = false;
-                    break;
-                case RIGHT:
-                    goEast = false;
-                    break;
-                case SHIFT:
-                    moving = false;
-                    break;
-            }
-        });
-
-        int dx = 0, dy = 0;
-
-        if (goNorth) dy += speed;
-        if (goSouth) dy -= speed;
-        if (goEast) dx -= speed;
-        if (goWest) dx += speed;
-
-        controller.moveAllAsteroids(root, screenBounds, dx, dy);
+    public BackgroundView(Map map) {
+        this.map = map;
     }
-
     public void draw(Group root, Rectangle2D screenBounds) {
         String img = "/background.png";
         ImageView imageView = ViewFunctions.image(img, screenBounds.getWidth());
@@ -70,6 +26,22 @@ public class BackgroundView extends View {
 
         this.getView().getChildren().clear();
         this.getView().getChildren().add(imageView);
+
+        root.getScene().setOnKeyPressed((KeyEvent event) -> imageView.fireEvent(new BackgroundEvent()));
+
+        root.getScene().addEventHandler(KeyEvent.KEY_PRESSED, new KeyEventHandler(root, screenBounds, map) {
+            @Override
+            public void handle(KeyEvent event) {
+                super.handle(event);
+            }
+        });
+
+        root.getScene().addEventHandler(KeyEvent.KEY_RELEASED, new KeyEventHandler(root, screenBounds, map) {
+            @Override
+            public void handle(KeyEvent event) {
+                super.handle(event);
+            }
+        });
 
         root.getChildren().remove(this.getView());
         root.getChildren().add(imageView);

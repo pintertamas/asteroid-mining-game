@@ -2,7 +2,6 @@ package Interfaces;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
-import javafx.scene.canvas.GraphicsContext;
 
 import java.io.IOException;
 

@@ -200,6 +200,8 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
+        this.getAsteroid().getMap().setCurrentSettler(this);
+        System.out.println(this);
         // TODO ide jön a cucc
         //setRoundFinished(true);
     }

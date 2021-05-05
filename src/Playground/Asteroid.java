@@ -5,6 +5,7 @@ import Entities.Figure;
 import Entities.Settler;
 import Materials.Material;
 import Views.AsteroidView;
+import Views.GUIView;
 import javafx.geometry.Rectangle2D;
 import Maths.Drawable;
 import javafx.scene.Group;
@@ -49,7 +50,7 @@ public class Asteroid {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        this.asteroidView = new AsteroidView(this, map);
+        this.asteroidView = new AsteroidView(this);
     }
 
     /**
@@ -70,7 +71,7 @@ public class Asteroid {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        this.asteroidView = new AsteroidView(this, map);
+        this.asteroidView = new AsteroidView(this);
     }
 
     public AsteroidView getAsteroidView() {
@@ -286,6 +287,8 @@ public class Asteroid {
     @SuppressWarnings("SpellCheckingInspection")
     public void invokeFigures(Group root, Rectangle2D screenBounds) {
         Figure f = pickNextFigure();
+        if (this.getMap().getCurrentSettler().equals(f))
+            new GUIView(map).draw(root, screenBounds);
         if (this.getMap().shouldRun() && f != null) {
             f.step(root, screenBounds);
         }
