@@ -1,6 +1,7 @@
 package Controllers;
 
 import Interfaces.IGameState;
+import Playground.Asteroid;
 import Playground.GameState;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
@@ -42,6 +43,8 @@ public class Game implements IGameState {
                 switch (gameState) {
                     case LOAD -> {
                         controller.getMap().initGame(screenBounds);
+                        controller.getMap().sunflower(controller.getMap().getAsteroids(), screenBounds);
+                        controller.addAllViews();
                         controller.drawAllViews(screenBounds);
                         gameState = GameState.IN_PROGRESS;
                     }

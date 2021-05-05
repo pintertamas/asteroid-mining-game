@@ -4,6 +4,7 @@ import Interfaces.IMine;
 import Materials.Material;
 import Playground.Asteroid;
 import Playground.Portal;
+import Views.UfoView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
@@ -17,6 +18,7 @@ import java.util.Random;
 @SuppressWarnings("SpellCheckingInspection")
 public class Ufo extends Figure implements IMine {
     ArrayList<Material> materials;
+    UfoView ufoView;
 
     /**
      * Konstruktor.
@@ -28,7 +30,7 @@ public class Ufo extends Figure implements IMine {
     public Ufo(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         materials = new ArrayList<>();
-        this.imagePath = "/figures/ufos/ufo1.png";
+        ufoView = new UfoView(this);
     }
 
     /**

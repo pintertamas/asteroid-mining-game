@@ -5,6 +5,7 @@ import Interfaces.IDrill;
 import Interfaces.IMine;
 import Materials.*;
 import Playground.*;
+import Views.SettlerView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
@@ -31,7 +32,6 @@ public class Settler extends Figure implements IMine, IDrill {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
         int settlerNumber = new Random().nextInt(5) + 1;
-        this.imagePath = "/figures/spaceships/spaceship" + settlerNumber + ".png";
         //-----
         inventory.addMaterial(new Iron());
         inventory.addMaterial(new Coal());
@@ -48,6 +48,7 @@ public class Settler extends Figure implements IMine, IDrill {
         inventory.addPortal(new Portal());
         inventory.addPortal(new Portal());
         //-----
+        this.figureView = new SettlerView(this);
     }
 
     /**
@@ -200,7 +201,7 @@ public class Settler extends Figure implements IMine, IDrill {
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
         // TODO ide jön a cucc
-        setRoundFinished(true);
+        //setRoundFinished(true);
     }
 
     /**

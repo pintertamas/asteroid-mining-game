@@ -49,7 +49,7 @@ public class Asteroid {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        this.asteroidView = new AsteroidView(this);
+        this.asteroidView = new AsteroidView(this, map);
     }
 
     /**
@@ -70,7 +70,7 @@ public class Asteroid {
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
-        this.asteroidView = new AsteroidView(this);
+        this.asteroidView = new AsteroidView(this, map);
     }
 
     public AsteroidView getAsteroidView() {

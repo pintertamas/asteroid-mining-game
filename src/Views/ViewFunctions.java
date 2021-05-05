@@ -22,9 +22,15 @@ public class ViewFunctions {
         assert imgSize.length > 0;
         assert imgSize.length <= 2;
         Image image;
-        if (imgSize.length == 1) image = new Image(imgPath, imgSize[0], imgSize[0], true, true);
-        else image = new Image(imgPath, imgSize[0], imgSize[1], true, true);
-        return new ImageView(image);
+        try {
+            if (imgSize.length == 1) image = new Image(imgPath, imgSize[0], imgSize[0], true, true);
+            else image = new Image(imgPath, imgSize[0], imgSize[1], true, true);
+            return new ImageView(image);
+        } catch(Exception e) {
+            System.out.println(imgPath);
+            e.printStackTrace();
+            return new ImageView(new Image("asteroids/hollow.png"));
+        }
     }
 
     /**

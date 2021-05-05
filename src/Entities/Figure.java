@@ -1,6 +1,7 @@
 package Entities;
 import Interfaces.*;
 import Playground.*;
+import Views.View;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
@@ -12,7 +13,11 @@ import javafx.scene.Group;
 public abstract class Figure implements ISteppable, IPortalMove, IMove {
     protected Asteroid asteroid;
     protected boolean roundFinished;
-    protected String imagePath;
+    protected View figureView;
+
+    public View getFigureView() {
+        return figureView;
+    }
 
     /**
      * Konstruktor.

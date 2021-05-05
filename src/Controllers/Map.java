@@ -258,6 +258,14 @@ public class Map {
             System.out.println("Settlers lost the game!");
     }
 
+    /*private boolean checkRoundBegginning() {
+        for (Asteroid asteroid : asteroids)
+            for (Figure figure : asteroid.getFigures())
+                if (figure.getRoundFinished())
+                    return true;
+        return false;
+    }*/
+
     /**
      * Kisorsolja, hogy az adott körben lesz-e napvihar.
      *
@@ -265,9 +273,12 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean stormComing() {
-        Random rand = new Random();
-        int stormNumber = rand.nextInt(100);
-        return stormNumber >= 65;
+        if (false) { // TODO ez azért kell hogy ne haljon meg egyből a settler, majd meg kell csinálni rendesen!
+            Random rand = new Random();
+            int stormNumber = rand.nextInt(100);
+            return stormNumber >= 65;
+        }
+        return false;
     }
 
     /**
@@ -311,7 +322,7 @@ public class Map {
      * @param asteroids
      * @param screenBounds
      */
-    private void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
+    public void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
         int nodes = asteroids.size(); //  example: n=500, alpha=2
         int alpha = 1;
         long boundaryPoints = Math.round(alpha * Math.sqrt(nodes)); //number of boundary points

@@ -1,5 +1,6 @@
 package Entities;
 import Playground.Asteroid;
+import Views.RobotView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
@@ -12,6 +13,7 @@ import java.util.Random;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Robot extends Figure {
+    RobotView robotView;
 
     /**
      * Konstruktor.
@@ -22,8 +24,7 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
-        int robotNumber = new Random().nextInt(5) + 1;
-        this.imagePath = "/figures/robots/robot" + robotNumber + ".png";
+        this.robotView = new RobotView(this);
     }
 
     /**

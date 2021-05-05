@@ -1,6 +1,7 @@
 package Playground;
 
 import Interfaces.IMove;
+import Views.View;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -13,6 +14,12 @@ import java.util.Random;
 public class Portal implements IMove {
     private Portal pair;
     private Asteroid asteroid;
+
+    private View portalView;
+
+    public View getPortalView() {
+        return portalView;
+    }
 
     /**
      * Visszaadja a teleportkapu párját.
