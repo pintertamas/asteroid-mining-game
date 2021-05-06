@@ -3,6 +3,7 @@ package Views;
 import Controllers.Map;
 import Entities.Settler;
 import Materials.Material;
+import Playground.Asteroid;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -90,13 +91,13 @@ public class GUIView extends View {
         drawActions(vBox, screenBounds);
     }
 
-    private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds) {
+    private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds, Asteroid asteroid) {
         HBox detailContainer = new HBox(20);
         detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
 
         double imgSize = screenBounds.getWidth() / 10;
         try {
-            String imgPath = settler.getAsteroid().getAsteroidView().getImage(); //TODO random exceptiont dob ha sokáig fut a játék
+            String imgPath = asteroid.getAsteroidView().getImage(); //TODO random exceptiont dob ha sokáig fut a játék
             ImageView imageView = ViewFunctions.image(imgPath, imgSize);
             detailContainer.getChildren().add(imageView);
         } catch (Exception e) {
@@ -105,9 +106,9 @@ public class GUIView extends View {
 
         VBox details = new VBox(10);
         details.setAlignment(Pos.CENTER_LEFT);
-        Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + settler.getAsteroid().toString().replace("Playground.Asteroid@", ""), 15);
-        Text asteroidLayers = ViewFunctions.text("Layers: " + settler.getAsteroid().getLayers(), 15);
-        Text asteroidCore = ViewFunctions.text("Material:\n" + settler.getAsteroid().getMaterial().toString().replace("Materials.", ""), 15);
+        Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 15);
+        Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 15);
+        Text asteroidCore = ViewFunctions.text("Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 15);
 
         details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore);
 
@@ -136,7 +137,8 @@ public class GUIView extends View {
         drawSettlerInfo(mainContainer);
         drawInventory(mainContainer, screenBounds);
         drawPortalsAndActions(mainContainer, screenBounds);
-        drawAsteroidDetails(mainContainer, screenBounds);
+        drawAsteroidDetails(mainContainer, screenBounds, settler.getAsteroid());
+        drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentAsteroid());
 
         mainContainer.setPadding(new Insets(10, 10, 10, 10));
 

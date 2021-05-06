@@ -380,7 +380,6 @@ public class Map {
 
     public void setCurrentAsteroid(Asteroid asteroid) {
         this.currentAsteroid = asteroid;
-        System.out.println(currentAsteroid);
     }
 
     public Asteroid getCurrentAsteroid() {
