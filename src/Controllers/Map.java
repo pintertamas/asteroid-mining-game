@@ -81,7 +81,7 @@ public class Map {
         int numberOfPlayers;
 
         //Játék előkészítése:
-        numberOfPlayers = 1; // TODO
+        numberOfPlayers = 4; // TODO
 
         // Generating the map randomly...
         int minimumNumberOfAsteroids = 100;
@@ -134,12 +134,12 @@ public class Map {
         }
 
         // generating ufos
-        int ufoNumber = new Random().nextInt(1) + 1;
+        int ufoNumber = new Random().nextInt(10) + 1;
         for (int i = 0; i < ufoNumber; i++) {
             Asteroid asteroid = asteroids.get(new Random().nextInt(asteroids.size()));
             Ufo ufo = new Ufo(asteroid, true);
-            asteroids.get(1).addFigure(ufo);
-            ufo.setAsteroid(asteroids.get(1));
+            asteroid.addFigure(ufo);
+            ufo.setAsteroid(asteroid);
         }
     }
 

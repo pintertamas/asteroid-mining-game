@@ -20,7 +20,11 @@ public class UfoView extends View {
         root.getChildren().remove(this.getView());
         this.getView().getChildren().clear();
 
-        Drawable pos = this.ufo.getAsteroid().getPosition();
+        int settlerIndex = ufo.getAsteroid().getAsteroidView().getContainedViews().indexOf(ufo.getFigureView());
+        Drawable astPos = this.ufo.getAsteroid().getPosition();
+        double angle = settlerIndex * (360.0 / this.ufo.getAsteroid().getFigures().size());
+        Drawable pos = new Drawable(astPos.getX() + astPos.getSize() / 2 * Math.cos(angle), astPos.getY() + astPos.getSize() / 2 * Math.sin(angle));
+
         if (pos.isInside(screenBounds)) {
             ImageView imageView = ViewFunctions.image(imagePath, this.ufo.getAsteroid().getPosition().getSize() / 3);
             imageView.setX(pos.getX() - pos.getSize() / 6);
