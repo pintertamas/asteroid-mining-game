@@ -79,6 +79,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     public boolean drill() {
         if (asteroid.drilled()) {
             setRoundFinished(true);
+            this.asteroid.stepCompleted();
             return true;
         }
         return false;

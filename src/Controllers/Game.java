@@ -38,15 +38,15 @@ public class Game implements IGameState {
                 switch (gameState) {
                     case LOAD:
                         controller.getMap().initGame(screenBounds);
-                        controller.getMap().sunflower(controller.getMap().getAsteroids(), screenBounds);
+                        controller.placeFigures(screenBounds);
                         controller.addAllViews();
                         controller.drawAllViews(screenBounds);
                         gameState = GameState.IN_PROGRESS;
                         break;
                     case IN_PROGRESS:
-                        System.out.println(controller.root.getChildren().size());
+                        //System.out.println(controller.root.getChildren().size());
+                        //System.out.println(controller.getMap().getCurrentSettler());
                         if (!controller.getMap().checkGameEnd()) {
-                            controller.getMap().resetRound();
                             controller.getMap().setupRound(root, screenBounds);
                         }
                         break;

@@ -5,7 +5,6 @@ import Entities.Figure;
 import Entities.Settler;
 import Materials.Material;
 import Views.AsteroidView;
-import Views.GUIView;
 import javafx.geometry.Rectangle2D;
 import Maths.Drawable;
 import javafx.scene.Group;
@@ -23,6 +22,7 @@ public class Asteroid {
     private final ArrayList<Figure> figures;
     private Material material;
     private final ArrayList<Portal> portals;
+    private int stepsLeft;
 
     int layers;
     final boolean isNearSun;
@@ -46,11 +46,12 @@ public class Asteroid {
         this.portals = new ArrayList<>();
         this.neighbors = new ArrayList<>();
         this.material = material;
-        material.setAsteroid(this);
+        this.material.setAsteroid(this);
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
         this.asteroidView = new AsteroidView(this);
+        this.stepsLeft = this.getFigures().size();
     }
 
     /**
@@ -67,11 +68,16 @@ public class Asteroid {
         this.portals = new ArrayList<>();
         this.neighbors = new ArrayList<>();
         this.material = material;
-        material.setAsteroid(this);
+        this.material.setAsteroid(this);
         this.layers = layers;
         this.isNearSun = isNearSun;
         this.isHollow = isHollow;
         this.asteroidView = new AsteroidView(this);
+        this.stepsLeft = this.getFigures().size();
+    }
+
+    public void stepCompleted() {
+        this.stepsLeft--;
     }
 
     public AsteroidView getAsteroidView() {
@@ -274,11 +280,25 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Figure pickNextFigure() {
-        for (Figure figure : figures) {
-            if (!figure.getRoundFinished())
-                return figure;
+        for (int i = 0; i < figures.size(); i++) {
+            if (!figures.get(i).getRoundFinished()) {
+                System.out.println(figures.get(i));
+                return figures.get(i);
+            }
         }
         return null;
+    }
+
+    /**
+     * TODO: Ez úgy lesz hogy ha a figure lelép az aszteroidáról akkor az új aszteroidán hívunk completedsteps++-t, amúgy meg az aktuálison
+     * @return
+     */
+    public boolean noMoreStepsLeft() {
+        if (stepsLeft == 0) {
+            stepsLeft = this.getFigures().size();
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -287,8 +307,6 @@ public class Asteroid {
     @SuppressWarnings("SpellCheckingInspection")
     public void invokeFigures(Group root, Rectangle2D screenBounds) {
         Figure f = pickNextFigure();
-        if (this.getMap().getCurrentSettler().equals(f))
-            map.getGuiView().draw(root, screenBounds);
         if (this.getMap().shouldRun() && f != null) {
             f.step(root, screenBounds);
         }

@@ -75,7 +75,7 @@ public class Drawable {
      * Setter a a méret változtatásához
      * @param size
      */
-    public void setSize(float size) {
+    public void setSize(double size) {
         this.size = size;
     }
 }

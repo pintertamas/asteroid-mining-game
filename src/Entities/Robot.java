@@ -39,6 +39,7 @@ public class Robot extends Figure {
             this.setRoundFinished(true);
             return;
         }
+        this.asteroid.stepCompleted();
         this.asteroid.removeFigure(this);
         setAsteroid(a);
         a.addFigure(this);

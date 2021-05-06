@@ -15,11 +15,9 @@ import javafx.scene.text.Text;
 
 public class GUIView extends View {
     Map map;
-    Settler settler;
 
     public GUIView(Map map) {
         this.map = map;
-        this.settler = map.getCurrentSettler();
     }
 
     private void drawSettlerInfo(VBox vBox) {
@@ -29,7 +27,7 @@ public class GUIView extends View {
         grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(10, 10, 10, 10));
-        Text text = ViewFunctions.text("Current settler:\n" + settler, 15);
+        Text text = ViewFunctions.text("Current settler:\n" + map.getCurrentSettler(), 15);
         grid.getChildren().add(text);
         vBox.getChildren().add(grid);
     }
@@ -47,7 +45,7 @@ public class GUIView extends View {
         FlowPane inventory = new FlowPane();
         inventory.setAlignment(Pos.CENTER);
         inventory.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
-        for (Material material : settler.getInventory().getMaterials()) {
+        for (Material material : map.getCurrentSettler().getInventory().getMaterials()) {
             double imgSize = screenBounds.getWidth() / 30;
             ImageView imageView = ViewFunctions.image(material.getMaterialView().getImagePath(), imgSize);
             inventory.getChildren().add(imageView);
@@ -70,7 +68,7 @@ public class GUIView extends View {
         ImageView portalImage = ViewFunctions.image("/portal.png", 100);
         portalBox.getChildren().add(portalImage);
 
-        Text text = ViewFunctions.text("No. Portals: " + settler.getInventory().getPortals().size(), 20);
+        Text text = ViewFunctions.text("No. Portals: " + map.getCurrentSettler().getInventory().getPortals().size(), 20);
         portalBox.getChildren().add(text);
 
         grid.getChildren().add(portalBox);
@@ -119,8 +117,6 @@ public class GUIView extends View {
 
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
-        System.out.println("drawGui");
-
         root.getChildren().remove(this.getView());
         this.getView().getChildren().clear();
 
@@ -135,15 +131,14 @@ public class GUIView extends View {
         mainContainer.setLayoutY(posY);
         mainContainer.setPrefWidth(width);
         mainContainer.setPrefHeight(height);
+        mainContainer.setPadding(new Insets(10, 10, 10, 10));
         mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
 
         drawSettlerInfo(mainContainer);
         drawInventory(mainContainer, screenBounds);
         drawPortalsAndActions(mainContainer, screenBounds);
-        drawAsteroidDetails(mainContainer, screenBounds, settler.getAsteroid());
+        drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentSettler().getAsteroid());
         drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentAsteroid());
-
-        mainContainer.setPadding(new Insets(10, 10, 10, 10));
 
         this.getView().getChildren().add(mainContainer);
         root.getChildren().add(this.getView());

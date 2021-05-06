@@ -59,6 +59,7 @@ public class Settler extends Figure implements IMine, IDrill {
         if (neighbors.size() == 0) {
             return;
         }
+        this.asteroid.stepCompleted();
         int neighborChoice = new Random().nextInt(asteroid.getNeighbors().size()); //TODO ezt majd a grafikus felületen kell beállítani
         this.asteroid.removeFigure(this);
         neighbors.get(neighborChoice).addFigure(this);
@@ -74,6 +75,7 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     public boolean mine() {
         if (asteroid.mined(this)) {
+            this.asteroid.stepCompleted();
             setRoundFinished(true);
             return true;
         }
@@ -102,6 +104,7 @@ public class Settler extends Figure implements IMine, IDrill {
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())
                 && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
+            this.asteroid.stepCompleted();
             billOfPortal.pay(inventory.getMaterials());
             Portal p1 = new Portal();
             Portal p2 = new Portal();
@@ -124,6 +127,7 @@ public class Settler extends Figure implements IMine, IDrill {
 
         if (billOfRobot.hasEnoughMaterials(this.inventory.getMaterials())
                 && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
+            this.asteroid.stepCompleted();
             billOfRobot.pay(inventory.getMaterials());
             this.asteroid.addFigure(new Robot(this.asteroid, true));
             this.setRoundFinished(true);
@@ -139,6 +143,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public void buildBase() {
         BillOfBase billOfBase = new BillOfBase();
         if (billOfBase.hasEnoughMaterials(this.asteroid.summarizeMaterials())) {
+            this.asteroid.stepCompleted();
             this.setRoundFinished(true);
             this.asteroid.getMap().gameEnd(true);
             this.asteroid.getMap().switchGameState(GameState.WON);
@@ -154,6 +159,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public void putPortalDown() {
         ArrayList<Portal> portals = inventory.getPortals();
         if (portals.size() >= 1) {
+            this.getAsteroid().stepCompleted();
             this.asteroid.addPortal(portals.get(0));
             this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
@@ -169,6 +175,7 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     public void putMaterialBack(Material m) {
         if (this.asteroid.setMaterial(m)) {
+            this.getAsteroid().stepCompleted();
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
         }
@@ -200,8 +207,9 @@ public class Settler extends Figure implements IMine, IDrill {
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
         this.getAsteroid().getMap().setCurrentSettler(this);
+        this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
         // TODO ide jön a cucc
-        //setRoundFinished(true);
+        setRoundFinished(false);
     }
 
     /**
@@ -213,6 +221,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public boolean moveThroughPortal() {
         ArrayList<Asteroid> tmpArray = new ArrayList<>();
         if (asteroid.getPortals().size() != 0) {
+            this.getAsteroid().stepCompleted();
             for (Portal p : asteroid.getPortals()) {
                 tmpArray.add(p.getPair().getAsteroid());
             }

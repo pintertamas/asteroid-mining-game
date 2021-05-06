@@ -3,6 +3,7 @@ package Controllers;
 import Bills.*;
 import Entities.Figure;
 import Entities.Settler;
+import Entities.Ufo;
 import Interfaces.IGameState;
 import Materials.*;
 import Maths.Drawable;
@@ -35,11 +36,11 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
-        this.view = new MapView(this);
-        this.guiView = new GUIView(this);
         this.asteroids = new ArrayList<>();
         this.currentAsteroid = new Asteroid(new Iron(), 1, false, false);
         this.currentSettler = new Settler(getCurrentAsteroid(), false);
+        this.view = new MapView(this);
+        this.guiView = new GUIView(this);
     }
 
     /**
@@ -84,7 +85,7 @@ public class Map {
 
         // Generating the map randomly...
         int minimumNumberOfAsteroids = 100;
-        int maximumNumberOfAsteroids = 150;
+        int maximumNumberOfAsteroids = 110;
         double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
         for (int i = 0; i < numberOfAsteroids; i++) {
             Random rand = new Random();
@@ -112,6 +113,8 @@ public class Map {
         }
 
         placeAsteroids(screenBounds);
+        currentAsteroid = asteroids.get(0);
+        System.out.println(asteroids.get(0).getPosition().getX());
 
         double threshold = screenBounds.getWidth() / 3;
 
@@ -127,7 +130,16 @@ public class Map {
         }
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            new Settler(asteroids.get(0), false);
+            new Settler(asteroids.get(1), false);
+        }
+
+        // generating ufos
+        int ufoNumber = new Random().nextInt(1) + 1;
+        for (int i = 0; i < ufoNumber; i++) {
+            Asteroid asteroid = asteroids.get(new Random().nextInt(asteroids.size()));
+            Ufo ufo = new Ufo(asteroid, true);
+            asteroids.get(1).addFigure(ufo);
+            ufo.setAsteroid(asteroids.get(1));
         }
     }
 
@@ -241,6 +253,15 @@ public class Map {
         return true;
     }
 
+    private Asteroid findNextAsteroid() {
+        for (Asteroid asteroid : asteroids) {
+            if (!asteroid.noMoreStepsLeft())
+                return asteroid;
+        }
+        resetRound();
+        return null;
+    }
+
     /**
      * Felállít egy kört.
      */
@@ -249,8 +270,9 @@ public class Map {
         if (stormComing()) {
             solarStorm();
         } else {
-            for (Asteroid a : asteroids) {
-                a.invokeFigures(root, screenBounds);
+            Asteroid asteroid = findNextAsteroid();
+            if (asteroid != null) {
+                asteroid.invokeFigures(root, screenBounds);
             }
         }
     }
@@ -374,11 +396,24 @@ public class Map {
      * Elmozgat egy irányban minden aszteroidát
      */
     public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float x, float y) {
-        getMapView().draw(root, screenBounds);
+        view.draw(root, screenBounds);
         for (Asteroid a : asteroids) {
             a.updatePosition(x, y);
             a.getAsteroidView().draw(root, screenBounds);
+            for (Figure f : a.getFigures())
+                f.getFigureView().draw(root, screenBounds);
         }
+        guiView.draw(root, screenBounds);
+    }
+
+    public Asteroid findClosestAsteroidToCenter(Rectangle2D screenBounds) {
+        Drawable center = new Drawable(screenBounds.getWidth() / 2, screenBounds.getHeight() / 2);
+        Asteroid closest = asteroids.get(1);
+        for (Asteroid asteroid : asteroids) {
+            if (asteroid.getPosition().distance(center) < closest.getPosition().distance(center))
+                closest = asteroid;
+        }
+        return closest;
     }
 
     public void setCurrentAsteroid(Asteroid asteroid) {

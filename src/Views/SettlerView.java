@@ -20,17 +20,17 @@ public class SettlerView extends View {
 
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
+        root.getChildren().remove(this.getView());
+        this.getView().getChildren().clear();
+
         Drawable pos = this.settler.getAsteroid().getPosition();
         if (pos.isInside(screenBounds)) {
-            ImageView imageView = ViewFunctions.image(imagePath, pos.getSize());
-            imageView.setX(pos.getX());
-            imageView.setY(pos.getY());
+            ImageView imageView = ViewFunctions.image(imagePath, this.settler.getAsteroid().getPosition().getSize() / 3);
+            imageView.setX(pos.getX() - pos.getSize() / 6);
+            imageView.setY(pos.getY() - pos.getSize() / 6);
 
-            this.getView().getChildren().clear();
             this.getView().getChildren().add(imageView);
-
-            root.getChildren().remove(this.getView()); //TODO ez itt még lehet hogy baj lesz mert az első lefutáskor még nem lesz rajta a rooton a view
-            root.getChildren().add(imageView);
+            root.getChildren().add(this.getView());
         }
     }
 

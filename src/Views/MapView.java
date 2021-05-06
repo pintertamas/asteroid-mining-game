@@ -26,13 +26,11 @@ public class MapView extends View {
                 if (alreadyConnected.contains(neighbor)) {
                     continue;
                 }
-                double offset = neighbor.getPosition().getSize() / 2;
-                double offset2 = asteroid.getPosition().getSize() / 2;
                 Line line = new Line();
-                line.setStartX(neighbor.getPosition().getX() + offset);
-                line.setStartY(neighbor.getPosition().getY() + offset);
-                line.setEndX(asteroid.getPosition().getX() + offset2);
-                line.setEndY(asteroid.getPosition().getY() + offset2);
+                line.setStartX(neighbor.getPosition().getX());
+                line.setStartY(neighbor.getPosition().getY());
+                line.setEndX(asteroid.getPosition().getX());
+                line.setEndY(asteroid.getPosition().getY());
                 line.setStroke(Color.WHITE);
                 this.getView().getChildren().add(line);
             }

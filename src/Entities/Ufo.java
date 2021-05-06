@@ -18,7 +18,6 @@ import java.util.Random;
 @SuppressWarnings("SpellCheckingInspection")
 public class Ufo extends Figure implements IMine {
     ArrayList<Material> materials;
-    UfoView ufoView;
 
     /**
      * Konstruktor.
@@ -30,7 +29,7 @@ public class Ufo extends Figure implements IMine {
     public Ufo(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         materials = new ArrayList<>();
-        ufoView = new UfoView(this);
+        figureView = new UfoView(this);
     }
 
     /**
@@ -39,6 +38,7 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void move() {
+        this.asteroid.stepCompleted();
         this.asteroid.removeFigure(this);
         this.asteroid = getNextDestination();
         this.asteroid.addFigure(this);
@@ -54,6 +54,7 @@ public class Ufo extends Figure implements IMine {
     @Override
     public boolean moveThroughPortal() {
         if(asteroid.getPortals().size() != 0) {
+            this.getAsteroid().stepCompleted();
             Random rand = new Random();
             ArrayList<Portal> tmpArray = new ArrayList<>();
             for (Portal p : asteroid.getPortals()) {
@@ -80,19 +81,21 @@ public class Ufo extends Figure implements IMine {
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
         if(asteroid.getLayers()==0) {
+            System.out.println("ufo mined");
             mine();
         }
         else if (ufoCanStep()){
             Random rand = new Random();
             int number = rand.nextInt(2);
             if (number == 0) {
+                System.out.println("ufo moved");
                 move();
             }
             else {
+                System.out.println("ufo portal");
                 moveThroughPortal();
             }
         }
-        this.setRoundFinished(true);
     }
 
     /**
@@ -129,13 +132,13 @@ public class Ufo extends Figure implements IMine {
     @Override
     public boolean mine() {
         if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
+            this.getAsteroid().stepCompleted();
             this.materials.add(this.asteroid.getMaterial());
             this.asteroid.setIsHollow(true);
             this.setRoundFinished(true);
-            System.out.println("Ufo Mine done");
             return true;
         }
-        System.out.println("Ufo Mine NOT done");
+        //System.out.println("Ufo Mine NOT done");
         return false;
     }
 

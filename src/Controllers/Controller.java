@@ -49,6 +49,15 @@ public class Controller {
     public void drawAllViews(Rectangle2D screenBounds) {
         for (View view : views)
             view.draw(root, screenBounds);
-        // TODO itt adjuk hozzá a figurákat is meg a portálokat is
+    }
+
+    public void placeFigures(Rectangle2D screenBounds) {
+        for (int i = 0; i < map.getAsteroids().get(1).getFigures().size(); i++) {
+            Asteroid closest = map.findClosestAsteroidToCenter(screenBounds);
+            Figure figure = map.getAsteroids().get(1).getFigures().get(i);
+            figure.getAsteroid().removeFigure(figure);
+            figure.setAsteroid(closest);
+            closest.addFigure(figure);
+        }
     }
 }

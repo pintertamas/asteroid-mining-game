@@ -33,8 +33,8 @@ public class AsteroidView extends View {
         if (asteroid.getPosition().isInside(screenBounds)) {
             String img = getImage();
             ImageView imageView = ViewFunctions.image(img, asteroid.getPosition().getSize());
-            imageView.setX(asteroid.getPosition().getX());
-            imageView.setY(asteroid.getPosition().getY());
+            imageView.setX(asteroid.getPosition().getX() - asteroid.getPosition().getSize() / 2);
+            imageView.setY(asteroid.getPosition().getY() - asteroid.getPosition().getSize() / 2);
 
             this.getView().getChildren().clear();
             this.getView().getChildren().add(imageView);
@@ -45,6 +45,7 @@ public class AsteroidView extends View {
                 @Override
                 public void onAsteroidClicked() {
                     asteroid.getMap().setCurrentAsteroid(asteroid);
+                    asteroid.getMap().getGuiView().draw(root, screenBounds);
                 }
             });
             root.getChildren().add(this.getView());
