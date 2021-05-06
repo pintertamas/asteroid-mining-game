@@ -18,6 +18,7 @@ public class AsteroidView extends View {
     public AsteroidView(Asteroid asteroid) {
         this.asteroid = asteroid;
         this.pos = asteroid.getPosition();
+        containedViews = new ArrayList<>();
     }
 
     public String getImage() {
@@ -50,5 +51,19 @@ public class AsteroidView extends View {
             });
             root.getChildren().add(this.getView());
         }
+        drawContainedViews(root, screenBounds);
+    }
+
+    public void drawContainedViews(Group root, Rectangle2D screenBounds) {
+        for (View view : containedViews)
+            view.draw(root, screenBounds);
+    }
+
+    public void addContainedView(View view) {
+        this.containedViews.add(view);
+    }
+
+    public ArrayList<View> getContainedViews() {
+        return containedViews;
     }
 }

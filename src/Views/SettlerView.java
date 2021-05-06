@@ -23,9 +23,13 @@ public class SettlerView extends View {
         root.getChildren().remove(this.getView());
         this.getView().getChildren().clear();
 
-        Drawable pos = this.settler.getAsteroid().getPosition();
+        int settlerIndex = settler.getAsteroid().getAsteroidView().getContainedViews().indexOf(settler.getFigureView());
+        Drawable astPos = this.settler.getAsteroid().getPosition();
+        double angle = settlerIndex * (360.0 / this.settler.getAsteroid().getFigures().size());
+        Drawable pos = new Drawable(astPos.getX() + astPos.getSize() / 2 * Math.cos(angle), astPos.getY() + astPos.getSize() / 2 * Math.sin(angle));
+
         if (pos.isInside(screenBounds)) {
-            ImageView imageView = ViewFunctions.image(imagePath, this.settler.getAsteroid().getPosition().getSize() / 3);
+            ImageView imageView = ViewFunctions.image(imagePath, astPos.getSize() / 3);
             imageView.setX(pos.getX() - pos.getSize() / 6);
             imageView.setY(pos.getY() - pos.getSize() / 6);
 

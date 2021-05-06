@@ -39,9 +39,9 @@ public class Controller {
         for (Asteroid asteroid : map.getAsteroids()) {
             this.views.add(asteroid.getAsteroidView());
             for (Portal portal : asteroid.getPortals())
-                this.views.add(portal.getPortalView());
+                asteroid.getAsteroidView().addContainedView(portal.getPortalView());
             for (Figure figure : asteroid.getFigures())
-                this.views.add(figure.getFigureView());
+                asteroid.getAsteroidView().addContainedView(figure.getFigureView());
         }
         this.views.add(map.getGuiView());
     }
