@@ -14,8 +14,7 @@ public class SettlerView extends View {
 
     public SettlerView(Settler settler) {
         this.settler = settler;
-        Random rand = new Random();
-        int settlerNumber = rand.nextInt(5) + 1;
+        int settlerNumber = new Random().nextInt(5) + 1;
         this.imagePath = "/figures/spaceships/spaceship" + settlerNumber + ".png";
     }
 

@@ -119,7 +119,10 @@ public class GUIView extends View {
 
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
+        System.out.println("drawGui");
+
         root.getChildren().remove(this.getView());
+        this.getView().getChildren().clear();
 
         double width = 2 * screenBounds.getWidth() / 9;
         double height = screenBounds.getHeight();

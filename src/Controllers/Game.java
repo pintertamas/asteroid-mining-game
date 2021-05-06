@@ -44,6 +44,7 @@ public class Game implements IGameState {
                         gameState = GameState.IN_PROGRESS;
                         break;
                     case IN_PROGRESS:
+                        System.out.println(controller.root.getChildren().size());
                         if (!controller.getMap().checkGameEnd()) {
                             controller.getMap().resetRound();
                             controller.getMap().setupRound(root, screenBounds);

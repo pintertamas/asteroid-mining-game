@@ -288,7 +288,7 @@ public class Asteroid {
     public void invokeFigures(Group root, Rectangle2D screenBounds) {
         Figure f = pickNextFigure();
         if (this.getMap().getCurrentSettler().equals(f))
-            new GUIView(map).draw(root, screenBounds);
+            map.getGuiView().draw(root, screenBounds);
         if (this.getMap().shouldRun() && f != null) {
             f.step(root, screenBounds);
         }

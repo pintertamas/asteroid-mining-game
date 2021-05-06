@@ -31,7 +31,6 @@ public class Settler extends Figure implements IMine, IDrill {
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
-        int settlerNumber = new Random().nextInt(5) + 1;
         //-----
         inventory.addMaterial(new Iron());
         inventory.addMaterial(new Coal());

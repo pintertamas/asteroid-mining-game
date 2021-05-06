@@ -38,12 +38,12 @@ public class Controller {
         this.views.add(map.getMapView());
         for (Asteroid asteroid : map.getAsteroids()) {
             this.views.add(asteroid.getAsteroidView());
-            for (Figure figure : asteroid.getFigures())
-                this.views.add(figure.getFigureView());
             for (Portal portal : asteroid.getPortals())
                 this.views.add(portal.getPortalView());
+            for (Figure figure : asteroid.getFigures())
+                this.views.add(figure.getFigureView());
         }
-        this.views.add(new GUIView(map));
+        this.views.add(map.getGuiView());
     }
 
     public void drawAllViews(Rectangle2D screenBounds) {
@@ -51,5 +51,4 @@ public class Controller {
             view.draw(root, screenBounds);
         // TODO itt adjuk hozzá a figurákat is meg a portálokat is
     }
-
 }

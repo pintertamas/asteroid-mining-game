@@ -9,6 +9,7 @@ import Maths.Drawable;
 import Playground.Asteroid;
 import Playground.GameState;
 import Playground.Portal;
+import Views.GUIView;
 import Views.MapView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -21,6 +22,7 @@ import java.util.*;
 @SuppressWarnings("SpellCheckingInspection")
 public class Map {
     private final MapView view;
+    private final GUIView guiView;
     private final ArrayList<Asteroid> asteroids;
     private final ArrayList<IGameState> listeners = new ArrayList<>();
     private boolean shouldRunAnyMore = true;
@@ -34,6 +36,7 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
         this.view = new MapView(this);
+        this.guiView = new GUIView(this);
         this.asteroids = new ArrayList<>();
         this.currentAsteroid = new Asteroid(new Iron(), 1, false, false);
         this.currentSettler = new Settler(getCurrentAsteroid(), false);
@@ -428,5 +431,9 @@ public class Map {
 
     public MapView getMapView() {
         return view;
+    }
+
+    public GUIView getGuiView() {
+        return guiView;
     }
 }
