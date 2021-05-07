@@ -320,6 +320,7 @@ public class Asteroid {
         for (Figure f : figures) {
             f.setRoundFinished(false);
         }
+        this.stepsLeft = getFigures().size();
     }
 
     /**

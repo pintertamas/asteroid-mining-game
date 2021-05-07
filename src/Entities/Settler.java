@@ -215,7 +215,7 @@ public class Settler extends Figure implements IMine, IDrill {
         this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
         System.out.println("im stepping rn " + this);
         // TODO ide jön a cucc
-        setRoundFinished(false);
+        //setRoundFinished(false);
     }
 
     /**

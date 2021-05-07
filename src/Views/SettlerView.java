@@ -10,7 +10,6 @@ import java.util.Random;
 
 public class SettlerView extends View {
     Settler settler;
-    String imagePath;
 
     public SettlerView(Settler settler) {
         this.settler = settler;
@@ -37,5 +36,4 @@ public class SettlerView extends View {
             root.getChildren().add(this.getView());
         }
     }
-
 }

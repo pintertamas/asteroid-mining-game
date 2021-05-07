@@ -13,8 +13,6 @@ import java.util.Random;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Robot extends Figure {
-    RobotView robotView;
-
     /**
      * Konstruktor.
      *
@@ -24,7 +22,7 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public Robot(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
-        this.robotView = new RobotView(this);
+        this.figureView = new RobotView(this);
     }
 
     /**
@@ -36,7 +34,6 @@ public class Robot extends Figure {
         //if the current asteroid has no neighbors the robot can't move
         if(a == null){
             System.out.println("Robot move NOT done, no neighbors");
-            this.setRoundFinished(true);
             return;
         }
         this.asteroid.stepCompleted();
@@ -67,11 +64,7 @@ public class Robot extends Figure {
         if (neighbors.size() == 0) {
             return null;
         }
-        int nextDestination = 0;
-        Random rand = new Random();
-        nextDestination = rand.nextInt(neighbors.size());
-        Asteroid nextAsteroid = neighbors.get(nextDestination);
-        return nextAsteroid;
+        return neighbors.get(new Random().nextInt(neighbors.size()));
     }
 
     /**
@@ -89,11 +82,13 @@ public class Robot extends Figure {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void step(Group root, Rectangle2D screenBounds) {
-        if(this.asteroid.getLayers() == 0) {
-            move();
-        }
-        else {
+        System.out.println("im stepping rn " + this);
+        if(this.asteroid.getLayers() != 0) {
             drill();
         }
+        else {
+            move();
+        }
+        this.setRoundFinished(true);
     }
 }

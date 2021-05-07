@@ -8,7 +8,6 @@ import javafx.scene.image.ImageView;
 
 public class UfoView extends View {
     Ufo ufo;
-    String imagePath;
 
     public UfoView(Ufo ufo) {
         this.ufo = ufo;

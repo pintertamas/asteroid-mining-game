@@ -65,7 +65,7 @@ public class GUIView extends View {
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
 
-        ImageView portalImage = ViewFunctions.image("/portal.png", 100);
+        ImageView portalImage = ViewFunctions.image("/portals/portal.png", 100);
         portalBox.getChildren().add(portalImage);
 
         Text text = ViewFunctions.text("No. Portals: " + map.getCurrentSettler().getInventory().getPortals().size(), 20);

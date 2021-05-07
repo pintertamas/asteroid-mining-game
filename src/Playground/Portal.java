@@ -1,6 +1,7 @@
 package Playground;
 
 import Interfaces.IMove;
+import Views.PortalView;
 import Views.View;
 
 import java.util.ArrayList;
@@ -14,11 +15,14 @@ import java.util.Random;
 public class Portal implements IMove {
     private Portal pair;
     private Asteroid asteroid;
-
-    private View portalView;
+    private final PortalView portalView;
 
     public View getPortalView() {
         return portalView;
+    }
+
+    public Portal() {
+        this.portalView = new PortalView(this);
     }
 
     /**
@@ -49,6 +53,7 @@ public class Portal implements IMove {
     @SuppressWarnings("SpellCheckingInspection")
     public void setAsteroid(Asteroid asteroid) {
         this.asteroid = asteroid;
+        this.portalView.setPos(asteroid.getPosition());
     }
 
     /**

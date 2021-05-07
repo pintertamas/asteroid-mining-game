@@ -54,7 +54,7 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public boolean moveThroughPortal() {
-        if(asteroid.getPortals().size() != 0) {
+        if (asteroid.getPortals().size() != 0) {
             System.out.println("ufo portal");
             this.getAsteroid().stepCompleted();
             Random rand = new Random();
@@ -69,8 +69,7 @@ public class Ufo extends Figure implements IMine {
             asteroid.getNeighbors().get(nextAsteroid).addFigure(this);
             setAsteroid(tmpArray.get(nextAsteroid).getAsteroid());
             setRoundFinished(true);
-        }
-        else {
+        } else {
             return false;
         }
         return false;
@@ -82,31 +81,35 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
-        assert(!this.getRoundFinished());
+        assert (!this.getRoundFinished());
         System.out.println("im stepping rn " + this);
-        if(asteroid.getLayers()==0) {
+        if (asteroid.getLayers() == 0) {
             mine();
-        }
-        else if (ufoCanStep()){
+        } else if (ufoCanMove() && !ufoCanMoveThroughPortal())
+            move();
+        else if (!ufoCanMove() && ufoCanMoveThroughPortal())
+            moveThroughPortal();
+        else if (ufoCanMove() && ufoCanMoveThroughPortal()) {
             Random rand = new Random();
             int number = rand.nextInt(2);
             if (number == 0) {
                 move();
-            }
-            else {
+            } else {
                 moveThroughPortal();
             }
-        }
-        this.setRoundFinished(true);
+        } else setRoundFinished(true);
+    }
+
+    private boolean ufoCanMove() {
+        return this.asteroid.getNeighbors().size() > 0;
     }
 
     /**
      * Megmondja hogy tud-e lépni az ufó
+     *
      * @return
      */
-    private boolean ufoCanStep() {
-        if (this.asteroid.getNeighbors().size() > 0)
-            return true;
+    private boolean ufoCanMoveThroughPortal() {
         if (this.asteroid.getPortals().size() > 0) {
             for (Portal p : this.asteroid.getPortals()) {
                 if (p.getPair() != null)

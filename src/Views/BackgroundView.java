@@ -17,10 +17,10 @@ public class BackgroundView extends View {
 
     public BackgroundView(Map map) {
         this.map = map;
+        this.imagePath = "/background.png";
     }
     public void draw(Group root, Rectangle2D screenBounds) {
-        String img = "/background.png";
-        ImageView imageView = ViewFunctions.image(img, screenBounds.getWidth());
+        ImageView imageView = ViewFunctions.image(imagePath, screenBounds.getWidth());
         imageView.setX(0);
         imageView.setY(0);
 

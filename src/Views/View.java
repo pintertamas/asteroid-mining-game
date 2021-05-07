@@ -7,6 +7,7 @@ import javafx.scene.Group;
 public class View {
     private final Group view;
     protected Drawable pos;
+    protected String imagePath;
 
     View() {
         view = new Group();
@@ -20,5 +21,7 @@ public class View {
 
     }
 
-
+    public void setPos(Drawable pos) {
+        this.pos = pos;
+    }
 }

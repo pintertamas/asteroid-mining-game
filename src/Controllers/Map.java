@@ -2,6 +2,7 @@ package Controllers;
 
 import Bills.*;
 import Entities.Figure;
+import Entities.Robot;
 import Entities.Settler;
 import Entities.Ufo;
 import Interfaces.IGameState;
@@ -114,7 +115,14 @@ public class Map {
 
         placeAsteroids(screenBounds);
         currentAsteroid = asteroids.get(0);
-        System.out.println(asteroids.get(0).getPosition().getX());
+        System.out.println(asteroids.get(0).getPosition().getY());
+
+        Portal p = new Portal();
+        p.setAsteroid(currentAsteroid);
+        currentAsteroid.addPortal(p);
+
+        new Robot(currentAsteroid, true);
+
 
         double threshold = screenBounds.getWidth() / 3;
 
@@ -138,7 +146,6 @@ public class Map {
         for (int i = 0; i < ufoNumber; i++) {
             Asteroid asteroid = asteroids.get(new Random().nextInt(asteroids.size()));
             Ufo ufo = new Ufo(asteroid, true);
-            asteroid.addFigure(ufo);
             ufo.setAsteroid(asteroid);
         }
     }

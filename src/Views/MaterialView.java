@@ -2,13 +2,10 @@ package Views;
 
 import Materials.Material;
 
-public class MaterialView {
-    private Material material;
-    protected String imagePath;
+public class MaterialView extends View {
 
     public MaterialView(Material material) {
-        this.material = material;
-        imagePath = "/asteroids/" + this.material.getClass().toString().replace("class Materials.", "").toLowerCase() + ".png";
+        imagePath = "/asteroids/" + material.getClass().toString().replace("class Materials.", "").toLowerCase() + ".png";
     }
 
     public String getImagePath() {

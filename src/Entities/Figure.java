@@ -78,6 +78,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     @SuppressWarnings("SpellCheckingInspection")
     public boolean drill() {
         if (asteroid.drilled()) {
+            System.out.println("drill successful");
             setRoundFinished(true);
             this.asteroid.stepCompleted();
             return true;
