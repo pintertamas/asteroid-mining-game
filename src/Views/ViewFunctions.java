@@ -40,7 +40,11 @@ public class ViewFunctions {
      */
     public static Text text(String text, int size) {
         Text newText = new Text(text);
-        newText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, size));
+        newText.setFont(font(size));
         return newText;
+    }
+
+    public static Font font(int size) {
+        return Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, size);
     }
 }

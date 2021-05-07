@@ -21,16 +21,16 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
     public void handle(KeyEvent event) {
         if (event.getEventType() == KeyEvent.KEY_PRESSED) {
             switch (event.getCode()) {
-                case UP:
+                case W:
                     map.setGoNorth(true);
                     break;
-                case DOWN:
+                case S:
                     map.setGoSouth(true);
                     break;
-                case LEFT:
+                case A:
                     map.setGoWest(true);
                     break;
-                case RIGHT:
+                case D:
                     map.setGoEast(true);
                     break;
             }
@@ -38,16 +38,16 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
 
         if (event.getEventType() == KeyEvent.KEY_RELEASED) {
             switch (event.getCode()) {
-                case UP:
+                case W:
                     map.setGoNorth(false);
                     break;
-                case DOWN:
+                case S:
                     map.setGoSouth(false);
                     break;
-                case LEFT:
+                case A:
                     map.setGoWest(false);
                     break;
-                case RIGHT:
+                case D:
                     map.setGoEast(false);
             }
         }

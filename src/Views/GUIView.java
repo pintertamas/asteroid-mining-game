@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -79,9 +80,36 @@ public class GUIView extends View {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
         actions.setAlignment(Pos.CENTER);
+        actions.setPadding(new Insets(10, 10, 10, 10));
         actions.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(70.0), Insets.EMPTY)));
 
-        String[] moves = {"Move", "MoveThroughPortal"};
+        Button moveButton = new Button("Move");
+        moveButton.setFont(ViewFunctions.font(10));
+        Button drillButton = new Button("Drill");
+        drillButton.setFont(ViewFunctions.font(10));
+        Button mineButton = new Button("Mine");
+        mineButton.setFont(ViewFunctions.font(10));
+        Button putMaterialBack = new Button("Put Material Back");
+        putMaterialBack.setFont(ViewFunctions.font(10));
+        Button putPortalDown = new Button("Put Portal Down");
+        putPortalDown.setFont(ViewFunctions.font(10));
+        Button buildPortal = new Button("Build Portal");
+        buildPortal.setFont(ViewFunctions.font(10));
+        Button buildRobot = new Button("Build Robot");
+        buildRobot.setFont(ViewFunctions.font(10));
+        Button buildBase = new Button("Build Base");
+        buildBase.setFont(ViewFunctions.font(10));
+
+        actions.getChildren().add(moveButton);
+        actions.getChildren().add(drillButton);
+        actions.getChildren().add(mineButton);
+        actions.getChildren().add(putMaterialBack);
+        actions.getChildren().add(putPortalDown);
+        actions.getChildren().add(buildPortal);
+        actions.getChildren().add(buildRobot);
+        actions.getChildren().add(buildBase);
+
+        vBox.getChildren().add(actions);
     }
 
     private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {

@@ -210,10 +210,10 @@ public class Settler extends Figure implements IMine, IDrill {
 
             //this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, );
         }
-        this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
+        //this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
         // TODO ide jön a cucc
-        this.getAsteroid().stepCompleted();
-        setRoundFinished(true);
+        //this.getAsteroid().stepCompleted();
+        //setRoundFinished(true);
     }
 
     /**
