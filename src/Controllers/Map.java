@@ -82,7 +82,7 @@ public class Map {
         int numberOfPlayers;
 
         //Játék előkészítése:
-        numberOfPlayers = 4; // TODO
+        numberOfPlayers = 0; // TODO
 
         // Generating the map randomly...
         int minimumNumberOfAsteroids = 100;
@@ -114,8 +114,7 @@ public class Map {
         }
 
         placeAsteroids(screenBounds);
-        currentAsteroid = asteroids.get(0);
-        System.out.println(asteroids.get(0).getPosition().getY());
+        currentAsteroid = asteroids.get(1);
 
         Portal p = new Portal();
         p.setAsteroid(currentAsteroid);
@@ -403,15 +402,15 @@ public class Map {
     /**
      * Elmozgat egy irányban minden aszteroidát
      */
-    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, float x, float y) {
-        view.draw(root, screenBounds);
+    public void moveAllAsteroids(Group root, Rectangle2D screenBounds, double x, double y) {
         for (Asteroid a : asteroids) {
             a.updatePosition(x, y);
-            a.getAsteroidView().draw(root, screenBounds);
-            for (Figure f : a.getFigures())
-                f.getFigureView().draw(root, screenBounds);
         }
-        guiView.draw(root, screenBounds);
+        getMapView().draw(root, screenBounds);
+        for (Asteroid a : asteroids) {
+            a.getAsteroidView().draw(root, screenBounds);
+        }
+        getGuiView().draw(root, screenBounds);
     }
 
     public Asteroid findClosestAsteroidToCenter(Rectangle2D screenBounds) {

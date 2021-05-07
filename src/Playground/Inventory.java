@@ -13,6 +13,7 @@ public class Inventory {
     private final ArrayList<Material> materials;
     private final int materialCapacity;
     private final int portalCapacity;
+    private Material selectedMaterial;
 
     /**
      * Konstruktor.
@@ -23,6 +24,15 @@ public class Inventory {
         this.materials = new ArrayList<>();
         this.materialCapacity = 10;
         this.portalCapacity = 3;
+        this.selectedMaterial = null;
+    }
+
+    public void setSelectedMaterial(Material selectedMaterial) {
+        this.selectedMaterial = selectedMaterial;
+    }
+
+    public Material getSelectedMaterial() {
+        return selectedMaterial;
     }
 
     /**

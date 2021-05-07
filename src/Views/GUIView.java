@@ -1,7 +1,10 @@
 package Views;
 
+import Controllers.ClickEventHandler;
 import Controllers.Map;
 import Entities.Settler;
+import Events.AsteroidCustomEvent;
+import Events.CustomEvent;
 import Materials.Material;
 import Playground.Asteroid;
 import javafx.geometry.Insets;
@@ -10,6 +13,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -33,7 +38,31 @@ public class GUIView extends View {
         vBox.getChildren().add(grid);
     }
 
-    private void drawInventory(VBox vBox, Rectangle2D screenBounds) {
+    private void drawSelectedMaterial(VBox vBox, Rectangle2D screenBounds) {
+        GridPane grid = new GridPane();
+        grid.setHgap(20);
+        grid.setVgap(20);
+        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
+        grid.setAlignment(Pos.CENTER);
+        Text text = ViewFunctions.text("Selected material: ", 10);
+        grid.getChildren().add(text);
+        vBox.getChildren().add(grid);
+
+        FlowPane selectedMaterial = new FlowPane();
+        selectedMaterial.setAlignment(Pos.CENTER);
+        selectedMaterial.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
+
+        double imgSize = screenBounds.getWidth() / 30;
+        String imagePath = map.getCurrentSettler().getInventory().getSelectedMaterial() == null
+                ? "/asteroids/hollow.png"
+                : map.getCurrentSettler().getInventory().getSelectedMaterial().getMaterialView().getImagePath();
+        ImageView imageView = ViewFunctions.image(imagePath, imgSize);
+        selectedMaterial.getChildren().add(imageView);
+
+        vBox.getChildren().add(selectedMaterial);
+    }
+
+    private void drawInventory(VBox vBox, Group root, Rectangle2D screenBounds) {
         GridPane grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
@@ -49,6 +78,17 @@ public class GUIView extends View {
         for (Material material : map.getCurrentSettler().getInventory().getMaterials()) {
             double imgSize = screenBounds.getWidth() / 30;
             ImageView imageView = ViewFunctions.image(material.getMaterialView().getImagePath(), imgSize);
+
+            imageView.setOnMouseClicked((MouseEvent event) -> imageView.fireEvent(new AsteroidCustomEvent()));
+
+            imageView.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+                @Override
+                public void onItemClicked() {
+                    map.getCurrentSettler().getInventory().setSelectedMaterial(material);
+                    map.getGuiView().draw(root, screenBounds);
+                }
+            });
+
             inventory.getChildren().add(imageView);
         }
         vBox.getChildren().add(inventory);
@@ -76,31 +116,137 @@ public class GUIView extends View {
         vBox.getChildren().add(grid);
     }
 
-    private void drawActions(VBox vBox, Rectangle2D screenBounds) {
+    private void drawActions(VBox vBox, Group root, Rectangle2D screenBounds) {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
+        actions.setVgap(10);
         actions.setAlignment(Pos.CENTER);
         actions.setPadding(new Insets(10, 10, 10, 10));
         actions.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(70.0), Insets.EMPTY)));
 
+        Button moveToCenter = new Button("Move camera to settler");
+        moveToCenter.setFont(ViewFunctions.font(10));
+
+        moveToCenter.setOnMouseClicked((MouseEvent event) -> moveToCenter.fireEvent(new AsteroidCustomEvent()));
+
+        moveToCenter.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().moveToSettler(root, screenBounds);
+            }
+        });
+
         Button moveButton = new Button("Move");
         moveButton.setFont(ViewFunctions.font(10));
+
+        moveButton.setOnMouseClicked((MouseEvent event) -> moveButton.fireEvent(new AsteroidCustomEvent()));
+
+        moveButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().move();
+            }
+        });
+
+        Button moveThroughPortalButton = new Button("Move Through Portal");
+        moveThroughPortalButton.setFont(ViewFunctions.font(10));
+
+        moveThroughPortalButton.setOnMouseClicked((MouseEvent event) -> moveThroughPortalButton.fireEvent(new AsteroidCustomEvent()));
+
+        moveThroughPortalButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().moveThroughPortal();
+            }
+        });
+
         Button drillButton = new Button("Drill");
         drillButton.setFont(ViewFunctions.font(10));
+
+        drillButton.setOnMouseClicked((MouseEvent event) -> drillButton.fireEvent(new AsteroidCustomEvent()));
+
+        drillButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().drill();
+            }
+        });
+
         Button mineButton = new Button("Mine");
         mineButton.setFont(ViewFunctions.font(10));
+
+        mineButton.setOnMouseClicked((MouseEvent event) -> mineButton.fireEvent(new AsteroidCustomEvent()));
+
+        mineButton.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().mine();
+            }
+        });
+
         Button putMaterialBack = new Button("Put Material Back");
         putMaterialBack.setFont(ViewFunctions.font(10));
+
+        putMaterialBack.setOnMouseClicked((MouseEvent event) -> putMaterialBack.fireEvent(new AsteroidCustomEvent()));
+
+        putMaterialBack.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().putMaterialBack(map.getCurrentSettler().getInventory().getSelectedMaterial());
+            }
+        });
+
         Button putPortalDown = new Button("Put Portal Down");
         putPortalDown.setFont(ViewFunctions.font(10));
+
+        putPortalDown.setOnMouseClicked((MouseEvent event) -> putPortalDown.fireEvent(new AsteroidCustomEvent()));
+
+        putPortalDown.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().move();
+            }
+        });
+
         Button buildPortal = new Button("Build Portal");
         buildPortal.setFont(ViewFunctions.font(10));
+
+        buildPortal.setOnMouseClicked((MouseEvent event) -> buildPortal.fireEvent(new AsteroidCustomEvent()));
+
+        buildPortal.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().buildPortal();
+            }
+        });
+
         Button buildRobot = new Button("Build Robot");
         buildRobot.setFont(ViewFunctions.font(10));
+
+        buildRobot.setOnMouseClicked((MouseEvent event) -> buildRobot.fireEvent(new AsteroidCustomEvent()));
+
+        buildRobot.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().buildRobot();
+            }
+        });
+
         Button buildBase = new Button("Build Base");
         buildBase.setFont(ViewFunctions.font(10));
 
+        buildBase.setOnMouseClicked((MouseEvent event) -> buildBase.fireEvent(new AsteroidCustomEvent()));
+
+        buildBase.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
+            @Override
+            public void onItemClicked() {
+                map.getCurrentSettler().buildBase();
+            }
+        });
+
+        actions.getChildren().add(moveToCenter);
         actions.getChildren().add(moveButton);
+        actions.getChildren().add(moveThroughPortalButton);
         actions.getChildren().add(drillButton);
         actions.getChildren().add(mineButton);
         actions.getChildren().add(putMaterialBack);
@@ -112,9 +258,9 @@ public class GUIView extends View {
         vBox.getChildren().add(actions);
     }
 
-    private void drawPortalsAndActions(VBox vBox, Rectangle2D screenBounds) {
+    private void drawPortalsAndActions(VBox vBox, Group root, Rectangle2D screenBounds) {
         drawPortals(vBox);
-        drawActions(vBox, screenBounds);
+        drawActions(vBox, root, screenBounds);
     }
 
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds, Asteroid asteroid) {
@@ -123,7 +269,7 @@ public class GUIView extends View {
 
         double imgSize = screenBounds.getWidth() / 10;
         try {
-            String imgPath = asteroid.getAsteroidView().getImage(); //TODO random exceptiont dob ha sokáig fut a játék
+            String imgPath = asteroid.getAsteroidView().getImage();
             ImageView imageView = ViewFunctions.image(imgPath, imgSize);
             detailContainer.getChildren().add(imageView);
         } catch (Exception e) {
@@ -163,8 +309,9 @@ public class GUIView extends View {
         mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
 
         drawSettlerInfo(mainContainer);
-        drawInventory(mainContainer, screenBounds);
-        drawPortalsAndActions(mainContainer, screenBounds);
+        drawSelectedMaterial(mainContainer, screenBounds);
+        drawInventory(mainContainer, root, screenBounds);
+        drawPortalsAndActions(mainContainer, root, screenBounds);
         drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentSettler().getAsteroid());
         drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentAsteroid());
 

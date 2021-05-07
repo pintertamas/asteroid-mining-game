@@ -44,11 +44,15 @@ public class Settler extends Figure implements IMine, IDrill {
         inventory.addMaterial(new Ice());
         inventory.addMaterial(new Ice());
 
-        inventory.addPortal(new Portal());
-        inventory.addPortal(new Portal());
-        inventory.addPortal(new Portal());
+        //inventory.addPortal(new Portal());
+        //inventory.addPortal(new Portal());
+        //inventory.addPortal(new Portal());
         //-----
         this.figureView = new SettlerView(this);
+    }
+
+    private Asteroid nextAsteroid() {
+        return this.getAsteroid().getMap().getCurrentAsteroid();
     }
 
     /**
@@ -57,14 +61,15 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     public void move() {
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
-        if (neighbors.size() == 0) {
+        if (neighbors.size() == 0 || nextAsteroid() == this.getAsteroid() || !neighbors.contains(nextAsteroid())) {
+            System.out.println("return, wont move");
             return;
         }
         this.asteroid.stepCompleted();
-        int neighborChoice = new Random().nextInt(asteroid.getNeighbors().size()); //TODO ezt majd a grafikus felületen kell beállítani
+        Asteroid neighborChoice = this.asteroid.getMap().getCurrentAsteroid();
         this.asteroid.removeFigure(this);
-        neighbors.get(neighborChoice).addFigure(this);
-        this.setAsteroid(neighbors.get(neighborChoice));
+        neighborChoice.addFigure(this);
+        this.setAsteroid(neighborChoice);
         this.setRoundFinished(true);
     }
 
@@ -75,10 +80,11 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void mine() {
-        if (asteroid.mined(this)) {
-            this.asteroid.stepCompleted();
-            setRoundFinished(true);
-        }
+        if (this.inventory.getMaterialCapacity() > this.inventory.getMaterials().size())
+            if (asteroid.mined(this)) {
+                this.asteroid.stepCompleted();
+                setRoundFinished(true);
+            }
     }
 
     /**
@@ -128,7 +134,8 @@ public class Settler extends Figure implements IMine, IDrill {
                 && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
             this.asteroid.stepCompleted();
             billOfRobot.pay(inventory.getMaterials());
-            this.asteroid.addFigure(new Robot(this.asteroid, true));
+            Robot robot = new Robot(this.asteroid, false);
+            asteroid.getAsteroidView().addContainedView(robot.getFigureView());
             this.setRoundFinished(true);
         }
     }
@@ -159,6 +166,7 @@ public class Settler extends Figure implements IMine, IDrill {
         ArrayList<Portal> portals = inventory.getPortals();
         if (portals.size() >= 1) {
             this.getAsteroid().stepCompleted();
+            asteroid.getAsteroidView().addContainedView(portals.get(0).getPortalView());
             this.asteroid.addPortal(portals.get(0));
             this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
@@ -173,6 +181,8 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void putMaterialBack(Material m) {
+        if (m == null)
+            return;
         if (this.asteroid.setMaterial(m)) {
             this.getAsteroid().stepCompleted();
             this.inventory.removeMaterial(m);
@@ -199,6 +209,12 @@ public class Settler extends Figure implements IMine, IDrill {
         this.die();
     }
 
+    public void moveToSettler(Group root, Rectangle2D screenBounds) {
+        double xDistance = screenBounds.getWidth() / 2 - this.asteroid.getPosition().getX();
+        double yDistance = screenBounds.getHeight() / 2 - this.asteroid.getPosition().getY();
+        this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, xDistance, yDistance);
+    }
+
     /**
      * Lépés.
      */
@@ -207,7 +223,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public void step(Group root, Rectangle2D screenBounds) {
         if (asteroid.getMap().getCurrentSettler() != this) {
             this.getAsteroid().getMap().setCurrentSettler(this);
-
+            moveToSettler(root, screenBounds);
             //this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, );
         }
         //this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
@@ -223,17 +239,17 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void moveThroughPortal() {
-        ArrayList<Asteroid> tmpArray = new ArrayList<>();
         if (asteroid.getPortals().size() != 0) {
-            this.getAsteroid().stepCompleted();
-            for (Portal p : asteroid.getPortals()) {
-                tmpArray.add(p.getPair().getAsteroid());
+            for (Portal portal : getAsteroid().getPortals()) {
+                if (portal.getPair().getAsteroid() == this.getAsteroid().getMap().getCurrentAsteroid()) {
+                    this.asteroid.stepCompleted();
+                    Asteroid neighborChoice = this.asteroid.getMap().getCurrentAsteroid();
+                    this.asteroid.removeFigure(this);
+                    neighborChoice.addFigure(this);
+                    this.setAsteroid(neighborChoice);
+                    this.setRoundFinished(true);
+                }
             }
-            int portalChoice = new Random().nextInt(asteroid.getPortals().size()); //TODO grafikus felületen kell megcsinálni
-            asteroid.removeFigure(this);
-            tmpArray.get(portalChoice).addFigure(this);
-            setAsteroid(tmpArray.get(portalChoice));
-            this.setRoundFinished(true);
         }
     }
 }

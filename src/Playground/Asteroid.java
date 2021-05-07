@@ -356,7 +356,7 @@ public class Asteroid {
      * @param x
      * @param y
      */
-    public void updatePosition(float x, float y) {
+    public void updatePosition(double x, double y) {
         this.position.move(new Drawable(x, y));
     }
 

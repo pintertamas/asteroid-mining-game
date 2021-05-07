@@ -44,7 +44,7 @@ public class AsteroidView extends View {
 
             imageView.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
                 @Override
-                public void onAsteroidClicked() {
+                public void onItemClicked() {
                     asteroid.getMap().setCurrentAsteroid(asteroid);
                     asteroid.getMap().getGuiView().draw(root, screenBounds);
                 }

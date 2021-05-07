@@ -13,6 +13,6 @@ public class AsteroidCustomEvent extends CustomEvent {
 
     @Override
     public void invokeHandler(ClickEventHandler handler) {
-        handler.onAsteroidClicked();
+        handler.onItemClicked();
     }
 }
