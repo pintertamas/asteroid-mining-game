@@ -1,4 +1,5 @@
 package Entities;
+
 import Interfaces.*;
 import Playground.*;
 import Views.View;
@@ -54,7 +55,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public abstract boolean moveThroughPortal();
+    public abstract void moveThroughPortal();
 
     /**
      * Lépés.
@@ -68,7 +69,9 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean getRoundFinished(){return this.roundFinished;}
+    public boolean getRoundFinished() {
+        return this.roundFinished;
+    }
 
     /**
      * Fúrás.
@@ -76,14 +79,12 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean drill() {
+    public void drill() {
         if (asteroid.drilled()) {
             System.out.println("drill successful");
             setRoundFinished(true);
             this.asteroid.stepCompleted();
-            return true;
         }
-        return false;
     }
 
     /**

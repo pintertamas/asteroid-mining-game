@@ -39,18 +39,16 @@ public class Game implements IGameState {
                     case LOAD:
                         controller.getMap().initGame(screenBounds);
                         controller.placeFigures(screenBounds);
+                        controller.getMap().resetRound();
                         controller.addAllViews();
                         controller.drawAllViews(screenBounds);
                         gameState = GameState.IN_PROGRESS;
                         break;
                     case IN_PROGRESS:
-                        //System.out.println(controller.root.getChildren().size());
-                        //System.out.println(controller.getMap().getCurrentSettler());
                         if (!controller.getMap().checkGameEnd()) {
                             controller.getMap().setupRound(root, screenBounds);
                         }
                         break;
-
                     case LOST:
                         controller.getMap().gameEnd(false);
                         break;

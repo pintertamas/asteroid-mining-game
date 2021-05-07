@@ -73,8 +73,7 @@ public class Robot extends Figure {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean moveThroughPortal() {
-        return false;
+    public void moveThroughPortal() {
     }
 
     /**
@@ -82,7 +81,6 @@ public class Robot extends Figure {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void step(Group root, Rectangle2D screenBounds) {
-        System.out.println("im stepping rn " + this);
         if(this.asteroid.getLayers() != 0) {
             drill();
         }

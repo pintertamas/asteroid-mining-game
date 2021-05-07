@@ -53,7 +53,7 @@ public class Ufo extends Figure implements IMine {
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public boolean moveThroughPortal() {
+    public void moveThroughPortal() {
         if (asteroid.getPortals().size() != 0) {
             System.out.println("ufo portal");
             this.getAsteroid().stepCompleted();
@@ -69,10 +69,7 @@ public class Ufo extends Figure implements IMine {
             asteroid.getNeighbors().get(nextAsteroid).addFigure(this);
             setAsteroid(tmpArray.get(nextAsteroid).getAsteroid());
             setRoundFinished(true);
-        } else {
-            return false;
         }
-        return false;
     }
 
     /**
@@ -82,7 +79,6 @@ public class Ufo extends Figure implements IMine {
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
         assert (!this.getRoundFinished());
-        System.out.println("im stepping rn " + this);
         if (asteroid.getLayers() == 0) {
             mine();
         } else if (ufoCanMove() && !ufoCanMoveThroughPortal())
@@ -97,7 +93,10 @@ public class Ufo extends Figure implements IMine {
             } else {
                 moveThroughPortal();
             }
-        } else setRoundFinished(true);
+        } else {
+            asteroid.stepCompleted();
+            setRoundFinished(true);
+        }
     }
 
     private boolean ufoCanMove() {
@@ -135,17 +134,14 @@ public class Ufo extends Figure implements IMine {
      */
     @SuppressWarnings("SpellCheckingInspection")
     @Override
-    public boolean mine() {
+    public void mine() {
         if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
             System.out.println("ufo mined");
             this.getAsteroid().stepCompleted();
             this.materials.add(this.asteroid.getMaterial());
             this.asteroid.setIsHollow(true);
             this.setRoundFinished(true);
-            return true;
         }
-        //System.out.println("Ufo Mine NOT done");
-        return false;
     }
 
     /**

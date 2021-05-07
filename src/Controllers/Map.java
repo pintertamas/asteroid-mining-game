@@ -121,7 +121,7 @@ public class Map {
         p.setAsteroid(currentAsteroid);
         currentAsteroid.addPortal(p);
 
-        new Robot(currentAsteroid, true);
+        new Robot(currentAsteroid, false);
 
 
         double threshold = screenBounds.getWidth() / 3;
@@ -142,10 +142,10 @@ public class Map {
         }
 
         // generating ufos
-        int ufoNumber = new Random().nextInt(1) + 1;
+        int ufoNumber = new Random().nextInt(1) + 2;
         for (int i = 0; i < ufoNumber; i++) {
             Asteroid asteroid = asteroids.get(new Random().nextInt(asteroids.size()));
-            Ufo ufo = new Ufo(asteroid, true);
+            Ufo ufo = new Ufo(asteroid, false);
             ufo.setAsteroid(asteroid);
         }
     }
@@ -278,9 +278,7 @@ public class Map {
             solarStorm();
         } else {
             Asteroid asteroid = findNextAsteroid();
-            if (asteroid != null) {
-                asteroid.invokeFigures(root, screenBounds);
-            }
+            asteroid.invokeFigures(root, screenBounds);
         }
     }
 
@@ -325,8 +323,10 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void resetRound() {
+        System.out.println("reset");
         for (Asteroid a : asteroids) {
             a.resetStep();
+            a.setStepsLeft(a.getFigures().size());
         }
     }
 

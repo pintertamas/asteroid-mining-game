@@ -5,5 +5,5 @@ package Interfaces;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public interface IPortalMove {
-    boolean moveThroughPortal();
+    void moveThroughPortal();
 }

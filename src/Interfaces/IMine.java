@@ -5,5 +5,5 @@ package Interfaces;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public interface IMine {
-    boolean mine();
+    void mine();
 }

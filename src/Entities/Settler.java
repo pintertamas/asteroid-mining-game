@@ -74,13 +74,11 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean mine() {
+    public void mine() {
         if (asteroid.mined(this)) {
             this.asteroid.stepCompleted();
             setRoundFinished(true);
-            return true;
         }
-        return false;
     }
 
     /**
@@ -213,9 +211,9 @@ public class Settler extends Figure implements IMine, IDrill {
             //this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, );
         }
         this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
-        System.out.println("im stepping rn " + this);
         // TODO ide jön a cucc
-        //setRoundFinished(false);
+        this.getAsteroid().stepCompleted();
+        setRoundFinished(true);
     }
 
     /**
@@ -224,7 +222,7 @@ public class Settler extends Figure implements IMine, IDrill {
      * @return
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public boolean moveThroughPortal() {
+    public void moveThroughPortal() {
         ArrayList<Asteroid> tmpArray = new ArrayList<>();
         if (asteroid.getPortals().size() != 0) {
             this.getAsteroid().stepCompleted();
@@ -236,9 +234,6 @@ public class Settler extends Figure implements IMine, IDrill {
             tmpArray.get(portalChoice).addFigure(this);
             setAsteroid(tmpArray.get(portalChoice));
             this.setRoundFinished(true);
-            return true;
-        } else {
-            return false;
         }
     }
 }

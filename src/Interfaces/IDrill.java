@@ -5,5 +5,5 @@ package Interfaces;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public interface IDrill {
-    boolean drill();
+    void drill();
 }

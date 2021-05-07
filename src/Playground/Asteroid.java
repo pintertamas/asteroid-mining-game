@@ -294,11 +294,7 @@ public class Asteroid {
      * @return
      */
     public boolean noMoreStepsLeft() {
-        if (stepsLeft == 0) {
-            stepsLeft = this.getFigures().size();
-            return true;
-        }
-        return false;
+        return stepsLeft == 0;
     }
 
     /**
@@ -312,6 +308,10 @@ public class Asteroid {
         }
     }
 
+    public void setStepsLeft(int stepsLeft) {
+        this.stepsLeft = stepsLeft;
+    }
+
     /**
      * Még nem fejezte be a körét a figura.
      */
@@ -320,7 +320,6 @@ public class Asteroid {
         for (Figure f : figures) {
             f.setRoundFinished(false);
         }
-        this.stepsLeft = getFigures().size();
     }
 
     /**
