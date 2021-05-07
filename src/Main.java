@@ -54,7 +54,6 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         //primaryStage.show();
         scene.getStylesheets().add("style.css");
-        root.getStylesheets().addAll("style.css");
 
         Controller controller = new Controller(root);
         controller.getGame().run(root, screenBounds);

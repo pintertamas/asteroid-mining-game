@@ -37,7 +37,7 @@ public class Drawable {
         double height = screenBounds.getHeight();
         if (this.getX() + this.getSize() < 0)
             return false;
-        else if (this.getX() > width - screenBounds.getWidth() / 5)
+        else if (this.getX() > width)
             return false;
         else if (this.getY() + this.getSize() < 0)
             return false;

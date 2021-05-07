@@ -204,7 +204,7 @@ public class GUIView extends View {
         putPortalDown.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
             @Override
             public void onItemClicked() {
-                map.getCurrentSettler().move();
+                map.getCurrentSettler().putPortalDown();
             }
         });
 

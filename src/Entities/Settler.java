@@ -166,8 +166,10 @@ public class Settler extends Figure implements IMine, IDrill {
         ArrayList<Portal> portals = inventory.getPortals();
         if (portals.size() >= 1) {
             this.getAsteroid().stepCompleted();
-            asteroid.getAsteroidView().addContainedView(portals.get(0).getPortalView());
-            this.asteroid.addPortal(portals.get(0));
+            Portal p = portals.get(0);
+            p.setAsteroid(asteroid);
+            asteroid.addPortal(p);
+            asteroid.getAsteroidView().addContainedView(p.getPortalView());
             this.inventory.removePortal(portals.get(0));
             this.setRoundFinished(true);
         }
@@ -188,16 +190,6 @@ public class Settler extends Figure implements IMine, IDrill {
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
         }
-    }
-
-    /**
-     * Nyersanyag kiválasztása az Inventory-ból.
-     *
-     * @return
-     */
-    @SuppressWarnings("SpellCheckingInspection")
-    public Material chooseMaterial() {
-        return new Iron(); //TODO át kell írni mert az eddigi megoldást nem lehet megcsinálni
     }
 
     /**
@@ -224,12 +216,7 @@ public class Settler extends Figure implements IMine, IDrill {
         if (asteroid.getMap().getCurrentSettler() != this) {
             this.getAsteroid().getMap().setCurrentSettler(this);
             moveToSettler(root, screenBounds);
-            //this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, );
         }
-        //this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
-        // TODO ide jön a cucc
-        //this.getAsteroid().stepCompleted();
-        //setRoundFinished(true);
     }
 
     /**
