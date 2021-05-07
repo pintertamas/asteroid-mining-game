@@ -142,7 +142,7 @@ public class Map {
         }
 
         // generating ufos
-        int ufoNumber = new Random().nextInt(10) + 1;
+        int ufoNumber = new Random().nextInt(1) + 1;
         for (int i = 0; i < ufoNumber; i++) {
             Asteroid asteroid = asteroids.get(new Random().nextInt(asteroids.size()));
             Ufo ufo = new Ufo(asteroid, true);
