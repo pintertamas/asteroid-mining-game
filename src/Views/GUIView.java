@@ -39,39 +39,24 @@ public class GUIView extends View {
     }
 
     private void drawSelectedMaterial(VBox vBox, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        Text text = ViewFunctions.text("Selected material: ", 10);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
-
-        FlowPane selectedMaterial = new FlowPane();
-        selectedMaterial.setAlignment(Pos.CENTER);
-        selectedMaterial.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
+        HBox hBox = new HBox();
+        hBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
+        hBox.setAlignment(Pos.CENTER);
+        Text text = ViewFunctions.text("Selected\nmaterial:", 10);
+        hBox.getChildren().add(text);
 
         double imgSize = screenBounds.getWidth() / 30;
         String imagePath = map.getCurrentSettler().getInventory().getSelectedMaterial() == null
                 ? "/asteroids/hollow.png"
                 : map.getCurrentSettler().getInventory().getSelectedMaterial().getMaterialView().getImagePath();
         ImageView imageView = ViewFunctions.image(imagePath, imgSize);
-        selectedMaterial.getChildren().add(imageView);
 
-        vBox.getChildren().add(selectedMaterial);
+        hBox.getChildren().add(imageView);
+
+        vBox.getChildren().add(hBox);
     }
 
     private void drawInventory(VBox vBox, Group root, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        Text text = ViewFunctions.text("\nInventory\n", 15);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
-
         FlowPane inventory = new FlowPane();
         inventory.setAlignment(Pos.CENTER);
         inventory.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
