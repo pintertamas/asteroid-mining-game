@@ -26,51 +26,49 @@ public class GUIView extends View {
         this.map = map;
     }
 
-    private void drawSettlerInfo(VBox vBox) {
+    private GridPane drawSettlerInfo() {
         GridPane grid = new GridPane();
         grid.setHgap(20);
         grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
+        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
         grid.setAlignment(Pos.CENTER);
         grid.setPadding(new Insets(10, 10, 10, 10));
         Text text = ViewFunctions.text("Current settler:\n" + map.getCurrentSettler(), 15);
         grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
+        return grid;
     }
 
-    private void drawSelectedMaterial(VBox vBox, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        Text text = ViewFunctions.text("Selected material: ", 10);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
+    private HBox drawSelectedMaterial(Rectangle2D screenBounds) {
+        HBox selectedMaterialBox = new HBox();
 
-        FlowPane selectedMaterial = new FlowPane();
-        selectedMaterial.setAlignment(Pos.CENTER);
-        selectedMaterial.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
+        selectedMaterialBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
+        selectedMaterialBox.setAlignment(Pos.CENTER_LEFT);
+        Text text = ViewFunctions.text("Selected material: ", 15);
+        selectedMaterialBox.getChildren().add(text);
 
         double imgSize = screenBounds.getWidth() / 30;
         String imagePath = map.getCurrentSettler().getInventory().getSelectedMaterial() == null
-                ? "/asteroids/hollow.png"
+                ? "/asteroids/rock.png"
                 : map.getCurrentSettler().getInventory().getSelectedMaterial().getMaterialView().getImagePath();
         ImageView imageView = ViewFunctions.image(imagePath, imgSize);
-        selectedMaterial.getChildren().add(imageView);
 
-        vBox.getChildren().add(selectedMaterial);
+        selectedMaterialBox.getChildren().add(imageView);
+
+        selectedMaterialBox.setPrefWidth(screenBounds.getWidth() / 7);
+        selectedMaterialBox.setLayoutX(screenBounds.getWidth() - selectedMaterialBox.getPrefWidth());
+        selectedMaterialBox.setLayoutY(0);
+        selectedMaterialBox.setPadding(new Insets(10, 10, 10, 10));
+
+        return selectedMaterialBox;
     }
 
-    private void drawInventory(VBox vBox, Group root, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
+    private VBox drawInventory(Group root, Rectangle2D screenBounds) {
+        VBox inventoryBox = new VBox(10);
+        inventoryBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
+        inventoryBox.setAlignment(Pos.CENTER);
+
         Text text = ViewFunctions.text("\nInventory\n", 15);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
+        inventoryBox.getChildren().add(text);
 
         FlowPane inventory = new FlowPane();
         inventory.setAlignment(Pos.CENTER);
@@ -91,20 +89,22 @@ public class GUIView extends View {
 
             inventory.getChildren().add(imageView);
         }
-        vBox.getChildren().add(inventory);
+        inventoryBox.getChildren().add(inventory);
+        inventoryBox.setPrefWidth(screenBounds.getWidth() / 6);
+
+        inventoryBox.setLayoutX(0);
+        inventoryBox.setLayoutY(screenBounds.getHeight() * 7 / 12);
+
+        return inventoryBox;
     }
 
-    private void drawPortals(VBox vBox) {
+    private HBox drawPortals(Rectangle2D screenBounds) {
         HBox portalBox = new HBox(20);
         portalBox.setAlignment(Pos.CENTER);
-        portalBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
+        portalBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
 
-        GridPane grid = new GridPane();
-        grid.setHgap(10);
-        grid.setVgap(20);
-        grid.setAlignment(Pos.CENTER);
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
+        portalBox.setAlignment(Pos.CENTER);
+        portalBox.setPadding(new Insets(10, 10, 10, 10));
 
         ImageView portalImage = ViewFunctions.image("/portals/portal.png", 100);
         portalBox.getChildren().add(portalImage);
@@ -112,11 +112,14 @@ public class GUIView extends View {
         Text text = ViewFunctions.text("No. Portals: " + map.getCurrentSettler().getInventory().getPortals().size(), 20);
         portalBox.getChildren().add(text);
 
-        grid.getChildren().add(portalBox);
-        vBox.getChildren().add(grid);
+        portalBox.setPrefHeight(screenBounds.getHeight() / 8);
+        portalBox.setLayoutX(0);
+        portalBox.setLayoutY(screenBounds.getHeight() * 1 / 6);
+
+        return portalBox;
     }
 
-    private void drawActions(VBox vBox, Group root, Rectangle2D screenBounds) {
+    private FlowPane drawActions(Group root, Rectangle2D screenBounds) {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
         actions.setVgap(10);
@@ -244,28 +247,19 @@ public class GUIView extends View {
             }
         });
 
-        actions.getChildren().add(moveToCenter);
-        actions.getChildren().add(moveButton);
-        actions.getChildren().add(moveThroughPortalButton);
-        actions.getChildren().add(drillButton);
-        actions.getChildren().add(mineButton);
-        actions.getChildren().add(putMaterialBack);
-        actions.getChildren().add(putPortalDown);
-        actions.getChildren().add(buildPortal);
-        actions.getChildren().add(buildRobot);
-        actions.getChildren().add(buildBase);
+        actions.getChildren().addAll(moveToCenter, moveButton, moveThroughPortalButton, drillButton, mineButton, putMaterialBack, putPortalDown, buildPortal, buildRobot, buildBase);
 
-        vBox.getChildren().add(actions);
+        return actions;
     }
 
-    private void drawPortalsAndActions(VBox vBox, Group root, Rectangle2D screenBounds) {
-        drawPortals(vBox);
-        drawActions(vBox, root, screenBounds);
+    private void drawPortalsAndActions(Group root, Rectangle2D screenBounds) {
+        drawPortals(screenBounds);
+        drawActions(root, screenBounds);
     }
 
-    private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds, Asteroid asteroid) {
+    private HBox drawAsteroidDetails(Rectangle2D screenBounds, Asteroid asteroid) {
         HBox detailContainer = new HBox(20);
-        detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
+        detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
 
         double imgSize = screenBounds.getWidth() / 10;
         try {
@@ -285,8 +279,21 @@ public class GUIView extends View {
         details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore);
 
         detailContainer.getChildren().add(details);
+        detailContainer.setPrefWidth(screenBounds.getWidth() / 6);
 
-        vBox.getChildren().add(detailContainer);
+        return detailContainer;
+    }
+
+    private HBox drawAsteroidBlock(Rectangle2D screenBounds) {
+        HBox asteroids = new HBox();
+        asteroids.setPadding(new Insets(10, 10, 10, 10));
+        asteroids.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(0), Insets.EMPTY)));
+        asteroids.getChildren().add(drawAsteroidDetails(screenBounds, map.getCurrentSettler().getAsteroid()));
+        asteroids.getChildren().add(drawAsteroidDetails(screenBounds, map.getCurrentAsteroid()));
+        asteroids.setLayoutX(0);
+        asteroids.setPrefHeight(screenBounds.getHeight() / 4);
+        asteroids.setLayoutY(screenBounds.getHeight() * 3 / 4);
+        return asteroids;
     }
 
     @Override
@@ -294,26 +301,19 @@ public class GUIView extends View {
         root.getChildren().remove(this.getView());
         this.getView().getChildren().clear();
 
-        double width = 2 * screenBounds.getWidth() / 9;
-        double height = screenBounds.getHeight();
-        double posX = 7 * screenBounds.getWidth() / 9;
-        double posY = 0;
+        Group mainContainer = new Group();
+        mainContainer.setLayoutX(0);
+        mainContainer.setLayoutY(0);
 
-        VBox mainContainer = new VBox(20);
-        mainContainer.setAlignment(Pos.CENTER);
-        mainContainer.setLayoutX(posX);
-        mainContainer.setLayoutY(posY);
-        mainContainer.setPrefWidth(width);
-        mainContainer.setPrefHeight(height);
-        mainContainer.setPadding(new Insets(10, 10, 10, 10));
-        mainContainer.setBackground(new Background(new BackgroundFill(Color.rgb(100, 100, 100), CornerRadii.EMPTY, Insets.EMPTY)));
+        mainContainer.getChildren().add(drawSettlerInfo());
+        mainContainer.getChildren().add(drawSelectedMaterial(screenBounds));
 
-        drawSettlerInfo(mainContainer);
-        drawSelectedMaterial(mainContainer, screenBounds);
-        drawInventory(mainContainer, root, screenBounds);
-        drawPortalsAndActions(mainContainer, root, screenBounds);
-        drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentSettler().getAsteroid());
-        drawAsteroidDetails(mainContainer, screenBounds, map.getCurrentAsteroid());
+        mainContainer.getChildren().add(drawInventory(root, screenBounds));
+        mainContainer.getChildren().add(drawPortals(screenBounds));
+
+        drawPortalsAndActions(mainContainer, screenBounds);
+
+        mainContainer.getChildren().add(drawAsteroidBlock(screenBounds));
 
         this.getView().getChildren().add(mainContainer);
         root.getChildren().add(this.getView());
