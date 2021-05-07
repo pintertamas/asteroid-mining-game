@@ -323,7 +323,6 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void resetRound() {
-        System.out.println("reset");
         for (Asteroid a : asteroids) {
             a.resetStep();
             a.setStepsLeft(a.getFigures().size());
