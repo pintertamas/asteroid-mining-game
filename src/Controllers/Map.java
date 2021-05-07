@@ -82,7 +82,7 @@ public class Map {
         int numberOfPlayers;
 
         //Játék előkészítése:
-        numberOfPlayers = 0; // TODO
+        numberOfPlayers = 1; // TODO
 
         // Generating the map randomly...
         int minimumNumberOfAsteroids = 100;
@@ -360,36 +360,27 @@ public class Map {
      * @param screenBounds
      */
     public void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
-        int nodes = asteroids.size(); //  example: n=500, alpha=2
-        int alpha = 1;
-        long boundaryPoints = Math.round(alpha * Math.sqrt(nodes)); //number of boundary points
-        double phi = (Math.sqrt(5) + 1) / 2; //golden ratio
-        for (double k = 0; k < nodes; k++) {
-            double r = radius(k, nodes, boundaryPoints);
-            double theta = -k * 360 * phi;
-            double xPos = r * Math.cos(theta);
-            double yPos = r * Math.sin(theta);
-            //double points = nodes / Math.PI / 4.0; // ha jól számoltam akkor ez a sugáron elhelyezkedő aszteroidák száma lesz, minél több van rajta, annál inkább kellene szétnyújtani az egészet
-            double gapMultiplier = 2.5; //TODO ezt meg kell változtatni, hogy bármennyi azsteroidára kb ugyan akkora legyen a távolság a széthúzás után
-            Drawable newPoint = new Drawable(xPos * screenBounds.getHeight() * gapMultiplier, yPos * screenBounds.getHeight() * gapMultiplier);
-            asteroids.get((int) k).setPosition(newPoint);
+        double xPos = screenBounds.getWidth()/2;
+        double yPos= screenBounds.getHeight()/2;
+        Drawable newPoint = new Drawable(xPos , yPos );
+        asteroids.get(0).setPosition(newPoint);
+        double R =400;
+        double k=9;
+        double degre;
+        degre=0;
+        for (int i=1; i<asteroids.size();i++){
+            newPoint = new Drawable(xPos + Math.sin(degre) *R, yPos + Math.cos(degre)*R );
+            asteroids.get(i).setPosition(newPoint);
+            degre+=30;
+            if((i==k) && (i<30)){
+                R +=400;
+                k*=2;
+            }
+            if((i>=30) && (i==k)){
+                R +=400;
+                k+=25;
+            }
         }
-    }
-
-    /**
-     * Ez a függvény visszaadj a sugarat
-     *
-     * @param index
-     * @param nodes
-     * @param boundaryPoints
-     */
-    private double radius(double index, int nodes, long boundaryPoints) {
-        if (index == 0)
-            return 0;
-        if (index > nodes - boundaryPoints)
-            return 1; //put on the boundary
-        else
-            return Math.sqrt(index - 1 / 2.0f) / Math.sqrt(nodes - (boundaryPoints + 1) / 2.0f); //apply square root
     }
 
     /**
