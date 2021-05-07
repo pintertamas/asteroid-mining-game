@@ -78,6 +78,10 @@ public class Main extends Application {
         ImageView imageView = new ImageView(image);
         Group group = new Group();
         vBox.getChildren().addAll(stackPane1, stackPane2, stackPane3);
+        vBox.setPrefWidth(screenBounds.getWidth()/5);
+        vBox.setPrefHeight(screenBounds.getHeight()/5);
+        vBox.setLayoutX((screenBounds.getWidth()-vBox.getPrefWidth())/2);
+        vBox.setLayoutY((screenBounds.getHeight()-vBox.getPrefHeight())/3);
         group.getChildren().addAll(imageView, vBox);
 
         menuScene = new Scene(group, 200, 200);
@@ -89,8 +93,6 @@ public class Main extends Application {
         button1.setId("playButton");
         button2.setId("optionsButton");
         button3.setId("quitButton");
-
-
 
         window.setScene(menuScene);
         window.setTitle("Asteroid mining game");

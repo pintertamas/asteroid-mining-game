@@ -82,7 +82,7 @@ public class Map {
         int numberOfPlayers;
 
         //Játék előkészítése:
-        numberOfPlayers = 0; // TODO
+        numberOfPlayers = 2; // TODO
 
         // Generating the map randomly...
         int minimumNumberOfAsteroids = 100;
