@@ -1,4 +1,5 @@
 package Entities;
+
 import Playground.Asteroid;
 import Views.RobotView;
 import javafx.geometry.Rectangle2D;
@@ -31,17 +32,11 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public void move() {
         Asteroid a = chooseNextDestination();
-        //if the current asteroid has no neighbors the robot can't move
-        if(a == null){
-            System.out.println("Robot move NOT done, no neighbors");
-            return;
-        }
         this.asteroid.stepCompleted();
         this.asteroid.removeFigure(this);
         setAsteroid(a);
         a.addFigure(this);
         this.setRoundFinished(true);
-        System.out.println("Robot move done");
     }
 
     /**
@@ -61,9 +56,7 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public Asteroid chooseNextDestination() {
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
-        if (neighbors.size() == 0) {
-            return null;
-        }
+        assert (neighbors.size() > 0);
         return neighbors.get(new Random().nextInt(neighbors.size()));
     }
 
@@ -81,12 +74,13 @@ public class Robot extends Figure {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void step(Group root, Rectangle2D screenBounds) {
-        if(this.asteroid.getLayers() != 0) {
+        if (this.asteroid.getLayers() != 0) {
             drill();
-        }
-        else {
+        } else if (asteroid.getNeighbors().size() > 0) {
             move();
+        } else {
+            asteroid.stepCompleted();
+            this.setRoundFinished(true);
         }
-        this.setRoundFinished(true);
     }
 }

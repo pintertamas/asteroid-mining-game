@@ -38,7 +38,6 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void move() {
-        System.out.println("ufo moved");
         this.asteroid.stepCompleted();
         this.asteroid.removeFigure(this);
         this.asteroid = getNextDestination();
@@ -55,7 +54,6 @@ public class Ufo extends Figure implements IMine {
     @Override
     public void moveThroughPortal() {
         if (asteroid.getPortals().size() != 0) {
-            System.out.println("ufo portal");
             this.getAsteroid().stepCompleted();
             Random rand = new Random();
             ArrayList<Portal> tmpArray = new ArrayList<>();
@@ -79,9 +77,9 @@ public class Ufo extends Figure implements IMine {
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
         assert (!this.getRoundFinished());
-        if (asteroid.getLayers() == 0) {
+        if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0)
             mine();
-        } else if (ufoCanMove() && !ufoCanMoveThroughPortal())
+        else if (ufoCanMove() && !ufoCanMoveThroughPortal())
             move();
         else if (!ufoCanMove() && ufoCanMoveThroughPortal())
             moveThroughPortal();
@@ -135,13 +133,10 @@ public class Ufo extends Figure implements IMine {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void mine() {
-        if (!this.asteroid.isHollow() && this.asteroid.getLayers() == 0) {
-            System.out.println("ufo mined");
-            this.getAsteroid().stepCompleted();
-            this.materials.add(this.asteroid.getMaterial());
-            this.asteroid.setIsHollow(true);
-            this.setRoundFinished(true);
-        }
+        this.getAsteroid().stepCompleted();
+        this.materials.add(this.asteroid.getMaterial());
+        this.asteroid.setIsHollow(true);
+        this.setRoundFinished(true);
     }
 
     /**

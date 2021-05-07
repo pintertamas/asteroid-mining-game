@@ -282,7 +282,6 @@ public class Asteroid {
     public Figure pickNextFigure() {
         for (int i = 0; i < figures.size(); i++) {
             if (!figures.get(i).getRoundFinished()) {
-                System.out.println(figures.get(i));
                 return figures.get(i);
             }
         }
