@@ -130,7 +130,7 @@ public class Map {
         }
 
         for (int i = 0; i < numberOfPlayers; i++) {
-            new Settler(asteroids.get(1), false);
+            new Settler(asteroids.get(new Random().nextInt(asteroids.size())), false);
         }
 
         // generating ufos
@@ -259,7 +259,7 @@ public class Map {
                 return asteroid;
         }
         resetRound();
-        return null;
+        return asteroids.get(0);
     }
 
     /**
@@ -379,6 +379,8 @@ public class Map {
      * @param boundaryPoints
      */
     private double radius(double index, int nodes, long boundaryPoints) {
+        if (index == 0)
+            return 0;
         if (index > nodes - boundaryPoints)
             return 1; //put on the boundary
         else

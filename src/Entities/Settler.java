@@ -4,6 +4,7 @@ import Bills.*;
 import Interfaces.IDrill;
 import Interfaces.IMine;
 import Materials.*;
+import Maths.Drawable;
 import Playground.*;
 import Views.SettlerView;
 import javafx.geometry.Rectangle2D;
@@ -206,8 +207,13 @@ public class Settler extends Figure implements IMine, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
-        this.getAsteroid().getMap().setCurrentSettler(this);
+        if (asteroid.getMap().getCurrentSettler() != this) {
+            this.getAsteroid().getMap().setCurrentSettler(this);
+
+            //this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, );
+        }
         this.getAsteroid().getMap().getGuiView().draw(root, screenBounds);
+        System.out.println("im stepping rn " + this);
         // TODO ide jön a cucc
         setRoundFinished(false);
     }
