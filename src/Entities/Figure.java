@@ -81,7 +81,6 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     @SuppressWarnings("SpellCheckingInspection")
     public void drill() {
         if (asteroid.drilled()) {
-            System.out.println("drill successful");
             setRoundFinished(true);
             this.asteroid.stepCompleted();
         }
@@ -99,7 +98,6 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove {
     @SuppressWarnings("SpellCheckingInspection")
     public void die() {
         System.out.println(this + " died");
-        String figureName = this.getClass().getName().replace("Entities.", "");
         asteroid.removeFigure(this);
         this.asteroid = null;
     }
