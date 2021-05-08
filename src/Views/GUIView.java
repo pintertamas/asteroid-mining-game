@@ -47,7 +47,7 @@ public class GUIView extends View {
 
         double imgSize = screenBounds.getWidth() / 30;
         String imagePath = map.getCurrentSettler().getInventory().getSelectedMaterial() == null
-                ? "/asteroids/hollow.png"
+                ? "/asteroids/rock.png"
                 : map.getCurrentSettler().getInventory().getSelectedMaterial().getMaterialView().getImagePath();
         ImageView imageView = ViewFunctions.image(imagePath, imgSize);
 
