@@ -25,6 +25,8 @@ import java.util.ArrayList;
 @SuppressWarnings("SpellCheckingInspection")
 public class Main extends Application {
 
+    int numOfPlayers = 2;
+
     /**
      * main függvény.
      *
@@ -95,7 +97,7 @@ public class Main extends Application {
             controller.getGame().run(root, screenBounds);
         });
         button2.setOnAction((e -> {
-        int numOfPlayers = Options.display("Options");
+        numOfPlayers = Options.display("Options");
         System.out.println(numOfPlayers);
             listener.changePlayerNumber(numOfPlayers);
         }));
