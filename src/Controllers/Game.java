@@ -32,6 +32,7 @@ public class Game implements IGameState {
      * @param screenBounds
      */
     public void run(Stage primaryStage, Group root, Rectangle2D screenBounds) {
+        primaryStage.show();
         controller.getMap().addStateListener(this);
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
         new AnimationTimer() {
@@ -53,10 +54,12 @@ public class Game implements IGameState {
                         break;
                     case LOST:
                         WinLoseScene.WinLose(primaryStage, "lost");
+                        controller.getMap().changePlayerNumber(0);
                         gameState = GameState.IDLE;
                         return;
                     case WON:
                         WinLoseScene.WinLose(primaryStage, "won");
+                        controller.getMap().changePlayerNumber(0);
                         gameState = GameState.IDLE;
                         return;
                     case IDLE:

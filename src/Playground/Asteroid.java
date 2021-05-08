@@ -215,6 +215,7 @@ public class Asteroid {
     public boolean setMaterial(Material newMaterial) {
         if (this.isHollow && newMaterial != null) {
             this.material = newMaterial;
+            this.material.setAsteroid(this);
             isHollow = false;
             return true;
         }

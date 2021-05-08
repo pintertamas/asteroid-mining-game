@@ -58,6 +58,6 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
         if (map.isGoEast()) dx -= speed;
         if (map.isGoWest()) dx += speed;
 
-        map.moveAllAsteroids(root, screenBounds, dx, dy);
+        Controller.getController().getMap().moveAllAsteroids(root, screenBounds, dx, dy);
     }
 }

@@ -2,6 +2,7 @@ package Views;
 
 import Controllers.Controller;
 import Interfaces.IPlayerNumber;
+import Playground.GameState;
 import Views.Options;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -73,6 +74,7 @@ public class MenuScene {
 
         playButton.setOnAction(e -> {
             if (controller.getMap().getNumberOfPlayers() >= 1 && controller.getMap().getNumberOfPlayers() <= 5) {
+                controller.getGame().changeGameState(GameState.LOAD);
                 primaryStage.setScene(scene);
                 controller.getGame().run(primaryStage, root, screenBounds);
             }

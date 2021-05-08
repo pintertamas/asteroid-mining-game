@@ -84,10 +84,10 @@ public class Controller {
         asteroid.getAsteroidView().drawContainedViews(root, screenBounds);
     }
 
-    public static void moveToSettler(Group root, Rectangle2D screenBounds, Map map) {
-        double xDistance = screenBounds.getWidth() / 2 - map.getCurrentSettler().getAsteroid().getPosition().getX();
-        double yDistance = screenBounds.getHeight() / 2 - map.getCurrentSettler().getAsteroid().getPosition().getY();
-        map.moveAllAsteroids(root, screenBounds, xDistance, yDistance);
+    public static void moveToSettler(Group root, Rectangle2D screenBounds) {
+        double xDistance = screenBounds.getWidth() / 2 - getController().getMap().getCurrentSettler().getAsteroid().getPosition().getX();
+        double yDistance = screenBounds.getHeight() / 2 - getController().getMap().getCurrentSettler().getAsteroid().getPosition().getY();
+        getController().getMap().moveAllAsteroids(root, screenBounds, xDistance, yDistance);
         Controller.getController().drawAllViews(screenBounds);
     }
 

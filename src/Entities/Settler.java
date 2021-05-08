@@ -199,7 +199,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     material.setNearSunCount(material.getNearSunCount() + 1);
                 }
             this.getAsteroid().getMap().setCurrentSettler(this);
-            Controller.moveToSettler(root, screenBounds, getAsteroid().getMap());
+            Controller.moveToSettler(root, screenBounds);
         }
     }
 

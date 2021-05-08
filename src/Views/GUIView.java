@@ -116,7 +116,7 @@ public class GUIView extends View {
         moveToCenter.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
             @Override
             public void onItemClicked() {
-                Controller.moveToSettler(root, screenBounds, map);
+                Controller.moveToSettler(root, screenBounds);
             }
         });
 
