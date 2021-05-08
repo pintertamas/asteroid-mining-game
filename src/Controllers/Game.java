@@ -50,6 +50,7 @@ public class Game implements IGameState {
                         }
                         break;
                     case LOST:
+                        root.getChildren().clear();
                         controller.getMap().gameEnd(false);
                         break;
                     case WON:

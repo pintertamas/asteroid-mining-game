@@ -82,6 +82,7 @@ public class Settler extends Figure implements IMine, IDrill {
     public void mine() {
         if (this.inventory.getMaterialCapacity() > this.inventory.getMaterials().size())
             if (asteroid.mined(this)) {
+                asteroid.getMaterial().readyToMine();
                 this.asteroid.stepCompleted();
                 setRoundFinished(true);
             }
@@ -96,7 +97,6 @@ public class Settler extends Figure implements IMine, IDrill {
     @Override
     public Inventory getInventory() {
         return inventory;
-
     }
 
     /**
@@ -186,9 +186,11 @@ public class Settler extends Figure implements IMine, IDrill {
         if (m == null)
             return;
         if (this.asteroid.setMaterial(m)) {
+            this.getAsteroid().getMaterial().readyToMine();
             this.getAsteroid().stepCompleted();
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
+            this.inventory.setSelectedMaterial(null);
         }
     }
 
@@ -214,6 +216,10 @@ public class Settler extends Figure implements IMine, IDrill {
     @Override
     public void step(Group root, Rectangle2D screenBounds) {
         if (asteroid.getMap().getCurrentSettler() != this) {
+            if (this.getAsteroid().isNearSun())
+                for (Material material : inventory.getMaterials()) {
+                    material.setNearSunCount(material.getNearSunCount() + 1);
+                }
             this.getAsteroid().getMap().setCurrentSettler(this);
             moveToSettler(root, screenBounds);
         }

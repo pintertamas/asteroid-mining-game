@@ -40,14 +40,16 @@ public class Controller {
             this.views.add(asteroid.getAsteroidView());
             for (Portal portal : asteroid.getPortals())
                 asteroid.getAsteroidView().addContainedView(portal.getPortalView());
-
+            for (Figure figure : asteroid.getFigures())
+                asteroid.getAsteroidView().addContainedView(figure.getFigureView());
         }
         this.views.add(map.getGuiView());
     }
 
     public void drawAllViews(Rectangle2D screenBounds) {
         for (View view : views)
-            view.draw(root, screenBounds);
+            if (view != null)
+                view.draw(root, screenBounds);
     }
 
     public void placeFigures(Rectangle2D screenBounds) {

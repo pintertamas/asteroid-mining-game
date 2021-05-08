@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class AsteroidView extends View {
     private final Asteroid asteroid;
-    private ArrayList<View> containedViews;
+    private final ArrayList<View> containedViews;
 
     public AsteroidView(Asteroid asteroid) {
         this.asteroid = asteroid;
@@ -22,7 +22,9 @@ public class AsteroidView extends View {
     }
 
     public String getImage() {
-        if (asteroid.getLayers() > 0)
+        if (asteroid.getMaterial() == null)
+            return "asteroids/dead.png";
+        else if (asteroid.getLayers() > 0)
             return "asteroids/rock.png";
         else if (asteroid.isHollow())
             return "/asteroids/hollow.png";

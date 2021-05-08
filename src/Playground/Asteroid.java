@@ -129,7 +129,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void explode() {
-
+        System.out.println("this asteroidexploded: " + this);
         while (!figures.isEmpty()) {
             figures.get(0).onExplosion();
         }

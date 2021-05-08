@@ -166,29 +166,16 @@ public class Map implements IPlayerNumber {
      * Napvihar.
      */
     @SuppressWarnings("SpellCheckingInspection")
-    public void solarStorm(Asteroid... asteroid) {
-        assert asteroid.length <= 1;
-        if (asteroid.length == 0) {
-            for (Asteroid a : drawSolarArea()) {
-                if (!a.isHollow() || a.getLayers() != 0) {
-                    a.handleFigures();
-                }
-
-                try {
-                    for (Portal portal : a.getPortals())
-                        portal.move();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        } else {
-            for (Asteroid a : drawSolarArea(asteroid)) {
-                if (!a.isHollow() || a.getLayers() != 0) {
-                    a.handleFigures();
-                }
-                for (Portal portal : a.getPortals())
-                    portal.move();
-            }
+    public void solarStorm() {
+        Asteroid unluckyAsteroid = asteroids.get(new Random().nextInt(asteroids.size()));
+        if (!unluckyAsteroid.isHollow() || unluckyAsteroid.getLayers() != 0) {
+            unluckyAsteroid.handleFigures();
+        }
+        try {
+            for (Portal portal : unluckyAsteroid.getPortals())
+                portal.move();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -292,7 +279,7 @@ public class Map implements IPlayerNumber {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setupRound(Group root, Rectangle2D screenBounds) {
-        if (stormComing()) {
+        if (false/*stormComing()*/) {
             solarStorm();
         } else {
             Asteroid asteroid = findNextAsteroid();
@@ -338,8 +325,9 @@ public class Map implements IPlayerNumber {
             a.setStepsLeft(a.getFigures().size());
         }
         for (Asteroid asteroid : asteroids) {
-            if (asteroid.isNearSun() && asteroid.getLayers() == 0)
-                asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
+            if (asteroid.isNearSun() && asteroid.getLayers() == 0) {
+                    asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
+            }
         }
         System.out.println("roundbegginning");
         roundBegginning = true;
@@ -377,25 +365,25 @@ public class Map implements IPlayerNumber {
      * @param screenBounds
      */
     public void sunflower(ArrayList<Asteroid> asteroids, Rectangle2D screenBounds) {
-        double xPos = screenBounds.getWidth()/2;
-        double yPos= screenBounds.getHeight()/2;
-        Drawable newPoint = new Drawable(xPos , yPos );
+        double xPos = screenBounds.getWidth() / 2;
+        double yPos = screenBounds.getHeight() / 2;
+        Drawable newPoint = new Drawable(xPos, yPos);
         asteroids.get(0).setPosition(newPoint);
-        double R =400;
-        double k=9;
+        double R = 400;
+        double k = 9;
         double degre;
-        degre=0;
-        for (int i=1; i<asteroids.size();i++){
-            newPoint = new Drawable(xPos + Math.sin(degre) *R, yPos + Math.cos(degre)*R );
+        degre = 0;
+        for (int i = 1; i < asteroids.size(); i++) {
+            newPoint = new Drawable(xPos + Math.sin(degre) * R, yPos + Math.cos(degre) * R);
             asteroids.get(i).setPosition(newPoint);
-            degre+=30;
-            if((i==k) && (i<30)){
-                R +=400;
-                k*=2;
+            degre += 30;
+            if ((i == k) && (i < 30)) {
+                R += 400;
+                k *= 2;
             }
-            if((i>=30) && (i==k)){
-                R +=400;
-                k+=25;
+            if ((i >= 30) && (i == k)) {
+                R += 400;
+                k += 25;
             }
         }
     }
@@ -485,6 +473,10 @@ public class Map implements IPlayerNumber {
 
     public GUIView getGuiView() {
         return guiView;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 
     @Override
