@@ -39,39 +39,24 @@ public class GUIView extends View {
     }
 
     private void drawSelectedMaterial(VBox vBox, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        Text text = ViewFunctions.text("Selected material: ", 10);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
-
-        FlowPane selectedMaterial = new FlowPane();
-        selectedMaterial.setAlignment(Pos.CENTER);
-        selectedMaterial.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
+        HBox hBox = new HBox();
+        hBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
+        hBox.setAlignment(Pos.CENTER);
+        Text text = ViewFunctions.text("Selected\nmaterial:", 10);
+        hBox.getChildren().add(text);
 
         double imgSize = screenBounds.getWidth() / 30;
         String imagePath = map.getCurrentSettler().getInventory().getSelectedMaterial() == null
-                ? "/asteroids/hollow.png"
+                ? "/asteroids/rock.png"
                 : map.getCurrentSettler().getInventory().getSelectedMaterial().getMaterialView().getImagePath();
         ImageView imageView = ViewFunctions.image(imagePath, imgSize);
-        selectedMaterial.getChildren().add(imageView);
 
-        vBox.getChildren().add(selectedMaterial);
+        hBox.getChildren().add(imageView);
+
+        vBox.getChildren().add(hBox);
     }
 
     private void drawInventory(VBox vBox, Group root, Rectangle2D screenBounds) {
-        GridPane grid = new GridPane();
-        grid.setHgap(20);
-        grid.setVgap(20);
-        grid.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
-        grid.setAlignment(Pos.CENTER);
-        Text text = ViewFunctions.text("\nInventory\n", 15);
-        grid.getChildren().add(text);
-        vBox.getChildren().add(grid);
-
         FlowPane inventory = new FlowPane();
         inventory.setAlignment(Pos.CENTER);
         inventory.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(30.0), Insets.EMPTY)));
@@ -264,10 +249,10 @@ public class GUIView extends View {
     }
 
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds, Asteroid asteroid) {
-        HBox detailContainer = new HBox(20);
+        HBox detailContainer = new HBox(15);
         detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
 
-        double imgSize = screenBounds.getWidth() / 10;
+        double imgSize = screenBounds.getWidth() / 15;
         try {
             String imgPath = asteroid.getAsteroidView().getImage();
             ImageView imageView = ViewFunctions.image(imgPath, imgSize);
@@ -276,13 +261,15 @@ public class GUIView extends View {
             e.printStackTrace();
         }
 
-        VBox details = new VBox(10);
+        VBox details = new VBox(5);
         details.setAlignment(Pos.CENTER_LEFT);
-        Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 15);
-        Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 15);
-        Text asteroidCore = ViewFunctions.text("Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 15);
+        Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 10);
+        Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 10);
+        Text asteroidCore = ViewFunctions.text("Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 10);
+        Text asteroidIsNearSun = ViewFunctions.text(asteroid.isNearSun() ? "!!!Near the SUN!!!" : "", 10);
+        asteroidIsNearSun.setStyle("-fx-fill: red");
 
-        details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore);
+        details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore, asteroidIsNearSun);
 
         detailContainer.getChildren().add(details);
 

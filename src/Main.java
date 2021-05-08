@@ -49,7 +49,7 @@ public class Main extends Application {
         primaryStage.setWidth(screenWidth);
         primaryStage.setHeight(screenHeight);
         primaryStage.setMaximized(true);
-        primaryStage.setTitle("Asteroid Mining Controllers.Game");
+        primaryStage.setTitle("Asteroid Mining Game");
         //primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         //primaryStage.show();
