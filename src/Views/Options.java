@@ -28,7 +28,9 @@ public class Options {
         Button setButton = new Button("Set");
         setButton.setOnAction(e -> {
             numberOfPlayers = Integer.parseInt(textField.getText());
-            window.close();
+            if(1 <=  numberOfPlayers && numberOfPlayers <= 5) {
+                window.close();
+            }
         });
 
         HBox containerOfSettings = new HBox(10);
