@@ -22,7 +22,7 @@ public class Options {
         window.setHeight(200);
 
         TextField textField = new TextField();
-        Label label = new Label("Players number:");
+        Label label = new Label("Set the number of players (1-5):");
         Button setButton = new Button("Set");
         setButton.setOnAction(e -> {
             numberOfPlayers = Integer.parseInt(textField.getText());
