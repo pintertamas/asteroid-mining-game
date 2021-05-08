@@ -131,7 +131,7 @@ public class Asteroid {
     public void explode() {
         System.out.println("this asteroidexploded: " + this);
         this.material = null;
-        while (!figures.isEmpty()) {
+        while (figures.size() > 0) {
             if (figures.get(0) != null)
                 figures.get(0).onExplosion();
         }

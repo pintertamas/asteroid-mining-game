@@ -141,7 +141,6 @@ public class Map implements IPlayerNumber {
     @SuppressWarnings("SpellCheckingInspection")
     public void solarStorm() {
         Asteroid unluckyAsteroid = asteroids.get(new Random().nextInt(asteroids.size()));
-        System.out.println(unluckyAsteroid);
         if (!unluckyAsteroid.isHollow() || unluckyAsteroid.getLayers() != 0) {
             unluckyAsteroid.handleFigures();
         }
@@ -285,7 +284,6 @@ public class Map implements IPlayerNumber {
                 asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
             }
         }
-        System.out.println("roundbegginning");
         roundBegginning = true;
     }
 

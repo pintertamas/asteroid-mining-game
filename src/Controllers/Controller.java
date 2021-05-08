@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entities.Figure;
+import Entities.Settler;
 import Playground.Asteroid;
 import Playground.Portal;
 import Views.BackgroundView;
@@ -43,6 +44,7 @@ public class Controller {
     }
 
     public void addAllViews() {
+        this.views.clear();
         this.views.add(new BackgroundView(map));
         this.views.add(map.getMapView());
         for (Asteroid asteroid : map.getAsteroids()) {
@@ -68,5 +70,28 @@ public class Controller {
             figure.setAsteroid(closest);
             closest.addFigure(figure);
         }
+    }
+
+    public void redrawAsteroid(Asteroid asteroid, Rectangle2D screenBounds) {
+        this.views.remove(asteroid.getAsteroidView());
+        this.views.add(asteroid.getAsteroidView());
+        asteroid.getAsteroidView().draw(root, screenBounds);
+    }
+
+    public void redrawAsteroidContainedViews(Asteroid asteroid, Rectangle2D screenBounds) {
+        this.views.removeAll(asteroid.getAsteroidView().getContainedViews());
+        this.views.addAll(asteroid.getAsteroidView().getContainedViews());
+        asteroid.getAsteroidView().drawContainedViews(root, screenBounds);
+    }
+
+    public static void moveToSettler(Group root, Rectangle2D screenBounds, Map map) {
+        double xDistance = screenBounds.getWidth() / 2 - map.getCurrentSettler().getAsteroid().getPosition().getX();
+        double yDistance = screenBounds.getHeight() / 2 - map.getCurrentSettler().getAsteroid().getPosition().getY();
+        map.moveAllAsteroids(root, screenBounds, xDistance, yDistance);
+        Controller.getController().drawAllViews(screenBounds);
+    }
+
+    public void redrawGUI(Group root, Rectangle2D screenBounds) {
+        map.getGuiView().draw(root, screenBounds);
     }
 }

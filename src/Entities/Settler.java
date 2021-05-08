@@ -1,6 +1,7 @@
 package Entities;
 
 import Bills.*;
+import Controllers.Controller;
 import Interfaces.IDrill;
 import Interfaces.IMine;
 import Materials.*;
@@ -63,7 +64,8 @@ public class Settler extends Figure implements IMine, IDrill {
     public void mine() {
         if (this.inventory.getMaterialCapacity() > this.inventory.getMaterials().size())
             if (asteroid.mined(this)) {
-                asteroid.getMaterial().readyToMine();
+                if (this.asteroid.isNearSun())
+                    asteroid.getMaterial().readyToMine();
                 this.asteroid.stepCompleted();
                 setRoundFinished(true);
             }
@@ -167,7 +169,8 @@ public class Settler extends Figure implements IMine, IDrill {
         if (m == null)
             return;
         if (this.asteroid.setMaterial(m)) {
-            this.getAsteroid().getMaterial().readyToMine();
+            if (this.asteroid.isNearSun())
+                this.getAsteroid().getMaterial().readyToMine();
             this.getAsteroid().stepCompleted();
             this.inventory.removeMaterial(m);
             this.setRoundFinished(true);
@@ -184,12 +187,6 @@ public class Settler extends Figure implements IMine, IDrill {
         this.die();
     }
 
-    public void moveToSettler(Group root, Rectangle2D screenBounds) {
-        double xDistance = screenBounds.getWidth() / 2 - this.asteroid.getPosition().getX();
-        double yDistance = screenBounds.getHeight() / 2 - this.asteroid.getPosition().getY();
-        this.getAsteroid().getMap().moveAllAsteroids(root, screenBounds, xDistance, yDistance);
-    }
-
     /**
      * Lépés.
      */
@@ -202,7 +199,7 @@ public class Settler extends Figure implements IMine, IDrill {
                     material.setNearSunCount(material.getNearSunCount() + 1);
                 }
             this.getAsteroid().getMap().setCurrentSettler(this);
-            moveToSettler(root, screenBounds);
+            Controller.moveToSettler(root, screenBounds, getAsteroid().getMap());
         }
     }
 

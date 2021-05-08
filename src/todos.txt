@@ -1,4 +1,3 @@
-kell frissíteni minden lépés után a képernyőt
-material robbanjon fel
-solarstorm + portal mozgás
-asteroid képe
+solarstormkor a portal mozgás bugos, de nehéz is tesztelni
+az uranium csak akkor robban fel amikor eredetileg is nearsun aszteroidán volt, ha átvisszük máshonnan akkor nem akar
+material csak user interakcióval robban/szublimál, de ez lehet hogy nem baj

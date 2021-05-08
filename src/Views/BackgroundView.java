@@ -15,13 +15,20 @@ public class BackgroundView extends View {
         this.map = map;
         this.imagePath = "/background.png";
     }
+
+    @Override
     public void draw(Group root, Rectangle2D screenBounds) {
+        root.getChildren().remove(this.getView());
+        this.getView().getChildren().clear();
+
         ImageView imageView = ViewFunctions.image(imagePath, screenBounds.getWidth());
         imageView.setX(0);
         imageView.setY(0);
 
         this.getView().getChildren().clear();
         this.getView().getChildren().add(imageView);
+
+        root.getChildren().add(this.getView());
 
         root.getScene().setOnKeyPressed((KeyEvent event) -> imageView.fireEvent(new BackgroundEvent()));
 
@@ -38,8 +45,5 @@ public class BackgroundView extends View {
                 super.handle(event);
             }
         });
-
-        root.getChildren().remove(this.getView());
-        root.getChildren().add(imageView);
     }
 }

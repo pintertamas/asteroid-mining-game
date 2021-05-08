@@ -12,7 +12,7 @@ public class Uranium extends Material {
     @SuppressWarnings("SpellCheckingInspection")
     @Override
     public void readyToMine() {
-        if (this.getNearSunCount() >= 3 && this.getAsteroid().isNearSun()) {
+        if (this.getNearSunCount() >= 3) {
             this.getAsteroid().explode();
             System.out.println("Uranium exploded");
             getAsteroid().setMaterial(null);

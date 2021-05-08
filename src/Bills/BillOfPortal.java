@@ -14,8 +14,8 @@ public class BillOfPortal extends BillOfMaterials {
     @SuppressWarnings("SpellCheckingInspection")
     public BillOfPortal() {
         super();
-        //this.addToBill(new Iron(), 2);
-        //this.addToBill(new Ice(), 1);
+        this.addToBill(new Iron(), 2);
+        this.addToBill(new Ice(), 1);
         this.addToBill(new Uranium(), 1);
     }
 }

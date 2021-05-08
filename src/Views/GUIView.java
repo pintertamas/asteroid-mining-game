@@ -116,7 +116,7 @@ public class GUIView extends View {
         moveToCenter.addEventHandler(CustomEvent.CUSTOM_EVENT_TYPE, new ClickEventHandler() {
             @Override
             public void onItemClicked() {
-                map.getCurrentSettler().moveToSettler(root, screenBounds);
+                Controller.moveToSettler(root, screenBounds, map);
             }
         });
 
@@ -130,6 +130,7 @@ public class GUIView extends View {
             public void onItemClicked() {
                 map.getCurrentSettler().move();
                 Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -143,6 +144,7 @@ public class GUIView extends View {
             public void onItemClicked() {
                 map.getCurrentSettler().moveThroughPortal();
                 Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -155,7 +157,8 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().drill();
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawAsteroid(map.getCurrentSettler().getAsteroid(), screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -168,7 +171,8 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().mine();
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawAsteroid(map.getCurrentSettler().getAsteroid(), screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -181,7 +185,8 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().putMaterialBack(map.getCurrentSettler().getInventory().getSelectedMaterial());
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawAsteroid(map.getCurrentSettler().getAsteroid(), screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -194,7 +199,8 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().putPortalDown();
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawAsteroidContainedViews(map.getCurrentSettler().getAsteroid(), screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -207,7 +213,8 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().buildPortal();
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawAsteroidContainedViews(map.getCurrentSettler().getAsteroid(), screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -220,7 +227,8 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().buildRobot();
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawAsteroidContainedViews(map.getCurrentSettler().getAsteroid(), screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -233,7 +241,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().buildBase();
-                Controller.getController().drawAllViews(screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 
@@ -274,7 +282,7 @@ public class GUIView extends View {
         Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 10);
         Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 10);
         Text asteroidCore = ViewFunctions.text(asteroid.isHollow() || asteroid.getMaterial() == null ? "Hollow" : "Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 10);
-        Text asteroidIsNearSun = ViewFunctions.text(asteroid.getMaterial() == null ? "" : (asteroid.isNearSun() ? "!!!Near the SUN!!!" + (!asteroid.isHollow() ? "(counter: " + asteroid.getMaterial().getNearSunCount() + ")" : "") : ""), 10);
+        Text asteroidIsNearSun = ViewFunctions.text(asteroid.getMaterial() == null ? "" : (asteroid.isNearSun() ? "!!!Near the SUN!!!" + (!asteroid.isHollow() ? "\t(counter: " + asteroid.getMaterial().getNearSunCount() + ")" : "") : ""), 10);
         asteroidIsNearSun.setStyle("-fx-fill: red");
 
         details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore, asteroidIsNearSun);

@@ -84,7 +84,8 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrill {
         if (asteroid.drilled()) {
             setRoundFinished(true);
             this.asteroid.stepCompleted();
-            this.getAsteroid().getMaterial().readyToMine();
+            if (this.asteroid.isNearSun())
+                this.getAsteroid().getMaterial().readyToMine();
         }
     }
 

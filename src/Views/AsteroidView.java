@@ -31,6 +31,7 @@ public class AsteroidView extends View {
         else return asteroid.getMaterial().getMaterialView().getImagePath();
     }
 
+    @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());
         if (asteroid.getPosition().isInside(screenBounds)) {

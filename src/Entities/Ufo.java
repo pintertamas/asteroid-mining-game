@@ -137,7 +137,8 @@ public class Ufo extends Figure implements IMine {
         this.materials.add(this.asteroid.getMaterial());
         this.asteroid.setIsHollow(true);
         this.setRoundFinished(true);
-        this.getAsteroid().getMaterial().readyToMine();
+        if (this.asteroid.isNearSun())
+            this.getAsteroid().getMaterial().readyToMine();
     }
 
     /**
