@@ -63,25 +63,25 @@ public class Main extends Application {
         Controller controller = new Controller(root);
         listener = controller.getMap();
 
-        Button button1 = new Button("Play");
-        Button button2 = new Button(("Options"));
-        Button button3 = new Button("Quit");
+        Button playButton = new Button("Play");
+        Button optionsButton = new Button(("Options"));
+        Button quitButton = new Button("Quit");
         Font font = Font.font("verdana", FontWeight.BOLD, 36);
-        button1.setFont(font);
+        playButton.setFont(font);
 
         VBox vBox = new VBox(20);
 
-        StackPane stackPane1 = new StackPane();
-        stackPane1.getChildren().addAll(button1);
-        StackPane stackPane2 = new StackPane();
-        stackPane2.getChildren().addAll(button2);
-        StackPane stackPane3 = new StackPane();
-        stackPane3.getChildren().addAll(button3);
+        StackPane playButtonStack = new StackPane();
+        playButtonStack.getChildren().addAll(playButton);
+        StackPane optionsButtonStack = new StackPane();
+        optionsButtonStack.getChildren().addAll(optionsButton);
+        StackPane quitButtonStack = new StackPane();
+        quitButtonStack.getChildren().addAll(quitButton);
 
         Image image = new Image("background.png");
         ImageView imageView = new ImageView(image);
         Group group = new Group();
-        vBox.getChildren().addAll(stackPane1, stackPane2, stackPane3);
+        vBox.getChildren().addAll(playButtonStack, optionsButtonStack, quitButtonStack);
         vBox.setPrefWidth(screenBounds.getWidth()/5);
         vBox.setPrefHeight(screenBounds.getHeight()/5);
         vBox.setLayoutX((screenBounds.getWidth()-vBox.getPrefWidth())/2);
@@ -91,22 +91,22 @@ public class Main extends Application {
         menuScene = new Scene(group, 200, 200);
         menuScene.getStylesheets().add("style.css");
 
-        button1.setOnAction(e -> {
+        playButton.setOnAction(e -> {
             if (controller.getMap().getNumberOfPlayers() >= 1 && controller.getMap().getNumberOfPlayers() <= 5) {
                 primaryStage.setScene(scene);
                 controller.getGame().run(root, screenBounds);
             }
         });
-        button2.setOnAction((e -> {
+        optionsButton.setOnAction((e -> {
         int numOfPlayers = Options.display("Options");
         System.out.println(numOfPlayers);
             listener.changePlayerNumber(numOfPlayers);
         }));
-        button3.setOnAction(e -> System.exit(0));
+        quitButton.setOnAction(e -> System.exit(0));
 
-        button1.setId("playButton");
-        button2.setId("optionsButton");
-        button3.setId("quitButton");
+        playButton.setId("playButton");
+        optionsButton.setId("optionsButton");
+        quitButton.setId("quitButton");
 
         primaryStage.setScene(menuScene);
         primaryStage.setTitle("Asteroid mining game");

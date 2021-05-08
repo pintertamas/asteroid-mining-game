@@ -2,6 +2,7 @@ package Controllers;
 
 import Interfaces.IGameState;
 import Playground.GameState;
+import Views.WinLoseScene;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -36,6 +37,9 @@ public class Game implements IGameState {
             @Override
             public void handle(long l) {
                 switch (gameState) {
+                    case MENU:
+
+                        break;
                     case LOAD:
                         controller.getMap().initGame(screenBounds);
                         controller.placeFigures(screenBounds);
@@ -51,9 +55,12 @@ public class Game implements IGameState {
                         break;
                     case LOST:
                         root.getChildren().clear();
+                        WinLoseScene.WinLose("lost");
                         controller.getMap().gameEnd(false);
                         break;
                     case WON:
+                        root.getChildren().clear();
+                        WinLoseScene.WinLose("won");
                         controller.getMap().gameEnd(true);
                         break;
                 }

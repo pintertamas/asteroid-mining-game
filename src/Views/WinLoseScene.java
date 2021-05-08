@@ -1,4 +1,7 @@
+package Views;
+
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,11 +13,11 @@ import javafx.stage.Stage;
 
 public class WinLoseScene {
 
-    public static void WinLose(String title, String winorlose) {
+    public static void WinLose(String winorlose) {
         Stage window = new Stage();
 
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle(title);
+        window.setTitle("Game Over");
         window.setWidth(250);
         window.setHeight(200);
 
@@ -29,7 +32,8 @@ public class WinLoseScene {
         layout.setAlignment(Pos.CENTER);
 
         Scene scene = new Scene(layout);
+        scene.getStylesheets().add("style.css");
         window.setScene(scene);
-        window.showAndWait();
+        window.show();
     }
 }
