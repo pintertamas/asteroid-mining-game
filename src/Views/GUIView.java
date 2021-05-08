@@ -249,10 +249,10 @@ public class GUIView extends View {
     }
 
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds, Asteroid asteroid) {
-        HBox detailContainer = new HBox(20);
+        HBox detailContainer = new HBox(15);
         detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
 
-        double imgSize = screenBounds.getWidth() / 10;
+        double imgSize = screenBounds.getWidth() / 15;
         try {
             String imgPath = asteroid.getAsteroidView().getImage();
             ImageView imageView = ViewFunctions.image(imgPath, imgSize);
@@ -261,13 +261,15 @@ public class GUIView extends View {
             e.printStackTrace();
         }
 
-        VBox details = new VBox(10);
+        VBox details = new VBox(5);
         details.setAlignment(Pos.CENTER_LEFT);
-        Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 15);
-        Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 15);
-        Text asteroidCore = ViewFunctions.text("Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 15);
+        Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 10);
+        Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 10);
+        Text asteroidCore = ViewFunctions.text("Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 10);
+        Text asteroidIsNearSun = ViewFunctions.text(asteroid.isNearSun() ? "!!!Near the SUN!!!" : "", 10);
+        asteroidIsNearSun.setStyle("-fx-fill: red");
 
-        details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore);
+        details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore, asteroidIsNearSun);
 
         detailContainer.getChildren().add(details);
 

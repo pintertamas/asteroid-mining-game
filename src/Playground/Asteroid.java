@@ -403,4 +403,8 @@ public class Asteroid {
     public void setPosition(Drawable position) {
         this.position = position;
     }
+
+    public boolean isNearSun() {
+        return isNearSun;
+    }
 }

@@ -63,6 +63,10 @@ public class AsteroidView extends View {
         this.containedViews.add(view);
     }
 
+    public void removeContainedView(View view) {
+        this.containedViews.remove(view);
+    }
+
     public ArrayList<View> getContainedViews() {
         return containedViews;
     }

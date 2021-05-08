@@ -31,6 +31,7 @@ public class Map {
     private Asteroid currentAsteroid;
     private Settler currentSettler;
     private boolean goNorth, goSouth, goEast, goWest;
+    private boolean roundBegginning;
 
     /**
      * Konstruktor
@@ -42,6 +43,7 @@ public class Map {
         this.currentSettler = new Settler(getCurrentAsteroid(), false);
         this.view = new MapView(this);
         this.guiView = new GUIView(this);
+        this.roundBegginning = true;
     }
 
     /**
@@ -85,8 +87,8 @@ public class Map {
         numberOfPlayers = 1; // TODO
 
         // Generating the map randomly...
-        int minimumNumberOfAsteroids = 100;
-        int maximumNumberOfAsteroids = 110;
+        int minimumNumberOfAsteroids = 30;
+        int maximumNumberOfAsteroids = 30;
         double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
         for (int i = 0; i < numberOfAsteroids; i++) {
             Random rand = new Random();
@@ -260,6 +262,7 @@ public class Map {
     }
 
     private Asteroid findNextAsteroid() {
+        roundBegginning = false;
         for (Asteroid asteroid : asteroids) {
             if (!asteroid.noMoreStepsLeft())
                 return asteroid;
@@ -294,14 +297,6 @@ public class Map {
             System.out.println("Settlers lost the game!");
     }
 
-    /*private boolean checkRoundBegginning() {
-        for (Asteroid asteroid : asteroids)
-            for (Figure figure : asteroid.getFigures())
-                if (figure.getRoundFinished())
-                    return true;
-        return false;
-    }*/
-
     /**
      * Kisorsolja, hogy az adott körben lesz-e napvihar.
      *
@@ -309,7 +304,7 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean stormComing() {
-        if (false) { // TODO ez azért kell hogy ne haljon meg egyből a settler, majd meg kell csinálni rendesen!
+        if (roundBegginning) { // TODO ez azért kell hogy ne haljon meg egyből a settler, majd meg kell csinálni rendesen!
             Random rand = new Random();
             int stormNumber = rand.nextInt(100);
             return stormNumber >= 65;
@@ -326,6 +321,8 @@ public class Map {
             a.resetStep();
             a.setStepsLeft(a.getFigures().size());
         }
+        System.out.println("roundbegginning");
+        roundBegginning = true;
     }
 
     public boolean shouldRun() {
