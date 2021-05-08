@@ -87,6 +87,9 @@ public class Main extends Application {
         menuScene.getStylesheets().add("style.css");
 
         button1.setOnAction(e -> primaryStage.setScene(scene));
+        button2.setOnAction((e -> {
+        int numOfPlayers = Options.display("Options");
+        }));
         button3.setOnAction(e -> System.exit(0));
 
         button1.setId("playButton");
@@ -96,6 +99,5 @@ public class Main extends Application {
         window.setScene(menuScene);
         window.setTitle("Asteroid mining game");
         window.show();
-
     }
 }
