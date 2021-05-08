@@ -284,17 +284,15 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public Figure pickNextFigure() {
-        for (int i = 0; i < figures.size(); i++) {
-            if (!figures.get(i).getRoundFinished()) {
-                return figures.get(i);
+        for (Figure figure : figures) {
+            if (!figure.getRoundFinished()) {
+                return figure;
             }
         }
         return null;
     }
 
     /**
-     * TODO: Ez úgy lesz hogy ha a figure lelép az aszteroidáról akkor az új aszteroidán hívunk completedsteps++-t, amúgy meg az aktuálison
-     *
      * @return
      */
     public boolean noMoreStepsLeft() {
@@ -363,22 +361,6 @@ public class Asteroid {
      */
     public void updatePosition(double x, double y) {
         this.position.move(new Drawable(x, y));
-    }
-
-    /**
-     * Ez a függvény rajzolja ki az aszteroida adatait
-     */
-    public void printAsteroidDetails() {
-        System.out.println("Current asteroid properties:");
-        System.out.println("\tCurrent asteroid: " + this);
-        System.out.println("\tLayers: " + this.getLayers());
-        if (this.isHollow()) {
-            System.out.println("\tHollow: " + this.isHollow());
-        } else {
-            System.out.println("\tMaterial: " + this.getMaterial().getClass().toString().replace("class Materials.", ""));
-        }
-        if (this.getPortals().size() > 0)
-            System.out.println("\tPortals: " + this.getPortals().toString());
     }
 
     /**

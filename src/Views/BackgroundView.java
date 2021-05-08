@@ -1,12 +1,8 @@
 package Views;
 
-import Controllers.ClickEventHandler;
 import Controllers.KeyEventHandler;
 import Controllers.Map;
-import Events.AsteroidCustomEvent;
 import Events.BackgroundEvent;
-import Events.CustomEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;

@@ -6,6 +6,7 @@ import Views.WinLoseScene;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
+import javafx.stage.Stage;
 
 public class Game implements IGameState {
     private GameState gameState = GameState.LOAD;
@@ -30,16 +31,13 @@ public class Game implements IGameState {
      * @param root
      * @param screenBounds
      */
-    public void run(Group root, Rectangle2D screenBounds) {
+    public void run(Stage primaryStage, Group root, Rectangle2D screenBounds) {
         controller.getMap().addStateListener(this);
         // itt lehet hozzáadogatni a listenereket amikor kellenek majd
         new AnimationTimer() {
             @Override
             public void handle(long l) {
                 switch (gameState) {
-                    case MENU:
-
-                        break;
                     case LOAD:
                         controller.getMap().initGame(screenBounds);
                         controller.placeFigures(screenBounds);
@@ -54,14 +52,14 @@ public class Game implements IGameState {
                         }
                         break;
                     case LOST:
-                        root.getChildren().clear();
-                        WinLoseScene.WinLose("lost");
-                        controller.getMap().gameEnd(false);
-                        break;
+                        WinLoseScene.WinLose(primaryStage, "lost");
+                        gameState = GameState.IDLE;
+                        return;
                     case WON:
-                        root.getChildren().clear();
-                        WinLoseScene.WinLose("won");
-                        controller.getMap().gameEnd(true);
+                        WinLoseScene.WinLose(primaryStage, "won");
+                        gameState = GameState.IDLE;
+                        return;
+                    case IDLE:
                         break;
                 }
             }

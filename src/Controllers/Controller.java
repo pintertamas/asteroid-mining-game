@@ -4,8 +4,6 @@ import Entities.Figure;
 import Playground.Asteroid;
 import Playground.Portal;
 import Views.BackgroundView;
-import Views.GUIView;
-import Views.MapView;
 import Views.View;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -13,16 +11,27 @@ import javafx.scene.Group;
 import java.util.ArrayList;
 
 public class Controller {
+    private static Controller singletonController = null;
     Game game;
     Map map;
     Group root;
     ArrayList<View> views;
 
-    public Controller(Group root) {
+    private Controller(Group root) {
         this.root = root;
         game = new Game(this);
         map = new Map();
         views = new ArrayList<>();
+    }
+
+    public static Controller initializeController(Group root) {
+        if (singletonController == null)
+            singletonController = new Controller(root);
+        return singletonController;
+    }
+
+    public static Controller getController() {
+        return singletonController;
     }
 
     public Game getGame() {
@@ -48,8 +57,7 @@ public class Controller {
 
     public void drawAllViews(Rectangle2D screenBounds) {
         for (View view : views)
-            if (view != null)
-                view.draw(root, screenBounds);
+            view.draw(root, screenBounds);
     }
 
     public void placeFigures(Rectangle2D screenBounds) {

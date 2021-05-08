@@ -33,7 +33,7 @@ public class Map implements IPlayerNumber {
     private Settler currentSettler;
     private boolean goNorth, goSouth, goEast, goWest;
     private boolean roundBegginning;
-    private int numberOfPlayers = 4; // default
+    private int numberOfPlayers; // default
 
     /**
      * Konstruktor
@@ -47,16 +47,6 @@ public class Map implements IPlayerNumber {
         this.view = new MapView(this);
         this.guiView = new GUIView(this);
         this.roundBegginning = true;
-    }
-
-    /**
-     * Hozzáad egy aszteroidát a pályához.
-     *
-     * @param a
-     */
-    @SuppressWarnings("SpellCheckingInspection")
-    public void addAsteroid(Asteroid a) {
-        this.asteroids.add(a);
     }
 
     /**
@@ -84,10 +74,9 @@ public class Map implements IPlayerNumber {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void initGame(Rectangle2D screenBounds) {
-        System.out.println(numberOfPlayers);
         // Generating the map randomly...
-        int minimumNumberOfAsteroids = 100; // TODO
-        int maximumNumberOfAsteroids = 110;
+        int minimumNumberOfAsteroids = 70;
+        int maximumNumberOfAsteroids = 150;
         double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
         for (int i = 0; i < numberOfAsteroids; i++) {
             Random rand = new Random();
@@ -116,22 +105,6 @@ public class Map implements IPlayerNumber {
 
         placeAsteroids(screenBounds);
         currentAsteroid = asteroids.get(1);
-
-        Portal p = new Portal();
-        p.setAsteroid(asteroids.get(0));
-        asteroids.get(0).addPortal(p);
-
-        Portal p2 = new Portal();
-        p2.setAsteroid(asteroids.get(1));
-        asteroids.get(1).addPortal(p2);
-
-        Portal p3 = new Portal();
-        p3.setAsteroid(asteroids.get(2));
-        asteroids.get(2).addPortal(p3);
-
-        Portal p4 = new Portal();
-        p4.setAsteroid(asteroids.get(3));
-        asteroids.get(3).addPortal(p4);
 
         new Robot(currentAsteroid, false);
 
@@ -168,34 +141,17 @@ public class Map implements IPlayerNumber {
     @SuppressWarnings("SpellCheckingInspection")
     public void solarStorm() {
         Asteroid unluckyAsteroid = asteroids.get(new Random().nextInt(asteroids.size()));
+        System.out.println(unluckyAsteroid);
         if (!unluckyAsteroid.isHollow() || unluckyAsteroid.getLayers() != 0) {
             unluckyAsteroid.handleFigures();
         }
         try {
             for (Portal portal : unluckyAsteroid.getPortals())
-                portal.move();
+                if (portal != null)
+                    portal.move();
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Kisorsolja, hogy mely aszteroidákat érintse a napvihar
-     *
-     * @return ArrayList<Asteroid>
-     */
-    @SuppressWarnings("SpellCheckingInspection")
-    public ArrayList<Asteroid> drawSolarArea(Asteroid... asteroid) {
-        ArrayList<Asteroid> tmp = new ArrayList<>();
-        int asteroidNumber;
-        if (asteroid.length == 0) {
-            Random rand = new Random();
-            asteroidNumber = rand.nextInt(asteroids.size());
-        } else asteroidNumber = asteroids.indexOf(asteroid[0]);
-
-        tmp.add(asteroids.get(asteroidNumber));
-        tmp.addAll(asteroids.get(asteroidNumber).getNeighbors());
-        return tmp;
     }
 
     /**
@@ -265,7 +221,6 @@ public class Map implements IPlayerNumber {
     }
 
     private Asteroid findNextAsteroid() {
-        roundBegginning = false;
         for (Asteroid asteroid : asteroids) {
             if (!asteroid.noMoreStepsLeft())
                 return asteroid;
@@ -279,7 +234,7 @@ public class Map implements IPlayerNumber {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void setupRound(Group root, Rectangle2D screenBounds) {
-        if (false/*stormComing()*/) {
+        if (stormComing()) {
             solarStorm();
         } else {
             Asteroid asteroid = findNextAsteroid();
@@ -310,6 +265,7 @@ public class Map implements IPlayerNumber {
         if (roundBegginning) {
             Random rand = new Random();
             int stormNumber = rand.nextInt(100);
+            roundBegginning = false;
             return stormNumber >= 10; // TODO
         }
         return false;
@@ -326,7 +282,7 @@ public class Map implements IPlayerNumber {
         }
         for (Asteroid asteroid : asteroids) {
             if (asteroid.isNearSun() && asteroid.getLayers() == 0 && !asteroid.isHollow()) {
-                    asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
+                asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
             }
         }
         System.out.println("roundbegginning");

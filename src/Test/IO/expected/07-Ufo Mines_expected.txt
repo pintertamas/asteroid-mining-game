@@ -1,4 +1,0 @@
-successful;drill
-successful;drill
-successful;ufoMine
-unsuccessful;mine

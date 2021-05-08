@@ -10,5 +10,5 @@ import java.io.IOException;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public interface ISteppable {
-    void step(Group root, Rectangle2D screenBounds) throws IOException;
+    void step(Group root, Rectangle2D screenBounds);
 }

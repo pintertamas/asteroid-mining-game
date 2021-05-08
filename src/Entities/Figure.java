@@ -1,5 +1,6 @@
 package Entities;
 
+import Controllers.Controller;
 import Interfaces.*;
 import Playground.*;
 import Views.View;
@@ -11,7 +12,7 @@ import javafx.scene.Group;
  * ISteppable, IPortalMove, IMove.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public abstract class Figure implements ISteppable, IPortalMove, IMove {
+public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrill {
     protected Asteroid asteroid;
     protected boolean roundFinished;
     protected View figureView;

@@ -4,15 +4,12 @@ import Bills.*;
 import Interfaces.IDrill;
 import Interfaces.IMine;
 import Materials.*;
-import Maths.Drawable;
 import Playground.*;
 import Views.SettlerView;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
 
 /**
  * Telepes osztály, képes mozogni, fúrni és bányászni.

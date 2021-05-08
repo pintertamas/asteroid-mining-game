@@ -1,8 +1,8 @@
 package Views;
 
 import Controllers.ClickEventHandler;
+import Controllers.Controller;
 import Controllers.Map;
-import Entities.Settler;
 import Events.AsteroidCustomEvent;
 import Events.CustomEvent;
 import Materials.Material;
@@ -13,7 +13,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -130,6 +129,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().move();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -142,6 +142,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().moveThroughPortal();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -154,6 +155,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().drill();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -166,6 +168,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().mine();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -178,6 +181,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().putMaterialBack(map.getCurrentSettler().getInventory().getSelectedMaterial());
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -190,6 +194,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().putPortalDown();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -202,6 +207,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().buildPortal();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -214,6 +220,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().buildRobot();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 
@@ -226,6 +233,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 map.getCurrentSettler().buildBase();
+                Controller.getController().drawAllViews(screenBounds);
             }
         });
 

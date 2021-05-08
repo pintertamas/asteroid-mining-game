@@ -26,10 +26,15 @@ public class Options {
         Label label = new Label("Set the number of players (1-5):");
         Button setButton = new Button("Set");
         setButton.setOnAction(e -> {
-            numberOfPlayers = Integer.parseInt(textField.getText());
-            if(1 <=  numberOfPlayers && numberOfPlayers <= 5) {
-                window.close();
+            try {
+                numberOfPlayers = Integer.parseInt(textField.getText());
+                if(1 <=  numberOfPlayers && numberOfPlayers <= 5) {
+                    window.close();
+                }
+            } catch (Exception ignored) {
+
             }
+
         });
 
         HBox containerOfSettings = new HBox(10);

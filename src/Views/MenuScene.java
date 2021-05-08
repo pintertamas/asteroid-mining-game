@@ -1,3 +1,5 @@
+package Views;
+
 import Controllers.Controller;
 import Interfaces.IPlayerNumber;
 import Views.Options;
@@ -14,7 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class menuScene {
+public class MenuScene {
 
     public static void loadMenu(Stage primaryStage) {
         IPlayerNumber listener;
@@ -34,12 +36,11 @@ public class menuScene {
         primaryStage.setHeight(screenHeight);
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Asteroid Mining Game");
-        //primaryStage.setScene(scene);
         primaryStage.setResizable(false);
-        //primaryStage.show();
         scene.getStylesheets().add("style.css");
 
-        Controller controller = new Controller(root);
+
+        Controller controller = Controller.initializeController(root);
         listener = controller.getMap();
 
         Button playButton = new Button("Play");
@@ -73,12 +74,11 @@ public class menuScene {
         playButton.setOnAction(e -> {
             if (controller.getMap().getNumberOfPlayers() >= 1 && controller.getMap().getNumberOfPlayers() <= 5) {
                 primaryStage.setScene(scene);
-                controller.getGame().run(root, screenBounds);
+                controller.getGame().run(primaryStage, root, screenBounds);
             }
         });
         optionsButton.setOnAction((e -> {
             int numOfPlayers = Options.display("Options");
-            System.out.println(numOfPlayers);
             listener.changePlayerNumber(numOfPlayers);
         }));
         quitButton.setOnAction(e -> System.exit(0));

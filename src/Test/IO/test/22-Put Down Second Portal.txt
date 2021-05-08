@@ -1,3 +1,0 @@
-putPortalDown
-move;0
-putPortalDown

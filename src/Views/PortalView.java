@@ -30,9 +30,4 @@ public class PortalView extends View {
             root.getChildren().add(this.getView());
         }
     }
-
-    @Override
-    protected Group getView() {
-        return super.getView();
-    }
 }

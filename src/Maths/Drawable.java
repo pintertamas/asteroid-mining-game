@@ -70,12 +70,4 @@ public class Drawable {
     public double getSize() {
         return size;
     }
-
-    /**
-     * Setter a a méret változtatásához
-     * @param size
-     */
-    public void setSize(double size) {
-        this.size = size;
-    }
 }
