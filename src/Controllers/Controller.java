@@ -40,8 +40,7 @@ public class Controller {
             this.views.add(asteroid.getAsteroidView());
             for (Portal portal : asteroid.getPortals())
                 asteroid.getAsteroidView().addContainedView(portal.getPortalView());
-            for (Figure figure : asteroid.getFigures())
-                asteroid.getAsteroidView().addContainedView(figure.getFigureView());
+
         }
         this.views.add(map.getGuiView());
     }

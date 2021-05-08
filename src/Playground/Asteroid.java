@@ -143,6 +143,7 @@ public class Asteroid {
             portal.setPair(null);
             this.removePortal(portal);
         }
+
         this.map.removeAsteroid(this);
     }
 

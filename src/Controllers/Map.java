@@ -6,6 +6,7 @@ import Entities.Robot;
 import Entities.Settler;
 import Entities.Ufo;
 import Interfaces.IGameState;
+import Interfaces.IPlayerNumber;
 import Materials.*;
 import Maths.Drawable;
 import Playground.Asteroid;
@@ -22,16 +23,17 @@ import java.util.*;
  * Pálya osztály.
  */
 @SuppressWarnings("SpellCheckingInspection")
-public class Map {
+public class Map implements IPlayerNumber {
     private final MapView view;
     private final GUIView guiView;
     private final ArrayList<Asteroid> asteroids;
-    private final ArrayList<IGameState> listeners = new ArrayList<>();
+    private final ArrayList<IGameState> listeners;
     private boolean shouldRunAnyMore = true;
     private Asteroid currentAsteroid;
     private Settler currentSettler;
     private boolean goNorth, goSouth, goEast, goWest;
     private boolean roundBegginning;
+    private int numberOfPlayers = 4; // default
 
     /**
      * Konstruktor
@@ -39,6 +41,7 @@ public class Map {
     @SuppressWarnings("SpellCheckingInspection")
     public Map() {
         this.asteroids = new ArrayList<>();
+        this.listeners = new ArrayList<>();
         this.currentAsteroid = new Asteroid(new Iron(), 1, false, false);
         this.currentSettler = new Settler(getCurrentAsteroid(), false);
         this.view = new MapView(this);
@@ -81,14 +84,10 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void initGame(Rectangle2D screenBounds) {
-        int numberOfPlayers;
-
-        //Játék előkészítése:
-        numberOfPlayers = 1; // TODO
-
+        System.out.println(numberOfPlayers);
         // Generating the map randomly...
-        int minimumNumberOfAsteroids = 30;
-        int maximumNumberOfAsteroids = 30;
+        int minimumNumberOfAsteroids = 100; // TODO
+        int maximumNumberOfAsteroids = 110;
         double numberOfAsteroids = Math.random() * (maximumNumberOfAsteroids - minimumNumberOfAsteroids + 1) + minimumNumberOfAsteroids;
         for (int i = 0; i < numberOfAsteroids; i++) {
             Random rand = new Random();
@@ -119,8 +118,20 @@ public class Map {
         currentAsteroid = asteroids.get(1);
 
         Portal p = new Portal();
-        p.setAsteroid(currentAsteroid);
-        currentAsteroid.addPortal(p);
+        p.setAsteroid(asteroids.get(0));
+        asteroids.get(0).addPortal(p);
+
+        Portal p2 = new Portal();
+        p2.setAsteroid(asteroids.get(1));
+        asteroids.get(1).addPortal(p2);
+
+        Portal p3 = new Portal();
+        p3.setAsteroid(asteroids.get(2));
+        asteroids.get(2).addPortal(p3);
+
+        Portal p4 = new Portal();
+        p4.setAsteroid(asteroids.get(3));
+        asteroids.get(3).addPortal(p4);
 
         new Robot(currentAsteroid, false);
 
@@ -162,8 +173,13 @@ public class Map {
                 if (!a.isHollow() || a.getLayers() != 0) {
                     a.handleFigures();
                 }
-                for (Portal portal : a.getPortals())
-                    portal.move();
+
+                try {
+                    for (Portal portal : a.getPortals())
+                        portal.move();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             for (Asteroid a : drawSolarArea(asteroid)) {
@@ -304,10 +320,10 @@ public class Map {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public boolean stormComing() {
-        if (roundBegginning) { // TODO ez azért kell hogy ne haljon meg egyből a settler, majd meg kell csinálni rendesen!
+        if (roundBegginning) {
             Random rand = new Random();
             int stormNumber = rand.nextInt(100);
-            return stormNumber >= 65;
+            return stormNumber >= 10; // TODO
         }
         return false;
     }
@@ -469,5 +485,10 @@ public class Map {
 
     public GUIView getGuiView() {
         return guiView;
+    }
+
+    @Override
+    public void changePlayerNumber(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
     }
 }

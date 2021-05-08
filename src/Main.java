@@ -1,4 +1,6 @@
 import Controllers.Controller;
+import Interfaces.IGameState;
+import Interfaces.IPlayerNumber;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -14,6 +16,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 /**
  * Main osztály.
@@ -33,8 +37,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        IPlayerNumber listener;
 
-        Stage window = primaryStage;
         Scene menuScene;
 
         Group root = new Group();
@@ -56,12 +60,12 @@ public class Main extends Application {
         scene.getStylesheets().add("style.css");
 
         Controller controller = new Controller(root);
-        controller.getGame().run(root, screenBounds);
+        listener = controller.getMap();
 
         Button button1 = new Button("Play");
         Button button2 = new Button(("Options"));
         Button button3 = new Button("Quit");
-        Font font = Font.font("Courier New", FontWeight.BOLD, 36);
+        Font font = Font.font("verdana", FontWeight.BOLD, 36);
         button1.setFont(font);
 
         VBox vBox = new VBox(20);
@@ -86,9 +90,14 @@ public class Main extends Application {
         menuScene = new Scene(group, 200, 200);
         menuScene.getStylesheets().add("style.css");
 
-        button1.setOnAction(e -> primaryStage.setScene(scene));
+        button1.setOnAction(e -> {
+            primaryStage.setScene(scene);
+            controller.getGame().run(root, screenBounds);
+        });
         button2.setOnAction((e -> {
         int numOfPlayers = Options.display("Options");
+        System.out.println(numOfPlayers);
+            listener.changePlayerNumber(numOfPlayers);
         }));
         button3.setOnAction(e -> System.exit(0));
 
@@ -96,8 +105,8 @@ public class Main extends Application {
         button2.setId("optionsButton");
         button3.setId("quitButton");
 
-        window.setScene(menuScene);
-        window.setTitle("Asteroid mining game");
-        window.show();
+        primaryStage.setScene(menuScene);
+        primaryStage.setTitle("Asteroid mining game");
+        primaryStage.show();
     }
 }

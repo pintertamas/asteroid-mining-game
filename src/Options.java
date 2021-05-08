@@ -38,6 +38,7 @@ public class Options {
         layout.getChildren().addAll(label, containerOfSettings);
 
         Scene scene = new Scene(layout);
+        scene.getStylesheets().add("style.css");
         window.setScene(scene);
         window.showAndWait();
 

@@ -77,9 +77,11 @@ public class Portal implements IMove {
             System.out.println("Portal could not move, since the asteroid has no neighbors!");
             return;
         }
+        System.out.print("Portal Moved from " + this.asteroid);
         ArrayList<Asteroid> possibleDestinations = currentAsteroid.getNeighbors();
         Random rand = new Random();
         int nextAsteroidIndex = rand.nextInt(possibleDestinations.size());
+        System.out.println(" to " + possibleDestinations.get(nextAsteroidIndex));
         Asteroid nextAsteroid = possibleDestinations.get(nextAsteroidIndex);
         this.asteroid.removePortal(this);
         this.asteroid = nextAsteroid;

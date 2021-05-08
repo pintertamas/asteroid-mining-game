@@ -2,6 +2,9 @@
     -fx-fill: white;
 }
 
+.label, .text-field {
+    -fx-font-family: sans-serif;
+}
 
 .button {
     -fx-font-size: 10;
