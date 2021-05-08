@@ -32,22 +32,6 @@ public class Settler extends Figure implements IMine, IDrill {
     public Settler(Asteroid asteroid, boolean roundFinished) {
         super(asteroid, roundFinished);
         this.inventory = new Inventory();
-        //-----
-        inventory.addMaterial(new Iron());
-        inventory.addMaterial(new Coal());
-        inventory.addMaterial(new Uranium());
-        inventory.addMaterial(new Ice());
-        inventory.addMaterial(new Iron());
-        inventory.addMaterial(new Coal());
-        inventory.addMaterial(new Uranium());
-        inventory.addMaterial(new Ice());
-        inventory.addMaterial(new Ice());
-        inventory.addMaterial(new Ice());
-
-        //inventory.addPortal(new Portal());
-        //inventory.addPortal(new Portal());
-        //inventory.addPortal(new Portal());
-        //-----
         this.figureView = new SettlerView(this);
     }
 

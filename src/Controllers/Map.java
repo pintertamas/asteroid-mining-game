@@ -325,7 +325,7 @@ public class Map implements IPlayerNumber {
             a.setStepsLeft(a.getFigures().size());
         }
         for (Asteroid asteroid : asteroids) {
-            if (asteroid.isNearSun() && asteroid.getLayers() == 0) {
+            if (asteroid.isNearSun() && asteroid.getLayers() == 0 && !asteroid.isHollow()) {
                     asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
             }
         }

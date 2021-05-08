@@ -1,6 +1,7 @@
 import Controllers.Controller;
 import Interfaces.IGameState;
 import Interfaces.IPlayerNumber;
+import Views.Options;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;

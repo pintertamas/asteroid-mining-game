@@ -130,20 +130,23 @@ public class Asteroid {
     @SuppressWarnings("SpellCheckingInspection")
     public void explode() {
         System.out.println("this asteroidexploded: " + this);
+        this.material = null;
         while (!figures.isEmpty()) {
-            figures.get(0).onExplosion();
+            if (figures.get(0) != null)
+                figures.get(0).onExplosion();
         }
 
         for (Asteroid neighbor : getNeighbors()) {
             neighbor.removeNeighbor(this);
         }
         for (Portal portal : getPortals()) {
-            portal.getPair().getAsteroid().removePortal(portal.getPair());
-            portal.getPair().setPair(null);
-            portal.setPair(null);
-            this.removePortal(portal);
+            if (portal.getPair() != null) {
+                portal.getPair().getAsteroid().removePortal(portal.getPair());
+                portal.getPair().setPair(null);
+                portal.setPair(null);
+                this.removePortal(portal);
+            }
         }
-
         this.map.removeAsteroid(this);
     }
 
@@ -291,6 +294,7 @@ public class Asteroid {
 
     /**
      * TODO: Ez úgy lesz hogy ha a figure lelép az aszteroidáról akkor az új aszteroidán hívunk completedsteps++-t, amúgy meg az aktuálison
+     *
      * @return
      */
     public boolean noMoreStepsLeft() {
