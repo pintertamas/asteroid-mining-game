@@ -266,7 +266,7 @@ public class GUIView extends View {
         Text asteroidName = ViewFunctions.text("Asteroid ID:\n" + asteroid.toString().replace("Playground.Asteroid@", ""), 10);
         Text asteroidLayers = ViewFunctions.text("Layers: " + asteroid.getLayers(), 10);
         Text asteroidCore = ViewFunctions.text("Material:\n" + asteroid.getMaterial().toString().replace("Materials.", ""), 10);
-        Text asteroidIsNearSun = ViewFunctions.text(asteroid.isNearSun() ? "!!!Near the SUN!!!" : "", 10);
+        Text asteroidIsNearSun = ViewFunctions.text(asteroid.isNearSun() ? "!!!Near the SUN!!! (counter: " + asteroid.getMaterial().getNearSunCount() + ")" : "", 10);
         asteroidIsNearSun.setStyle("-fx-fill: red");
 
         details.getChildren().addAll(asteroidName, asteroidLayers, asteroidCore, asteroidIsNearSun);

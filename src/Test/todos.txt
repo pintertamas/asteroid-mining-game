@@ -2,3 +2,4 @@ portálok legyenek összekötve
 listener ami állítja a játékosok kezdeti számát
 kell valami felület amin jelezzük a játék végét
 kell frissíteni minden lépés után a képernyőt
+material robbanjon fel

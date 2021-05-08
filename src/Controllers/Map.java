@@ -321,6 +321,10 @@ public class Map {
             a.resetStep();
             a.setStepsLeft(a.getFigures().size());
         }
+        for (Asteroid asteroid : asteroids) {
+            if (asteroid.isNearSun() && asteroid.getLayers() == 0)
+                asteroid.getMaterial().setNearSunCount(asteroid.getMaterial().getNearSunCount() + 1);
+        }
         System.out.println("roundbegginning");
         roundBegginning = true;
     }
