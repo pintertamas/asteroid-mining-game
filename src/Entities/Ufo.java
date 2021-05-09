@@ -97,6 +97,7 @@ public class Ufo extends Figure implements IMine {
             setRoundFinished(true);
         }
         Controller.getController().drawAllViews(screenBounds);
+        Controller.getController().redrawGUI(root, screenBounds);
     }
 
     private boolean ufoCanMove() {

@@ -10,7 +10,6 @@ import javafx.scene.input.KeyEvent;
 
 /**
  * Háttér view-ja
- *
  */
 public class BackgroundView extends View {
     final Map map;

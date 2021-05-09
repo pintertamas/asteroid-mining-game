@@ -84,5 +84,6 @@ public class Robot extends Figure {
             this.setRoundFinished(true);
         }
         Controller.getController().drawAllViews(screenBounds);
+        Controller.getController().redrawGUI(root, screenBounds);
     }
 }
