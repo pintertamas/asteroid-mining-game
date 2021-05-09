@@ -117,6 +117,7 @@ public class GUIView extends View {
             @Override
             public void onItemClicked() {
                 Controller.moveToSettler(root, screenBounds);
+                Controller.getController().redrawGUI(root, screenBounds);
             }
         });
 

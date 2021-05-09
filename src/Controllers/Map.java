@@ -104,10 +104,7 @@ public class Map implements IPlayerNumber {
         }
 
         placeAsteroids(screenBounds);
-        currentAsteroid = asteroids.get(1);
-
-        new Robot(currentAsteroid, false);
-
+        currentAsteroid = asteroids.get(0);
 
         double threshold = screenBounds.getWidth() / 3;
 
@@ -145,8 +142,9 @@ public class Map implements IPlayerNumber {
             unluckyAsteroid.handleFigures();
         }
         try {
-            while(unluckyAsteroid.getPortals().get(0) != null)
+            while(unluckyAsteroid.getPortals().size() != 0) {
                 unluckyAsteroid.getPortals().get(0).move();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -234,6 +232,7 @@ public class Map implements IPlayerNumber {
     public void setupRound(Group root, Rectangle2D screenBounds) {
         if (stormComing()) {
             solarStorm();
+            Controller.getController().drawAllViews(screenBounds);
         } else {
             Asteroid asteroid = findNextAsteroid();
             asteroid.invokeFigures(root, screenBounds);
@@ -264,7 +263,7 @@ public class Map implements IPlayerNumber {
             Random rand = new Random();
             int stormNumber = rand.nextInt(100);
             roundBegginning = false;
-            return stormNumber >= 10; // TODO
+            return stormNumber >= 10;
         }
         return false;
     }

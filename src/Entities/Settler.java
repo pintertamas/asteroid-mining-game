@@ -212,10 +212,9 @@ public class Settler extends Figure implements IMine, IDrill {
         int portalCount = asteroid.getPortals().size();
         if (portalCount != 0) {
             Asteroid neighborChoice = null;
-            if(portalCount == 1) {
+            if (portalCount == 1 && asteroid.getPortals().get(0).getPair() != null) {
                 this.asteroid.stepCompleted();
                 neighborChoice = asteroid.getPortals().get(0).getPair().getAsteroid();
-
             } else {
                 for (Portal portal : getAsteroid().getPortals()) {
                     if (portal.getPair().getAsteroid() == this.getAsteroid().getMap().getCurrentAsteroid()) {

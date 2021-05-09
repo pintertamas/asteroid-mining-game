@@ -1,5 +1,6 @@
 package Playground;
 
+import Controllers.Controller;
 import Interfaces.IMove;
 import Views.PortalView;
 import Views.View;
@@ -77,16 +78,16 @@ public class Portal implements IMove {
             System.out.println("Portal could not move, since the asteroid has no neighbors!");
             return;
         }
-        System.out.print("Portal Moved from " + this.asteroid);
+        System.out.print("Portal moved from " + this.asteroid);
         ArrayList<Asteroid> possibleDestinations = currentAsteroid.getNeighbors();
         Random rand = new Random();
         int nextAsteroidIndex = rand.nextInt(possibleDestinations.size());
-        System.out.println(" to " + possibleDestinations.get(nextAsteroidIndex));
         Asteroid nextAsteroid = possibleDestinations.get(nextAsteroidIndex);
+        System.out.println(" to " + nextAsteroid);
         this.asteroid.getAsteroidView().removeContainedView(this.portalView);
         this.asteroid.removePortal(this);
         this.asteroid = nextAsteroid;
-        this.asteroid.addPortal(this);
         this.asteroid.getAsteroidView().addContainedView(this.portalView);
+        this.asteroid.addPortal(this);
     }
 }

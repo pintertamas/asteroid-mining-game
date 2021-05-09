@@ -36,6 +36,7 @@ public class MenuScene {
         primaryStage.setWidth(screenWidth);
         primaryStage.setHeight(screenHeight);
         primaryStage.setMaximized(true);
+        primaryStage.setFullScreen(true);
         primaryStage.setTitle("Asteroid Mining Game");
         primaryStage.setResizable(false);
         scene.getStylesheets().add("style.css");
@@ -76,6 +77,7 @@ public class MenuScene {
                 System.out.println(controller);
                 controller.getGame().changeGameState(GameState.LOAD);
                 primaryStage.setScene(scene);
+                primaryStage.setMaximized(true);
                 controller.getGame().run(primaryStage, root, screenBounds);
             }
         });

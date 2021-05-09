@@ -19,10 +19,10 @@ public class PortalView extends View {
         root.getChildren().remove(this.getView());
         this.getView().getChildren().clear();
 
-        Drawable astPos = this.portal.getAsteroid().getPosition();
+        Drawable pos = this.portal.getAsteroid().getPosition();
 
         if (pos.isInside(screenBounds)) {
-            ImageView imageView = ViewFunctions.image(imagePath, astPos.getSize() / 4);
+            ImageView imageView = ViewFunctions.image(imagePath, pos.getSize() / 4);
             imageView.setX(pos.getX() - pos.getSize() / 8);
             imageView.setY(pos.getY() - pos.getSize() / 8);
 

@@ -1,2 +1,1 @@
-!!solarstormkor a portal mozgás bugos, de nehéz is tesztelni
 !a képernyő mozgatás egyre nagyobbakat lép/laggol valamiért
