@@ -18,6 +18,11 @@ public class Main extends Application {
         launch();
     }
 
+    /**
+     * A játék elindítása.
+     *
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         MenuScene.loadMenu(primaryStage);

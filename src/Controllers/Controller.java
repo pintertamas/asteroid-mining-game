@@ -11,6 +11,9 @@ import javafx.scene.Group;
 
 import java.util.ArrayList;
 
+/**
+ * Controller osztály a grafikus elemek kezeléséhez.
+ */
 public class Controller {
     private static Controller singletonController = null;
     Game game;
@@ -18,6 +21,11 @@ public class Controller {
     Group root;
     ArrayList<View> views;
 
+    /**
+     * Konstruktor.
+     *
+     * @param root
+     */
     private Controller(Group root) {
         this.root = root;
         game = new Game(this);
@@ -25,12 +33,22 @@ public class Controller {
         views = new ArrayList<>();
     }
 
+    /**
+     * A Controller inicializálása
+     *
+     * @param root
+     */
     public static Controller initializeController(Group root) {
         if (singletonController == null)
             singletonController = new Controller(root);
         return singletonController;
     }
 
+
+    /**
+     * A Controller resetelése
+     *
+     */
     public void resetController() {
         game = new Game(this);
         map = new Map();
@@ -53,6 +71,10 @@ public class Controller {
         return map;
     }
 
+
+    /**
+     * Minden grafikus elem view-jának összegyűjtése.
+     */
     public void addAllViews() {
         this.views.clear();
         this.views.add(new BackgroundView(map));
@@ -67,11 +89,21 @@ public class Controller {
         this.views.add(map.getGuiView());
     }
 
+    /**
+     * Az összes view kirajzolása.
+     *
+     * @param screenBounds
+     */
     public void drawAllViews(Rectangle2D screenBounds) {
         for (View view : views)
             view.draw(root, screenBounds);
     }
 
+    /**
+     * Figurák elhelyezése a közeépponthoz legközelebbi aszteroidára
+     *
+     * @param screenBounds
+     */
     public void placeFigures(Rectangle2D screenBounds) {
         for (int i = 0; i < map.getAsteroids().get(1).getFigures().size(); i++) {
             Asteroid closest = map.findClosestAsteroidToCenter(screenBounds);
@@ -82,18 +114,36 @@ public class Controller {
         }
     }
 
+    /**
+     * A paraméterben megadott aszteroida újrarajzolása
+     *
+     * @param asteroid
+     * @param screenBounds
+     */
     public void redrawAsteroid(Asteroid asteroid, Rectangle2D screenBounds) {
         this.views.remove(asteroid.getAsteroidView());
         this.views.add(asteroid.getAsteroidView());
         asteroid.getAsteroidView().draw(root, screenBounds);
     }
 
+    /**
+     * Adott aszteroida tartalmazott view-jainak újrarajozolása
+     *
+     * @param asteroid
+     * @param screenBounds
+     */
     public void redrawAsteroidContainedViews(Asteroid asteroid, Rectangle2D screenBounds) {
         this.views.removeAll(asteroid.getAsteroidView().getContainedViews());
         this.views.addAll(asteroid.getAsteroidView().getContainedViews());
         asteroid.getAsteroidView().drawContainedViews(root, screenBounds);
     }
 
+    /**
+     * kamera mozgatása Settlerhez
+     *
+     * @param root
+     * @param screenBounds
+     */
     public static void moveToSettler(Group root, Rectangle2D screenBounds) {
         double xDistance = screenBounds.getWidth() / 2 - getController().getMap().getCurrentSettler().getAsteroid().getPosition().getX();
         double yDistance = screenBounds.getHeight() / 2 - getController().getMap().getCurrentSettler().getAsteroid().getPosition().getY();
@@ -101,6 +151,12 @@ public class Controller {
         Controller.getController().drawAllViews(screenBounds);
     }
 
+    /**
+     * GUI újrarajzolása
+     *
+     * @param root
+     * @param screenBounds
+     */
     public void redrawGUI(Group root, Rectangle2D screenBounds) {
         map.getGuiView().draw(root, screenBounds);
     }

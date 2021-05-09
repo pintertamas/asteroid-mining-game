@@ -8,15 +8,30 @@ import javafx.scene.image.ImageView;
 
 import java.util.Random;
 
+/**
+ * Telepesek view-ja
+ *
+ */
 public class SettlerView extends View {
     Settler settler;
 
+    /**
+     * Konstruktor.
+     *
+     * @param settler
+     */
     public SettlerView(Settler settler) {
         this.settler = settler;
         int settlerNumber = new Random().nextInt(5) + 1;
         this.imagePath = "/figures/spaceships/spaceship" + settlerNumber + ".png";
     }
 
+    /**
+     * Telepes kirajzolása.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());

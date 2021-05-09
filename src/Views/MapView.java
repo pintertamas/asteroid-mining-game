@@ -9,13 +9,28 @@ import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 
+/**
+ * A térkép view-ja.
+ *
+ */
 public class MapView extends View {
     Map map;
 
+    /**
+     * Konstruktor.
+     *
+     * @param map
+     */
     public MapView(Map map) {
         this.map = map;
     }
 
+    /**
+     * Rajzolófüggvény.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());

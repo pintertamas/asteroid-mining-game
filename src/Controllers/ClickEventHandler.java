@@ -3,6 +3,10 @@ package Controllers;
 import Events.CustomEvent;
 import javafx.event.EventHandler;
 
+
+/**
+ * Egérkattintások elkapására és kezelésére abstract osztály
+ */
 public abstract class ClickEventHandler implements EventHandler<CustomEvent> {
     public abstract void onItemClicked();
 

@@ -11,10 +11,19 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
 
+/**
+ * Aszteroida view-ja
+ *
+ */
 public class AsteroidView extends View {
     private final Asteroid asteroid;
     private final ArrayList<View> containedViews;
 
+    /**
+     * Konstruktor
+     *
+     * @param asteroid
+     */
     public AsteroidView(Asteroid asteroid) {
         this.asteroid = asteroid;
         this.pos = asteroid.getPosition();
@@ -31,6 +40,12 @@ public class AsteroidView extends View {
         else return asteroid.getMaterial().getMaterialView().getImagePath();
     }
 
+    /**
+     * Kirajzolás.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());
@@ -57,15 +72,31 @@ public class AsteroidView extends View {
         drawContainedViews(root, screenBounds);
     }
 
+    /**
+     * A tartalmazott view-k kirajzolása
+     *
+     * @param root
+     * @param screenBounds
+     */
     public void drawContainedViews(Group root, Rectangle2D screenBounds) {
         for (View view : containedViews)
             view.draw(root, screenBounds);
     }
 
+    /**
+     * Tartlamzaott view hozzáadása.
+     *
+     * @param view
+     */
     public void addContainedView(View view) {
         this.containedViews.add(view);
     }
 
+    /**
+     * Tartalmazott view törlése
+     *
+     * @param view
+     */
     public void removeContainedView(View view) {
         this.containedViews.remove(view);
     }

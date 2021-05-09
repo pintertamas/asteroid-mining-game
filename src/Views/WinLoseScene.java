@@ -8,8 +8,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Scene, ami a játék végén jelenik meg: nyeréskor/vesztéskor.
+ *
+ */
 public class WinLoseScene {
 
+    /**
+     * Konstruktor.
+     *
+     * @param primaryStage
+     * @param winOrLose
+     */
     public static void WinLose(Stage primaryStage, String winOrLose) {
         Stage window = new Stage();
 

@@ -8,14 +8,29 @@ import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * Háttér view-ja
+ *
+ */
 public class BackgroundView extends View {
     Map map;
 
+    /**
+     * Konstruktor.
+     *
+     * @param map
+     */
     public BackgroundView(Map map) {
         this.map = map;
         this.imagePath = "/background.png";
     }
 
+    /**
+     * Kirajzolás.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());

@@ -10,10 +10,19 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Opciók grafikus megjelenítése.
+ *
+ */
 public class Options {
 
     static int numberOfPlayers;
 
+    /**
+     * Megjelenítőfüggvény.
+     *
+     * @param title
+     */
     public static int display(String title) {
         Stage window = new Stage();
 

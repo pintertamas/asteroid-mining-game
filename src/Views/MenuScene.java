@@ -17,8 +17,17 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * Scene ami a menüt tartalmazza.
+ *
+ */
 public class MenuScene {
 
+    /**
+     * Menü betöltése
+     *
+     * @param primaryStage
+     */
     public static void loadMenu(Stage primaryStage) {
         IPlayerNumber listener;
 

@@ -9,11 +9,21 @@ public class Drawable {
     private double x, y;
     private double size = 200;
 
+    /**
+     * Paraméter nélküli konstruktor
+     *
+     */
     public Drawable() {
         this.x = 0;
         this.y = 0;
     }
 
+    /**
+     * Konstruktor, x és y inicializálásával
+     *
+     * @param x
+     * @param y
+     */
     public Drawable(double x, double y) {
         this.x = x;
         this.y = y;
@@ -44,6 +54,11 @@ public class Drawable {
         else return !(this.getY() - this.getSize() > height);
     }
 
+    /**
+     * Másik drawable-től mért távolság kiszámítása.
+     *
+     * @param other
+     */
     public double distance(Drawable other) {
         double xDist = this.x - other.x;
         double yDist = this.y - other.y;

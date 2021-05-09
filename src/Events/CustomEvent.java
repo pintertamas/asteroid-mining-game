@@ -4,6 +4,11 @@ import Controllers.ClickEventHandler;
 import javafx.event.Event;
 import javafx.event.EventType;
 
+
+/**
+ * Saját események készítéséhez absztrakt osztály
+ *
+ */
 public abstract class CustomEvent extends Event {
     public static final EventType<CustomEvent> CUSTOM_EVENT_TYPE = new EventType(ANY);
 

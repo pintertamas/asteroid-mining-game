@@ -18,13 +18,27 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+/**
+ * A GUI view-ja
+ *
+ */
 public class GUIView extends View {
     Map map;
 
+    /**
+     * Konstruktor.
+     *
+     * @param map
+     */
     public GUIView(Map map) {
         this.map = map;
     }
 
+    /**
+     * Current settler kirajzolása
+     *
+     * @param vBox
+     */
     private void drawSettlerInfo(VBox vBox) {
         GridPane grid = new GridPane();
         grid.setHgap(20);
@@ -37,6 +51,12 @@ public class GUIView extends View {
         vBox.getChildren().add(grid);
     }
 
+    /**
+     * A jelenleg kiválasztott nyersanyag kirajzolása.
+     *
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawSelectedMaterial(VBox vBox, Rectangle2D screenBounds) {
         HBox hBox = new HBox();
         hBox.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(100), Insets.EMPTY)));
@@ -55,6 +75,12 @@ public class GUIView extends View {
         vBox.getChildren().add(hBox);
     }
 
+    /**
+     * Inventory tartalmának kirajzolása.
+     *
+     * @param vBox
+     * @param screenBounds
+     */
     private void drawInventory(VBox vBox, Group root, Rectangle2D screenBounds) {
         FlowPane inventory = new FlowPane();
         inventory.setAlignment(Pos.CENTER);
@@ -78,6 +104,11 @@ public class GUIView extends View {
         vBox.getChildren().add(inventory);
     }
 
+    /**
+     * Teleportkapuk kirajzolása.
+     *
+     * @param vBox
+     */
     private void drawPortals(VBox vBox) {
         HBox portalBox = new HBox(20);
         portalBox.setAlignment(Pos.CENTER);
@@ -100,6 +131,13 @@ public class GUIView extends View {
         vBox.getChildren().add(grid);
     }
 
+    /**
+     * Végrehajtható akciók kirajzolása.
+     *
+     * @param vBox
+     * @param root
+     * @param screenBounds
+     */
     private void drawActions(VBox vBox, Group root, Rectangle2D screenBounds) {
         FlowPane actions = new FlowPane();
         actions.setHgap(10);
@@ -260,11 +298,25 @@ public class GUIView extends View {
         vBox.getChildren().add(actions);
     }
 
+    /**
+     * Teleportkapuk és a lehetséges akciók kirajzolása.
+     *
+     * @param vBox
+     * @param root
+     * @param screenBounds
+     */
     private void drawPortalsAndActions(VBox vBox, Group root, Rectangle2D screenBounds) {
         drawPortals(vBox);
         drawActions(vBox, root, screenBounds);
     }
 
+    /**
+     * Információk megjelenítése az aktuális aszteroidáról.
+     *
+     * @param vBox
+     * @param screenBounds
+     * @param asteroid
+     */
     private void drawAsteroidDetails(VBox vBox, Rectangle2D screenBounds, Asteroid asteroid) {
         HBox detailContainer = new HBox(15);
         detailContainer.setBackground(new Background(new BackgroundFill(Color.GAINSBORO, new CornerRadii(50.0), Insets.EMPTY)));
@@ -293,6 +345,12 @@ public class GUIView extends View {
         vBox.getChildren().add(detailContainer);
     }
 
+    /**
+     * Rajzolófüggvény.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());

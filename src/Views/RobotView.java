@@ -8,15 +8,30 @@ import javafx.scene.image.ImageView;
 
 import java.util.Random;
 
+/**
+ * Robotok view-ja.
+ *
+ */
 public class RobotView extends View {
     Robot robot;
 
+    /**
+     * Konstruktor.
+     *
+     * @param robot
+     */
     public RobotView(Robot robot) {
         this.robot = robot;
         int robotNumber = new Random().nextInt(5) + 1;
         this.imagePath = "/figures/robots/robot" + robotNumber + ".png";
     }
 
+    /**
+     * Kirajzoláshoz megvalósítása.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());

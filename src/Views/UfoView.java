@@ -6,14 +6,29 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
+/**
+ * Ufok view-ja.
+ *
+ */
 public class UfoView extends View {
     Ufo ufo;
 
+    /**
+     * Konstruktor.
+     *
+     * @param ufo
+     */
     public UfoView(Ufo ufo) {
         this.ufo = ufo;
         this.imagePath = "/figures/ufos/ufo1.png";
     }
 
+    /**
+     * Ufo kirajzolását valósítja meg.
+     *
+     * @param root
+     * @param screenBounds
+     */
     @Override
     public void draw(Group root, Rectangle2D screenBounds) {
         root.getChildren().remove(this.getView());

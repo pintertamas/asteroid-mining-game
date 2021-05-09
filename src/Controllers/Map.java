@@ -216,6 +216,10 @@ public class Map implements IPlayerNumber {
         return true;
     }
 
+    /**
+     * Megkeresi a sorban a következő aszteroidát, akin még van olyan Figure, aki még nem lépett az adott körben.
+     *
+     */
     private Asteroid findNextAsteroid() {
         for (Asteroid asteroid : asteroids) {
             if (!asteroid.noMoreStepsLeft())
@@ -362,6 +366,11 @@ public class Map implements IPlayerNumber {
         getGuiView().draw(root, screenBounds);
     }
 
+    /**
+     * Megkeresi a középponthoz legközelebb lévő aszteroidát.
+     *
+     * @param screenBounds
+     */
     public Asteroid findClosestAsteroidToCenter(Rectangle2D screenBounds) {
         Drawable center = new Drawable(screenBounds.getWidth() / 2, screenBounds.getHeight() / 2);
         Asteroid closest = asteroids.get(1);

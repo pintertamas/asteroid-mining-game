@@ -5,18 +5,34 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.input.KeyEvent;
 
+/**
+ * Billentyűgombok lenyomását kezelő EventHandler osztály
+ *
+ */
 public class KeyEventHandler implements EventHandler<KeyEvent> {
     Map map;
     Group root;
     Rectangle2D screenBounds;
     int speed = 10;
 
+    /**
+     * Konstruktor
+     *
+     * @param root
+     * @param screenBounds
+     * @param map
+     */
     protected KeyEventHandler(Group root, Rectangle2D screenBounds, Map map) {
         this.map = map;
         this.root = root;
         this.screenBounds = screenBounds;
     }
 
+    /**
+     * W,S,A,D gombok lenyomásával keletkező eventek kezelése
+     *
+     * @param event
+     */
     @Override
     public void handle(KeyEvent event) {
         if (event.getEventType() == KeyEvent.KEY_PRESSED) {
