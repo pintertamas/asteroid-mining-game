@@ -145,9 +145,8 @@ public class Map implements IPlayerNumber {
             unluckyAsteroid.handleFigures();
         }
         try {
-            for (Portal portal : unluckyAsteroid.getPortals())
-                if (portal != null)
-                    portal.move();
+            while(unluckyAsteroid.getPortals().get(0) != null)
+                unluckyAsteroid.getPortals().get(0).move();
         } catch (Exception e) {
             e.printStackTrace();
         }
