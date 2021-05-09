@@ -1,5 +1,6 @@
 package Entities;
 
+import Controllers.Controller;
 import Playground.Asteroid;
 import Views.RobotView;
 import javafx.geometry.Rectangle2D;
@@ -82,5 +83,6 @@ public class Robot extends Figure {
             asteroid.stepCompleted();
             this.setRoundFinished(true);
         }
+        Controller.getController().drawAllViews(screenBounds);
     }
 }

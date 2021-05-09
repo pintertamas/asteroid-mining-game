@@ -9,7 +9,7 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
     Map map;
     Group root;
     Rectangle2D screenBounds;
-    int speed = 30;
+    int speed = 10;
 
     protected KeyEventHandler(Group root, Rectangle2D screenBounds, Map map) {
         this.map = map;
@@ -58,6 +58,6 @@ public class KeyEventHandler implements EventHandler<KeyEvent> {
         if (map.isGoEast()) dx -= speed;
         if (map.isGoWest()) dx += speed;
 
-        Controller.getController().getMap().moveAllAsteroids(root, screenBounds, dx, dy);
+        map.moveAllAsteroids(root, screenBounds, dx, dy);
     }
 }

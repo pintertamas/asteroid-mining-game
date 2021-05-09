@@ -1,5 +1,6 @@
 package Entities;
 
+import Controllers.Controller;
 import Interfaces.IMine;
 import Materials.Material;
 import Playground.Asteroid;
@@ -95,6 +96,7 @@ public class Ufo extends Figure implements IMine {
             asteroid.stepCompleted();
             setRoundFinished(true);
         }
+        Controller.getController().drawAllViews(screenBounds);
     }
 
     private boolean ufoCanMove() {
