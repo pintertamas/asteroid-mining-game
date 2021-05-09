@@ -76,8 +76,6 @@ public class Controller {
      * Minden grafikus elem view-jának összegyűjtése.
      */
     public void addAllViews() {
-        this.views.clear();
-        this.views.add(new BackgroundView(map));
         this.views.add(map.getMapView());
         for (Asteroid asteroid : map.getAsteroids()) {
             this.views.add(asteroid.getAsteroidView());
@@ -87,6 +85,10 @@ public class Controller {
                 asteroid.getAsteroidView().addContainedView(figure.getFigureView());
         }
         this.views.add(map.getGuiView());
+    }
+
+    public void drawBackground(Rectangle2D screenBounds) {
+        new BackgroundView(map).draw(root, screenBounds);
     }
 
     /**

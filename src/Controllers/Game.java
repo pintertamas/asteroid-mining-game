@@ -48,6 +48,7 @@ public class Game implements IGameState {
                         controller.getMap().initGame(screenBounds);
                         controller.placeFigures(screenBounds);
                         controller.getMap().resetRound();
+                        controller.drawBackground(screenBounds);
                         controller.addAllViews();
                         controller.drawAllViews(screenBounds);
                         gameState = GameState.IN_PROGRESS;
