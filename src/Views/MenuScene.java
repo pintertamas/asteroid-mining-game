@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -86,7 +87,7 @@ public class MenuScene {
                 System.out.println(controller);
                 controller.getGame().changeGameState(GameState.LOAD);
                 primaryStage.setScene(scene);
-                primaryStage.setMaximized(true);
+                primaryStage.setFullScreen(true);
                 controller.getGame().run(primaryStage, root, screenBounds);
             }
         });

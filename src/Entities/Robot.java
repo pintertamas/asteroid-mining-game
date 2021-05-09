@@ -35,7 +35,7 @@ public class Robot extends Figure {
         Asteroid a = chooseNextDestination();
         this.asteroid.stepCompleted();
         this.asteroid.removeFigure(this);
-        setAsteroid(a);
+        this.setAsteroid(a);
         a.addFigure(this);
         this.setRoundFinished(true);
     }
@@ -57,8 +57,9 @@ public class Robot extends Figure {
     @SuppressWarnings("SpellCheckingInspection")
     public Asteroid chooseNextDestination() {
         ArrayList<Asteroid> neighbors = this.asteroid.getNeighbors();
-        assert (neighbors.size() > 0);
-        return neighbors.get(new Random().nextInt(neighbors.size()));
+        if (neighbors.size() > 0)
+            return neighbors.get(new Random().nextInt(neighbors.size()));
+        else return this.asteroid;
     }
 
     /**
