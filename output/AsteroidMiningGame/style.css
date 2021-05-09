@@ -1,0 +1,38 @@
+#line {
+    -fx-fill: white;
+}
+
+.label, .text-field {
+    -fx-font-family: sans-serif;
+}
+
+.button {
+    -fx-font-size: 10;
+    -fx-background-color: linear-gradient(#f0ff35, #a9ff00),
+    radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow(three-pass-box, rgb(30, 30, 30), 5, 0.0, 0, 1);
+    -fx-text-fill: #06534d;
+    -fx-font-family: sans-serif;
+}
+
+#playButton {
+    -fx-font-size: 70;
+}
+
+#optionsButton {
+    -fx-font-size: 30;
+}
+
+#quitButton {
+    -fx-font-size: 20;
+}
+
+#backGround{
+    -fx-background-image: url("background.png");
+    -fx-background-repeat: stretch;
+    -fx-background-size: 900 506;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0);
+}
