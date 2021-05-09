@@ -1,6 +1,5 @@
 package Playground;
 
-import Controllers.Controller;
 import Interfaces.IMove;
 import Views.PortalView;
 import Views.View;

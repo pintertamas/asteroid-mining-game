@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
  *
  */
 public class PortalView extends View {
-    Portal portal;
+    final Portal portal;
 
     /**
      * Konstruktor.

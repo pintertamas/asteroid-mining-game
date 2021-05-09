@@ -23,7 +23,7 @@ import javafx.scene.text.Text;
  *
  */
 public class GUIView extends View {
-    Map map;
+    final Map map;
 
     /**
      * Konstruktor.

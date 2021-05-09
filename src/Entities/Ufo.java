@@ -18,7 +18,7 @@ import java.util.Random;
  */
 @SuppressWarnings("SpellCheckingInspection")
 public class Ufo extends Figure implements IMine {
-    ArrayList<Material> materials;
+    final ArrayList<Material> materials;
 
     /**
      * Konstruktor.

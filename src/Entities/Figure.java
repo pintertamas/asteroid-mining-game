@@ -1,6 +1,5 @@
 package Entities;
 
-import Controllers.Controller;
 import Interfaces.*;
 import Playground.*;
 import Views.View;

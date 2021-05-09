@@ -1,7 +1,6 @@
 package Controllers;
 
 import Entities.Figure;
-import Entities.Settler;
 import Playground.Asteroid;
 import Playground.Portal;
 import Views.BackgroundView;
@@ -19,7 +18,7 @@ public class Controller {
     Game game;
     Map map;
     Group root;
-    ArrayList<View> views;
+    final ArrayList<View> views;
 
     /**
      * Konstruktor.

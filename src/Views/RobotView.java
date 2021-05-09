@@ -13,7 +13,7 @@ import java.util.Random;
  *
  */
 public class RobotView extends View {
-    Robot robot;
+    final Robot robot;
 
     /**
      * Konstruktor.

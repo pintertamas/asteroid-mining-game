@@ -14,7 +14,7 @@ import java.util.ArrayList;
  *
  */
 public class MapView extends View {
-    Map map;
+    final Map map;
 
     /**
      * Konstruktor.

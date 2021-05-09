@@ -10,10 +10,10 @@ import javafx.scene.input.KeyEvent;
  *
  */
 public class KeyEventHandler implements EventHandler<KeyEvent> {
-    Map map;
-    Group root;
-    Rectangle2D screenBounds;
-    int speed = 10;
+    final Map map;
+    final Group root;
+    final Rectangle2D screenBounds;
+    final int speed = 10;
 
     /**
      * Konstruktor

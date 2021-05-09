@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 public class Game implements IGameState {
     private GameState gameState = GameState.LOAD;
-    public Controller controller;
+    public final Controller controller;
 
     /**
      * Konstruktor

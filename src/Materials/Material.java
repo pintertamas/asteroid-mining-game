@@ -10,7 +10,7 @@ import Views.MaterialView;
 public abstract class Material {
     private Asteroid asteroid;
     private int nearSunCount;
-    protected MaterialView materialView = new MaterialView(this);
+    protected final MaterialView materialView = new MaterialView(this);
 
     public MaterialView getMaterialView() {
         return materialView;

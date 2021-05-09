@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
  *
  */
 public class BackgroundView extends View {
-    Map map;
+    final Map map;
 
     /**
      * Konstruktor.

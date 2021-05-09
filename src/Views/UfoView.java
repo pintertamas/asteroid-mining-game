@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
  *
  */
 public class UfoView extends View {
-    Ufo ufo;
+    final Ufo ufo;
 
     /**
      * Konstruktor.

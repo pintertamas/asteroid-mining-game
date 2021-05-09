@@ -7,7 +7,6 @@ import javafx.geometry.Rectangle2D;
  */
 public class Drawable {
     private double x, y;
-    private double size = 200;
 
     /**
      * Paraméter nélküli konstruktor
@@ -83,6 +82,7 @@ public class Drawable {
      * Getter a mérethez
      */
     public double getSize() {
+        double size = 200;
         return size;
     }
 }

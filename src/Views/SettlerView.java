@@ -13,7 +13,7 @@ import java.util.Random;
  *
  */
 public class SettlerView extends View {
-    Settler settler;
+    final Settler settler;
 
     /**
      * Konstruktor.

@@ -2,7 +2,6 @@ package Controllers;
 
 import Bills.*;
 import Entities.Figure;
-import Entities.Robot;
 import Entities.Settler;
 import Entities.Ufo;
 import Interfaces.IGameState;
@@ -11,7 +10,6 @@ import Materials.*;
 import Maths.Drawable;
 import Playground.Asteroid;
 import Playground.GameState;
-import Playground.Portal;
 import Views.GUIView;
 import Views.MapView;
 import javafx.geometry.Rectangle2D;
