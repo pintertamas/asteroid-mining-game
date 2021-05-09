@@ -209,17 +209,26 @@ public class Settler extends Figure implements IMine, IDrill {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void moveThroughPortal() {
-        if (asteroid.getPortals().size() != 0) {
-            for (Portal portal : getAsteroid().getPortals()) {
-                if (portal.getPair().getAsteroid() == this.getAsteroid().getMap().getCurrentAsteroid()) {
-                    this.asteroid.stepCompleted();
-                    Asteroid neighborChoice = this.asteroid.getMap().getCurrentAsteroid();
-                    this.asteroid.removeFigure(this);
-                    neighborChoice.addFigure(this);
-                    this.setAsteroid(neighborChoice);
-                    this.setRoundFinished(true);
+        int portalCount = asteroid.getPortals().size();
+        if (portalCount != 0) {
+            Asteroid neighborChoice = null;
+            if(portalCount == 1) {
+                this.asteroid.stepCompleted();
+                neighborChoice = asteroid.getPortals().get(0).getPair().getAsteroid();
+
+            } else {
+                for (Portal portal : getAsteroid().getPortals()) {
+                    if (portal.getPair().getAsteroid() == this.getAsteroid().getMap().getCurrentAsteroid()) {
+                        this.asteroid.stepCompleted();
+                        neighborChoice = this.asteroid.getMap().getCurrentAsteroid();
+                    }
                 }
             }
+            this.asteroid.removeFigure(this);
+            assert neighborChoice != null;
+            neighborChoice.addFigure(this);
+            this.setAsteroid(neighborChoice);
+            this.setRoundFinished(true);
         }
     }
 }
