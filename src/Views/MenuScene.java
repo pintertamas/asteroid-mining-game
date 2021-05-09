@@ -40,7 +40,6 @@ public class MenuScene {
         primaryStage.setResizable(false);
         scene.getStylesheets().add("style.css");
 
-
         Controller controller = Controller.initializeController(root);
         listener = controller.getMap();
 
@@ -63,10 +62,10 @@ public class MenuScene {
         ImageView imageView = new ImageView(image);
         Group group = new Group();
         vBox.getChildren().addAll(playButtonStack, optionsButtonStack, quitButtonStack);
-        vBox.setPrefWidth(screenBounds.getWidth()/5);
-        vBox.setPrefHeight(screenBounds.getHeight()/5);
-        vBox.setLayoutX((screenBounds.getWidth()-vBox.getPrefWidth())/2);
-        vBox.setLayoutY((screenBounds.getHeight()-vBox.getPrefHeight())/3);
+        vBox.setPrefWidth(screenBounds.getWidth() / 5);
+        vBox.setPrefHeight(screenBounds.getHeight() / 5);
+        vBox.setLayoutX((screenBounds.getWidth() - vBox.getPrefWidth()) / 2);
+        vBox.setLayoutY((screenBounds.getHeight() - vBox.getPrefHeight()) / 3);
         group.getChildren().addAll(imageView, vBox);
 
         menuScene = new Scene(group, 200, 200);
@@ -74,6 +73,7 @@ public class MenuScene {
 
         playButton.setOnAction(e -> {
             if (controller.getMap().getNumberOfPlayers() >= 1 && controller.getMap().getNumberOfPlayers() <= 5) {
+                System.out.println(controller);
                 controller.getGame().changeGameState(GameState.LOAD);
                 primaryStage.setScene(scene);
                 controller.getGame().run(primaryStage, root, screenBounds);

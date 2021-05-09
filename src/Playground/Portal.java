@@ -83,8 +83,10 @@ public class Portal implements IMove {
         int nextAsteroidIndex = rand.nextInt(possibleDestinations.size());
         System.out.println(" to " + possibleDestinations.get(nextAsteroidIndex));
         Asteroid nextAsteroid = possibleDestinations.get(nextAsteroidIndex);
+        this.asteroid.getAsteroidView().removeContainedView(this.portalView);
         this.asteroid.removePortal(this);
         this.asteroid = nextAsteroid;
         this.asteroid.addPortal(this);
+        this.asteroid.getAsteroidView().addContainedView(this.portalView);
     }
 }

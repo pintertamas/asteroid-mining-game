@@ -101,10 +101,10 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrill {
     @SuppressWarnings("SpellCheckingInspection")
     public void die() {
         System.out.println(this + " died");
-        asteroid.getAsteroidView().removeContainedView(this.getFigureView());
-        asteroid.removeFigure(this);
         if (!this.getRoundFinished())
             this.asteroid.stepCompleted();
+        asteroid.removeFigure(this);
+
     }
 
     /**

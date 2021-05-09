@@ -137,7 +137,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void explode() {
-        System.out.println("this asteroidexploded: " + this);
+        System.out.println("this asteroid exploded: " + this);
         this.material = null;
         while (figures.size() > 0) {
             if (figures.get(0) != null)
@@ -147,6 +147,8 @@ public class Asteroid {
         for (Asteroid neighbor : getNeighbors()) {
             neighbor.removeNeighbor(this);
         }
+        this.neighbors.clear();
+
         for (Portal portal : getPortals()) {
             if (portal.getPair() != null) {
                 portal.getPair().getAsteroid().removePortal(portal.getPair());
@@ -155,7 +157,6 @@ public class Asteroid {
                 this.removePortal(portal);
             }
         }
-        this.map.removeAsteroid(this);
     }
 
     /**
@@ -175,6 +176,7 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void removeFigure(Figure f) {
+        this.getAsteroidView().removeContainedView(f.getFigureView());
         this.figures.remove(f);
     }
 
@@ -256,6 +258,7 @@ public class Asteroid {
      */
     public void removePortal(Portal p) {
         this.portals.remove(p);
+        this.asteroidView.removeContainedView(p.getPortalView());
     }
 
     /**

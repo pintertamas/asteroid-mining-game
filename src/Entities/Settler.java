@@ -48,10 +48,9 @@ public class Settler extends Figure implements IMine, IDrill {
             return;
         }
         this.asteroid.stepCompleted();
-        Asteroid neighborChoice = this.asteroid.getMap().getCurrentAsteroid();
         this.asteroid.removeFigure(this);
-        neighborChoice.addFigure(this);
-        this.setAsteroid(neighborChoice);
+        nextAsteroid().addFigure(this);
+        this.setAsteroid(nextAsteroid());
         this.setRoundFinished(true);
     }
 
@@ -64,10 +63,10 @@ public class Settler extends Figure implements IMine, IDrill {
     public void mine() {
         if (this.inventory.getMaterialCapacity() > this.inventory.getMaterials().size())
             if (asteroid.mined(this)) {
+                setRoundFinished(true);
+                this.asteroid.stepCompleted();
                 if (this.asteroid.isNearSun())
                     asteroid.getMaterial().readyToMine();
-                this.asteroid.stepCompleted();
-                setRoundFinished(true);
             }
     }
 
@@ -92,7 +91,6 @@ public class Settler extends Figure implements IMine, IDrill {
         BillOfPortal billOfPortal = new BillOfPortal();
         if (billOfPortal.hasEnoughMaterials(this.inventory.getMaterials())
                 && this.inventory.getPortals().size() < this.inventory.getPortalCapacity()) {
-            this.asteroid.stepCompleted();
             billOfPortal.pay(inventory.getMaterials());
             Portal p1 = new Portal();
             Portal p2 = new Portal();
@@ -100,6 +98,7 @@ public class Settler extends Figure implements IMine, IDrill {
             p2.setPair(p1);
             this.inventory.addPortal(p1);
             this.inventory.addPortal(p2);
+            this.asteroid.stepCompleted();
             this.setRoundFinished(true);
         }
     }

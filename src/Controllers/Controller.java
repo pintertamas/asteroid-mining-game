@@ -31,6 +31,16 @@ public class Controller {
         return singletonController;
     }
 
+    public void resetController() {
+        game = new Game(this);
+        map = new Map();
+        views.clear();
+    }
+
+    public void setRoot(Group root) {
+        this.root = root;
+    }
+
     public static Controller getController() {
         return singletonController;
     }
