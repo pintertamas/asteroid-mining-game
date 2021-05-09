@@ -1,5 +1,4 @@
-solarstormkor a portal mozgás bugos, de nehéz is tesztelni
-az uranium csak akkor robban fel amikor eredetileg is nearsun aszteroidán volt, ha átvisszük máshonnan akkor nem akar
+!!solarstormkor a portal mozgás bugos, de nehéz is tesztelni
 material csak user interakcióval robban/szublimál, de ez lehet hogy nem baj
-a képernyő mozgatás egyre nagyobbakat lép/laggol valamiért
-a játék vége után nem lehet újraindítani a játékot
+!a képernyő mozgatás egyre nagyobbakat lép/laggol valamiért
+!!!a játék vége után nem lehet újraindítani a játékot
