@@ -287,6 +287,7 @@ public class Map implements IPlayerNumber {
         roundBegginning = true;
     }
 
+
     public boolean shouldRun() {
         return shouldRunAnyMore;
     }

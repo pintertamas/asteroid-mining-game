@@ -12,6 +12,11 @@ public class Game implements IGameState {
     private GameState gameState = GameState.LOAD;
     public Controller controller;
 
+    /**
+     * Konstruktor
+     *
+     * @param controller
+     */
     Game(Controller controller) {
         this.controller = controller;
     }

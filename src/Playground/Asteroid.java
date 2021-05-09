@@ -76,10 +76,18 @@ public class Asteroid {
         this.stepsLeft = this.getFigures().size();
     }
 
+
+    /**
+     * Eggyel csökkenti a stepsLeft paraméter értékét. Ezt használja az összes figure, hogy jelezze az aszteroida felé ő már lépett.
+     */
     public void stepCompleted() {
         this.stepsLeft--;
     }
 
+
+    /**
+     * Getter az asteroidView paraméterhez
+     */
     public AsteroidView getAsteroidView() {
         return asteroidView;
     }
@@ -240,6 +248,12 @@ public class Asteroid {
         this.portals.add(p);
     }
 
+
+    /**
+     * Kitörölök egy portált.
+     *
+     * @param p
+     */
     public void removePortal(Portal p) {
         this.portals.remove(p);
     }
@@ -311,6 +325,10 @@ public class Asteroid {
         }
     }
 
+    /**
+     * Setter a stepsLeft paraméterhez, kör elején beállítjuk mindig az azon az aszteroidán tartozkodó figurek számára.
+     *
+     * */
     public void setStepsLeft(int stepsLeft) {
         this.stepsLeft = stepsLeft;
     }
@@ -374,12 +392,16 @@ public class Asteroid {
             figures.get(i).die();
     }
 
+    /**
+     * Visszaadj a map paramétert
+     */
     public Map getMap() {
         return this.map;
     }
 
     /**
      * Getter a pozicíóhoz
+     * @return
      */
     public Drawable getPosition() {
         return position;
@@ -392,6 +414,10 @@ public class Asteroid {
         this.position = position;
     }
 
+    /**
+     * Visszaadja, hogy az aszteroida napközelben van-e vagy sem.
+     * @return
+     */
     public boolean isNearSun() {
         return isNearSun;
     }
