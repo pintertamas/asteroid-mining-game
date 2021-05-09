@@ -103,6 +103,7 @@ public abstract class Figure implements ISteppable, IPortalMove, IMove, IDrill {
         System.out.println(this + " died");
         if (!this.getRoundFinished())
             this.asteroid.stepCompleted();
+        asteroid.getAsteroidView().removeContainedView(this.getFigureView());
         asteroid.removeFigure(this);
 
     }

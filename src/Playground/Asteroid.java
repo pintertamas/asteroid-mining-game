@@ -151,9 +151,11 @@ public class Asteroid {
 
         for (Portal portal : getPortals()) {
             if (portal.getPair() != null) {
+                this.asteroidView.removeContainedView(portal.getPair().getPortalView());
                 portal.getPair().getAsteroid().removePortal(portal.getPair());
                 portal.getPair().setPair(null);
                 portal.setPair(null);
+                this.asteroidView.removeContainedView(portal.getPortalView());
                 this.removePortal(portal);
             }
         }
@@ -176,7 +178,6 @@ public class Asteroid {
      */
     @SuppressWarnings("SpellCheckingInspection")
     public void removeFigure(Figure f) {
-        this.getAsteroidView().removeContainedView(f.getFigureView());
         this.figures.remove(f);
     }
 
@@ -258,7 +259,6 @@ public class Asteroid {
      */
     public void removePortal(Portal p) {
         this.portals.remove(p);
-        this.asteroidView.removeContainedView(p.getPortalView());
     }
 
     /**
